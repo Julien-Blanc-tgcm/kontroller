@@ -1,0 +1,64 @@
+TEMPLATE = app
+
+QT += qml quick widgets
+
+SOURCES += main.cpp \
+    musicservice.cpp \
+    kodifile.cpp \
+    kodiclient.cpp \
+    kodiremote.cpp \
+    kodisettings.cpp \
+    kodiplayercontrol.cpp \
+    kodisettingsmanager.cpp \
+    statusservice.cpp \
+    kodiplayer.cpp \
+    playlistservice.cpp \
+    kodiplaylistitem.cpp \
+    videoservice.cpp \
+    kodiplayerservice.cpp
+
+RESOURCES += qml.qrc \
+    icons.qrc
+
+INCLUDEPATH += ../qjsonrpc/src
+
+QMAKE_CXXFLAGS = --std=c++11 -Wall
+
+# Additional import path used to resolve QML modules in Qt Creator's code model
+QML_IMPORT_PATH =
+
+# Default rules for deployment.
+include(deployment.pri)
+
+equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
+  LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Release/src
+} else {
+  LIBS += -L../build-qjsonrpc-Desktop_Qt_5_2_1_GCC_64bit-Debug/src
+}
+
+#LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
+LIBS += -lqjsonrpc
+
+HEADERS += \
+    musicservice.h \
+    kodifile.h \
+    kodiclient.h \
+    kodiremote.h \
+    kodisettings.h \
+    kodiplayercontrol.h \
+    kodisettingsmanager.h \
+    statusservice.h \
+    kodiplayer.h \
+    playlistservice.h \
+    kodiplaylistitem.h \
+    videoservice.h \
+    kodiplayerservice.h
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+OTHER_FILES += \
+    android/AndroidManifest.xml
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = /home/whity/dev/telexbmc/../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Release/src/libqjsonrpc.so
+}

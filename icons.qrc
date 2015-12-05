@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="back.png">icons/back_96x96.png</file>
+        <file alias="go-down.png">icons/go-down_96x96.png</file>
+        <file alias="go-left.png">icons/go-left_96x96.png</file>
+        <file alias="go-right.png">icons/go-right_96x96.png</file>
+        <file alias="go-up.png">icons/go-up_96x96.png</file>
+        <file alias="media-playback-start.png">icons/media-playback-start_64x64.png</file>
+        <file alias="home.png">icons/home_96x96.png</file>
+        <file alias="edit-find.png">icons/edit-find_96x96.png</file>
+        <file alias="properties.png">icons/properties_96x96.png</file>
+        <file alias="arrow.png">icons/arrow_96x96.png</file>
+        <file alias="refresh.png">icons/refresh_96x96.png</file>
+        <file alias="play.png">icons/play_128x128.png</file>
+        <file alias="stop.png">icons/stop_128x128.png</file>
+        <file alias="next.png">icons/next_128x128.png</file>
+        <file alias="prev.png">icons/prev_128x128.png</file>
+        <file alias="pause.png">icons/pause_128x128.png</file>
+        <file alias="music.png">icons/music_128x128.png</file>
+        <file alias="playlist.png">icons/playlist_128x128.png</file>
+    </qresource>
+</RCC>
