@@ -73,6 +73,10 @@ signals:
     void playerSpeedChanged(int playerid, int speed);
     // a player stopped (any player)
     void playerStopped();
+
+    void playlistCleared(int playlistId);
+    void playlistElementRemoved(int playlistId, int position);
+    void playlistElementAdded(int playlistId);
 };
 
 #endif // KODICLIENT_H

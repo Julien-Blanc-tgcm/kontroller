@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QObject>
+#include "kodisettingsmanager.h"
 
 class KodiSettings : public QObject
 {
@@ -22,7 +23,7 @@ public:
     bool musicFileBrowsing() const;
     bool videosFileBrowsing() const;
     bool useHttpInterface() const;
-
+    DeviceType deviceType() const;
 public slots:
     void setServer(QString address, int port);
     void setMusicFileBrowsing(bool browsing);

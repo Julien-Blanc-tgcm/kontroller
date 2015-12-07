@@ -23,6 +23,21 @@ Rectangle{
         anchors.top: parent.top
         anchors.topMargin: height / 2
         anchors.horizontalCenter: parent.horizontalCenter
+        font.pointSize: 16
+    }
+
+    Text {
+        color:"#00b"
+        text: qsTr("Clear")
+        id:clear
+        anchors.top:parent.top
+        anchors.topMargin: height / 2
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        MouseArea {
+            anchors.fill: parent
+            onClicked: main.clear()
+        }
     }
 
     ListView {
@@ -35,7 +50,6 @@ Rectangle{
         model: service.items
         clip:true
         spacing:1
-        focus:true
         currentIndex: service.playlistPosition
 
         delegate : Rectangle {
@@ -68,10 +82,22 @@ Rectangle{
             Text {
                 id : theText
                 text: model.label
-                color: service.playlistPosition == index ? "#FFF" : "#0000DD"
+                color: service.playlistPosition == index ? "#FFF" : "#00b"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
+            }
+            Text {
+                id: remove
+                text : "X"
+                color: "#00b"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: service.removeElement(model.index)
+                }
             }
         }
     }
@@ -79,6 +105,11 @@ Rectangle{
     function activateItem(modelItem)
     {
         service.switchToItem(modelItem.index)
+    }
+
+    function clear()
+    {
+        service.clearPlaylist()
     }
 
 }

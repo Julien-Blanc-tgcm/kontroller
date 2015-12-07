@@ -56,3 +56,8 @@ bool KodiSettings::useHttpInterface() const
 {
     return KodiSettingsManager::instance().useHttpInterface();
 }
+
+DeviceType KodiSettings::deviceType() const
+{
+    return KodiSettingsManager::instance().deviceType();
+}

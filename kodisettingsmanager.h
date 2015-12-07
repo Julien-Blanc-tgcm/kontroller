@@ -3,6 +3,16 @@
 
 #include <QString>
 
+
+enum class DeviceType {
+    Undefined,
+    Phone,
+    Tablet,
+    Laptop,
+    Desktop,
+    TV
+};
+
 /**
  * @brief The KodiSettingsManager class is a singleton class used to store and update
  * application parameters
@@ -16,6 +26,7 @@ private:
     bool m_musicFileBrowsing;
     bool m_videosFileBrowsing;
     bool m_useHttpInterface;
+    DeviceType deviceType_;
 public:
     /**
      * @brief instance returns a reference to the current KodiSettingsManager
@@ -55,6 +66,9 @@ public:
 
     bool useHttpInterface() const;
     void setUseHttpInterface(bool useHttpInterface);
+
+    DeviceType deviceType() const;
+    void setDeviceType(DeviceType type);
 };
 
 #endif // KODISETTINGSMANAGER_H

@@ -4,7 +4,8 @@ import eu.tgcm 1.0
 
 Rectangle
 {
-    color:"#000"
+    anchors.fill: parent
+    color:"#000";
     Text {
         id: upbtn
         text: qsTr("Sources")
@@ -20,19 +21,11 @@ Rectangle
         anchors.left: parent.left
         onTextChanged: trimText();
         anchors.verticalCenter: refreshbtn.verticalCenter
+        font.pixelSize: 12 * scalingFactor
     }
-
-    function trimText()
-    {
-        if(upbtn.paintedWidth > (width - upbtn.height - 20))
-        {
-            upbtn.text = upbtn.text.substring(0, 3) + "..." + upbtn.text.substring(13);
-        }
-    }
-
     Image {
         id:refreshbtn
-        height: 60
+        height: 20 * scalingFactor
         width:height
         source: "icons/refresh.png"
         anchors.right: parent.right
@@ -44,9 +37,6 @@ Rectangle
             onClicked: stackedview.currentItem.refresh()
         }
     }
-
-    Keys.onBackPressed: popCurrentView()
-
     StackView
     {
         anchors.top: refreshbtn.bottom
@@ -59,12 +49,34 @@ Rectangle
             browsingMode: ""
             browsingValue: ""
             label: ""
+            state:"music"
         }
         Component.onCompleted: {
             initialItem.mediaClicked.connect(pushNewPage)
             initialItem.fileClicked.connect(playTheFile)
         }
     }
+
+
+    Keys.onReleased: {
+        if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)
+        {
+            popCurrentView();
+            event.accepted = true
+        }
+    }
+    focus:true
+
+    function trimText()
+    {
+        if(upbtn.paintedWidth > (width - upbtn.height - 20 * scalingFactor))
+        {
+            upbtn.text = upbtn.text.substring(0, 3) + "..." + upbtn.text.substring(13);
+        }
+    }
+
+
+
 
     function pushNewPage(filetype, file, label)
     {
@@ -105,6 +117,7 @@ Rectangle
     Component.onCompleted: {
         musicPageComponent = Qt.createComponent("MusicPage.qml")
     }
+
 }
 
 

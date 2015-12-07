@@ -112,6 +112,11 @@ Item {
         videoService.refresh()
     }
 
+    function refreshCollection()
+    {
+        videoService.refreshCollection();
+    }
+
     function formatFile(filetype, label)
     {
          if(filetype === "file")

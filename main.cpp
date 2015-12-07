@@ -12,10 +12,15 @@
 #include "playlistservice.h"
 #include "kodiplaylistitem.h"
 #include "videoservice.h"
+#include "kodisettingsmanager.h"
+#include <QScreen>
+#include "deviceinformation.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
     QQmlApplicationEngine engine;
 
     //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
@@ -39,6 +44,8 @@ int main(int argc, char *argv[])
     assert(ret);
     ret = qmlRegisterType<VideoService>("eu.tgcm", 1, 0, "VideoService");
     assert(ret);
+    ret = qmlRegisterType<DeviceInformation>("eu.tgcm", 1, 0, "DeviceInformation");
+    assert(ret);
     KodiSettings settings;
     KodiClient::current().setServerAddress(settings.serverAddress());
     KodiClient::current().setServerPort(settings.serverPort());
@@ -52,7 +59,8 @@ int main(int argc, char *argv[])
     }
     std::cout << std::endl; */
    // service.playFile(service.files().back());
+    DeviceInformation inf;
+    inf.setup(app);
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
-
     return app.exec();
 }

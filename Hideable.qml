@@ -45,5 +45,13 @@ Rectangle {
         }
 
     ]
+    Keys.onBackPressed: {
+        state = "lowered"
+        event.accepted = true
+    }
+    Keys.onDeletePressed: {
+        state = "lowered"
+        event.accepted = true
+    }
 }
 

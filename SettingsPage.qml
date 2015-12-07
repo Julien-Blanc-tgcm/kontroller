@@ -14,17 +14,18 @@ Rectangle {
         text:qsTr("Server")
         anchors.verticalCenter: serverAddress.verticalCenter
         anchors.left: parent.left
-        anchors.leftMargin: 10
+        anchors.leftMargin: 10 * scalingFactor
         color:"#00c"
         font.bold: true
+        font.pointSize: 12 * scalingFactor
     }
     TextField {
         id: serverAddress
         text:settings.serverAddress
         anchors.top:parent.top
-        anchors.topMargin: 10
+        anchors.topMargin: 10 * scalingFactor
         anchors.left: parent.left
-        anchors.leftMargin: 100
+        anchors.leftMargin: 100 * scalingFactor
         anchors.right: parent.right
         anchors.rightMargin: 10
         inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
@@ -34,28 +35,29 @@ Rectangle {
                 color:"#000";
                 border.color: "#00a"
                 anchors.fill: parent
-                radius:10
-                implicitHeight: 40
+                radius:5 * scalingFactor
+                implicitHeight: 16 * scalingFactor
             }
         }
     }
     Text {
         text:qsTr("Port")
         anchors.left: parent.left
-        anchors.leftMargin: 10
+        anchors.leftMargin: 10 * scalingFactor
         anchors.verticalCenter: serverPort.verticalCenter
         color:"#00c"
         font.bold: true
+        font.pointSize: 12 * scalingFactor
     }
     TextField {
         id: serverPort
         text:settings.serverPort
         anchors.top:serverAddress.bottom
-        anchors.topMargin: 10;
+        anchors.topMargin: 10 * scalingFactor;
         anchors.left: parent.left
-        anchors.leftMargin: 100
+        anchors.leftMargin: 100 * scalingFactor
         anchors.right: parent.right
-        anchors.rightMargin: 10
+        anchors.rightMargin: 10 * scalingFactor
         validator: IntValidator { bottom: 1; top: 65535 }
         inputMethodHints: Qt.ImhDigitsOnly
         style: TextFieldStyle {
@@ -64,8 +66,8 @@ Rectangle {
                 color:"#000";
                 border.color: "#00a"
                 anchors.fill: parent
-                radius:10
-                implicitHeight: 40
+                radius: 5 * scalingFactor
+                implicitHeight: 16 * scalingFactor
             }
         }
     }

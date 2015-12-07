@@ -44,6 +44,7 @@ Rectangle
         MouseArea {
             anchors.fill: parent
             onClicked: stackedview.currentItem.refresh()
+            onPressAndHold: stackedview.currentItem.refreshCollection()
         }
     }
 

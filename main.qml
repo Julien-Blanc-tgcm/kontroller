@@ -6,7 +6,13 @@ ApplicationWindow {
     visible: true
     width: 480
     height: 800
-    title: qsTr("Kodi Remote")
+    title: qsTr("Kodi Remote") + scalingFactor
+
+    property alias scalingFactor : deviceInformation.scalingFactor
+
+    DeviceInformation {
+        id:deviceInformation
+    }
 
     menuBar: MenuBar {
         Menu {
@@ -38,6 +44,12 @@ ApplicationWindow {
 
     KodiMain {
         id: main
+        Keys.onReleased: {
+            if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)
+            {
+                console.log(event.key)
+                event.accepted = true;
+            }
+        }
     }
-
 }
