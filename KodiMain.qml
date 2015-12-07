@@ -20,7 +20,6 @@ Item {
         State {
             name: "other"
         }
-
     ]
 
     RemoteControl {
@@ -153,9 +152,4 @@ Item {
         else
             console.log("bordel");
     }
-
-
-
-
-
 }

@@ -28,11 +28,28 @@ void MusicService::setRefreshing(bool refreshing)
     emit refreshingChanged();
 }
 
+void MusicService::addToPlaylist(QObject* file_)
+{
+    KodiFile* file = dynamic_cast<KodiFile*>(file_);
+    if(file)
+    {
+        addFileToPlaylist(file);
+    }
+    else
+    {
+        QString name = file_->objectName();
+        file_->dumpObjectInfo();
+        file_->dumpObjectTree();
+        qDebug() << name;
+    }
+}
+
 MusicService::MusicService(QObject *parent) :
     QObject(parent),
     browsingMode_(""),
     browsingValue_(""),
-    refreshing_(false)
+    refreshing_(false),
+    audioPlaylistId_(0)
 {
 
 }
@@ -110,7 +127,7 @@ bool MusicService::clearPlayList()
 {
     QJsonRpcMessage message;
     QJsonObject params;
-    params.insert("playlistid", 0);
+    params.insert("playlistid", audioPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
     KodiClient::current().send(message);
     //return reply.type() == QJsonRpcMessage::Response;
@@ -129,7 +146,7 @@ bool MusicService::addFileToPlaylist(KodiFile* file)
     else if(file->filetype() == "album")
         item.insert("albumid", file->file().toInt());
     params.insert("item", item);
-    params.insert("playlistid", 0);
+    params.insert("playlistid", audioPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Add", params);
     KodiClient::current().send(message);
     //return reply.type() == QJsonRpcMessage::Response;
@@ -141,7 +158,7 @@ bool MusicService::startPlaying()
     QJsonRpcMessage message;
     QJsonObject params;
     QJsonObject item;
-    item.insert("playlistid", 0);
+    item.insert("playlistid", audioPlaylistId_);
     params.insert("item", item);
     message = QJsonRpcMessage::createRequest("Player.Open", params);
     KodiClient::current().send(message);

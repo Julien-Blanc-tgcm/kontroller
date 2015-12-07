@@ -16,6 +16,9 @@ class PlaylistService : public QObject
     int playlistId_;
     QString playlistType_;
     int playlistPosition_;
+
+    bool refreshing_;
+    bool restartAfterRefreshing_;
 public:
     explicit PlaylistService(QObject *parent = 0);
 
@@ -42,11 +45,16 @@ signals:
     void playlistPositionChanged();
 public slots:
     void switchToItem(int position);
+    void clearPlaylist();
+    void removeElement(int index);
 private slots:
     void refreshPlaylist_();
     void refreshPlaylistCb_();
     void findMatchingPlaylist_();
     void findMatchingPlaylistCb_();
+    void handlePlaylistCleared_(int playlist);
+    void handlePlaylistElementRemoved(int playlist, int position);
+    void handlePlaylistElementAdded(int playlistId);
 };
 
 #endif // PLAYLISTSERVICE_H

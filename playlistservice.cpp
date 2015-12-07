@@ -2,9 +2,13 @@
 #include "kodiclient.h"
 #include "kodiplayerservice.h"
 
-PlaylistService::PlaylistService(QObject *parent) : QObject(parent)
+PlaylistService::PlaylistService(QObject *parent) : QObject(parent),
+    refreshing_(false),
+    restartAfterRefreshing_(false)
 {
     connect(&KodiPlayerService::instance(), &KodiPlayerService::playersChanged, this, &PlaylistService::refreshPlaylist_);
+    connect(&KodiClient::current(), &KodiClient::playlistCleared, this, &PlaylistService::handlePlaylistCleared_);
+    connect(&KodiClient::current(), &KodiClient::playlistElementRemoved, this, &PlaylistService::handlePlaylistElementRemoved);
 }
 
 int PlaylistService::playlistId() const
@@ -78,24 +82,30 @@ void PlaylistService::switchToItem(int position)
 
 void PlaylistService::refreshPlaylist_()
 {
-    QJsonObject parameters;
-    QJsonArray properties;
-    properties.append(QString("title"));
-    properties.append(QString("artist"));
-    properties.append(QString("track"));
-    properties.append(QString("artistid"));
-    properties.append(QString("albumid"));
-    properties.append(QString("file"));
-    properties.append(QString("genre"));
-    parameters["properties"] = properties;
-    parameters["playlistid"] = playlistId_;
-    QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetItems", parameters);
-    auto reply = KodiClient::current().send(message);
-    connect(reply, SIGNAL(finished()), this, SLOT(refreshPlaylistCb_()));
+    if(!refreshing_)
+    {
+        QJsonObject parameters;
+        QJsonArray properties;
+        properties.append(QString("title"));
+        properties.append(QString("artist"));
+        properties.append(QString("track"));
+        properties.append(QString("artistid"));
+        properties.append(QString("albumid"));
+        properties.append(QString("file"));
+        properties.append(QString("genre"));
+        parameters["properties"] = properties;
+        parameters["playlistid"] = playlistId_;
+        QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetItems", parameters);
+        auto reply = KodiClient::current().send(message);
+        connect(reply, SIGNAL(finished()), this, SLOT(refreshPlaylistCb_()));
+    }
+    else
+        restartAfterRefreshing_ = true;
 }
 
 void PlaylistService::refreshPlaylistCb_()
 {
+    refreshing_ = false;
     currentItems_.clear();
     QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
@@ -132,6 +142,11 @@ void PlaylistService::refreshPlaylistCb_()
             qDebug() << response;
     }
     emit itemsChanged();
+    if(restartAfterRefreshing_)
+    {
+        restartAfterRefreshing_ = false;
+        refreshPlaylist_();
+    }
 }
 
 void PlaylistService::findMatchingPlaylist_()
@@ -174,3 +189,50 @@ void PlaylistService::findMatchingPlaylistCb_()
     }
 }
 
+void PlaylistService::handlePlaylistCleared_(int playlist)
+{
+    if(playlist == playlistId_)
+    {
+        currentItems_.clear();
+        emit itemsChanged();
+    }
+}
+
+void PlaylistService::handlePlaylistElementRemoved(int playlist, int position)
+{
+    if(playlist == playlistId_)
+    {
+        if(position < currentItems_.size())
+        {
+            if(position < playlistPosition_)
+                playlistPosition_ -= 1;
+            currentItems_.removeAt(position);
+            emit itemsChanged();
+        }
+    }
+}
+
+void PlaylistService::handlePlaylistElementAdded(int playlistId)
+{
+    if(playlistId == playlistId_)
+        refreshPlaylist_();
+}
+
+void PlaylistService::clearPlaylist()
+{
+    QJsonRpcMessage message;
+    QJsonObject params;
+    params.insert("playlistid", playlistId_);
+    message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
+    KodiClient::current().send(message);
+}
+
+void PlaylistService::removeElement(int index)
+{
+    QJsonRpcMessage message;
+    QJsonObject params;
+    params.insert("playlistid", playlistId_);
+    params.insert("position", index);
+    message = QJsonRpcMessage::createRequest("Playlist.Remove", params);
+    KodiClient::current().send(message);
+}

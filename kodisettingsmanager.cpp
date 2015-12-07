@@ -31,6 +31,14 @@ KodiSettingsManager::KodiSettingsManager()
         m_useHttpInterface = val.toBool();
     else
         m_useHttpInterface = m_serverPort == 8080;
+    val = settings.value("deviceType");
+    int valDt = -1;
+    if(!val.isNull() && val.canConvert(QVariant::Int))
+        valDt = val.toInt();
+    if(valDt > (int) DeviceType::Undefined && valDt <= (int) DeviceType::TV)
+        deviceType_ = static_cast<DeviceType>(valDt);
+    else
+        deviceType_ = DeviceType::Undefined;
 }
 
 bool KodiSettingsManager::useHttpInterface() const
@@ -41,6 +49,11 @@ bool KodiSettingsManager::useHttpInterface() const
 void KodiSettingsManager::setUseHttpInterface(bool useHttpInterface)
 {
     m_useHttpInterface = useHttpInterface;
+}
+
+DeviceType KodiSettingsManager::deviceType() const
+{
+    return deviceType_;
 }
 
 KodiSettingsManager& KodiSettingsManager::instance()

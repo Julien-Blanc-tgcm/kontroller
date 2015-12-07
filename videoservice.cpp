@@ -30,7 +30,8 @@ VideoService::VideoService(QObject *parent) :
     QObject(parent),
     browsingMode_(""),
     browsingValue_(""),
-    refreshing_(false)
+    refreshing_(false),
+    videoPlaylistId_(1)
 {
 
 }
@@ -79,6 +80,12 @@ void VideoService::refresh()
     }
 }
 
+void VideoService::refreshCollection()
+{
+    QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.Scan");
+    KodiClient::current().send(message);
+}
+
 void VideoService::setFiles(const QList<KodiFile *> &value)
 {
     files_ = value;
@@ -108,7 +115,7 @@ bool VideoService::clearPlayList()
 {
     QJsonRpcMessage message;
     QJsonObject params;
-    params.insert("playlistid", 0);
+    params.insert("playlistid", videoPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
     KodiClient::current().send(message);
     //return reply.type() == QJsonRpcMessage::Response;
@@ -127,7 +134,7 @@ bool VideoService::addFileToPlaylist(KodiFile* file)
     else if(file->filetype() == "album")
         item.insert("albumid", file->file().toInt());
     params.insert("item", item);
-    params.insert("playlistid", 0);
+    params.insert("playlistid", videoPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Add", params);
     KodiClient::current().send(message);
     //return reply.type() == QJsonRpcMessage::Response;
@@ -139,7 +146,7 @@ bool VideoService::startPlaying()
     QJsonRpcMessage message;
     QJsonObject params;
     QJsonObject item;
-    item.insert("playlistid", 0);
+    item.insert("playlistid", videoPlaylistId_);
     params.insert("item", item);
     message = QJsonRpcMessage::createRequest("Player.Open", params);
     KodiClient::current().send(message);

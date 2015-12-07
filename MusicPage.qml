@@ -11,9 +11,11 @@ Item {
     signal mediaClicked(string filetype, string file, string label)
     signal songClicked(string song)
     signal playDirectoryAsked(string dir)
+
     MusicService {
         id: musicService
     }
+    property var service : musicService
 
     ListView {
         id:thelist
@@ -24,7 +26,6 @@ Item {
         model: musicService.filesAsList
         clip:true
         spacing:1
-        focus:true
         currentIndex: -1
         visible: !musicService.refreshing
 
@@ -50,7 +51,10 @@ Item {
             color: thelist.currentIndex == index ? "#111" : "#000"
             MouseArea {
                 anchors.fill: parent
-                onClicked: thelist.currentIndex = index
+                onClicked: {
+                    thelist.currentIndex = index
+                    hideSubMenu()
+                }
                 onDoubleClicked: activateItem(model)
                 onPressAndHold: {
                     thelist.currentIndex = index;
@@ -61,15 +65,23 @@ Item {
                 id: theText
                 text: formatFile(filetype, label)
                 color: "#0000DD"
-
+                font.pixelSize: 12 * scalingFactor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:parent.left;
-                anchors.leftMargin: 10;
+                anchors.leftMargin: 10 * scalingFactor;
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        thelist.currentIndex = index
-                        activateItem(model);
+                        if(theSubMenu.visible)
+                        {
+                            hideSubMenu()
+                            thelist.currentIndex = index
+                        }
+                        else
+                        {
+                            thelist.currentIndex = index
+                            activateItem(model);
+                        }
                     }
                     onPressAndHold: {
                         thelist.currentIndex = index;
@@ -81,14 +93,16 @@ Item {
                 source: "icons/play.png"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
+                anchors.rightMargin: 5 * scalingFactor
                 width:height
-                height:theText.height
+                height:parent.height - 4 * scalingFactor
                 visible: filetype === "directory" || filetype === "album" || filetype === "song" || filetype === "file"
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         thelist.currentIndex = index
                         musicService.playFile(musicService.filesAsList[thelist.currentIndex])
+                        parent.source = ""
                     }
                 }
             }
@@ -102,21 +116,58 @@ Item {
         text: "Please wait..."
         visible:musicService.refreshing
         color:"#fff"
+        font.pixelSize: 12 * scalingFactor
     }
 
     ListContextMenu {
         visible: false
         color:"black"
         border.color: "#00b"
-        border.width: 2
+        border.width: 2 * scalingFactor
         id:theSubMenu
+        onInformationPressed: {
+            visible = false
+        }
+        onAddToPlaylistPressed: {
+            var model = musicService.filesAsList[thelist.currentIndex];
+            if(model)
+            {
+                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || filetype === "file")
+                    musicService.addToPlaylist(model)
+            }
+            visible = false
+        }
+        onPlayPressed: {
+            var model = musicService.filesAsList[thelist.currentIndex];
+            if(model)
+            {
+                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || filetype === "file")
+                    musicService.playFile(model)
+            }
+            visible = false
+        }
     }
+
+    property var currentMenuItem
 
     function showSubMenu(item, model, x, y)
     {
+        currentMenuItem = model
         var coord = main.mapFromItem(item, x, y);
         theSubMenu.x = coord.x;
         theSubMenu.y = coord.y;
+        if(model.filetype === "directory")
+            theSubMenu.state = "audiodirectory";
+        else if(model.filetype === "album")
+            theSubMenu.state = "album";
+        else if(model.filetype === "artist")
+            theSubMenu.state = "artist";
+        else if(model.filetype === "song" || model.filetype === "file")
+            theSubMenu.state = "song";
+        else if(model.filetype === "directory")
+            theSubMenu.state = "directory";
+        else
+            return;
         theSubMenu.visible = true
     }
 

@@ -192,6 +192,35 @@ void KodiClient::handleMessageReceived(QJsonRpcMessage message)
         {
             emit playerStopped();
         }
+        else if(method == "Playlist.OnClear")
+        {
+            QJsonValue val = message.params().toObject().value("data").toObject().value("playlistid");
+            if(val.isDouble())
+            {
+                emit playlistCleared((int)val.toDouble());
+            }
+        }
+        else if(method == "Playlist.OnRemove")
+        {
+            QJsonObject data = message.params().toObject().value("data").toObject();
+            if(!data.isEmpty())
+            {
+                QJsonValue playlistId = data.value("playlistid");
+                QJsonValue position = data.value("position");
+                if(playlistId.isDouble() && position.isDouble())
+                    emit playlistElementRemoved((int)playlistId.toDouble(), (int)position.toDouble());
+            }
+        }
+        else if(method == "Playlist.OnAdd")
+        {
+            QJsonObject data = message.params().toObject().value("data").toObject();
+            if(!data.isEmpty())
+            {
+                QJsonValue playlistId = data.value("playlistid");
+                if(playlistId.isDouble())
+                    emit playlistElementAdded((int)playlistId.toDouble());
+            }
+        }
         else
             qDebug() << message;
     }
