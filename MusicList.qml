@@ -4,7 +4,6 @@ import eu.tgcm 1.0
 
 Rectangle
 {
-    anchors.fill: parent
     color:"#000";
     Text {
         id: upbtn
@@ -15,17 +14,18 @@ Rectangle
                        popCurrentView();
             anchors.fill: parent
         }
-        color: "#00D"
+        color: appstyle.textColor
         font.bold: true
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5 * scalingFactor
         anchors.left: parent.left
         onTextChanged: trimText();
         anchors.verticalCenter: refreshbtn.verticalCenter
         font.pixelSize: 12 * scalingFactor
     }
+
     Image {
         id:refreshbtn
-        height: 20 * scalingFactor
+        height: 20 * touchScalingFactor
         width:height
         source: "icons/refresh.png"
         anchors.right: parent.right
@@ -40,7 +40,7 @@ Rectangle
     StackView
     {
         anchors.top: refreshbtn.bottom
-        anchors.topMargin: upbtn.height * 0.1
+        anchors.topMargin: 5 * scalingFactor
         anchors.bottom:parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -49,11 +49,11 @@ Rectangle
             browsingMode: ""
             browsingValue: ""
             label: ""
-            state:"music"
         }
         Component.onCompleted: {
             initialItem.mediaClicked.connect(pushNewPage)
             initialItem.fileClicked.connect(playTheFile)
+            initialItem.fileInformationClicked.connect(pushNewInformationPage)
         }
     }
 
@@ -113,9 +113,11 @@ Rectangle
     }
 
     property var musicPageComponent
+    property var informationPageComponent
 
     Component.onCompleted: {
         musicPageComponent = Qt.createComponent("MusicPage.qml")
+        informationPageComponent = Qt.createComponent("ArtistInformationPage.qml")
     }
 
 }

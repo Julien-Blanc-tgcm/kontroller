@@ -27,6 +27,7 @@ private:
     bool m_videosFileBrowsing;
     bool m_useHttpInterface;
     DeviceType deviceType_;
+    int dpi_;
 public:
     /**
      * @brief instance returns a reference to the current KodiSettingsManager
@@ -69,6 +70,9 @@ public:
 
     DeviceType deviceType() const;
     void setDeviceType(DeviceType type);
+
+    int dpi() const;
+    void setDpi(int dpi);
 };
 
 #endif // KODISETTINGSMANAGER_H

@@ -8,7 +8,6 @@ Item {
     }
 
     property int buttonWidth : 96;
-
     Rectangle {
         anchors.fill: parent
         color:"#000";
@@ -124,5 +123,33 @@ Item {
             }
         }
 
+    }
+    Text {
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        text : scalingFactor + " " + touchScalingFactor
+        color: appstyle.textColor
+        id : txtScale
+    }
+
+    Text {
+        id:txtDpi
+        anchors.bottom: txtScale.top
+        anchors.bottomMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        color:appstyle.textColor
+        text: deviceInformation.dpi + " " + deviceInformation.size().width + "x" + deviceInformation.size().height
+    }
+
+    Text {
+        anchors.bottom: txtDpi.top
+        anchors.bottomMargin: 10
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        color:appstyle.textColor
+        text: deviceInformation.logicalDpi()
     }
 }

@@ -14,6 +14,7 @@ class KodiSettings : public QObject
     Q_PROPERTY(bool musicFileBrowsing READ musicFileBrowsing WRITE setMusicFileBrowsing NOTIFY musicFileBrowsingChanged)
     Q_PROPERTY(bool videosFileBrowsing READ videosFileBrowsing WRITE setVideosFileBrowsing NOTIFY videosFileBrowsingChanged)
     Q_PROPERTY(bool useHttpInterface READ useHttpInterface WRITE setUseHttpInterface NOTIFY useHttpInterfaceChanged)
+    Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
 
 public:
     KodiSettings();
@@ -23,18 +24,23 @@ public:
     bool musicFileBrowsing() const;
     bool videosFileBrowsing() const;
     bool useHttpInterface() const;
-    DeviceType deviceType() const;
+    int deviceType() const;
+    int dpi() const;
 public slots:
     void setServer(QString address, int port);
     void setMusicFileBrowsing(bool browsing);
     void setVideosFileBrowsing(bool browsing);
     void setUseHttpInterface(bool http);
+    void setDeviceType(int type);
+    void setDpi(int dpi);
 signals:
     void serverAddressChanged(QString serverAddress);
     void serverPortChanged(int serverPort);
     void musicFileBrowsingChanged(bool);
     void videosFileBrowsingChanged(bool);
     void useHttpInterfaceChanged(bool);
+    void deviceTypeChanged(int);
+    void dpiChanged(int);
 };
 
 #endif // KODISETTINGS_H

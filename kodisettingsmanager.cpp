@@ -39,6 +39,12 @@ KodiSettingsManager::KodiSettingsManager()
         deviceType_ = static_cast<DeviceType>(valDt);
     else
         deviceType_ = DeviceType::Undefined;
+
+    val = settings.value("dpi");
+    if(!val.isNull() && val.canConvert(QVariant::Int))
+        dpi_ = val.toInt();
+    else
+        dpi_ = 0;
 }
 
 bool KodiSettingsManager::useHttpInterface() const
@@ -54,6 +60,21 @@ void KodiSettingsManager::setUseHttpInterface(bool useHttpInterface)
 DeviceType KodiSettingsManager::deviceType() const
 {
     return deviceType_;
+}
+
+void KodiSettingsManager::setDeviceType(DeviceType type)
+{
+    deviceType_ = type;
+}
+
+int KodiSettingsManager::dpi() const
+{
+    return dpi_;
+}
+
+void KodiSettingsManager::setDpi(int dpi)
+{
+    dpi_ = dpi;
 }
 
 KodiSettingsManager& KodiSettingsManager::instance()
@@ -106,5 +127,7 @@ void KodiSettingsManager::save()
     settings.setValue("musicFileBrowsing", m_musicFileBrowsing);
     settings.setValue("videosFileBrowsing", m_videosFileBrowsing);
     settings.setValue("useHttpInterface", m_useHttpInterface);
+    settings.setValue("dpi", dpi_);
+    settings.setValue("deviceType", (int)deviceType_);
     settings.sync();
 }

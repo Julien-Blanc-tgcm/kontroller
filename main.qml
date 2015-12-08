@@ -6,12 +6,17 @@ ApplicationWindow {
     visible: true
     width: 480
     height: 800
-    title: qsTr("Kodi Remote") + scalingFactor
+    title: qsTr("Kodi Remote")
+    color: "#000"
 
     property alias scalingFactor : deviceInformation.scalingFactor
+    property alias touchScalingFactor: deviceInformation.touchScalingFactor
 
     DeviceInformation {
         id:deviceInformation
+    }
+    Styling {
+        id:appstyle
     }
 
     menuBar: MenuBar {

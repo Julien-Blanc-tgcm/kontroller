@@ -16,18 +16,18 @@ Rectangle{
     }
 
     Text {
-        color:"#00b"
+        color:appstyle.textColor
         font.bold: true
         text: qsTr("Current playlist")
         id:theTitle
         anchors.top: parent.top
         anchors.topMargin: height / 2
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pointSize: 16
+        font.pixelSize: 12 * scalingFactor
     }
 
     Text {
-        color:"#00b"
+        color:appstyle.textColor
         text: qsTr("Clear")
         id:clear
         anchors.top:parent.top
@@ -61,10 +61,10 @@ Rectangle{
                 visible: thelist.currentIndex === index
                 anchors.fill: parent
                 gradient: Gradient {
-                    GradientStop { position:0.0;color:"#00B"}
+                    GradientStop { position:0.0;color:appstyle.textColor}
                     GradientStop { position:0.1;color:"#000"}
                     GradientStop { position:0.9;color:"#000"}
-                    GradientStop { position:1;color:"#00B"}
+                    GradientStop { position:1;color:appstyle.textColor}
                 }
             }
 
@@ -82,7 +82,7 @@ Rectangle{
             Text {
                 id : theText
                 text: model.label
-                color: service.playlistPosition == index ? "#FFF" : "#00b"
+                color: service.playlistPosition == index ? "#FFF" : appstyle.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -90,7 +90,7 @@ Rectangle{
             Text {
                 id: remove
                 text : "X"
-                color: "#00b"
+                color: appstyle.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 10

@@ -64,5 +64,6 @@ OTHER_FILES += \
     android/AndroidManifest.xml
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
-    ANDROID_EXTRA_LIBS = ../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src/libqjsonrpc.so
+#    ANDROID_EXTRA_LIBS = ../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src/libqjsonrpc.so
+    ANDROID_EXTRA_LIBS = ../qjsonrpc-android/src/libqjsonrpc.so
 }

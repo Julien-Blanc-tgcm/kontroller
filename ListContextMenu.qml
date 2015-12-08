@@ -1,19 +1,30 @@
 import QtQuick 2.0
 
-Item {
+Rectangle {
     states : [
         State {
             name: "album"
             PropertyChanges {
-                target:albumContextMenu
-                visible:true
+                target:main
+                contextMenuModel: [
+                { text:qsTr("Add to playlist"),
+                        type:"addtoplaylist"},
+                    {text : qsTr("Play immediately"),
+                        type: "play"},
+                    {text: qsTr("View information"),
+                        type:"information"}
+                ]
             }
         },
         State {
             name: "video"
             PropertyChanges {
-                target:videoContextMenu
-                visible:true
+                target:main
+                contextMenuModel: [
+                    { text:qsTr("Add to playlist"), type:"addtoplaylist"},
+                    { text:qsTr("Play immediately"), type:"play"},
+                    { text:qsTr("View information"), type:"information"}
+                ]
             }
         },
         State {
@@ -22,231 +33,77 @@ Item {
         State {
             name : "artist"
             PropertyChanges {
-                target: artistContextMenu
-                visible : true
+                target: main
+                contextMenuModel: [
+                    { text:qsTr("View information"), type:"information"}
+                ]
             }
         },
         State {
             name: "song"
             PropertyChanges {
-                target: songContextMenu
-                visible:true
+                target: main
+                contextMenuModel: [
+                    { text:qsTr("Add to playlist"), type:"addtoplaylist"},
+                    { text:qsTr("Play immediately"), type:"play"}
+                ]
             }
         },
         State {
             name: "audiodirectory"
             PropertyChanges {
-                target: audioDirectoryContextMenu
-                visible:true
+                target: main
+                contextMenuModel: [
+                    { text:qsTr("Add to playlist"), type:"addtoplaylist"},
+                    { text:qsTr("Play immediately"), type:"play"}
+                ]
             }
         }
 
     ]
     id:main
-    property string color;
-    property alias border : albumContextMenu.border;
+    //property string color;
+    //property alias border : genericMenu.border;
     state: ""
+    property double elementHeight : 20 * touchScalingFactor
 
-    Rectangle {
-        height : txtAddToPlaylist.height * 5
-        width: Math.max(txtAddToPlaylist.contentWidth, playNow.contentWidth) + 20
-        id:albumContextMenu
-        visible: false
-        color:parent.color
-        Text {
-            id:txtAddToPlaylist
-            color:"#00b"
-            text: qsTr("Add to playlist")
-            anchors.left: parent.left;
-            anchors.leftMargin: 10 * scalingFactor
-            anchors.top: parent.top
-            anchors.topMargin: height / 2
-            font.pixelSize: 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: addToPlaylistPressed()
-            }
-        }
-        Text {
-            id:playNow
-            color:"#00b"
-            text: qsTr("Play immediately")
-            anchors.left: parent.left
-            anchors.leftMargin: txtAddToPlaylist.anchors.leftMargin
-            anchors.top : txtAddToPlaylist.bottom
-            anchors.topMargin: height / 2
-            font.pixelSize: 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playPressed()
-            }
-        }
-        Text {
-            id:txtInformation
-            color:"#00b"
-            text: qsTr("View information")
-            anchors.left: parent.left
-            anchors.leftMargin: txtAddToPlaylist.anchors.leftMargin
-            anchors.top : playNow.bottom
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: informationPressed()
+    property var contextMenuModel : [];
+
+    height: genericMenu.height + 10 * scalingFactor
+    width: genericMenu.width + 10 * scalingFactor
+    Column {
+        //height : contextMenuModel.length * elementHeight
+        id: genericMenu;
+        visible:true
+        anchors.left: parent.left
+        anchors.leftMargin: 5 * scalingFactor
+        anchors.top:parent.top
+        anchors.topMargin: 5 * scalingFactor
+        //color:parent.color
+        Repeater {
+            model:contextMenuModel
+            Text {
+                height:elementHeight
+                font.pixelSize: 12 * scalingFactor
+                verticalAlignment: Text.AlignVCenter
+                text:model.modelData.text
+                color:appstyle.textColor
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: dispatchEvent(model.modelData.type)
+                }
             }
         }
     }
 
-    Rectangle {
-        height : txtAddToPlaylist.height * 5
-        width: Math.max(txtVideoAddToPlaylist.contentWidth, playNow.contentWidth) + 20
-        color:parent.color
-        border.color: albumContextMenu.border.color
-        border.width: albumContextMenu.border.width
-        visible:false
-        id:videoContextMenu
-        Text {
-            id:txtVideoAddToPlaylist
-            color:"#00b"
-            text: qsTr("Add to playlist")
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.top:parent.top
-            anchors.topMargin: height/2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: addToPlaylistPressed()
-            }
-        }
-        Text {
-            id:videoPlayNow
-            color:"#00b"
-            text: qsTr("Play immediately")
-            anchors.left: parent.left
-            anchors.leftMargin: txtVideoAddToPlaylist.anchors.leftMargin
-            anchors.top : txtVideoAddToPlaylist.bottom
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playPressed()
-            }
-        }
-        Text {
-            id:txtVideoInformation
-            color:"#00b"
-            text: qsTr("View information")
-            anchors.left: parent.left
-            anchors.leftMargin: txtVideoAddToPlaylist.anchors.leftMargin
-            anchors.top : videoPlayNow.bottom
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: informationPressed()
-            }
-        }
-    }
-
-    Rectangle {
-        height : txtArtistInformation.height * 2
-        width: txtArtistInformation.contentWidth + 20
-        color:parent.color
-        border.color: albumContextMenu.border.color
-        border.width: albumContextMenu.border.width
-        visible:false
-        id:artistContextMenu
-        Text {
-            id:txtArtistInformation
-            color:"#00b"
-            text: qsTr("View artist information")
-            anchors.left: parent.left
-            anchors.leftMargin: txtAddToPlaylist.anchors.leftMargin
-            anchors.top : parent.top
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: informationPressed()
-            }
-        }
-    }
-
-    Rectangle {
-        height : txtAddToPlaylist.height * 2
-        width: Math.max(songAddToPlaylist.contentWidth, songPlayNow.contentWidth) + 20
-        color:parent.color
-        border.color: albumContextMenu.border.color
-        border.width: albumContextMenu.border.width
-        visible:false
-        id:songContextMenu
-        Text {
-            id:songAddToPlaylist
-            color:"#00b"
-            text: qsTr("Add to playlist")
-            anchors.left: parent.left;
-            anchors.leftMargin: 10
-            anchors.top: parent.top
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: addToPlaylistPressed()
-            }
-        }
-        Text {
-            id:songPlayNow
-            color:"#00b"
-            text: qsTr("Play immediately")
-            anchors.left: parent.left
-            anchors.leftMargin: songAddToPlaylist.anchors.leftMargin
-            anchors.top : songAddToPlaylist.bottom
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playPressed()
-            }
-        }
-    }
-
-    Rectangle {
-        id:audioDirectoryContextMenu
-        height : txtAddToPlaylist.height * 3.5
-        width: Math.max(audioDirectoryAddToPlaylist.contentWidth, audioDirectoryPlayNow.contentWidth) + 20
-        color:parent.color
-        border.color: albumContextMenu.border.color
-        border.width: albumContextMenu.border.width
-        visible:false
-        Text {
-            id:audioDirectoryAddToPlaylist
-            color:"#00b"
-            text: qsTr("Add to playlist")
-            anchors.left: parent.left;
-            anchors.leftMargin: 10
-            anchors.top: parent.top
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: addToPlaylistPressed()
-            }
-        }
-        Text {
-            id:audioDirectoryPlayNow
-            color:"#00b"
-            text: qsTr("Play immediately")
-            anchors.left: parent.left
-            anchors.leftMargin: audioDirectoryAddToPlaylist.anchors.leftMargin
-            anchors.top : audioDirectoryAddToPlaylist.bottom
-            anchors.topMargin: height / 2
-            font.pixelSize : 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: playPressed()
-            }
-        }
+    function dispatchEvent(type)
+    {
+        if(type === "information")
+            informationPressed();
+        else if(type === "play")
+            playPressed();
+        else if(type === "addtoplaylist")
+            addToPlaylistPressed();
     }
 
     signal playPressed()

@@ -12,5 +12,7 @@
         <file>VideoPage.qml</file>
         <file>Hideable.qml</file>
         <file>ListContextMenu.qml</file>
+        <file>Styling.qml</file>
+        <file>PlayableItemPage.qml</file>
     </qresource>
 </RCC>

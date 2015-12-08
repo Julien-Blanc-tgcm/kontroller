@@ -14,27 +14,18 @@ Rectangle
                        popCurrentView();
             anchors.fill: parent
         }
-        color: "#00D"
+        color: appstyle.textColor
         font.bold: true
-        anchors.top:parent.top
-        anchors.topMargin: 5
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5 * scalingFactor
         anchors.left: parent.left
         onTextChanged: trimText();
-        height: 60
-    }
-
-    function trimText()
-    {
-        if(upbtn.paintedWidth > (width - upbtn.height - 20))
-        {
-            upbtn.text = upbtn.text.substring(0, 3) + "..." + upbtn.text.substring(13);
-        }
+        anchors.verticalCenter: refreshbtn.verticalCenter
+        font.pixelSize: 12 * scalingFactor
     }
 
     Image {
         id:refreshbtn
-        height: upbtn.height
+        height: 20 * touchScalingFactor
         width:height
         source: "icons/refresh.png"
         anchors.right: parent.right
@@ -48,12 +39,10 @@ Rectangle
         }
     }
 
-    Keys.onBackPressed: popCurrentView()
-
     StackView
     {
-        anchors.top: upbtn.bottom
-        anchors.topMargin: upbtn.height * 0.1
+        anchors.top: refreshbtn.bottom
+        anchors.topMargin: 5 * scalingFactor
         anchors.bottom:parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -66,6 +55,23 @@ Rectangle
         Component.onCompleted: {
             initialItem.mediaClicked.connect(pushNewPage)
             initialItem.fileClicked.connect(playTheFile)
+        }
+    }
+
+    Keys.onReleased: {
+        if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)
+        {
+            popCurrentView();
+            event.accepted = true
+        }
+    }
+    focus:true
+
+    function trimText()
+    {
+        if(upbtn.paintedWidth > (width - upbtn.height - 20))
+        {
+            upbtn.text = upbtn.text.substring(0, 3) + "..." + upbtn.text.substring(13);
         }
     }
 

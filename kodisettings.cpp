@@ -32,6 +32,12 @@ void KodiSettings::setUseHttpInterface(bool http)
     KodiSettingsManager::instance().setUseHttpInterface(http);
 }
 
+void KodiSettings::setDeviceType(int type)
+{
+    KodiSettingsManager::instance().setDeviceType(static_cast<DeviceType>(type));
+    emit deviceTypeChanged(type);
+}
+
 QString KodiSettings::serverAddress() const
 {
     return KodiSettingsManager::instance().serverAddress();
@@ -57,7 +63,18 @@ bool KodiSettings::useHttpInterface() const
     return KodiSettingsManager::instance().useHttpInterface();
 }
 
-DeviceType KodiSettings::deviceType() const
+int KodiSettings::deviceType() const
 {
-    return KodiSettingsManager::instance().deviceType();
+    return (int) KodiSettingsManager::instance().deviceType();
+}
+
+int KodiSettings::dpi() const
+{
+    return KodiSettingsManager::instance().dpi();
+}
+
+void KodiSettings::setDpi(int dpi)
+{
+    KodiSettingsManager::instance().setDpi(dpi);
+    emit dpiChanged(dpi);
 }

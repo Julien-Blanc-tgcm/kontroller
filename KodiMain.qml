@@ -60,7 +60,7 @@ Item {
     StatusBar {
         id:status
         anchors.bottom: parent.bottom
-        height: (main.width < main.height) ? (main.width / 6) : (main.height / 6)
+        height: computeStatusBarHeight()
         anchors.left: parent.left
         anchors.right: parent.right
         onPlaylistClicked: showPlaylist(type)
@@ -98,6 +98,19 @@ Item {
                                                               {
                                                                   "anchors.fill":musicTab,
                                                               });
+        }
+    }
+
+    function computeStatusBarHeight()
+    {
+        if(main.width < main.height)
+        {
+            return main.width / 6;
+        }
+        else
+        {
+            return 40 * touchScalingFactor;
+           // return main.height / 6;
         }
     }
 
