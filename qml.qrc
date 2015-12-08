@@ -14,5 +14,6 @@
         <file>ListContextMenu.qml</file>
         <file>Styling.qml</file>
         <file>PlayableItemPage.qml</file>
+        <file>ArtistInformationPage.qml</file>
     </qresource>
 </RCC>
