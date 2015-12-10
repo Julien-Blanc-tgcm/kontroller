@@ -45,6 +45,9 @@ private slots:
      */
     void updatePlayPause_();
 
+    void refreshVideoPlayerStatus(int playerId);
+    void refreshVideoPlayerInfo_(int playerId);
+
     /**
      * @brief updateConnectionStatus is called when the connection status changes
      * basically launches the refresh of player info when connected

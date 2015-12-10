@@ -7,19 +7,26 @@ Item {
     property alias browsingMode: musicService.browsingMode
     property alias browsingValue: musicService.browsingValue
     property alias label: musicService.label
-    signal fileClicked(string file)
+    //signal fileClicked(string file)
     signal mediaClicked(string filetype, string file, string label)
-    signal songClicked(string song)
-    signal playDirectoryAsked(string dir)
+    //signal songClicked(string song)
+    signal mediaPlayClicked(string dir)
+    signal mediaInformationClicked(string filetype, string file, string label)
 
     MusicService {
         id: musicService
+    }
+    MusicControl {
+        id: musicControl
     }
 
     PlayableItemPage {
         id:theList
         service:musicService;
+        control:musicControl
         anchors.fill: parent
+        directPlay: ['album', 'directory', 'artist', 'media']
+        playableItems :['directory', 'album', 'song', 'file']
     }
 
     Component.onCompleted: refresh()

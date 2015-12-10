@@ -43,7 +43,7 @@ double getViewDistance(DeviceType type)
     switch(type)
     {
         case DeviceType::Phone:
-            return 50;
+            return 40;
         case DeviceType::Tablet:
             return 50;
         case DeviceType::Laptop:

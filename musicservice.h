@@ -45,16 +45,11 @@ signals:
 public slots:
     void refresh();
     void setFiles(const QList<KodiFile *> &value);
-    void playFile(QObject* file);
     void setBrowsingMode(QString browsingMode);
     void setBrowsingValue(QString browsingValue);
     void setLabel(QString label);
     void setRefreshing(bool refreshing);
-    void addToPlaylist(QObject* file);
 private:
-    bool clearPlayList();
-    bool addFileToPlaylist(KodiFile* file);
-    bool startPlaying();
 
     void clearFiles();
     void refresh_files();

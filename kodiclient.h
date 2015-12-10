@@ -14,6 +14,7 @@ class KodiClient : public QObject
 
     QString serverAddress_;
     int serverPort_;
+    int serverHttpPort_;
     QJsonRpcHttpClient* client_;
     QTcpSocket* clientSocket_;
     QJsonRpcSocket* tcpClient_;
@@ -36,6 +37,8 @@ public:
     void setServerPort(int port);
 
     int serverPort() const;
+
+    int serverHttpPort() const;
     /**
      * @brief connectionStatus tells whether the client is connected
      * 0 means unconnected
@@ -58,6 +61,13 @@ public slots:
      * @return
      */
     QJsonRpcServiceReply* send(QJsonRpcMessage message);
+
+    /**
+     * @brief httpSend does the same as send, but uses http transport. This is needed for ressources like images or files
+     * @param message
+     * @return
+     */
+    QJsonRpcServiceReply* httpSend(QJsonRpcMessage message);
 
 private slots:
     void handleReplyFinished();

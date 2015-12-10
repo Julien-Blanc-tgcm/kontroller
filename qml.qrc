@@ -1,19 +1,20 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>MusicList.qml</file>
         <file>MusicPage.qml</file>
         <file>SettingsPage.qml</file>
         <file>RemoteControl.qml</file>
         <file>KodiMain.qml</file>
         <file>StatusBar.qml</file>
         <file>PlaylistPage.qml</file>
-        <file>VideosList.qml</file>
         <file>VideoPage.qml</file>
         <file>Hideable.qml</file>
         <file>ListContextMenu.qml</file>
         <file>Styling.qml</file>
         <file>PlayableItemPage.qml</file>
         <file>ArtistInformationPage.qml</file>
+        <file>AlbumInformationPage.qml</file>
+        <file>GenericList.qml</file>
+        <file>MovieInformationPage.qml</file>
     </qresource>
 </RCC>

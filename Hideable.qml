@@ -14,6 +14,7 @@ Rectangle {
             PropertyChanges {
                 target:main
                 visible:false
+                focus:false
             }
         },
         State {
@@ -25,6 +26,7 @@ Rectangle {
             PropertyChanges {
                 target: main
                 visible: true
+                focus:true
             }
         }
     ]
@@ -45,13 +47,13 @@ Rectangle {
         }
 
     ]
-    Keys.onBackPressed: {
-        state = "lowered"
-        event.accepted = true
-    }
-    Keys.onDeletePressed: {
-        state = "lowered"
-        event.accepted = true
+
+    Keys.onReleased: {
+        if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)
+        {
+            state = "lowered"
+            event.accepted = true
+        }
     }
 }
 

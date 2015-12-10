@@ -18,5 +18,6 @@
         <file alias="pause.png">icons/pause_128x128.png</file>
         <file alias="music.png">icons/music_128x128.png</file>
         <file alias="playlist.png">icons/playlist_128x128.png</file>
+        <file alias="addtoplaylist.png">icons/addtoplaylist_128x128.png</file>
     </qresource>
 </RCC>

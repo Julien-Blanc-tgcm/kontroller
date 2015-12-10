@@ -1,5 +1,16 @@
 #include "kodifile.h"
 
+QString KodiFile::thumbnail() const
+{
+    return thumbnail_;
+}
+
+void KodiFile::setThumbnail(const QString &thumbnail)
+{
+    thumbnail_ = thumbnail;
+    emit thumbnailChanged();
+}
+
 KodiFile::KodiFile(QObject *parent) :
     QObject(parent)
 {

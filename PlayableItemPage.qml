@@ -2,6 +2,10 @@ import QtQuick 2.0
 
 Item {
     property var service
+    property var control
+    property var directPlay : []
+    property var playableItems:[]
+
     ListView {
         id:thelist
         anchors.top: parent.top
@@ -37,13 +41,16 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    thelist.currentIndex = index
+                    if(thelist.currentIndex !== index)
+                        thelist.currentIndex = index
+                    else
+                        activateItem(model)
                     hideSubMenu()
                 }
                 onDoubleClicked: activateItem(model)
                 onPressAndHold: {
                     thelist.currentIndex = index;
-                    showSubMenu(rect, model, mouseX, mouseY);
+                    theSubMenu.showSubMenu(rect, model, mouseX, mouseY);
                 }
             }
             Text {
@@ -54,6 +61,10 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:parent.left;
                 anchors.leftMargin: 5 * scalingFactor;
+                anchors.right: parent.right
+                anchors.rightMargin:btnplay.width + 5 * scalingFactor
+                clip:true
+                elide:Text.ElideMiddle
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -65,28 +76,45 @@ Item {
                         else
                         {
                             thelist.currentIndex = index
-                            activateItem(model);
+                            var found = false;
+                            for(var i = 0; i < directPlay.length; ++i)
+                            {
+                                if(directPlay[i] === service.filesAsList[index].filetype)
+                                    found = true;
+                            }
+                            if(found)
+                                activateItem(model);
                         }
                     }
+                    onDoubleClicked:
+                        activateItem(model)
                     onPressAndHold: {
                         thelist.currentIndex = index;
-                        showSubMenu(rect, model, mouseX, mouseY);
+                        theSubMenu.showSubMenu(rect, model, mouseX, mouseY);
                     }
                 }
             }
             Image {
+                id:btnplay
                 source: "icons/play.png"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 anchors.rightMargin: 5 * scalingFactor
                 width:height
                 height:parent.height - 4 * scalingFactor
-                visible: filetype === "directory" || filetype === "album" || filetype === "song" || filetype === "file"
+                visible: {
+                    for (var i = 0; i < playableItems.length; i++) {
+                        if (playableItems[i] === model.filetype) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         thelist.currentIndex = index
-                        service.playFile(service.filesAsList[thelist.currentIndex])
+                        control.playFile(service.filesAsList[thelist.currentIndex])
                         parent.source = ""
                     }
                 }
@@ -111,14 +139,19 @@ Item {
         border.width: 2 * scalingFactor
         id:theSubMenu
         onInformationPressed: {
-            visible = false
+            visible = false;
+            var model = service.filesAsList[thelist.currentIndex];
+            if(model)
+            {
+                mediaInformationClicked(model.filetype, model.file, model.label);
+            }
         }
         onAddToPlaylistPressed: {
             var model = service.filesAsList[thelist.currentIndex];
             if(model)
             {
-                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || filetype === "file")
-                    service.addToPlaylist(model)
+                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || model.filetype === "file")
+                    control.addToPlaylist(model)
             }
             visible = false
         }
@@ -126,35 +159,14 @@ Item {
             var model = service.filesAsList[thelist.currentIndex];
             if(model)
             {
-                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || filetype === "file")
-                    service.playFile(model)
+                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || model.filetype === "file")
+                    control.playFile(model)
             }
             visible = false
         }
     }
 
     property var currentMenuItem
-
-    function showSubMenu(item, model, x, y)
-    {
-        currentMenuItem = model
-        var coord = main.mapFromItem(item, x, y);
-        theSubMenu.x = coord.x;
-        theSubMenu.y = coord.y;
-        if(model.filetype === "directory")
-            theSubMenu.state = "audiodirectory";
-        else if(model.filetype === "album")
-            theSubMenu.state = "album";
-        else if(model.filetype === "artist")
-            theSubMenu.state = "artist";
-        else if(model.filetype === "song" || model.filetype === "file")
-            theSubMenu.state = "song";
-        else if(model.filetype === "directory")
-            theSubMenu.state = "directory";
-        else
-            return;
-        theSubMenu.visible = true
-    }
 
     function hideSubMenu()
     {
@@ -164,11 +176,11 @@ Item {
     function activateItem(modelItem)
     {
         if(modelItem.filetype === "file")
-            fileClicked(model.file);
+            control.playFile(service.filesAsList[modelItem.index]);
         else if(modelItem.filetype === "song")
-            songClicked(modelItem.file);
+            control.playFile(service.filesAsList[modelItem.index]);
         else
-            mediaClicked(modelItem.filetype, modelItem.file, label + "/" + modelItem.label)
+            mediaClicked(modelItem.filetype, modelItem.file, modelItem.label)
     }
 
     function formatFile(filetype, label)

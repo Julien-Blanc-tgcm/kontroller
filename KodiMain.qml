@@ -1,7 +1,8 @@
 import QtQuick 2.2
 import eu.tgcm 1.0
 
-Item {
+Rectangle {
+    color:"#000"
     anchors.fill: parent
     id: main
     states: [
@@ -13,9 +14,17 @@ Item {
         },
         State {
             name: "music"
+            PropertyChanges {
+                target: musicList
+                focus:true
+            }
         },
         State {
             name: "videos"
+            PropertyChanges {
+                target:videosList
+                focus:true
+            }
         },
         State {
             name: "other"
@@ -39,22 +48,33 @@ Item {
         anchors.right: parent.right
     }
 
-    MusicList {
+    GenericList {
         visible: main.state === "music"
         id:musicList
         anchors.top: parent.top
         anchors.bottom: status.top
         anchors.left: parent.left
         anchors.right: parent.right
+        pageComponent: "MusicPage"
+        informationPageComponents: [
+            {'type':'artist', 'component':'ArtistInformationPage'},
+            {'type':'album', 'component':'AlbumInformationPage'}
+        ]
+        defaultsToInformation: ['artist', 'album'];
     }
 
-    VideosList {
+    GenericList {
         visible: main.state === "videos"
         id:videosList
         anchors.top:parent.top
         anchors.bottom: status.top
         anchors.left: parent.left
         anchors.right: parent.right
+        pageComponent: "VideoPage"
+        informationPageComponents: [
+            {'type':'movie', 'component':'MovieInformationPage'}
+        ]
+        defaultsToInformation: ['movie']
     }
 
     StatusBar {
@@ -64,6 +84,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         onPlaylistClicked: showPlaylist(type)
+        onStateChanged: focusAccordingToState()
         z:2
     }
     Hideable {
@@ -73,6 +94,12 @@ Item {
         anchors.left: main.left
         anchors.right: main.right
         anchors.bottom: status.top
+        onStateChanged: {
+            if(main.state === "music")
+                musicList.focus = true;
+            else if(main.state === "videos")
+                videosList.focus = true;
+        }
     }
 
     function activateSettingsPage() {
@@ -140,9 +167,11 @@ Item {
     {
         playlist.playlistType = type;
         if(flickable.state === "raised")
+        {
             flickable.state = "lowered";
+        }
         else
-            flickable.state = "raised"
+            flickable.state = "raised";
     }
 
     function finishCreation(type) {
@@ -157,7 +186,9 @@ Item {
             }
 /*            sprite = component.createObject(appWindow, {"x": 100, "y": 100}); */
             else
+            {
                 showPlaylist_(type);
+            }
         } else if (playlistPageComponent.status === Component.Error) {
             // Error Handling
             console.log("Error loading component:", playlistPageComponent.errorString());

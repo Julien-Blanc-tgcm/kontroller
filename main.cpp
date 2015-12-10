@@ -15,15 +15,15 @@
 #include "kodisettingsmanager.h"
 #include <QScreen>
 #include "deviceinformation.h"
+#include "artistinformationservice.h"
+#include "kodiimageprovider.h"
+#include "albuminformationservice.h"
+#include "musiccontrol.h"
+#include "videocontrol.h"
+#include "movieinformationservice.h"
 
-
-int main(int argc, char *argv[])
+void registerTypes()
 {
-    QApplication app(argc, argv);
-
-    QQmlApplicationEngine engine;
-
-    //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
     int ret = qmlRegisterType<KodiFile>();
     assert(ret);
     ret = qmlRegisterType<MusicService>("eu.tgcm", 1, 0, "MusicService");
@@ -46,6 +46,27 @@ int main(int argc, char *argv[])
     assert(ret);
     ret = qmlRegisterType<DeviceInformation>("eu.tgcm", 1, 0, "DeviceInformation");
     assert(ret);
+    ret = qmlRegisterType<ArtistInformationService>("eu.tgcm", 1, 0, "ArtistInformationService");
+    assert(ret);
+    ret = qmlRegisterType<AlbumInformationService>("eu.tgcm", 1, 0, "AlbumInformationService");
+    assert(ret);
+    ret = qmlRegisterType<MusicControl>("eu.tgcm", 1, 0, "MusicControl");
+    assert(ret);
+    ret = qmlRegisterType<VideoControl>("eu.tgcm", 1, 0, "VideoControl");
+    assert(ret);
+    ret = qmlRegisterType<MovieInformationService>("eu.tgcm", 1, 0, "MovieInformationService");
+    assert(ret);
+}
+
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+
+    QQmlApplicationEngine engine;
+
+    //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
+    registerTypes();
     KodiSettings settings;
     KodiClient::current().setServerAddress(settings.serverAddress());
     KodiClient::current().setServerPort(settings.serverPort());
@@ -61,6 +82,7 @@ int main(int argc, char *argv[])
    // service.playFile(service.files().back());
     DeviceInformation inf;
     inf.setup(app);
+    engine.addImageProvider("kodi", new KodiImageProvider());
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
     return app.exec();
 }

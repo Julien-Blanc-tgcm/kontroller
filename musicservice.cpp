@@ -1,6 +1,8 @@
 #include "musicservice.h"
 #include "kodiclient.h"
 #include "kodisettingsmanager.h"
+#include "albumsrequest.h"
+#include "songsrequest.h"
 
 namespace {
 
@@ -26,22 +28,6 @@ void MusicService::setRefreshing(bool refreshing)
 {
     refreshing_ = refreshing;
     emit refreshingChanged();
-}
-
-void MusicService::addToPlaylist(QObject* file_)
-{
-    KodiFile* file = dynamic_cast<KodiFile*>(file_);
-    if(file)
-    {
-        addFileToPlaylist(file);
-    }
-    else
-    {
-        QString name = file_->objectName();
-        file_->dumpObjectInfo();
-        file_->dumpObjectTree();
-        qDebug() << name;
-    }
 }
 
 MusicService::MusicService(QObject *parent) :
@@ -101,69 +87,6 @@ void MusicService::refresh()
 void MusicService::setFiles(const QList<KodiFile *> &value)
 {
     files_ = value;
-}
-
-void MusicService::playFile(QObject *file_)
-{
-    KodiFile* file = dynamic_cast<KodiFile*>(file_);
-    if(file)
-    {
-        if(clearPlayList())
-        {
-            if(addFileToPlaylist(file))
-                startPlaying();
-        }
-    }
-    else
-    {
-        QString name = file_->objectName();
-        file_->dumpObjectInfo();
-        file_->dumpObjectTree();
-        qDebug() << name;
-    }
-}
-
-bool MusicService::clearPlayList()
-{
-    QJsonRpcMessage message;
-    QJsonObject params;
-    params.insert("playlistid", audioPlaylistId_);
-    message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-    KodiClient::current().send(message);
-    //return reply.type() == QJsonRpcMessage::Response;
-    return true;
-}
-
-bool MusicService::addFileToPlaylist(KodiFile* file)
-{
-    QJsonRpcMessage message;
-    QJsonObject params;
-    QJsonObject item;
-    if(file->filetype() == "directory")
-        item.insert("directory", file->file());
-    else if(file->filetype() == "file")
-        item.insert("file", file->file());
-    else if(file->filetype() == "album")
-        item.insert("albumid", file->file().toInt());
-    params.insert("item", item);
-    params.insert("playlistid", audioPlaylistId_);
-    message = QJsonRpcMessage::createRequest("Playlist.Add", params);
-    KodiClient::current().send(message);
-    //return reply.type() == QJsonRpcMessage::Response;
-    return true;
-}
-
-bool MusicService::startPlaying()
-{
-    QJsonRpcMessage message;
-    QJsonObject params;
-    QJsonObject item;
-    item.insert("playlistid", audioPlaylistId_);
-    params.insert("item", item);
-    message = QJsonRpcMessage::createRequest("Player.Open", params);
-    KodiClient::current().send(message);
-    //return reply.type() == QJsonRpcMessage::Response;
-    return true;
 }
 
 void MusicService::setBrowsingMode(QString browsingMode)
@@ -247,17 +170,15 @@ void MusicService::refresh_collection()
             }
             else if(browsingMode_ == "media" && browsingValue_ == "albums")
             {
-                message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
-                if(reply)
-                    connect(reply, SIGNAL(finished()), this, SLOT(parseAlbumsResults()));
+                auto albumRequest = new AlbumsRequest();
+                connect(albumRequest, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+                albumRequest->start(0);
             }
             else if(browsingValue_ == "songs")
             {
-                message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
-                if(reply)
-                    connect(reply, SIGNAL(finished()), this, SLOT(parseSongsResults()));
+                auto songsRequest = new SongsRequest();
+                connect(songsRequest, &SongsRequest::finished, this, &MusicService::parseSongsResults);
+                songsRequest->start(0);
             }
             else if(browsingValue_ == "genres")
             {
@@ -269,23 +190,16 @@ void MusicService::refresh_collection()
         }
         else if(browsingMode_ == "artist")
         {
-            QJsonObject filter;
-            filter["artistid"] = browsingValue_.toInt();
-            parameters.insert("filter", filter);
-            message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
-            if(reply)
-                connect(reply, SIGNAL(finished()), this, SLOT(parseAlbumsResults()));
+            auto req = new AlbumsRequest();
+            connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+            req->start(browsingValue_.toInt());
         }
         else if(browsingMode_ == "album")
         {
-            QJsonObject filter;
-            filter["albumid"] = browsingValue_.toInt();
-            parameters.insert("filter", filter);
-            message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
-            if(reply)
-                connect(reply, SIGNAL(finished()), this, SLOT(parseSongsResults()));
+            auto songsRequest = new SongsRequest();
+            connect(songsRequest, &SongsRequest::finished, this, &MusicService::parseSongsResults);
+            songsRequest->start(browsingValue_.toInt());
+
         }
         else if(browsingMode_ == "genre")
         {
@@ -380,88 +294,26 @@ void MusicService::parseArtistsResults()
 
 void MusicService::parseAlbumsResults()
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
+    auto request = dynamic_cast<AlbumsRequest*>(sender());
+    if(request)
     {
-        QJsonRpcMessage response = reply->response();
-        QJsonObject obj = response.toObject();
-        if(obj.find("result") != obj.end())
-        {
-            QJsonValue result = obj.take("result");
-            if(result.type() == QJsonValue::Object)
-            {
-                QJsonValue files;
-                files = result.toObject().take("albums");
-                if(files.type() == QJsonValue::Array)
-                {
-                    QJsonArray res = files.toArray();
-                    for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
-                    {
-                        KodiFile* file = new KodiFile(this);
-                        if((*it).type() == QJsonValue::Object)
-                        {
-                            QJsonObject obj = (*it).toObject();
-                            QJsonValue val = obj.value("label");
-                            if(val.type() == QJsonValue::String)
-                                file->setLabel(val.toString());
-                            val = obj.value("albumid");
-                            if(val.type() == QJsonValue::Double)
-                                file->setFile(QString::number(val.toDouble()));
-                            file->setFiletype("album");
-                            file->setType("album");
-                            files_.push_back(file);
-                        }
-                    }
-                }
-            }
-        }
+        files_ = std::move(request->results);
+        emit filesAsListChanged();
+        request->deleteLater();
     }
-    emit filesAsListChanged();
     setRefreshing(false);
-    sender()->deleteLater();
 }
 
 void MusicService::parseSongsResults()
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
+    auto request = dynamic_cast<SongsRequest*>(sender());
+    if(request)
     {
-        QJsonRpcMessage response = reply->response();
-        QJsonObject obj = response.toObject();
-        if(obj.find("result") != obj.end())
-        {
-            QJsonValue result = obj.take("result");
-            if(result.type() == QJsonValue::Object)
-            {
-                QJsonValue files;
-                files = result.toObject().take("songs");
-                if(files.type() == QJsonValue::Array)
-                {
-                    QJsonArray res = files.toArray();
-                    for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
-                    {
-                        KodiFile* file = new KodiFile(this);
-                        if((*it).type() == QJsonValue::Object)
-                        {
-                            QJsonObject obj = (*it).toObject();
-                            QJsonValue val = obj.value("label");
-                            if(val.type() == QJsonValue::String)
-                                file->setLabel(val.toString());
-                            val = obj.value("songid");
-                            if(val.type() == QJsonValue::Double)
-                                file->setFile(QString::number(val.toDouble()));
-                            file->setFiletype("song");
-                            file->setType("song");
-                            files_.push_back(file);
-                        }
-                    }
-                }
-            }
-        }
+        files_ = std::move(request->results);
+        emit filesAsListChanged();
+        request->deleteLater();
     }
     setRefreshing(false);
-    emit filesAsListChanged();
-    sender()->deleteLater();
 }
 
 void MusicService::parseGenresResults()

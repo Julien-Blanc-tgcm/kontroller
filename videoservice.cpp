@@ -30,8 +30,7 @@ VideoService::VideoService(QObject *parent) :
     QObject(parent),
     browsingMode_(""),
     browsingValue_(""),
-    refreshing_(false),
-    videoPlaylistId_(1)
+    refreshing_(false)
 {
 
 }
@@ -89,69 +88,6 @@ void VideoService::refreshCollection()
 void VideoService::setFiles(const QList<KodiFile *> &value)
 {
     files_ = value;
-}
-
-void VideoService::playFile(QObject *file_)
-{
-    KodiFile* file = dynamic_cast<KodiFile*>(file_);
-    if(file)
-    {
-        if(clearPlayList())
-        {
-            if(addFileToPlaylist(file))
-                startPlaying();
-        }
-    }
-    else
-    {
-        QString name = file_->objectName();
-        file_->dumpObjectInfo();
-        file_->dumpObjectTree();
-        qDebug() << name;
-    }
-}
-
-bool VideoService::clearPlayList()
-{
-    QJsonRpcMessage message;
-    QJsonObject params;
-    params.insert("playlistid", videoPlaylistId_);
-    message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-    KodiClient::current().send(message);
-    //return reply.type() == QJsonRpcMessage::Response;
-    return true;
-}
-
-bool VideoService::addFileToPlaylist(KodiFile* file)
-{
-    QJsonRpcMessage message;
-    QJsonObject params;
-    QJsonObject item;
-    if(file->filetype() == "directory")
-        item.insert("directory", file->file());
-    else if(file->filetype() == "file")
-        item.insert("file", file->file());
-    else if(file->filetype() == "album")
-        item.insert("albumid", file->file().toInt());
-    params.insert("item", item);
-    params.insert("playlistid", videoPlaylistId_);
-    message = QJsonRpcMessage::createRequest("Playlist.Add", params);
-    KodiClient::current().send(message);
-    //return reply.type() == QJsonRpcMessage::Response;
-    return true;
-}
-
-bool VideoService::startPlaying()
-{
-    QJsonRpcMessage message;
-    QJsonObject params;
-    QJsonObject item;
-    item.insert("playlistid", videoPlaylistId_);
-    params.insert("item", item);
-    message = QJsonRpcMessage::createRequest("Player.Open", params);
-    KodiClient::current().send(message);
-    //return reply.type() == QJsonRpcMessage::Response;
-    return true;
 }
 
 void VideoService::setBrowsingMode(QString browsingMode)

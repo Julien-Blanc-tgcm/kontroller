@@ -16,7 +16,6 @@ private:
     QString browsingValue_;
     QString label_;
     bool refreshing_;
-    int videoPlaylistId_;
 
 public:
     Q_PROPERTY(QQmlListProperty<KodiFile> filesAsList READ filesAsList NOTIFY filesAsListChanged)
@@ -45,7 +44,6 @@ signals:
 public slots:
     void refresh();
     void setFiles(const QList<KodiFile *> &value);
-    void playFile(QObject* file);
     void setBrowsingMode(QString browsingMode);
     void setBrowsingValue(QString browsingValue);
     void setLabel(QString label);

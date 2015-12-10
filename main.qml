@@ -7,7 +7,7 @@ ApplicationWindow {
     width: 480
     height: 800
     title: qsTr("Kodi Remote")
-    color: "#000"
+   // color: "#000"
 
     property alias scalingFactor : deviceInformation.scalingFactor
     property alias touchScalingFactor: deviceInformation.touchScalingFactor
@@ -43,7 +43,6 @@ ApplicationWindow {
                 text: qsTr("Exit")
                 onTriggered: Qt.quit();
             }
-
         }
     }
 
@@ -56,5 +55,6 @@ ApplicationWindow {
                 event.accepted = true;
             }
         }
+        anchors.fill: parent
     }
 }

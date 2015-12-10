@@ -58,6 +58,17 @@ Rectangle {
                     { text:qsTr("Play immediately"), type:"play"}
                 ]
             }
+        },
+        State {
+            name: "movie"
+            PropertyChanges {
+                target:main
+                contextMenuModel: [
+                    {text: qsTr("Add to playlist"), type: "addtoplaylist"},
+                    {text:qsTr("Play immediately"), type: "play" },
+                    {text: qsTr("View information"), type: "information"}
+                ]
+            }
         }
 
     ]
@@ -99,11 +110,50 @@ Rectangle {
     function dispatchEvent(type)
     {
         if(type === "information")
+        {
             informationPressed();
+        }
         else if(type === "play")
             playPressed();
         else if(type === "addtoplaylist")
             addToPlaylistPressed();
+    }
+
+    property var currentModel
+
+    function showSubMenu(item, model, x, y) {
+        main.currentModel = model
+        var coord = main.parent.mapFromItem(item, x, y);
+        main.x = coord.x;
+        main.y = coord.y;
+        if(model.filetype === "directory")
+            main.state = "audiodirectory";
+        else if(model.filetype === "album")
+            main.state = "album";
+        else if(model.filetype === "artist")
+            main.state = "artist";
+        else if(model.filetype === "song" || model.filetype === "file")
+            main.state = "song";
+        else if(model.filetype === "directory")
+            main.state = "directory";
+        else
+            return;
+        main.visible = true
+    }
+    onWidthChanged: ensureInVisibleArea()
+    onVisibleChanged: ensureInVisibleArea()
+
+    function ensureInVisibleArea()
+    {
+        if(parent)
+        {
+            if(x + width > parent.width)
+            {
+                x = parent.width - width - 5 * scalingFactor
+            }
+            if(y + height > parent.height)
+                y = parent.height - height
+        }
     }
 
     signal playPressed()

@@ -67,7 +67,7 @@ Rectangle {
             id:btnstop
             MouseArea {
                 anchors.fill: parent
-                onClicked: playerController.stop(activePlayer)
+                onClicked: playerController.stop(activePlayerId())
             }
         }
 
@@ -79,7 +79,7 @@ Rectangle {
             id: btnprev
             MouseArea {
                 anchors.fill: parent
-                onClicked: playerController.previous(activePlayer)
+                onClicked: playerController.previous(activePlayerId())
             }
         }
 
@@ -92,9 +92,10 @@ Rectangle {
             visible:playerController.players.length > activePlayer && playerController.players[activePlayer].speed === 0
             MouseArea {
                 anchors.fill: parent
-                onClicked: playerController.playPause(activePlayer)
+                onClicked: playerController.playPause(activePlayerId())
             }
         }
+
         Image {
             source: "icons/pause.png"
             height:parent.height
@@ -102,9 +103,10 @@ Rectangle {
             anchors.left: btnprev.right;
             id: btnpause;
             visible:playerController.players.length > activePlayer && playerController.players[activePlayer].speed !== 0
+            z:2
             MouseArea {
                 anchors.fill: parent
-                onClicked: playerController.playPause(activePlayer)
+                onClicked: playerController.playPause(activePlayerId())
             }
         }
 
@@ -116,7 +118,7 @@ Rectangle {
             id:btnnext
             MouseArea {
                 anchors.fill: parent;
-                onClicked: playerController.next(activePlayer)
+                onClicked: playerController.next(activePlayerId())
             }
         }
 
@@ -132,6 +134,15 @@ Rectangle {
             }
         }
 
+    }
+
+    function activePlayerId()
+    {
+        if(activePlayer < playerController.players.length)
+        {
+            return playerController.players[activePlayer].playerId;
+        }
+        return -1;
     }
 
 }

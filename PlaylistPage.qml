@@ -34,6 +34,7 @@ Rectangle{
         anchors.topMargin: height / 2
         anchors.right: parent.right
         anchors.rightMargin: 10
+        font.pixelSize: 12 * scalingFactor
         MouseArea {
             anchors.fill: parent
             onClicked: main.clear()
@@ -53,7 +54,7 @@ Rectangle{
         currentIndex: service.playlistPosition
 
         delegate : Rectangle {
-            height: theText.height * 2
+            height: 20 * touchScalingFactor
             anchors.left: parent.left
             anchors.right: parent.right
 
@@ -86,14 +87,19 @@ Rectangle{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
+                font.pixelSize: 12 * scalingFactor
+                anchors.right: remove.left
+                elide: Text.ElideRight
+                clip:true
             }
             Text {
                 id: remove
                 text : "X"
+                font.pixelSize: 12 * touchScalingFactor
                 color: appstyle.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 5 * scalingFactor
                 MouseArea {
                     anchors.fill: parent
                     onClicked: service.removeElement(model.index)

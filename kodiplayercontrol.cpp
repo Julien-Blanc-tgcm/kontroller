@@ -57,7 +57,9 @@ void KodiPlayerControl::stop(int playerId)
 
 void KodiPlayerControl::updatePlayers_()
 {
-    players_ = KodiPlayerService::instance().players();
+    players_.clear();
+    for(KodiPlayer* player : KodiPlayerService::instance().players())
+        players_.push_back(player);
     emit playersChanged();
 }
 

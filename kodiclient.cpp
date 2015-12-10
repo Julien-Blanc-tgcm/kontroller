@@ -4,7 +4,8 @@
 
 KodiClient::KodiClient(QObject *parent) :
     QObject(parent),
-    serverPort_(8080),
+    serverPort_(9090),
+    serverHttpPort_(8080),
     client_(nullptr),
     clientSocket_(nullptr),
     tcpClient_(nullptr),
@@ -64,6 +65,11 @@ int KodiClient::serverPort() const
     return serverPort_;
 }
 
+int KodiClient::serverHttpPort() const
+{
+    return serverHttpPort_;
+}
+
 void KodiClient::refresh()
 {
     freeConnections();
@@ -110,13 +116,7 @@ QJsonRpcServiceReply* KodiClient::send(QJsonRpcMessage message)
 {
     if(connectionStatus_ == 0)
         setConnectionStatus(1);
-    if(client_)
-    {
-        auto reply = client_->sendMessage(message);
-        connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
-        return reply;
-    }
-    else if(tcpClient_)
+    if(tcpClient_)
     {
         auto reply = tcpClient_->sendMessage(message);
         connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
@@ -124,6 +124,17 @@ QJsonRpcServiceReply* KodiClient::send(QJsonRpcMessage message)
     }
     else
         return nullptr;
+}
+
+QJsonRpcServiceReply *KodiClient::httpSend(QJsonRpcMessage message)
+{
+    if(!client_)
+    {
+        client_ = new QJsonRpcHttpClient("http://" + serverAddress_ + ":" + QString::number(serverHttpPort_) + "/jsonrpc");
+    }
+    auto reply = client_->sendMessage(message);
+    connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
+    return reply;
 }
 
 void KodiClient::handleReplyFinished()
