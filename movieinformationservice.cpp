@@ -1,5 +1,9 @@
 #include "movieinformationservice.h"
 #include "kodiclient.h"
+#include "kodifile.h"
+#include "videocontrol.h"
+#include "utils.h"
+#include <algorithm>
 
 int MovieInformationService::movieId() const
 {
@@ -56,16 +60,18 @@ void MovieInformationService::setRuntime(int runtime)
     emit runtimeChanged();
 }
 
-QString MovieInformationService::genre() const
+QString MovieInformationService::genres() const
 {
-    return genre_;
+    if(genres_.size() == 0)
+        return QString();
+    QString ret = genres_[0];
+    for(int i = 1; i < genres_.size(); ++i)
+    {
+        ret += ", " + genres_[i];
+    }
+    return ret;
 }
 
-void MovieInformationService::setGenre(const QString &genre)
-{
-    genre_ = genre;
-    emit genreChanged();
-}
 
 QString MovieInformationService::plot() const
 {
@@ -107,10 +113,22 @@ void MovieInformationService::refresh()
     properties.append(QString("genre"));
     properties.append(QString("plot"));
     properties.append(QString("rating"));
+    properties.append(QString("file"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetMovieDetails", parameters);
     auto reply = KodiClient::current().send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, &MovieInformationService::handleRefresh_);
+}
+
+void MovieInformationService::playFile()
+{
+    KodiFile file;
+    file.setFiletype("movie");
+    file.setType("movie");
+    file.setFile(QString::number(movieId_));
+    file.setLabel(title());
+    VideoControl ctrl;
+    ctrl.playFile(&file);
 }
 
 void MovieInformationService::handleRefresh_()
@@ -126,13 +144,20 @@ void MovieInformationService::handleRefresh_()
             return;
         auto details = detailsTmp.toObject();
         setTitle(details.value("title").toString());
-        auto b = details.value("thumbnail").toString().toUtf8();
-        setThumbnail(QString::fromLatin1(b.toBase64()));
+        setThumbnail(getImageUrl(details.value("thumbnail").toString()).toString());
         setYear(details.value("year").toInt());
         setRuntime(details.value("runtime").toInt());
-        setGenre(details.value("genre").toString());
+        auto genres = details.value("genre").toArray();
+        if(!genres.isEmpty())
+        {
+            for(auto genre : genres)
+            {
+                if(genre.isString())
+                    genres_.push_back(genre.toString());
+            }
+        }
+        emit genresChanged();
         setPlot(details.value("plot").toString());
         setRating(details.value("rating").toDouble());
-        qDebug() << details;
     }
 }

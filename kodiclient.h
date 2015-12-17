@@ -81,7 +81,7 @@ signals:
     // these ones are the notifications the kodi api can send
     // note that if using HTTP transport, no notifications will be available
     void playerSpeedChanged(int playerid, int speed);
-    // a player stopped (any player)
+    // a player stopped (any player, information not in notification)
     void playerStopped();
 
     void playlistCleared(int playlistId);

@@ -21,5 +21,7 @@ std::function<int(QQmlListProperty<T>*,int)> QQmlListPropertyQListFilesPropAtHel
     };
 }
 
+QUrl getImageUrl(QString kodiUrl);
+
 #endif // UTILS_H
 

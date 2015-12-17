@@ -12,7 +12,7 @@ private:
     QString thumbnail_;
     int year_;
     int runtime_;
-    QString genre_;
+    QStringList genres_;
     QString plot_;
     double rating_;
 public:
@@ -23,7 +23,7 @@ public:
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
     Q_PROPERTY(int year READ year WRITE setYear NOTIFY yearChanged)
     Q_PROPERTY(int runtime READ runtime WRITE setRuntime NOTIFY runtimeChanged)
-    Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged)
+    Q_PROPERTY(QString genres READ genres NOTIFY genresChanged)
     Q_PROPERTY(QString plot READ plot WRITE setPlot NOTIFY plotChanged)
     Q_PROPERTY(double rating READ rating WRITE setRating NOTIFY ratingChanged)
 
@@ -42,8 +42,7 @@ public:
     int runtime() const;
     void setRuntime(int runtime);
 
-    QString genre() const;
-    void setGenre(const QString &genre);
+    QString genres() const;
 
     QString plot() const;
     void setPlot(const QString &plot);
@@ -57,11 +56,12 @@ signals:
     void thumbnailChanged();
     void yearChanged();
     void runtimeChanged();
-    void genreChanged();
+    void genresChanged();
     void plotChanged();
     void ratingChanged();
 public slots:
     void refresh();
+    void playFile();
 private slots:
     void handleRefresh_();
 };

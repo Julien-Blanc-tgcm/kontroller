@@ -99,7 +99,7 @@ void KodiClient::handleError(QJsonRpcMessage error)
 {
     if(error.errorCode() == QJsonRpc::ErrorCode::TimeoutError)
     {
-        setConnectionStatus(0);
+        //setConnectionStatus(0);
     }
     else if(error.errorMessage().startsWith("error with http request"))
     {
@@ -120,6 +120,7 @@ QJsonRpcServiceReply* KodiClient::send(QJsonRpcMessage message)
     {
         auto reply = tcpClient_->sendMessage(message);
         connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
+        qDebug() << message;
         return reply;
     }
     else
@@ -142,12 +143,11 @@ void KodiClient::handleReplyFinished()
     QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
     {
-        if(reply->response().errorCode() != 0)
-            handleError(reply->response());
-        else
+        auto response = reply->response();
+        if(response.type() == QJsonRpcMessage::Error)
         {
-            if(connectionStatus_ != 2)
-                setConnectionStatus(2);
+            qDebug() << reply->response();
+            handleError(reply->response());
         }
     }
     else

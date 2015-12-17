@@ -13,20 +13,27 @@ SOURCES += main.cpp \
     statusservice.cpp \
     kodiplayer.cpp \
     playlistservice.cpp \
-    kodiplaylistitem.cpp \
     videoservice.cpp \
     kodiplayerservice.cpp \
     deviceinformation.cpp \
     artistinformationservice.cpp \
-    kodiimageprovider.cpp \
     albumsrequest.cpp \
     songsrequest.cpp \
     albuminformationservice.cpp \
     musiccontrol.cpp \
     videocontrol.cpp \
-    movieinformationservice.cpp
+    movieinformationservice.cpp \
+    tvshowinformationservice.cpp \
+    tvshowseasonsrequest.cpp \
+    seasoninformationservice.cpp \
+    tvshowepisodesrequest.cpp \
+    utils.cpp \
+    episodeinformationservice.cpp \
+    kodiplayinginformation.cpp \
+    playlistcontrol.cpp \
+    playlistitem.cpp
 
-RESOURCES += qml.qrc \
+RESOURCES += qml/qml.qrc \
     icons.qrc
 
 INCLUDEPATH += ../qjsonrpc/src
@@ -61,19 +68,25 @@ HEADERS += \
     statusservice.h \
     kodiplayer.h \
     playlistservice.h \
-    kodiplaylistitem.h \
     videoservice.h \
     kodiplayerservice.h \
     deviceinformation.h \
     artistinformationservice.h \
-    kodiimageprovider.h \
     utils.h \
     albumsrequest.h \
     songsrequest.h \
     albuminformationservice.h \
     musiccontrol.h \
     videocontrol.h \
-    movieinformationservice.h
+    movieinformationservice.h \
+    tvshowinformationservice.h \
+    tvshowseasonsrequest.h \
+    seasoninformationservice.h \
+    tvshowepisodesrequest.h \
+    episodeinformationservice.h \
+    kodiplayinginformation.h \
+    playlistcontrol.h \
+    playlistitem.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -84,4 +97,7 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 #    ANDROID_EXTRA_LIBS = ../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src/libqjsonrpc.so
     ANDROID_EXTRA_LIBS = ../qjsonrpc-android/src/libqjsonrpc.so
 }
+
+DISTFILES += \
+    qml/qmldir
 

@@ -10,7 +10,7 @@ class VideoService : public QObject
 {
     Q_OBJECT
 private:
-    QList<KodiFile*> files_;
+    std::vector<KodiFile*> files_;
 
     QString browsingMode_;
     QString browsingValue_;
@@ -28,7 +28,7 @@ public:
     VideoService(QObject * parent = NULL);
     VideoService(QString browsingMode, QString browsingValue, QObject* parent = NULL);
     ~VideoService();
-    QList<KodiFile *> files() const;
+    std::vector<KodiFile *> files() const;
     QQmlListProperty<KodiFile> filesAsList();
     QString browsingMode() const;
     QString browsingValue() const;
@@ -43,7 +43,7 @@ signals:
     void refreshingChanged();
 public slots:
     void refresh();
-    void setFiles(const QList<KodiFile *> &value);
+    void setFiles(const std::vector<KodiFile *> &value);
     void setBrowsingMode(QString browsingMode);
     void setBrowsingValue(QString browsingValue);
     void setLabel(QString label);

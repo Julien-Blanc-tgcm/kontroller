@@ -15,6 +15,9 @@ private:
     QList<KodiPlayer*> currentPlayers_;
     QTimer refreshTimer_;
     bool refreshPending_;
+    // timer use to delay a refresh, because otherwise kodi information
+    // is not accurate
+    QTimer playerRefreshTimer_;
 
 signals:
     void playersChanged();
@@ -38,15 +41,13 @@ public:
 private slots:
     void refreshPlayerInfoCb_();
 
-    void refreshAudioPlayerStatus_(int playerId);
-    void refreshAudioPlayerInfo_();
     /**
      * @brief updatePlayPause_ updates the speed after a play / pause call
      */
     void updatePlayPause_();
 
-    void refreshVideoPlayerStatus(int playerId);
-    void refreshVideoPlayerInfo_(int playerId);
+    void refreshPlayerStatus(int playerId);
+    void refreshPlayerInfo_(int playerId);
 
     /**
      * @brief updateConnectionStatus is called when the connection status changes
@@ -55,6 +56,7 @@ private slots:
     void updateConnectionStatus(int);
 
     void updatePlayerSpeed(int playerId, int speed);
+    void stopPlayer_();
 };
 
 #endif // KODIPLAYERSERVICE_H

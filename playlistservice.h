@@ -2,8 +2,8 @@
 #define PLAYLISTSERVICE_H
 
 #include <QObject>
+#include "playlistitem.h"
 #include <QQmlListProperty>
-#include "kodiplaylistitem.h"
 
 /**
  * @brief The PlaylistService class handles the current playlist related operations
@@ -12,31 +12,32 @@ class PlaylistService : public QObject
 {
     Q_OBJECT
 
-    QList<KodiPlaylistItem*> currentItems_;
+    QList<PlaylistItem*> currentItems_;
     int playlistId_;
     QString playlistType_;
     int playlistPosition_;
 
     bool refreshing_;
     bool restartAfterRefreshing_;
-public:
     explicit PlaylistService(QObject *parent = 0);
+public:
+    static PlaylistService& instance();
 
     Q_PROPERTY(int playlistId READ playlistId WRITE setPlaylistId NOTIFY playlistIdChanged)
-    Q_PROPERTY(QQmlListProperty<KodiPlaylistItem> items READ items NOTIFY itemsChanged)
     Q_PROPERTY(QString playlistType READ playlistType WRITE setPlaylistType NOTIFY playlistTypeChanged)
     Q_PROPERTY(int playlistPosition READ playlistPosition WRITE setPlaylistPosition NOTIFY playlistPositionChanged)
 
     int playlistId() const;
     void setPlaylistId(int playlistId);
 
-    QQmlListProperty<KodiPlaylistItem> items();
-
     QString playlistType() const;
     void setPlaylistType(const QString &playlistType);
 
     int playlistPosition() const;
     void setPlaylistPosition(int playlistPosition);
+
+    QList<PlaylistItem*> const currentItems() const;
+    QQmlListProperty<PlaylistItem> items();
 
 signals:
     void playlistIdChanged();
@@ -55,6 +56,7 @@ private slots:
     void handlePlaylistCleared_(int playlist);
     void handlePlaylistElementRemoved(int playlist, int position);
     void handlePlaylistElementAdded(int playlistId);
+    void handlePlayerChanged_();
 };
 
 #endif // PLAYLISTSERVICE_H

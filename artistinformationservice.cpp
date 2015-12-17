@@ -161,10 +161,8 @@ void ArtistInformationService::handleRefresh_()
             }
             emit styleChanged();
         }
-        QByteArray b = details.value("fanart").toString().toUtf8();
-        setFanart(QString::fromLatin1(b.toBase64()));
-        b = details.value("thumbnail").toString().toUtf8();
-        setThumbnail(QString::fromLatin1(b.toBase64()));
+        setFanart(getImageUrl(details.value("fanart").toString()).toString());
+        setThumbnail(getImageUrl(details.value("thumbnail").toString()).toString());
     }
 }
 

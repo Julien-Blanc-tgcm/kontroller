@@ -17,7 +17,7 @@ signals:
 
 public slots:
     void clearPlaylist();
-    void addFileToPlaylist(KodiFile* file);
+    void addToPlaylist(KodiFile* file);
     void playFile(KodiFile* file);
     void startPlaying();
 };

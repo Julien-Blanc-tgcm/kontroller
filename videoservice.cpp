@@ -1,17 +1,19 @@
 #include "videoservice.h"
 #include "kodiclient.h"
 #include "kodisettingsmanager.h"
+#include "tvshowseasonsrequest.h"
+#include "tvshowepisodesrequest.h"
 
 namespace {
 
 int filesPropCount(QQmlListProperty<KodiFile>* list)
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->count();
+    return static_cast<std::vector<KodiFile*>*>(list->data)->size();
 }
 
 KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->at(index);
+    return static_cast<std::vector<KodiFile*>*>(list->data)->at(index);
 }
 }
 
@@ -55,7 +57,7 @@ void VideoService::clearFiles()
     files_.clear();
 }
 
-QList<KodiFile *> VideoService::files() const
+std::vector<KodiFile *> VideoService::files() const
 {
     return files_;
 }
@@ -85,7 +87,7 @@ void VideoService::refreshCollection()
     KodiClient::current().send(message);
 }
 
-void VideoService::setFiles(const QList<KodiFile *> &value)
+void VideoService::setFiles(const std::vector<KodiFile *> &value)
 {
     files_ = value;
 }
@@ -134,6 +136,7 @@ void VideoService::refresh_files()
         obj["order"] = QLatin1String("ascending");
         obj["method"] = QLatin1String("label");
         obj["ignorearticle"] = true;
+        parameters.insert("media", QLatin1String("video"));
         parameters.insert("sort", obj);
         message = QJsonRpcMessage::createRequest("Files.GetDirectory", parameters);
     }
@@ -193,14 +196,9 @@ void VideoService::refresh_collection()
         }
         else if(browsingMode_ == "tvshow")
         {
-            parameters.insert("tvshowid", browsingValue_.toInt());
-            QJsonArray properties;
-            properties.append(QString("season"));
-            parameters.insert("properties", properties);
-            message = QJsonRpcMessage::createRequest("VideoLibrary.GetSeasons", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
-            if(reply)
-                connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseSeasonsResults_);
+            auto req = new TvShowSeasonsRequest();
+            connect(req, &TvShowSeasonsRequest::finished, this, &VideoService::parseSeasonsResults_);
+            req->start(browsingValue_.toInt());
         }
         else if(browsingMode_ == "season")
         {
@@ -210,12 +208,9 @@ void VideoService::refresh_collection()
                 setRefreshing(false);
                 return;
             }
-            parameters.insert("season", list[1].toInt());
-            parameters.insert("tvshowid", list[0].toInt());
-            message = QJsonRpcMessage::createRequest("VideoLibrary.GetEpisodes", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
-            if(reply)
-                connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseEpisodesResults_);
+            auto req = new TvShowEpisodesRequest();
+            connect(req, &TvShowEpisodesRequest::finished, this, &VideoService::parseEpisodesResults_);
+            req->start(list[0].toInt(), list[1].toInt());
         }
         else if(browsingMode_ == "album")
         {
@@ -260,12 +255,12 @@ void VideoService::refresh_collection()
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+/*        file = new KodiFile(this);
         file->setLabel(tr("Genres"));
         file->setFile("genres");
         file->setType("media");
         file->setFiletype("media");
-        files_.push_back(file);
+        files_.push_back(file); */
         file = new KodiFile(this);
         file->setLabel(tr("Files"));
         file->setFile("");
@@ -451,41 +446,10 @@ void VideoService::parseGenresResults_()
 
 void VideoService::parseSeasonsResults_()
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+    auto reply = dynamic_cast<TvShowSeasonsRequest*>(sender());
     if(reply)
     {
-        QJsonRpcMessage response = reply->response();
-        QJsonObject obj = response.toObject();
-        if(obj.find("result") != obj.end())
-        {
-            QJsonValue result = obj.take("result");
-            if(result.type() == QJsonValue::Object)
-            {
-                QJsonValue files;
-                files = result.toObject().take("seasons");
-                if(files.type() == QJsonValue::Array)
-                {
-                    QJsonArray res = files.toArray();
-                    for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
-                    {
-                        KodiFile* file = new KodiFile(this);
-                        if((*it).type() == QJsonValue::Object)
-                        {
-                            QJsonObject obj = (*it).toObject();
-                            QJsonValue val = obj.value("label");
-                            if(val.type() == QJsonValue::String)
-                                file->setLabel(val.toString());
-                            val = obj.value("season");
-                            if(val.type() == QJsonValue::Double)
-                                file->setFile(browsingValue_ + "|" + QString::number(val.toDouble()));
-                            file->setFiletype("season");
-                            file->setType("season");
-                            files_.push_back(file);
-                        }
-                    }
-                }
-            }
-        }
+        files_ = std::move(reply->seasons);
     }
     setRefreshing(false);
     emit filesAsListChanged();
@@ -494,41 +458,10 @@ void VideoService::parseSeasonsResults_()
 
 void VideoService::parseEpisodesResults_()
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+    auto reply = dynamic_cast<TvShowEpisodesRequest*>(sender());
     if(reply)
     {
-        QJsonRpcMessage response = reply->response();
-        QJsonObject obj = response.toObject();
-        if(obj.find("result") != obj.end())
-        {
-            QJsonValue result = obj.take("result");
-            if(result.type() == QJsonValue::Object)
-            {
-                QJsonValue files;
-                files = result.toObject().take("episodes");
-                if(files.type() == QJsonValue::Array)
-                {
-                    QJsonArray res = files.toArray();
-                    for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
-                    {
-                        KodiFile* file = new KodiFile(this);
-                        if((*it).type() == QJsonValue::Object)
-                        {
-                            QJsonObject obj = (*it).toObject();
-                            QJsonValue val = obj.value("label");
-                            if(val.type() == QJsonValue::String)
-                                file->setLabel(val.toString());
-                            val = obj.value("episodeid");
-                            if(val.type() == QJsonValue::Double)
-                                file->setFile(QString::number(val.toDouble()));
-                            file->setFiletype("episode");
-                            file->setType("episode");
-                            files_.push_back(file);
-                        }
-                    }
-                }
-            }
-        }
+        files_ = std::move(reply->episodes);
     }
     setRefreshing(false);
     emit filesAsListChanged();

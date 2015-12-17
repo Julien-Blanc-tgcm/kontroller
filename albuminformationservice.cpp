@@ -1,6 +1,7 @@
 #include "albuminformationservice.h"
 #include "kodiclient.h"
 #include "songsrequest.h"
+#include "utils.h"
 
 namespace {
 int filesPropCount(QQmlListProperty<KodiFile>* list)
@@ -166,8 +167,7 @@ void AlbumInformationService::handleRefresh_()
         }
         emit artistsChanged();
         setLabel(details.value("albumlabel").toString());
-        auto b = details.value("thumbnail").toString().toUtf8();
-        setThumbnail(QString::fromLatin1(b.toBase64()));
+        setThumbnail(getImageUrl(details.value("thumbnail").toString()).toString());
     }
 }
 

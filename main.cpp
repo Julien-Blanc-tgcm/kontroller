@@ -9,18 +9,21 @@
 #include "kodiplayercontrol.h"
 #include "statusservice.h"
 #include "kodiplayer.h"
-#include "playlistservice.h"
-#include "kodiplaylistitem.h"
+#include "playlistcontrol.h"
+#include "playlistitem.h"
 #include "videoservice.h"
 #include "kodisettingsmanager.h"
 #include <QScreen>
 #include "deviceinformation.h"
 #include "artistinformationservice.h"
-#include "kodiimageprovider.h"
 #include "albuminformationservice.h"
 #include "musiccontrol.h"
 #include "videocontrol.h"
 #include "movieinformationservice.h"
+#include "tvshowinformationservice.h"
+#include "seasoninformationservice.h"
+#include "episodeinformationservice.h"
+#include "kodiplayinginformation.h"
 
 void registerTypes()
 {
@@ -38,9 +41,9 @@ void registerTypes()
     assert(ret);
     ret = qmlRegisterType<KodiPlayer>();
     assert(ret);
-    ret = qmlRegisterType<PlaylistService>("eu.tgcm", 1, 0, "PlaylistService");
+    ret = qmlRegisterType<PlaylistControl>("eu.tgcm", 1, 0, "PlaylistControl");
     assert(ret);
-    ret = qmlRegisterType<KodiPlaylistItem>();
+    ret = qmlRegisterType<PlaylistItem>();
     assert(ret);
     ret = qmlRegisterType<VideoService>("eu.tgcm", 1, 0, "VideoService");
     assert(ret);
@@ -55,6 +58,14 @@ void registerTypes()
     ret = qmlRegisterType<VideoControl>("eu.tgcm", 1, 0, "VideoControl");
     assert(ret);
     ret = qmlRegisterType<MovieInformationService>("eu.tgcm", 1, 0, "MovieInformationService");
+    assert(ret);
+    ret = qmlRegisterType<TvShowInformationService>("eu.tgcm", 1, 0, "TvShowInformationService");
+    assert(ret);
+    ret = qmlRegisterType<SeasonInformationService>("eu.tgcm", 1, 0, "SeasonInformationService");
+    assert(ret);
+    ret = qmlRegisterType<EpisodeInformationService>("eu.tgcm", 1, 0, "EpisodeInformationService");
+    assert(ret);
+    ret = qmlRegisterType<KodiPlayingInformation>("eu.tgcm", 1, 0, "KodiPlayingInformation");
     assert(ret);
 }
 
@@ -82,7 +93,6 @@ int main(int argc, char *argv[])
    // service.playFile(service.files().back());
     DeviceInformation inf;
     inf.setup(app);
-    engine.addImageProvider("kodi", new KodiImageProvider());
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
     return app.exec();
 }

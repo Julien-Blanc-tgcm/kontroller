@@ -13,7 +13,7 @@ void VideoControl::playFile(KodiFile *file)
     if(file)
     {
         clearPlaylist();
-        addFileToPlaylist(file);
+        addToPlaylist(file);
         startPlaying();
     }
 }
@@ -27,7 +27,7 @@ void VideoControl::clearPlaylist()
     KodiClient::current().send(message);
 }
 
-void VideoControl::addFileToPlaylist(KodiFile* file)
+void VideoControl::addToPlaylist(KodiFile* file)
 {
     if(file)
     {
@@ -38,8 +38,14 @@ void VideoControl::addFileToPlaylist(KodiFile* file)
             item.insert("directory", file->file());
         else if(file->filetype() == "file")
             item.insert("file", file->file());
-        else if(file->filetype() == "album")
-            item.insert("albumid", file->file().toInt());
+        else if(file->filetype() == "movie")
+            item.insert("movieid", file->file().toInt());
+        else if(file->filetype() == "tvshow")
+            item.insert("tvshowid", file->file().toInt());
+        else if(file->filetype() == "episode")
+            item.insert("episodeid", file->file().toInt());
+        else if(file->filetype() == "musicvideo")
+            item.insert("musicvideoid", file->file().toInt());
         params.insert("item", item);
         params.insert("playlistid", videoPlaylistId_);
         message = QJsonRpcMessage::createRequest("Playlist.Add", params);

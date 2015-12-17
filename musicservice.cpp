@@ -134,6 +134,7 @@ void MusicService::refresh_files()
         obj["method"] = QLatin1String("label");
         obj["ignorearticle"] = true;
         parameters.insert("sort", obj);
+        parameters.insert("media", "music");
         message = QJsonRpcMessage::createRequest("Files.GetDirectory", parameters);
     }
     else
