@@ -1,14 +1,21 @@
 #include "playlistservice.h"
 #include "client.h"
-#include "kodiplayerservice.h"
+#include "playerservice.h"
 #include "utils.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 PlaylistService::PlaylistService(QObject *parent) : QObject(parent),
     playlistId_(-1),
     refreshing_(false),
     restartAfterRefreshing_(false)
 {
-    connect(&KodiPlayerService::instance(), &KodiPlayerService::playersChanged, this, &PlaylistService::handlePlayerChanged_);
+    connect(&PlayerService::instance(), &PlayerService::playersChanged, this, &PlaylistService::handlePlayerChanged_);
     connect(&Client::current(), &Client::playlistCleared, this, &PlaylistService::handlePlaylistCleared_);
     connect(&Client::current(), &Client::playlistElementRemoved, this, &PlaylistService::handlePlaylistElementRemoved);
     connect(&Client::current(), &Client::playlistCurrentItemChanged, this, &PlaylistService::setCurrentlyPlayedItem_);
@@ -84,14 +91,14 @@ void PlaylistService::setPlaylistPosition(int playlistPosition)
     playlistPosition_ = playlistPosition;
     emit playlistPositionChanged();
     emit itemsChanged();
-    for(auto player : KodiPlayerService::instance().players())
+    for(auto player : PlayerService::instance().players())
     {
         if(player->type() == playlistType_)
         {
             player->setPlaylistPosition(playlistPosition_);
         }
     }
-    KodiPlayerService::instance().refreshPlayerInfo();
+    PlayerService::instance().refreshPlayerInfo();
 }
 
 const QList<PlaylistItem*> PlaylistService::currentItems() const
@@ -102,7 +109,7 @@ const QList<PlaylistItem*> PlaylistService::currentItems() const
 void PlaylistService::switchToItem(int position)
 {
     QJsonObject parameters;
-    int playerId = KodiPlayerService::instance().getPlayerId(playlistType_);
+    int playerId = PlayerService::instance().getPlayerId(playlistType_);
     if(playerId < 0)
         return;
     parameters["playerid"] = playerId;
@@ -184,7 +191,7 @@ void PlaylistService::refreshPlaylistCb_()
                     }
                 }
             }
-            KodiPlayer* player = KodiPlayerService::instance().getPlayer(playlistType_);
+            Player* player = PlayerService::instance().getPlayer(playlistType_);
             if(player)
             {
                 setPlaylistPosition(player->playlistPosition());
@@ -332,8 +339,13 @@ void PlaylistService::setCurrentlyPlayedItem_(int /*playerId*/, QString type, in
 
 void PlaylistService::handlePlayerChanged_()
 {
-    if(KodiPlayerService::instance().players().size() > 0)
+    if(PlayerService::instance().players().size() > 0)
     {
-        setPlaylistType(KodiPlayerService::instance().players().at(0)->type());
+        setPlaylistType(PlayerService::instance().players().at(0)->type());
     }
+}
+
+
+}
+}
 }

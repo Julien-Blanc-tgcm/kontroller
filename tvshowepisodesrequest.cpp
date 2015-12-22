@@ -1,7 +1,13 @@
 #include "tvshowepisodesrequest.h"
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 TvShowEpisodesRequest::TvShowEpisodesRequest(QObject *parent) : QObject(parent)
 {
@@ -10,7 +16,7 @@ TvShowEpisodesRequest::TvShowEpisodesRequest(QObject *parent) : QObject(parent)
 
 TvShowEpisodesRequest::~TvShowEpisodesRequest()
 {
-    for(KodiFile* file : episodes)
+    for(File* file : episodes)
         file->deleteLater();
     episodes.clear();
 }
@@ -49,7 +55,7 @@ void TvShowEpisodesRequest::parseEpisodesResult_()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile();
+                        File* file = new File();
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -70,4 +76,8 @@ void TvShowEpisodesRequest::parseEpisodesResult_()
         success = true;
     }
     emit finished();
+}
+
+}
+}
 }

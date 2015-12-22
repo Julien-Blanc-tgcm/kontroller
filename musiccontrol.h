@@ -1,9 +1,16 @@
-#ifndef MUSICCONTROL_H
-#define MUSICCONTROL_H
+#ifndef EU_TGCM_KONTROLLER_MUSICCONTROL_H
+#define EU_TGCM_KONTROLLER_MUSICCONTROL_H
 
 #include <QObject>
 
-class KodiFile;
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class File;
 
 class MusicControl : public QObject
 {
@@ -17,10 +24,13 @@ public:
 signals:
 
 public slots:
-    void playFile(KodiFile* file);
-    void addToPlaylist(KodiFile* file);
+    void playFile(File* file);
+    void addToPlaylist(File* file);
     void startPlaying();
     void clearPlaylist();
 };
 
-#endif // MUSICCONTROL_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_MUSICCONTROL_H

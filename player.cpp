@@ -1,44 +1,51 @@
-#include "kodiplayer.h"
+#include "player.h"
 
-int KodiPlayer::playerId() const
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+int Player::playerId() const
 {
     return playerId_;
 }
 
-void KodiPlayer::setPlayerId(int playerId)
+void Player::setPlayerId(int playerId)
 {
     playerId_ = playerId;
     emit playerIdChanged();
 }
 
-QString KodiPlayer::type() const
+QString Player::type() const
 {
     return type_;
 }
 
-void KodiPlayer::setType(const QString &type)
+void Player::setType(const QString &type)
 {
     type_ = type;
     emit typeChanged();
 }
 
-QString KodiPlayer::current() const
+QString Player::current() const
 {
     return current_;
 }
 
-void KodiPlayer::setCurrent(const QString &current)
+void Player::setCurrent(const QString &current)
 {
     current_ = current;
     emit currentChanged();
 }
 
-int KodiPlayer::speed() const
+int Player::speed() const
 {
     return speed_;
 }
 
-void KodiPlayer::setSpeed(int speed)
+void Player::setSpeed(int speed)
 {
     speed_ = speed;
     emit speedChanged();
@@ -48,71 +55,66 @@ void KodiPlayer::setSpeed(int speed)
         timer_.start();
 }
 
-int KodiPlayer::playlistPosition() const
+int Player::playlistPosition() const
 {
     return playlistPosition_;
 }
 
-void KodiPlayer::setPlaylistPosition(int playlistPosition)
+void Player::setPlaylistPosition(int playlistPosition)
 {
     playlistPosition_ = playlistPosition;
     emit playlistPositionChanged();
 }
 
-double KodiPlayer::percentage() const
+double Player::percentage() const
 {
     return percentage_;
 }
 
-int KodiPlayer::time() const
+int Player::time() const
 {
     return time_;
 }
 
-int KodiPlayer::totalTime() const
+int Player::totalTime() const
 {
     return totalTime_;
 }
 
-bool KodiPlayer::shuffled() const
+bool Player::shuffled() const
 {
     return shuffled_;
 }
 
-bool KodiPlayer::canMove() const
+bool Player::canMove() const
 {
     return canMove_;
 }
 
-bool KodiPlayer::canRepeat() const
+bool Player::canRepeat() const
 {
     return canRepeat_;
 }
 
-bool KodiPlayer::canShuffle() const
+bool Player::canShuffle() const
 {
     return canShuffle_;
 }
 
-int KodiPlayer::repeat() const
+int Player::repeat() const
 {
     return repeat_;
 }
 
-bool KodiPlayer::live() const
+bool Player::live() const
 {
     return live_;
 }
 
-bool KodiPlayer::partyMode() const
+bool Player::partyMode() const
 {
     return partyMode_;
 }
-
-/*bool KodiPlayer::subtitlesEnabled() const
-{
-    return subtitlesEnabled_;
-}*/
 
 namespace {
 int propSubtitlesCount(QQmlListProperty<Subtitle>* list)
@@ -129,19 +131,19 @@ Subtitle* propSubtitlesAt(QQmlListProperty<Subtitle>*list, int index)
 }
 }
 
-QQmlListProperty<Subtitle> KodiPlayer::subtitles()
+QQmlListProperty<Subtitle> Player::subtitles()
 {
     return QQmlListProperty<Subtitle>(this, &subtitles_, &propSubtitlesCount, &propSubtitlesAt);
 }
 
-void KodiPlayer::setSubtitles(std::vector<Subtitle*>&& subtitles, int currentSubtitleIndex)
+void Player::setSubtitles(std::vector<Subtitle*>&& subtitles, int currentSubtitleIndex)
 {
     subtitles_ = std::move(subtitles);
     currentSubtitleIndex_ = currentSubtitleIndex;
     emit subtitlesChanged();
 }
 
-void KodiPlayer::setPercentage(double percentage)
+void Player::setPercentage(double percentage)
 {
     if (percentage_ == percentage)
         return;
@@ -150,7 +152,7 @@ void KodiPlayer::setPercentage(double percentage)
     emit percentageChanged(percentage);
 }
 
-void KodiPlayer::setTime(int time)
+void Player::setTime(int time)
 {
     if (time_ == time)
         return;
@@ -159,7 +161,7 @@ void KodiPlayer::setTime(int time)
     emit timeChanged(time);
 }
 
-void KodiPlayer::setTotalTime(int totalTime)
+void Player::setTotalTime(int totalTime)
 {
     if (totalTime_ == totalTime)
         return;
@@ -172,7 +174,7 @@ void KodiPlayer::setTotalTime(int totalTime)
         timer_.stop();
 }
 
-void KodiPlayer::setShuffled(bool shuffled)
+void Player::setShuffled(bool shuffled)
 {
     if (shuffled_ == shuffled)
         return;
@@ -181,7 +183,7 @@ void KodiPlayer::setShuffled(bool shuffled)
     emit shuffledChanged(shuffled);
 }
 
-void KodiPlayer::setCanMove(bool canMove)
+void Player::setCanMove(bool canMove)
 {
     if (canMove_ == canMove)
         return;
@@ -190,7 +192,7 @@ void KodiPlayer::setCanMove(bool canMove)
     emit canMoveChanged(canMove);
 }
 
-void KodiPlayer::setCanRepeat(bool canRepeat)
+void Player::setCanRepeat(bool canRepeat)
 {
     if (canRepeat_ == canRepeat)
         return;
@@ -199,7 +201,7 @@ void KodiPlayer::setCanRepeat(bool canRepeat)
     emit canRepeatChanged(canRepeat);
 }
 
-void KodiPlayer::setCanShuffle(bool canShuffle)
+void Player::setCanShuffle(bool canShuffle)
 {
     if (canShuffle_ == canShuffle)
         return;
@@ -208,7 +210,7 @@ void KodiPlayer::setCanShuffle(bool canShuffle)
     emit canShuffleChanged(canShuffle);
 }
 
-void KodiPlayer::setRepeat(int repeat)
+void Player::setRepeat(int repeat)
 {
     if (repeat_ == repeat)
         return;
@@ -217,7 +219,7 @@ void KodiPlayer::setRepeat(int repeat)
     emit repeatChanged(repeat);
 }
 
-void KodiPlayer::setLive(bool live)
+void Player::setLive(bool live)
 {
     if (live_ == live)
         return;
@@ -226,7 +228,7 @@ void KodiPlayer::setLive(bool live)
     emit liveChanged(live);
 }
 
-void KodiPlayer::setPartyMode(bool partyMode)
+void Player::setPartyMode(bool partyMode)
 {
     if (partyMode_ == partyMode)
         return;
@@ -235,16 +237,7 @@ void KodiPlayer::setPartyMode(bool partyMode)
     emit partyModeChanged(partyMode);
 }
 
-/*void KodiPlayer::setSubtitlesEnabled(bool subtitlesEnabled)
-{
-    if (subtitlesEnabled_ == subtitlesEnabled)
-        return;
-
-    subtitlesEnabled_ = subtitlesEnabled;
-    emit subtitlesChanged();
-}*/
-
-void KodiPlayer::updateTimer_()
+void Player::updateTimer_()
 {
     time_ += timer_.interval();
     if(totalTime_ != 0)
@@ -252,11 +245,14 @@ void KodiPlayer::updateTimer_()
     emit timeChanged(time_);
 }
 
-KodiPlayer::KodiPlayer(QObject *parent) :
+Player::Player(QObject *parent) :
     QObject(parent),
     speed_(0)
 {
     timer_.setInterval(1000);
-    connect(&timer_, &QTimer::timeout, this, &KodiPlayer::updateTimer_);
+    connect(&timer_, &QTimer::timeout, this, &Player::updateTimer_);
 }
 
+}
+}
+}

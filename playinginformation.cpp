@@ -1,38 +1,45 @@
-#include "kodiplayinginformation.h"
-#include "kodiplayer.h"
-#include "kodiplayerservice.h"
+#include "playinginformation.h"
+#include "player.h"
+#include "playerservice.h"
 
-KodiPlayingInformation::KodiPlayingInformation(QObject *parent) : QObject(parent)
+namespace eu
 {
-    connect(&KodiPlayerService::instance(), &KodiPlayerService::playersChanged, this, &KodiPlayingInformation::refreshCurrentPlayer_);
-    connect(&PlaylistService::instance(), &PlaylistService::itemsChanged, this, &KodiPlayingInformation::refreshCurrentPlayer_);
-    connect(&PlaylistService::instance(), &PlaylistService::playlistPositionChanged, this, &KodiPlayingInformation::refreshCurrentPlayer_);
+namespace tgcm
+{
+namespace kontroller
+{
+
+PlayingInformation::PlayingInformation(QObject *parent) : QObject(parent)
+{
+    connect(&PlayerService::instance(), &PlayerService::playersChanged, this, &PlayingInformation::refreshCurrentPlayer_);
+    connect(&PlaylistService::instance(), &PlaylistService::itemsChanged, this, &PlayingInformation::refreshCurrentPlayer_);
+    connect(&PlaylistService::instance(), &PlaylistService::playlistPositionChanged, this, &PlayingInformation::refreshCurrentPlayer_);
 }
 
-QString KodiPlayingInformation::playerType() const
+QString PlayingInformation::playerType() const
 {
     return playerType_;
 }
 
-QString KodiPlayingInformation::mediaTitle() const
+QString PlayingInformation::mediaTitle() const
 {
     return mediaTitle_;
 }
 
-QString KodiPlayingInformation::mediaId() const
+QString PlayingInformation::mediaId() const
 {
     return mediaId_;
 }
 
-int KodiPlayingInformation::artistId() const
+int PlayingInformation::artistId() const
 {
     return artistId_;
 }
 
-PlaylistItem* KodiPlayingInformation::currentItem()
+PlaylistItem* PlayingInformation::currentItem()
 {
-    KodiPlayer* player = nullptr;
-    for(auto p : KodiPlayerService::instance().players())
+    Player* player = nullptr;
+    for(auto p : PlayerService::instance().players())
     {
         player = p;
     }
@@ -45,10 +52,10 @@ PlaylistItem* KodiPlayingInformation::currentItem()
         return nullptr;
 }
 
-PlaylistItem* KodiPlayingInformation::nextItem()
+PlaylistItem* PlayingInformation::nextItem()
 {
-    KodiPlayer* player = nullptr;
-    for(auto p : KodiPlayerService::instance().players())
+    Player* player = nullptr;
+    for(auto p : PlayerService::instance().players())
     {
         player = p;
     }
@@ -61,7 +68,7 @@ PlaylistItem* KodiPlayingInformation::nextItem()
         return nullptr;
 }
 
-void KodiPlayingInformation::setPlayerType(QString playerType)
+void PlayingInformation::setPlayerType(QString playerType)
 {
     if (playerType_ == playerType)
         return;
@@ -70,7 +77,7 @@ void KodiPlayingInformation::setPlayerType(QString playerType)
     emit playerTypeChanged(playerType);
 }
 
-void KodiPlayingInformation::setMediaTitle(QString mediaTitle)
+void PlayingInformation::setMediaTitle(QString mediaTitle)
 {
     if (mediaTitle_ == mediaTitle)
         return;
@@ -79,7 +86,7 @@ void KodiPlayingInformation::setMediaTitle(QString mediaTitle)
     emit MediaTitleChanged(mediaTitle);
 }
 
-void KodiPlayingInformation::setMediaId(QString mediaId)
+void PlayingInformation::setMediaId(QString mediaId)
 {
     if (mediaId_ == mediaId)
         return;
@@ -88,7 +95,7 @@ void KodiPlayingInformation::setMediaId(QString mediaId)
     emit mediaIdChanged(mediaId);
 }
 
-void KodiPlayingInformation::setArtistId(int artistId)
+void PlayingInformation::setArtistId(int artistId)
 {
     if (artistId_ == artistId)
         return;
@@ -97,10 +104,10 @@ void KodiPlayingInformation::setArtistId(int artistId)
     emit artistIdChanged(artistId);
 }
 
-void KodiPlayingInformation::refreshCurrentPlayer_()
+void PlayingInformation::refreshCurrentPlayer_()
 {
-    KodiPlayer* player = nullptr;
-    for(auto p : KodiPlayerService::instance().players())
+    Player* player = nullptr;
+    for(auto p : PlayerService::instance().players())
     {
         player = p;
     }
@@ -117,8 +124,11 @@ void KodiPlayingInformation::refreshCurrentPlayer_()
             setArtistId(item->artistId());
 //            setAlbumId(item->albumId());
         }
-        connect(player, &KodiPlayer::playlistPositionChanged, this, &KodiPlayingInformation::currentItemChanged);
+        connect(player, &Player::playlistPositionChanged, this, &PlayingInformation::currentItemChanged);
     }
     emit currentItemChanged();
 }
 
+}
+}
+}

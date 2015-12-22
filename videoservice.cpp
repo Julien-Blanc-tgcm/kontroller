@@ -1,19 +1,26 @@
 #include "videoservice.h"
 #include "client.h"
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
 #include "tvshowseasonsrequest.h"
 #include "tvshowepisodesrequest.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
 namespace {
 
-int filesPropCount(QQmlListProperty<KodiFile>* list)
+int filesPropCount(QQmlListProperty<File>* list)
 {
-    return static_cast<std::vector<KodiFile*>*>(list->data)->size();
+    return static_cast<std::vector<File*>*>(list->data)->size();
 }
 
-KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
+File* filesPropAt(QQmlListProperty<File>* list, int index)
 {
-    auto l = static_cast<std::vector<KodiFile*>*>(list->data);
+    auto l = static_cast<std::vector<File*>*>(list->data);
     if(index < (int)l->size())
         return (*l)[index];
     return nullptr;
@@ -60,20 +67,20 @@ void VideoService::clearFiles()
     files_.clear();
 }
 
-std::vector<KodiFile *> VideoService::files() const
+std::vector<File *> VideoService::files() const
 {
     return files_;
 }
 
-QQmlListProperty<KodiFile> VideoService::filesAsList()
+QQmlListProperty<File> VideoService::filesAsList()
 {
-    return QQmlListProperty<KodiFile>(this, &files_, &filesPropCount, &filesPropAt);
+    return QQmlListProperty<File>(this, &files_, &filesPropCount, &filesPropAt);
 }
 
 void VideoService::refresh()
 {
     clearFiles();
-    if(KodiSettingsManager::instance().videosFileBrowsing())
+    if(SettingsManager::instance().videosFileBrowsing())
         refresh_files();
     else
     {
@@ -90,7 +97,7 @@ void VideoService::refreshCollection()
     Client::current().send(message);
 }
 
-void VideoService::setFiles(const std::vector<KodiFile *> &value)
+void VideoService::setFiles(const std::vector<File *> &value)
 {
     files_ = value;
 }
@@ -240,31 +247,31 @@ void VideoService::refresh_collection()
     }
     else
     {
-        KodiFile* file = new KodiFile(this);
+        File* file = new File(this);
         file->setLabel(tr("Movies"));
         file->setFile("movies");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+        file = new File(this);
         file->setLabel(tr("TV Shows"));
         file->setFile("tvshows");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+        file = new File(this);
         file->setLabel(tr("Clips"));
         file->setFile("musicvideos");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-/*        file = new KodiFile(this);
+/*        file = new File(this);
         file->setLabel(tr("Genres"));
         file->setFile("genres");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file); */
-        file = new KodiFile(this);
+        file = new File(this);
         file->setLabel(tr("Files"));
         file->setFile("");
         file->setType("directory");
@@ -294,7 +301,7 @@ void VideoService::parseMoviesResults_()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -337,7 +344,7 @@ void VideoService::parseTVShowsResults_()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -380,7 +387,7 @@ void VideoService::parseMusicVideosResults_()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -423,7 +430,7 @@ void VideoService::parseGenresResults_()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -492,7 +499,7 @@ void VideoService::parseDirectoryResults()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -520,4 +527,8 @@ void VideoService::parseDirectoryResults()
     setRefreshing(false);
     reply->deleteLater();
     emit filesAsListChanged();
+}
+
+}
+}
 }

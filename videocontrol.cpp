@@ -1,14 +1,20 @@
 #include "videocontrol.h"
 
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 VideoControl::VideoControl(QObject *parent) : QObject(parent)
 {
 
 }
 
-void VideoControl::playFile(KodiFile *file)
+void VideoControl::playFile(File *file)
 {
     if(file)
     {
@@ -27,7 +33,7 @@ void VideoControl::clearPlaylist()
     Client::current().send(message);
 }
 
-void VideoControl::addToPlaylist(KodiFile* file)
+void VideoControl::addToPlaylist(File* file)
 {
     if(file)
     {
@@ -62,4 +68,8 @@ void VideoControl::startPlaying()
     params.insert("item", item);
     message = QJsonRpcMessage::createRequest("Player.Open", params);
     Client::current().send(message);
+}
+
+}
+}
 }

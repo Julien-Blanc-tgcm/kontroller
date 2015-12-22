@@ -1,5 +1,12 @@
 #include "playlistitem.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
 QString PlaylistItem::type() const
 {
     return type_;
@@ -60,3 +67,6 @@ PlaylistItem::PlaylistItem(QObject *parent) : QObject(parent)
 
 }
 
+}
+}
+}

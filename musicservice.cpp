@@ -1,20 +1,27 @@
 #include "musicservice.h"
 #include "client.h"
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
 #include "albumsrequest.h"
 #include "songsrequest.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 namespace {
 
 
-int filesPropCount(QQmlListProperty<KodiFile>* list)
+int filesPropCount(QQmlListProperty<File>* list)
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->count();
+    return static_cast<QList<File*>*>(list->data)->count();
 }
 
-KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
+File* filesPropAt(QQmlListProperty<File>* list, int index)
 {
-    auto l = static_cast<QList<KodiFile*>*>(list->data);
+    auto l = static_cast<QList<File*>*>(list->data);
     if(index < l->size())
         return (*l)[index];
     return nullptr;
@@ -63,20 +70,20 @@ void MusicService::clearFiles()
     files_.clear();
 }
 
-QList<KodiFile *> MusicService::files() const
+QList<File *> MusicService::files() const
 {
     return files_;
 }
 
-QQmlListProperty<KodiFile> MusicService::filesAsList()
+QQmlListProperty<File> MusicService::filesAsList()
 {
-    return QQmlListProperty<KodiFile>(this, &files_, &filesPropCount, &filesPropAt);
+    return QQmlListProperty<File>(this, &files_, &filesPropCount, &filesPropAt);
 }
 
 void MusicService::refresh()
 {
     clearFiles();
-    if(KodiSettingsManager::instance().musicFileBrowsing())
+    if(SettingsManager::instance().musicFileBrowsing())
         refresh_files();
     else
     {
@@ -87,7 +94,7 @@ void MusicService::refresh()
     }
 }
 
-void MusicService::setFiles(const QList<KodiFile *> &value)
+void MusicService::setFiles(const QList<File *> &value)
 {
     files_ = value;
 }
@@ -218,31 +225,31 @@ void MusicService::refresh_collection()
     }
     else
     {
-        KodiFile* file = new KodiFile(this);
+        File* file = new File(this);
         file->setLabel(tr("Artists"));
         file->setFile("artists");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+        file = new File(this);
         file->setFile("albums");
         file->setLabel(tr("Albums"));
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+        file = new File(this);
         file->setLabel(tr("Songs"));
         file->setFile("songs");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+        file = new File(this);
         file->setLabel(tr("Genres"));
         file->setFile("genres");
         file->setType("media");
         file->setFiletype("media");
         files_.push_back(file);
-        file = new KodiFile(this);
+        file = new File(this);
         file->setLabel(tr("Files"));
         file->setFile("");
         file->setType("directory");
@@ -272,7 +279,7 @@ void MusicService::parseArtistsResults()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -339,7 +346,7 @@ void MusicService::parseGenresResults()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -384,7 +391,7 @@ void MusicService::parseDirectoryResults()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile(this);
+                        File* file = new File(this);
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -412,4 +419,8 @@ void MusicService::parseDirectoryResults()
     setRefreshing(false);
     reply->deleteLater();
     emit filesAsListChanged();
+}
+
+}
+}
 }

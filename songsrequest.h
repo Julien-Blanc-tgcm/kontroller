@@ -1,9 +1,14 @@
-#ifndef SONGSREQUEST_H
-#define SONGSREQUEST_H
+#ifndef EU_TGCM_KONTROLLER_SONGSREQUEST_H
+#define EU_TGCM_KONTROLLER_SONGSREQUEST_H
 
 #include <QObject>
-
-class KodiFile;
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+class File;
 
 class SongsRequest : public QObject
 {
@@ -13,7 +18,7 @@ public:
     ~SongsRequest();
     void start(int artistid);
 
-    QList<KodiFile*> results;
+    QList<File*> results;
     bool success;
 signals:
     void finished();
@@ -21,4 +26,7 @@ private slots:
     void parseSongsResult();
 };
 
-#endif // SONGSREQUEST_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_SONGSREQUEST_H

@@ -47,7 +47,7 @@ ApplicationWindow {
         }
     }
 
-    KodiMain {
+    KontrollerMain {
         id: main
         Keys.onReleased: {
             if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)

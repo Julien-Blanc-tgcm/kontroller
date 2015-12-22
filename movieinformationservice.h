@@ -1,8 +1,14 @@
-#ifndef MOVIEINFORMATIONSERVICE_H
-#define MOVIEINFORMATIONSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_MOVIEINFORMATIONSERVICE_H
+#define EU_TGCM_KONTROLLER_MOVIEINFORMATIONSERVICE_H
 
 #include <QObject>
 #include <QStringList>
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class MovieInformationService : public QObject
 {
@@ -67,4 +73,8 @@ private slots:
     void handleRefresh_();
 };
 
-#endif // MOVIEINFORMATIONSERVICE_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_MOVIEINFORMATIONSERVICE_H

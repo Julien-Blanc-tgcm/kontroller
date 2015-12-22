@@ -1,8 +1,16 @@
-#ifndef ALBUMINFORMATIONSERVICE_H
-#define ALBUMINFORMATIONSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_ALBUMINFORMATIONSERVICE_H
+#define EU_TGCM_KONTROLLER_ALBUMINFORMATIONSERVICE_H
 
 #include <QQmlListProperty>
-class KodiFile;
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class File;
 
 class AlbumInformationService : public QObject
 {
@@ -12,7 +20,7 @@ private:
     QString name_;
     QString description_;
     QString thumbnail_;
-    QList<KodiFile*> songs_;
+    QList<File*> songs_;
     QString genre_;
     int year_;
     QString label_;
@@ -24,7 +32,7 @@ public:
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
-    Q_PROPERTY(QQmlListProperty<KodiFile> songs READ songs NOTIFY songsChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> songs READ songs NOTIFY songsChanged)
     Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged)
     Q_PROPERTY(int year READ year WRITE setYear NOTIFY yearChanged)
     Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
@@ -39,7 +47,7 @@ public:
     QString thumbnail() const;
     void setThumbnail(const QString &value);
 
-    QQmlListProperty<KodiFile> songs();
+    QQmlListProperty<File> songs();
 
     QString genre() const;
     void setGenre(const QString &genre);
@@ -71,4 +79,8 @@ private slots:
     void handleSongs_();
 };
 
-#endif // ALBUMINFORMATIONSERVICE_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_ALBUMINFORMATIONSERVICE_H

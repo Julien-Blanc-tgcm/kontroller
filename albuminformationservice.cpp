@@ -3,15 +3,22 @@
 #include "songsrequest.h"
 #include "utils.h"
 
-namespace {
-int filesPropCount(QQmlListProperty<KodiFile>* list)
+namespace eu
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->count();
+namespace tgcm
+{
+namespace kontroller
+{
+
+namespace {
+int filesPropCount(QQmlListProperty<File>* list)
+{
+    return static_cast<QList<File*>*>(list->data)->count();
 }
 
-KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
+File* filesPropAt(QQmlListProperty<File>* list, int index)
 {
-    auto l = static_cast<QList<KodiFile*>*>(list->data);
+    auto l = static_cast<QList<File*>*>(list->data);
     if(index < l->size())
         return (*l)[index];
     else
@@ -52,9 +59,9 @@ void AlbumInformationService::setThumbnail(const QString &value)
     emit thumbnailChanged();
 }
 
-QQmlListProperty<KodiFile> AlbumInformationService::songs()
+QQmlListProperty<File> AlbumInformationService::songs()
 {
-    return QQmlListProperty<KodiFile>(this, &songs_, &filesPropCount, &filesPropAt);
+    return QQmlListProperty<File>(this, &songs_, &filesPropCount, &filesPropAt);
 }
 
 int AlbumInformationService::albumId() const
@@ -184,4 +191,8 @@ void AlbumInformationService::handleSongs_()
         emit songsChanged();
         songsQuery->deleteLater();
     }
+}
+
+}
+}
 }

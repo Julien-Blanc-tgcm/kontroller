@@ -1,9 +1,16 @@
-#ifndef EPISODESREQUEST_H
-#define EPISODESREQUEST_H
+#ifndef EU_TGCM_KONTROLLER_EPISODESREQUEST_H
+#define EU_TGCM_KONTROLLER_EPISODESREQUEST_H
 
 #include <QObject>
 
-class KodiFile;
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class File;
 
 class TvShowEpisodesRequest : public QObject
 {
@@ -12,7 +19,7 @@ public:
     explicit TvShowEpisodesRequest(QObject *parent = 0);
     ~TvShowEpisodesRequest();
 
-    std::vector<KodiFile*> episodes;
+    std::vector<File*> episodes;
     bool success;
 
     /**
@@ -28,4 +35,8 @@ private slots:
 public slots:
 };
 
-#endif // EPISODESREQUEST_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_EPISODESREQUEST_H

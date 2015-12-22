@@ -1,27 +1,22 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef EU_TGCM_KONTROLLER_UTILS_H
+#define EU_TGCM_KONTROLLER_UTILS_H
 
 #include <functional>
 #include <QQmlListProperty>
 #include <QList>
 
-template<typename T, typename Container>
-std::function<int(QQmlListProperty<T>*)> QQmlListPropertyQListFilesPropCountHelper()
+namespace eu
 {
-    return [](QQmlListProperty<T*>* list) {
-        return static_cast<Container*>(list->data)->count();
-    };
-}
-
-template<typename T, typename Container>
-std::function<int(QQmlListProperty<T>*,int)> QQmlListPropertyQListFilesPropAtHelper()
+namespace tgcm
 {
-    return [] (QQmlListProperty<T>* list, int index) {
-        return static_cast<Container*>(list->data)->at(index);
-    };
-}
+namespace kontroller
+{
 
 QUrl getImageUrl(QString kodiUrl);
 
-#endif // UTILS_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_UTILS_H
 

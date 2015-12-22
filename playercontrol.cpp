@@ -1,23 +1,30 @@
 #include "client.h"
 #include "playercontrol.h"
-#include "kodisettingsmanager.h"
-#include "kodiplayerservice.h"
+#include "settingsmanager.h"
+#include "playerservice.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 PlayerControl::PlayerControl(QObject *parent) :
     QObject(parent)
 {
     // forward event
-    connect(&KodiPlayerService::instance(), &KodiPlayerService::playersChanged, this, &PlayerControl::updatePlayers_);
+    connect(&PlayerService::instance(), &PlayerService::playersChanged, this, &PlayerControl::updatePlayers_);
 }
 
 void PlayerControl::refreshPlayerInfo()
 {
-    KodiPlayerService::instance().refreshPlayerInfo();
+    PlayerService::instance().refreshPlayerInfo();
 }
 
 void PlayerControl::playPause(int playerId)
 {
-    KodiPlayerService::instance().playPause(playerId);
+    PlayerService::instance().playPause(playerId);
 }
 
 void PlayerControl::next(int playerId)
@@ -111,7 +118,7 @@ void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
     auto reply = Client::current().send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this,
             [this, playerId, subtitleIndex]() {
-        for(auto player : KodiPlayerService::instance().players())
+        for(auto player : PlayerService::instance().players())
         {
             if(player->playerId() == playerId)
             {
@@ -124,7 +131,7 @@ void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
 void PlayerControl::updatePlayers_()
 {
     players_.clear();
-    for(KodiPlayer* player : KodiPlayerService::instance().players())
+    for(Player* player : PlayerService::instance().players())
         players_.push_back(player);
     emit playersChanged();
 }
@@ -134,7 +141,7 @@ void PlayerControl::handleShuffleResult_(int playerId, bool shuffle)
     auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
     {
-        for(auto player : KodiPlayerService::instance().players())
+        for(auto player : PlayerService::instance().players())
         {
             if(player->playerId() == playerId)
                 player->setShuffled(shuffle);
@@ -144,22 +151,25 @@ void PlayerControl::handleShuffleResult_(int playerId, bool shuffle)
 
 namespace
 {
-int playersPropCount(QQmlListProperty<KodiPlayer>* list)
+int playersPropCount(QQmlListProperty<Player>* list)
 {
-    return static_cast<QList<KodiPlayer*>*>(list->data)->count();
+    return static_cast<QList<Player*>*>(list->data)->count();
 }
 
-KodiPlayer* playersPropAt(QQmlListProperty<KodiPlayer>* list, int index)
+Player* playersPropAt(QQmlListProperty<Player>* list, int index)
 {
-    auto l = static_cast<QList<KodiPlayer*>*>(list->data);
+    auto l = static_cast<QList<Player*>*>(list->data);
     if(index < l->size())
         return (*l)[index];
     return nullptr;
 }
 }
 
-QQmlListProperty<KodiPlayer> PlayerControl::players()
+QQmlListProperty<Player> PlayerControl::players()
 {
-    return QQmlListProperty<KodiPlayer>(this, &players_, &playersPropCount, &playersPropAt);
+    return QQmlListProperty<Player>(this, &players_, &playersPropCount, &playersPropAt);
 }
 
+}
+}
+}

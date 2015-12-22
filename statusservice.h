@@ -1,10 +1,17 @@
-#ifndef STATUSSERVICE_H
-#define STATUSSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_STATUSSERVICE_H
+#define EU_TGCM_KONTROLLER_STATUSSERVICE_H
 
 #include <QObject>
 #include <QTimer>
 #include <QNetworkConfigurationManager>
-#include "kodisettings.h"
+#include "settings.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class StatusService : public QObject
 {
@@ -53,4 +60,8 @@ private slots:
     void handleConnectionChanged_(QNetworkConfiguration const& config);
 };
 
-#endif // STATUSSERVICE_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_STATUSSERVICE_H

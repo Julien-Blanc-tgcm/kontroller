@@ -10,7 +10,7 @@ Rectangle {
     color:"#000";
 
 
-    KodiSettings {
+    Settings {
         id: settings
     }
 

@@ -1,10 +1,17 @@
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
 
 #include <QSettings>
 
-KodiSettingsManager::KodiSettingsManager()
+namespace eu
 {
-    QSettings settings("tgcm.eu", "kodiremote");
+namespace tgcm
+{
+namespace kontroller
+{
+
+SettingsManager::SettingsManager()
+{
+    QSettings settings("tgcm.eu", "kontroller");
     QVariant val;
     val = settings.value("server");
     if(val.canConvert(QVariant::String))
@@ -47,81 +54,81 @@ KodiSettingsManager::KodiSettingsManager()
         dpi_ = 0;
 }
 
-bool KodiSettingsManager::useHttpInterface() const
+bool SettingsManager::useHttpInterface() const
 {
     return m_useHttpInterface;
 }
 
-void KodiSettingsManager::setUseHttpInterface(bool useHttpInterface)
+void SettingsManager::setUseHttpInterface(bool useHttpInterface)
 {
     m_useHttpInterface = useHttpInterface;
 }
 
-DeviceType KodiSettingsManager::deviceType() const
+DeviceType SettingsManager::deviceType() const
 {
     return deviceType_;
 }
 
-void KodiSettingsManager::setDeviceType(DeviceType type)
+void SettingsManager::setDeviceType(DeviceType type)
 {
     deviceType_ = type;
 }
 
-int KodiSettingsManager::dpi() const
+int SettingsManager::dpi() const
 {
     return dpi_;
 }
 
-void KodiSettingsManager::setDpi(int dpi)
+void SettingsManager::setDpi(int dpi)
 {
     dpi_ = dpi;
 }
 
-KodiSettingsManager& KodiSettingsManager::instance()
+SettingsManager& SettingsManager::instance()
 {
-    static KodiSettingsManager manager;
+    static SettingsManager manager;
     return manager;
 }
 
-QString KodiSettingsManager::serverAddress() const
+QString SettingsManager::serverAddress() const
 {
     return m_serverAddress;
 }
 
-int KodiSettingsManager::serverPort() const
+int SettingsManager::serverPort() const
 {
     return m_serverPort;
 }
 
-bool KodiSettingsManager::musicFileBrowsing() const
+bool SettingsManager::musicFileBrowsing() const
 {
     return m_musicFileBrowsing;
 }
 
-bool KodiSettingsManager::videosFileBrowsing() const
+bool SettingsManager::videosFileBrowsing() const
 {
     return m_videosFileBrowsing;
 }
 
-void KodiSettingsManager::setServer(QString address, int port)
+void SettingsManager::setServer(QString address, int port)
 {
     m_serverAddress = address;
     m_serverPort = port;
 }
 
-void KodiSettingsManager::setMusicFileBrowsing(bool browsing)
+void SettingsManager::setMusicFileBrowsing(bool browsing)
 {
     m_musicFileBrowsing = browsing;
 }
 
-void KodiSettingsManager::setVideosFileBrowsing(bool browsing)
+void SettingsManager::setVideosFileBrowsing(bool browsing)
 {
     m_videosFileBrowsing = browsing;
 }
 
-void KodiSettingsManager::save()
+void SettingsManager::save()
 {
-    QSettings settings("tgcm.eu", "kodiremote");
+    QSettings settings("tgcm.eu", "kontroller");
     settings.setValue("server", m_serverAddress);
     settings.setValue("port", m_serverPort);
     settings.setValue("musicFileBrowsing", m_musicFileBrowsing);
@@ -130,4 +137,9 @@ void KodiSettingsManager::save()
     settings.setValue("dpi", dpi_);
     settings.setValue("deviceType", (int)deviceType_);
     settings.sync();
+}
+
+
+}
+}
 }

@@ -1,12 +1,20 @@
 #include "musiccontrol.h"
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
 MusicControl::MusicControl(QObject *parent) : QObject(parent)
 {
 
 }
 
-void MusicControl::playFile(KodiFile *file)
+void MusicControl::playFile(File *file)
 {
     if(file)
     {
@@ -16,7 +24,7 @@ void MusicControl::playFile(KodiFile *file)
     }
 }
 
-void MusicControl::addToPlaylist(KodiFile *file)
+void MusicControl::addToPlaylist(File *file)
 {
     if(file)
     {
@@ -56,4 +64,8 @@ void MusicControl::clearPlaylist()
     params.insert("playlistid", audioPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
     Client::current().send(message);
+}
+
+}
+}
 }

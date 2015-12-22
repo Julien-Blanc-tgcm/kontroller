@@ -1,6 +1,13 @@
 #include "client.h"
 #include <QSettings>
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 Client::Client(QObject *parent) :
     QObject(parent),
@@ -76,7 +83,7 @@ void Client::refresh()
     if(serverAddress_.size() > 0 && serverPort_ > 0)
     {
         setConnectionStatus(1);
-        if(KodiSettingsManager::instance().useHttpInterface())
+        if(SettingsManager::instance().useHttpInterface())
         {
             client_ = new QJsonRpcHttpClient("http://" + serverAddress_ + ":" + QString::number(serverPort_) + "/jsonrpc");
         }
@@ -268,4 +275,8 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
         else
             qDebug() << message;
     }
+}
+
+}
+}
 }

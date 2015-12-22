@@ -7,7 +7,7 @@ import "utils.js" as Utils
 Item {
     id: item1
 
-    KodiPlayingInformation {
+    PlayingInformation {
         id:playingInformation
     }
 

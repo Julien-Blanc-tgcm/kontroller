@@ -4,6 +4,13 @@
 #include <QDebug>
 #include "math.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
 class DeviceInformation::Impl
 {
 public:
@@ -112,7 +119,7 @@ void DeviceInformation::setup(QApplication &app)
     internal().deviceWidth = rect.width();
     internal().size = app.primaryScreen()->physicalSize();
     internal().logicalDpi = app.primaryScreen()->logicalDotsPerInch();
-    KodiSettings settings;
+    Settings settings;
     if(settings.dpi() > 25) // less than 25 is not usable
         internal().dpi = settings.dpi();
     else
@@ -165,7 +172,7 @@ void DeviceInformation::setTouchScalingFactor(qreal scalingFactor)
 void DeviceInformation::update()
 {
     DeviceType device;
-    KodiSettings settings;
+    Settings settings;
     internal().dpi = settings.dpi();
     if(internal().dpi <= 25 || internal().dpi > 3000) // obviously wrong value
     {
@@ -197,4 +204,9 @@ void DeviceInformation::update()
     }
     emit dpiChanged(internal().dpi);
     emit scalingFactorChanged(internal().scalingFactor);
+}
+
+
+}
+}
 }

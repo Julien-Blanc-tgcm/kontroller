@@ -3,15 +3,21 @@
 #include "utils.h"
 #include "albumsrequest.h"
 
-namespace {
-int filesPropCount(QQmlListProperty<KodiFile>* list)
+namespace eu
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->count();
+namespace tgcm
+{
+namespace kontroller
+{
+namespace {
+int filesPropCount(QQmlListProperty<File>* list)
+{
+    return static_cast<QList<File*>*>(list->data)->count();
 }
 
-KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
+File* filesPropAt(QQmlListProperty<File>* list, int index)
 {
-    auto l = static_cast<QList<KodiFile*>*>(list->data);
+    auto l = static_cast<QList<File*>*>(list->data);
     if(index < l->size())
         return (*l)[index];
     return nullptr;
@@ -97,9 +103,9 @@ QString ArtistInformationService::style() const
     return ret;
 }
 
-QQmlListProperty<KodiFile> ArtistInformationService::albums()
+QQmlListProperty<File> ArtistInformationService::albums()
 {
-    return QQmlListProperty<KodiFile>(this, &albums_, &filesPropCount, &filesPropAt);
+    return QQmlListProperty<File>(this, &albums_, &filesPropCount, &filesPropAt);
 }
 
 ArtistInformationService::ArtistInformationService(QObject *parent) : QObject(parent)
@@ -178,4 +184,8 @@ void ArtistInformationService::handleAlbums_()
         emit albumsChanged();
         albumsQuery->deleteLater();
     }
+}
+
+}
+}
 }

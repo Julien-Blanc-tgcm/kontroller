@@ -4,6 +4,12 @@
 #include "tvshowepisodesrequest.h"
 #include "utils.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 QString SeasonInformationService::seasonId() const
 {
     return seasonId_;
@@ -72,14 +78,14 @@ void SeasonInformationService::setArt(const QString &art)
 
 namespace {
 
-int episodesPropCount(QQmlListProperty<KodiFile>* list)
+int episodesPropCount(QQmlListProperty<File>* list)
 {
-    return static_cast<std::vector<KodiFile*>*>(list->data)->size();
+    return static_cast<std::vector<File*>*>(list->data)->size();
 }
 
-KodiFile* episodesPropAt(QQmlListProperty<KodiFile>* list, int index)
+File* episodesPropAt(QQmlListProperty<File>* list, int index)
 {
-    auto l = static_cast<std::vector<KodiFile*>*>(list->data);
+    auto l = static_cast<std::vector<File*>*>(list->data);
     if(index < (int)l->size())
         return (*l)[index];
     return nullptr;
@@ -87,9 +93,9 @@ KodiFile* episodesPropAt(QQmlListProperty<KodiFile>* list, int index)
 
 }
 
-QQmlListProperty<KodiFile> SeasonInformationService::episodes()
+QQmlListProperty<File> SeasonInformationService::episodes()
 {
-    return QQmlListProperty<KodiFile>(this, &episodes_,
+    return QQmlListProperty<File>(this, &episodes_,
                                        &episodesPropCount, &episodesPropAt);
 }
 
@@ -194,4 +200,8 @@ QString SeasonInformationService::season() const
     if(list.size() != 2)
         return "";
     return list[1];
+}
+
+}
+}
 }

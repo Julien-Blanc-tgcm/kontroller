@@ -1,5 +1,5 @@
-#ifndef DEVICEINFORMATION_H
-#define DEVICEINFORMATION_H
+#ifndef EU_TGCM_KONTROLLER_DEVICEINFORMATION_H
+#define EU_TGCM_KONTROLLER_DEVICEINFORMATION_H
 
 #include <QObject>
 #ifdef SAILFISH_TARGET
@@ -8,7 +8,14 @@
 #else
 #include <QApplication>
 #endif
-#include "kodisettings.h"
+#include "settings.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class DeviceInformation : public QObject
 {
@@ -49,4 +56,9 @@ signals:
 
 };
 
-#endif // DEVICEINFORMATION_H
+
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_DEVICEINFORMATION_H

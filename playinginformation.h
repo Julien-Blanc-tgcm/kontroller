@@ -1,9 +1,17 @@
-#ifndef KODIPLAYINGINFORMATION_H
-#define KODIPLAYINGINFORMATION_H
+#ifndef EU_TGCM_KONTROLLER_PLAYINGINFORMATION_H
+#define EU_TGCM_KONTROLLER_PLAYINGINFORMATION_H
 
 #include <QObject>
 #include "playlistservice.h"
-class KodiPlayingInformation : public QObject
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class PlayingInformation : public QObject
 {
     Q_OBJECT
     QString playerType_;
@@ -12,13 +20,13 @@ class KodiPlayingInformation : public QObject
     int artistId_;
 
 public:
-    explicit KodiPlayingInformation(QObject *parent = 0);
+    explicit PlayingInformation(QObject *parent = 0);
     Q_PROPERTY(QString playerType READ playerType WRITE setPlayerType NOTIFY playerTypeChanged)
     Q_PROPERTY(QString mediaTitle READ mediaTitle WRITE setMediaTitle NOTIFY MediaTitleChanged)
     Q_PROPERTY(QString mediaId READ mediaId WRITE setMediaId NOTIFY mediaIdChanged)
     Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged)
-    Q_PROPERTY(PlaylistItem* currentItem READ currentItem NOTIFY currentItemChanged)
-    Q_PROPERTY(PlaylistItem* nextItem READ nextItem NOTIFY currentItemChanged)
+    Q_PROPERTY(eu::tgcm::kontroller::PlaylistItem* currentItem READ currentItem NOTIFY currentItemChanged)
+    Q_PROPERTY(eu::tgcm::kontroller::PlaylistItem* nextItem READ nextItem NOTIFY currentItemChanged)
 
     QString playerType() const;
 
@@ -54,4 +62,8 @@ private slots:
     void refreshCurrentPlayer_();
 };
 
-#endif // KODIPLAYINGINFORMATION_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_PLAYINGINFORMATION_H

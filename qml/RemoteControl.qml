@@ -4,7 +4,7 @@ import eu.tgcm 1.0
 import "."
 
 Item {
-    KodiRemote {
+    Remote {
         id: remoteController
     }
 

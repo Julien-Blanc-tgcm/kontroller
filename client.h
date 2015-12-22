@@ -1,8 +1,15 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef EU_TGCM_KONTROLLER_CLIENT_H
+#define EU_TGCM_KONTROLLER_CLIENT_H
 
 #include <QObject>
 #include <qjsonrpchttpclient.h>
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class Client : public QObject
 {
@@ -91,4 +98,9 @@ signals:
     void playerSeekChanged(int playerId, int hours, int minutes, int seconds, int milliseconds);
 };
 
-#endif // CLIENT_H
+}
+}
+}
+
+
+#endif // EU_TGCM_KONTROLLER_CLIENT_H

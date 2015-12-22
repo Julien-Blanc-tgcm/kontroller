@@ -1,13 +1,19 @@
-#ifndef KODIREMOTE_H
-#define KODIREMOTE_H
+#ifndef EU_TGCM_KONTROLLER_REMOTE_H
+#define EU_TGCM_KONTROLLER_REMOTE_H
 
 #include <QObject>
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
-class KodiRemote : public QObject
+class Remote : public QObject
 {
     Q_OBJECT
 public:
-    explicit KodiRemote(QObject *parent = 0);
+    explicit Remote(QObject *parent = 0);
 
 signals:
 
@@ -26,4 +32,7 @@ public slots:
     void up();
 };
 
-#endif // KODIREMOTE_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_REMOTE_H

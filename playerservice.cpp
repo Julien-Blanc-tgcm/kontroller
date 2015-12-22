@@ -1,30 +1,37 @@
-#include "kodiplayerservice.h"
+#include "playerservice.h"
 #include "client.h"
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
 #include "playlistservice.h"
 
-KodiPlayerService::KodiPlayerService(QObject *parent) : QObject(parent)
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+PlayerService::PlayerService(QObject *parent) : QObject(parent)
 {
     refreshTimer_.setInterval(5000);
     refreshTimer_.setSingleShot(false);
-    connect(&refreshTimer_, &QTimer::timeout, this, &KodiPlayerService::refreshPlayerInfo);
+    connect(&refreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
     connect(&Client::current(), SIGNAL(connectionStatusChanged(int)), this, SLOT(updateConnectionStatus(int)));
-    connect(&Client::current(), &Client::playerStopped, this, &KodiPlayerService::stopPlayer_);
-    connect(&Client::current(), &Client::playerSpeedChanged, this, &KodiPlayerService::updatePlayerSpeed);
-    connect(&Client::current(), &Client::playerSeekChanged, this, &KodiPlayerService::updatePlayerSeek_);
-    connect(&playerRefreshTimer_, &QTimer::timeout, this, &KodiPlayerService::refreshPlayerInfo);
+    connect(&Client::current(), &Client::playerStopped, this, &PlayerService::stopPlayer_);
+    connect(&Client::current(), &Client::playerSpeedChanged, this, &PlayerService::updatePlayerSpeed);
+    connect(&Client::current(), &Client::playerSeekChanged, this, &PlayerService::updatePlayerSeek_);
+    connect(&playerRefreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
     playerRefreshTimer_.setInterval(200);
     playerRefreshTimer_.setSingleShot(true);
     refreshPlayerInfo();
 }
 
-KodiPlayerService &KodiPlayerService::instance()
+PlayerService &PlayerService::instance()
 {
-    static KodiPlayerService service;
+    static PlayerService service;
     return service;
 }
 
-void KodiPlayerService::refreshPlayerInfo()
+void PlayerService::refreshPlayerInfo()
 {
     if(!refreshPending_)
     {
@@ -32,30 +39,30 @@ void KodiPlayerService::refreshPlayerInfo()
         QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.getActivePlayers");
         QJsonRpcServiceReply* reply = Client::current().send(message);
         if(reply)
-            connect(reply, &QJsonRpcServiceReply::finished, this, &KodiPlayerService::refreshPlayerInfoCb_);
+            connect(reply, &QJsonRpcServiceReply::finished, this, &PlayerService::refreshPlayerInfoCb_);
         else
             refreshPending_ = false;
     }
 }
 
-void KodiPlayerService::playPause(int playerId)
+void PlayerService::playPause(int playerId)
 {
     QJsonObject parameters;
     parameters["playerid"] = playerId;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.PlayPause", parameters);
     QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)
-        connect(reply, &QJsonRpcServiceReply::finished, this, &KodiPlayerService::updatePlayPause_);
+        connect(reply, &QJsonRpcServiceReply::finished, this, &PlayerService::updatePlayPause_);
 }
 
-const QList<KodiPlayer *> &KodiPlayerService::players()
+const QList<Player *> &PlayerService::players()
 {
     return currentPlayers_;
 }
 
-int KodiPlayerService::getPlayerId(QString type)
+int PlayerService::getPlayerId(QString type)
 {
-    for(KodiPlayer* player : currentPlayers_)
+    for(Player* player : currentPlayers_)
     {
         if(player->type() == type)
             return player->playerId();
@@ -63,9 +70,9 @@ int KodiPlayerService::getPlayerId(QString type)
     return -1;
 }
 
-KodiPlayer *KodiPlayerService::getPlayer(QString type)
+Player *PlayerService::getPlayer(QString type)
 {
-    for(KodiPlayer* player : currentPlayers_)
+    for(Player* player : currentPlayers_)
     {
         if(player->type() == type)
             return player;
@@ -73,7 +80,7 @@ KodiPlayer *KodiPlayerService::getPlayer(QString type)
     return nullptr;
 }
 
-void KodiPlayerService::refreshPlayerInfoCb_()
+void PlayerService::refreshPlayerInfoCb_()
 {
     for(auto player: currentPlayers_)
         player->deleteLater();
@@ -95,7 +102,7 @@ void KodiPlayerService::refreshPlayerInfoCb_()
                         QJsonValue val2 = arr[i];
                         if(val2.isObject())
                         {
-                            KodiPlayer* player = new KodiPlayer(this);
+                            Player* player = new Player(this);
                             player->setPlayerId(val2.toObject()["playerid"].toInt());
                             player->setType(val2.toObject()["type"].toString());
                             refreshPlayerStatus(player->playerId());
@@ -121,31 +128,31 @@ int getTime(QJsonObject time)
     return hours * 3600 * 1000 + minutes * 60 * 1000 + seconds * 1000 + milliseconds;
 }
 
-void setTime(QJsonValue time, KodiPlayer& player)
+void setTime(QJsonValue time, Player& player)
 {
     if(time.isObject())
         player.setTime(getTime(time.toObject()));
 }
 
-void setTotalTime(QJsonValue totalTime, KodiPlayer& player)
+void setTotalTime(QJsonValue totalTime, Player& player)
 {
     if(totalTime.isObject())
         player.setTotalTime(getTime(totalTime.toObject()));
 }
 
-void setBoolValue(QJsonValue value, KodiPlayer& player, void(KodiPlayer::*fn)(bool))
+void setBoolValue(QJsonValue value, Player& player, void(Player::*fn)(bool))
 {
     if(value.isBool())
         (player.*fn)(value.toBool());
 }
 
-void setIntValue(QJsonValue value, KodiPlayer& player, void(KodiPlayer::*fn)(int))
+void setIntValue(QJsonValue value, Player& player, void(Player::*fn)(int))
 {
     if(value.isDouble())
         (player.*fn)((int)value.toDouble());
 }
 
-void setDoubleValue(QJsonValue value, KodiPlayer& player, void(KodiPlayer::*fn)(double))
+void setDoubleValue(QJsonValue value, Player& player, void(Player::*fn)(double))
 {
     if(value.isDouble())
         (player.*fn)(value.toDouble());
@@ -153,7 +160,7 @@ void setDoubleValue(QJsonValue value, KodiPlayer& player, void(KodiPlayer::*fn)(
 
 }
 
-void KodiPlayerService::updatePlayPause_()
+void PlayerService::updatePlayPause_()
 {
     QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
@@ -183,7 +190,7 @@ void KodiPlayerService::updatePlayPause_()
     }
 }
 
-void KodiPlayerService::refreshPlayerStatus(int playerId)
+void PlayerService::refreshPlayerStatus(int playerId)
 {
     QJsonObject parameters;
     parameters["playerid"] = playerId;
@@ -216,12 +223,12 @@ void KodiPlayerService::refreshPlayerStatus(int playerId)
         connect(reply, &QJsonRpcServiceReply::finished, this, [this, playerId]() { this->refreshPlayerInfo_(playerId); });
 }
 
-void KodiPlayerService::refreshPlayerInfo_(int playerId)
+void PlayerService::refreshPlayerInfo_(int playerId)
 {
     QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
     {
-        KodiPlayer* player = nullptr;
+        Player* player = nullptr;
         for(int i = 0; i < this->currentPlayers_.size(); ++i)
         {
             if(currentPlayers_[i]->playerId() == playerId)
@@ -241,19 +248,19 @@ void KodiPlayerService::refreshPlayerInfo_(int playerId)
                     return;
                 QString type = typeVal.toString();
                 player->setType(type);
-                setDoubleValue(obj.value("percentage"), *player, &KodiPlayer::setPercentage);
+                setDoubleValue(obj.value("percentage"), *player, &Player::setPercentage);
                 setTime(obj.value("time"), *player);
                 setTotalTime(obj.value("totaltime"), *player);
-                setIntValue(obj.value("speed"), *player, &KodiPlayer::setSpeed);
-                setIntValue(obj.value("position"), *player, &KodiPlayer::setPlaylistPosition);
-                setIntValue(obj.value("playlistid"), *player, &KodiPlayer::setPlaylistId);
-                setBoolValue(obj.value("canseek"), *player, &KodiPlayer::setCanSeek);
-                setBoolValue(obj.value("canshuffle"), *player, &KodiPlayer::setCanShuffle);
-                setBoolValue(obj.value("canrepeat"), *player, &KodiPlayer::setCanRepeat);
-                setBoolValue(obj.value("live"), *player, &KodiPlayer::setLive);
-                setIntValue(obj.value("repeat"), *player, &KodiPlayer::setRepeat);
-                setBoolValue(obj.value("shuffled"), *player, &KodiPlayer::setShuffled);
-                setBoolValue(obj.value("canmove"), *player, &KodiPlayer::setCanMove);
+                setIntValue(obj.value("speed"), *player, &Player::setSpeed);
+                setIntValue(obj.value("position"), *player, &Player::setPlaylistPosition);
+                setIntValue(obj.value("playlistid"), *player, &Player::setPlaylistId);
+                setBoolValue(obj.value("canseek"), *player, &Player::setCanSeek);
+                setBoolValue(obj.value("canshuffle"), *player, &Player::setCanShuffle);
+                setBoolValue(obj.value("canrepeat"), *player, &Player::setCanRepeat);
+                setBoolValue(obj.value("live"), *player, &Player::setLive);
+                setIntValue(obj.value("repeat"), *player, &Player::setRepeat);
+                setBoolValue(obj.value("shuffled"), *player, &Player::setShuffled);
+                setBoolValue(obj.value("canmove"), *player, &Player::setCanMove);
                 auto subtitles = obj.value("subtitles").toArray();
                 if(!subtitles.isEmpty())
                 {
@@ -291,21 +298,21 @@ void KodiPlayerService::refreshPlayerInfo_(int playerId)
                     else
                         player->setSubtitles(std::move(subs), -1);
                 }
-                //setBoolValue(obj.value("canzoom"), *player, &KodiPlayer::setCanZoom);
-                //setBoolValue(obj.value("canrotate"), *player, &KodiPlayer::setCanRotate);
-                //setBoolValue(obj.value("canchangespeed"), *player, &KodiPlayer::setCanChangeSpeed);
+                //setBoolValue(obj.value("canzoom"), *player, &Player::setCanZoom);
+                //setBoolValue(obj.value("canrotate"), *player, &Player::setCanRotate);
+                //setBoolValue(obj.value("canchangespeed"), *player, &Player::setCanChangeSpeed);
             }
         }
     }
     emit playersChanged();
 }
 
-void KodiPlayerService::updateConnectionStatus(int newStatus)
+void PlayerService::updateConnectionStatus(int newStatus)
 {
     if(newStatus == 2)
     {
         refreshPlayerInfo();
-        if(KodiSettingsManager::instance().useHttpInterface())
+        if(SettingsManager::instance().useHttpInterface())
             refreshTimer_.start();
         else
             refreshTimer_.stop();
@@ -317,10 +324,10 @@ void KodiPlayerService::updateConnectionStatus(int newStatus)
     }
 }
 
-void KodiPlayerService::updatePlayerSpeed(int playerId, int speed)
+void PlayerService::updatePlayerSpeed(int playerId, int speed)
 {
     bool found = false;
-    for(KodiPlayer* player : currentPlayers_)
+    for(Player* player : currentPlayers_)
     {
         if(player->playerId() == playerId)
         {
@@ -332,15 +339,15 @@ void KodiPlayerService::updatePlayerSpeed(int playerId, int speed)
         refreshPlayerInfo();
 }
 
-void KodiPlayerService::stopPlayer_()
+void PlayerService::stopPlayer_()
 {
     playerRefreshTimer_.start();
 }
 
-void KodiPlayerService::updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds)
+void PlayerService::updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds)
 {
     bool found = false;
-    for(KodiPlayer* player : currentPlayers_)
+    for(Player* player : currentPlayers_)
     {
         if(player->playerId() == playerId)
         {
@@ -357,4 +364,8 @@ void KodiPlayerService::updatePlayerSeek_(int playerId, int hours, int minutes, 
         refreshPlayerInfo();
 /*    else
         emit playersChanged(); */
+}
+
+}
+}
 }

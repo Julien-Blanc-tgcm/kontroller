@@ -1,9 +1,15 @@
-#ifndef EPISODEINFORMATIONSERVICE_H
-#define EPISODEINFORMATIONSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_EPISODEINFORMATIONSERVICE_H
+#define EU_TGCM_KONTROLLER_EPISODEINFORMATIONSERVICE_H
 
 #include <QObject>
 #include <QDateTime>
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 class EpisodeInformationService : public QObject
 {
     Q_OBJECT
@@ -117,4 +123,7 @@ private slots:
     void handleRefresh_();
 };
 
-        #endif // EPISODEINFORMATIONSERVICE_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_EPISODEINFORMATIONSERVICE_H

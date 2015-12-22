@@ -1,8 +1,15 @@
 #include "tvshowinformationservice.h"
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
 #include "tvshowseasonsrequest.h"
 #include "utils.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 QString TvShowInformationService::title() const
 {
@@ -256,14 +263,14 @@ void TvShowInformationService::handleRefresh_()
 
 namespace {
 
-int seasonsPropCount(QQmlListProperty<KodiFile>* list)
+int seasonsPropCount(QQmlListProperty<File>* list)
 {
-    return static_cast<std::vector<KodiFile*>*>(list->data)->size();
+    return static_cast<std::vector<File*>*>(list->data)->size();
 }
 
-KodiFile* seasonsPropAt(QQmlListProperty<KodiFile>* list, int index)
+File* seasonsPropAt(QQmlListProperty<File>* list, int index)
 {
-    auto l = static_cast<std::vector<KodiFile*>*>(list->data);
+    auto l = static_cast<std::vector<File*>*>(list->data);
     if(index < (int)l->size())
         return (*l)[index];
     return nullptr;
@@ -271,9 +278,9 @@ KodiFile* seasonsPropAt(QQmlListProperty<KodiFile>* list, int index)
 
 }
 
-QQmlListProperty<KodiFile> TvShowInformationService::seasons()
+QQmlListProperty<File> TvShowInformationService::seasons()
 {
-    return QQmlListProperty<KodiFile>(this, &seasons_,
+    return QQmlListProperty<File>(this, &seasons_,
                                       &seasonsPropCount, &seasonsPropAt);
 }
 
@@ -298,4 +305,8 @@ void TvShowInformationService::handleSeasons_()
         seasonsQuery->deleteLater();
         emit seasonsChanged();
     }
+}
+
+}
+}
 }

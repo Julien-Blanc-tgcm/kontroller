@@ -7,16 +7,16 @@
 #include <QtQml>
 #include "musicservice.h"
 #include <cassert>
-#include "kodiremote.h"
-#include "kodisettings.h"
+#include "remote.h"
+#include "settings.h"
 #include "client.h"
 #include "playercontrol.h"
 #include "statusservice.h"
-#include "kodiplayer.h"
+#include "player.h"
 #include "playlistcontrol.h"
 #include "playlistitem.h"
 #include "videoservice.h"
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
 #include <QScreen>
 #include "deviceinformation.h"
 #include "artistinformationservice.h"
@@ -27,30 +27,31 @@
 #include "tvshowinformationservice.h"
 #include "seasoninformationservice.h"
 #include "episodeinformationservice.h"
-#include "kodiplayinginformation.h"
+#include "playinginformation.h"
 
 void registerTypes()
 {
+    using namespace eu::tgcm::kontroller;
 #ifdef SAILFISH_TARGET
     auto qmlprefix = "harbour.eu.tgcm";
 #else
     auto qmlprefix = "eu.tgcm";
 #endif
-    int ret = qmlRegisterType<KodiFile>();
+    int ret = qmlRegisterType<File>();
     assert(ret);
     ret = qmlRegisterType<Subtitle>();
     assert(ret);
     ret = qmlRegisterType<MusicService>(qmlprefix, 1, 0, "MusicService");
     assert(ret);
-    ret = qmlRegisterType<KodiRemote>(qmlprefix, 1, 0, "KodiRemote");
+    ret = qmlRegisterType<Remote>(qmlprefix, 1, 0, "Remote");
     assert(ret);
-    ret = qmlRegisterType<KodiSettings>(qmlprefix, 1, 0, "KodiSettings");
+    ret = qmlRegisterType<Settings>(qmlprefix, 1, 0, "Settings");
     assert(ret);
     ret = qmlRegisterType<PlayerControl>(qmlprefix, 1, 0, "PlayerControl");
     assert(ret);
     ret = qmlRegisterType<StatusService>(qmlprefix, 1, 0, "StatusService");
     assert(ret);
-    ret = qmlRegisterType<KodiPlayer>();
+    ret = qmlRegisterType<Player>();
     assert(ret);
     ret = qmlRegisterType<PlaylistControl>(qmlprefix, 1, 0, "PlaylistControl");
     assert(ret);
@@ -76,7 +77,7 @@ void registerTypes()
     assert(ret);
     ret = qmlRegisterType<EpisodeInformationService>(qmlprefix, 1, 0, "EpisodeInformationService");
     assert(ret);
-    ret = qmlRegisterType<KodiPlayingInformation>(qmlprefix, 1, 0, "KodiPlayingInformation");
+    ret = qmlRegisterType<PlayingInformation>(qmlprefix, 1, 0, "PlayingInformation");
     assert(ret);
 }
 
@@ -93,10 +94,11 @@ int main(int argc, char *argv[])
 
     //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
     registerTypes();
-    KodiSettings settings;
-    Client::current().setServerAddress(settings.serverAddress());
-    Client::current().setServerPort(settings.serverPort());
-    Client::current().refresh();
+    using namespace eu::tgcm;
+    kontroller::Settings settings;
+    kontroller::Client::current().setServerAddress(settings.serverAddress());
+    kontroller::Client::current().setServerPort(settings.serverPort());
+    kontroller::Client::current().refresh();
 /*    MusicService service("/mnt/files/mp3/MODERNE/Muse");
     service.refresh();
     for(int i = 0; i < service.files().size(); ++i)
@@ -106,7 +108,7 @@ int main(int argc, char *argv[])
     }
     std::cout << std::endl; */
    // service.playFile(service.files().back());
-    DeviceInformation inf;
+    kontroller::DeviceInformation inf;
     inf.setup(*app);
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
     return app->exec();

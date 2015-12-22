@@ -1,16 +1,23 @@
-#ifndef VIDEOSERVICE_H
-#define VIDEOSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_VIDEOSERVICE_H
+#define EU_TGCM_KONTROLLER_VIDEOSERVICE_H
 
 #include <QObject>
 #include <QtQml>
-#include "kodifile.h"
+#include "file.h"
 #include <QQmlListProperty>
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class VideoService : public QObject
 {
     Q_OBJECT
 private:
-    std::vector<KodiFile*> files_;
+    std::vector<File*> files_;
 
     QString browsingMode_;
     QString browsingValue_;
@@ -18,7 +25,7 @@ private:
     bool refreshing_;
 
 public:
-    Q_PROPERTY(QQmlListProperty<KodiFile> filesAsList READ filesAsList NOTIFY filesAsListChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> filesAsList READ filesAsList NOTIFY filesAsListChanged)
     Q_PROPERTY(QString browsingMode READ browsingMode WRITE setBrowsingMode NOTIFY browsingModeChanged)
     Q_PROPERTY(QString browsingValue READ browsingValue WRITE setBrowsingValue NOTIFY browsingValueChanged)
     Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
@@ -28,8 +35,8 @@ public:
     VideoService(QObject * parent = NULL);
     VideoService(QString browsingMode, QString browsingValue, QObject* parent = NULL);
     ~VideoService();
-    std::vector<KodiFile *> files() const;
-    QQmlListProperty<KodiFile> filesAsList();
+    std::vector<File *> files() const;
+    QQmlListProperty<File> filesAsList();
     QString browsingMode() const;
     QString browsingValue() const;
     QString label() const;
@@ -43,7 +50,7 @@ signals:
     void refreshingChanged();
 public slots:
     void refresh();
-    void setFiles(const std::vector<KodiFile *> &value);
+    void setFiles(const std::vector<File *> &value);
     void setBrowsingMode(QString browsingMode);
     void setBrowsingValue(QString browsingValue);
     void setLabel(QString label);
@@ -51,7 +58,7 @@ public slots:
     void refreshCollection();
 private:
     bool clearPlayList();
-    bool addFileToPlaylist(KodiFile* file);
+    bool addFileToPlaylist(File* file);
     bool startPlaying();
 
     void clearFiles();
@@ -68,4 +75,8 @@ private slots:
     void parseDirectoryResults();
 };
 
-#endif // VIDEOSERVICE_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_VIDEOSERVICE_H

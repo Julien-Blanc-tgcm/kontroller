@@ -1,73 +1,84 @@
 #include "client.h"
-#include "kodiremote.h"
+#include "remote.h"
 
-KodiRemote::KodiRemote(QObject *parent) :
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+Remote::Remote(QObject *parent) :
     QObject(parent)
 {
 }
 
-void KodiRemote::back()
+void Remote::back()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Back");
     Client::current().send(message);
 }
 
-void KodiRemote::contextMenu()
+void Remote::contextMenu()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.ContextMenu");
     Client::current().send(message);
 }
 
-void KodiRemote::down()
+void Remote::down()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Down");
     Client::current().send(message);
 }
 
-void KodiRemote::home()
+void Remote::home()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Home");
     Client::current().send(message);
 }
 
-void KodiRemote::info()
+void Remote::info()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Info");
     Client::current().send(message);
 }
 
-void KodiRemote::left()
+void Remote::left()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Left");
     Client::current().send(message);
 }
 
-void KodiRemote::right()
+void Remote::right()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Right");
     Client::current().send(message);
 }
 
-void KodiRemote::select()
+void Remote::select()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Select");
     Client::current().send(message);
 }
 
-void KodiRemote::showCodec()
+void Remote::showCodec()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.ShowCodec");
     Client::current().send(message);
 }
 
-void KodiRemote::showOSD()
+void Remote::showOSD()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.ShowOSD");
     Client::current().send(message);
 }
 
-void KodiRemote::up()
+void Remote::up()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Input.Up");
     Client::current().send(message);
+}
+
+}
+}
 }

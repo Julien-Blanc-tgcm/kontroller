@@ -1,7 +1,14 @@
 #include "statusservice.h"
 #include "client.h"
 #include <QNetworkConfigurationManager>
-#include "kodisettings.h"
+#include "settings.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 StatusService::StatusService(QObject* parent) :
     QObject(parent)
@@ -11,7 +18,7 @@ StatusService::StatusService(QObject* parent) :
     connect(&manager_, &QNetworkConfigurationManager::configurationAdded, this, &StatusService::handleConnectionAdded_);
     connect(&manager_, &QNetworkConfigurationManager::configurationRemoved, this, &StatusService::handleConnectionRemoved_);
     connect(&manager_, &QNetworkConfigurationManager::configurationChanged, this, &StatusService::handleConnectionChanged_);
-    KodiSettings settings;
+    Settings settings;
     if(settings.serverAddress().size() > 0)
         settingsSet_ = true;
     else
@@ -69,4 +76,8 @@ void StatusService::setWifiEnabled(bool wifi)
         wifiEnabled_ = wifi;
         emit wifiEnabledChanged(wifi);
     }
+}
+
+}
+}
 }

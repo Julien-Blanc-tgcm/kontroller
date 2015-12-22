@@ -7,15 +7,9 @@ QT += widgets
 
 SOURCES += main.cpp \
     musicservice.cpp \
-    kodifile.cpp \
-    kodiremote.cpp \
-    kodisettings.cpp \
-    kodisettingsmanager.cpp \
     statusservice.cpp \
-    kodiplayer.cpp \
     playlistservice.cpp \
     videoservice.cpp \
-    kodiplayerservice.cpp \
     deviceinformation.cpp \
     artistinformationservice.cpp \
     albumsrequest.cpp \
@@ -30,12 +24,18 @@ SOURCES += main.cpp \
     tvshowepisodesrequest.cpp \
     utils.cpp \
     episodeinformationservice.cpp \
-    kodiplayinginformation.cpp \
     playlistcontrol.cpp \
     playlistitem.cpp \
     playercontrol.cpp \
     subtitle.cpp \
-    client.cpp
+    client.cpp \
+    playinginformation.cpp \
+    file.cpp \
+    player.cpp \
+    playerservice.cpp \
+    settingsmanager.cpp \
+    settings.cpp \
+    remote.cpp
 
 RESOURCES += qml/qml.qrc \
     icons.qrc
@@ -73,15 +73,9 @@ LIBS += -lqjsonrpc
 
 HEADERS += \
     musicservice.h \
-    kodifile.h \
-    kodiremote.h \
-    kodisettings.h \
-    kodisettingsmanager.h \
     statusservice.h \
-    kodiplayer.h \
     playlistservice.h \
     videoservice.h \
-    kodiplayerservice.h \
     deviceinformation.h \
     artistinformationservice.h \
     utils.h \
@@ -96,12 +90,18 @@ HEADERS += \
     seasoninformationservice.h \
     tvshowepisodesrequest.h \
     episodeinformationservice.h \
-    kodiplayinginformation.h \
     playlistcontrol.h \
     playlistitem.h \
     playercontrol.h \
     subtitle.h \
-    client.h
+    client.h \
+    playinginformation.h \
+    file.h \
+    player.h \
+    playerservice.h \
+    settingsmanager.h \
+    settings.h \
+    remote.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

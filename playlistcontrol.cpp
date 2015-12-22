@@ -1,5 +1,12 @@
 #include "playlistcontrol.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
 PlaylistControl::PlaylistControl(QObject *parent) : QObject(parent)
 {
     PlaylistService& service = PlaylistService::instance();
@@ -47,4 +54,8 @@ void PlaylistControl::removeElement(int index)
 void PlaylistControl::setPlaylistType(QString type)
 {
     PlaylistService::instance().setPlaylistType(type);
+}
+
+}
+}
 }

@@ -1,7 +1,14 @@
-#ifndef PLAYLISTITEM_H
-#define PLAYLISTITEM_H
+#ifndef EU_TGCM_KONTROLLER_PLAYLISTITEM_H
+#define EU_TGCM_KONTROLLER_PLAYLISTITEM_H
 
 #include <QObject>
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class PlaylistItem : public QObject
 {
@@ -207,4 +214,7 @@ void setTvshow(QString tvshow)
 }
 };
 
-#endif // PLAYLISTITEM_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_PLAYLISTITEM_H

@@ -1,10 +1,16 @@
 #include "movieinformationservice.h"
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
 #include "videocontrol.h"
 #include "utils.h"
 #include <algorithm>
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 int MovieInformationService::movieId() const
 {
     return movieId_;
@@ -122,7 +128,7 @@ void MovieInformationService::refresh()
 
 void MovieInformationService::playFile()
 {
-    KodiFile file;
+    File file;
     file.setFiletype("movie");
     file.setType("movie");
     file.setFile(QString::number(movieId_));
@@ -160,4 +166,8 @@ void MovieInformationService::handleRefresh_()
         setPlot(details.value("plot").toString());
         setRating(details.value("rating").toDouble());
     }
+}
+
+}
+}
 }

@@ -1,9 +1,16 @@
-#ifndef KODIFILE_H
-#define KODIFILE_H
+#ifndef EU_TGCM_KONTROLLER_FILE_H
+#define EU_TGCM_KONTROLLER_FILE_H
 
 #include <QObject>
 
-class KodiFile : public QObject
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class File : public QObject
 {
     Q_OBJECT
 
@@ -14,7 +21,7 @@ private:
     QString type_;
     QString thumbnail_;
 public:
-    explicit KodiFile(QObject *parent = 0);
+    explicit File(QObject *parent = 0);
 
 public:
     Q_PROPERTY(QString file READ file WRITE setFile NOTIFY fileChanged)
@@ -47,4 +54,9 @@ public slots:
 
 };
 
-#endif // KODIFILE_H
+}
+}
+}
+
+
+#endif // EU_TGCM_KONTROLLER_FILE_H

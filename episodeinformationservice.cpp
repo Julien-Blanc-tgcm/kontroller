@@ -2,8 +2,14 @@
 #include "client.h"
 #include "utils.h"
 #include "videocontrol.h"
-#include "kodifile.h"
+#include "file.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 EpisodeInformationService::EpisodeInformationService(QObject *parent) : QObject(parent)
 {
 
@@ -216,7 +222,7 @@ void EpisodeInformationService::setTitle(QString title)
 
 void EpisodeInformationService::playFile()
 {
-    KodiFile file;
+    File file;
     file.setFiletype("episode");
     file.setType("episode");
     file.setFile(QString::number(episodeId_));
@@ -259,4 +265,8 @@ void EpisodeInformationService::setEpisodeId(int episodeId)
 
     episodeId_ = episodeId;
     emit episodeIdChanged(episodeId);
+}
+
+}
+}
 }

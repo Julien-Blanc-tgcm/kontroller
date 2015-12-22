@@ -1,9 +1,16 @@
-#ifndef TVSHOWSEASONSREQUEST_H
-#define TVSHOWSEASONSREQUEST_H
+#ifndef EU_TGCM_KONTROLLER_TVSHOWSEASONSREQUEST_H
+#define EU_TGCM_KONTROLLER_TVSHOWSEASONSREQUEST_H
 
 #include <QObject>
 #include <vector>
-class KodiFile;
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+class File;
 class TvShowSeasonsRequest : public QObject
 {
     Q_OBJECT
@@ -12,7 +19,7 @@ public:
     ~TvShowSeasonsRequest();
     void start(int tvshowid);
 
-    std::vector<KodiFile*> seasons;
+    std::vector<File*> seasons;
     bool success;
 signals:
     void finished();
@@ -21,4 +28,7 @@ private slots:
 
 };
 
-#endif // TVSHOWSEASONSREQUEST_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_TVSHOWSEASONSREQUEST_H

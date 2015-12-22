@@ -1,12 +1,19 @@
-#ifndef KODIPLAYER_H
-#define KODIPLAYER_H
+#ifndef EU_TGCM_KONTROLLER_PLAYER_H
+#define EU_TGCM_KONTROLLER_PLAYER_H
 
 #include <QObject>
 #include <QTimer>
 #include "subtitle.h"
 #include <QQmlListProperty>
 
-class KodiPlayer : public QObject
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class Player : public QObject
 {
     Q_OBJECT
 
@@ -36,7 +43,7 @@ class KodiPlayer : public QObject
 
 
 public:
-    explicit KodiPlayer(QObject *parent = 0);
+    explicit Player(QObject *parent = 0);
 
     Q_PROPERTY(int playerId READ playerId WRITE setPlayerId NOTIFY playerIdChanged)
     Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
@@ -56,7 +63,7 @@ public:
     Q_PROPERTY(bool canSeek READ canSeek WRITE setCanSeek NOTIFY canSeekChanged)
     Q_PROPERTY(int playlistId READ playlistId WRITE setPlaylistId NOTIFY playlistIdChanged)
    // Q_PROPERTY(bool subtitlesEnabled READ subtitlesEnabled WRITE setSubtitlesEnabled NOTIFY subtitlesChanged)
-    Q_PROPERTY(QQmlListProperty<Subtitle> subtitles READ subtitles NOTIFY subtitlesChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Subtitle> subtitles READ subtitles NOTIFY subtitlesChanged)
     Q_PROPERTY(int currentSubtitleIndex READ currentSubtitleIndex WRITE setCurrentSubtitleIndex NOTIFY subtitlesChanged)
 
     /*!
@@ -202,4 +209,7 @@ private slots:
     void updateTimer_();
 };
 
-#endif // KODIPLAYER_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_PLAYER_H

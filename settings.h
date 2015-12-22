@@ -1,11 +1,18 @@
-#ifndef KODISETTINGS_H
-#define KODISETTINGS_H
+#ifndef EU_TGCM_KONTROLLER_SETTINGS_H
+#define EU_TGCM_KONTROLLER_SETTINGS_H
 
 #include <QString>
 #include <QObject>
-#include "kodisettingsmanager.h"
+#include "settingsmanager.h"
 
-class KodiSettings : public QObject
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class Settings : public QObject
 {
     Q_OBJECT
 
@@ -17,7 +24,7 @@ class KodiSettings : public QObject
     Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
 
 public:
-    KodiSettings();
+    Settings();
 
     QString serverAddress() const;
     int serverPort() const;
@@ -43,4 +50,8 @@ signals:
     void dpiChanged(int);
 };
 
-#endif // KODISETTINGS_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_SETTINGS_H

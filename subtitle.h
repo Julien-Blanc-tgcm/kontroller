@@ -1,7 +1,13 @@
-#ifndef SUBTITLE_H
-#define SUBTITLE_H
+#ifndef EU_TGCM_KONTROLLER_SUBTITLE_H
+#define EU_TGCM_KONTROLLER_SUBTITLE_H
 
 #include <QObject>
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class Subtitle : public QObject
 {
@@ -68,4 +74,7 @@ void setLanguage(QString language)
 }
 };
 
-#endif // SUBTITLE_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_SUBTITLE_H

@@ -1,9 +1,15 @@
-#ifndef VIDEOCONTROL_H
-#define VIDEOCONTROL_H
+#ifndef EU_TGCM_KONTROLLER_VIDEOCONTROL_H
+#define EU_TGCM_KONTROLLER_VIDEOCONTROL_H
 
 #include <QObject>
 
-class KodiFile;
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+class File;
 
 class VideoControl : public QObject
 {
@@ -17,9 +23,12 @@ signals:
 
 public slots:
     void clearPlaylist();
-    void addToPlaylist(KodiFile* file);
-    void playFile(KodiFile* file);
+    void addToPlaylist(File* file);
+    void playFile(File* file);
     void startPlaying();
 };
 
-#endif // VIDEOCONTROL_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_VIDEOCONTROL_H

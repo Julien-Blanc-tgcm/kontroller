@@ -1,11 +1,19 @@
-#ifndef TVSHOWINFORMATIONSERVICE_H
-#define TVSHOWINFORMATIONSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_TVSHOWINFORMATIONSERVICE_H
+#define EU_TGCM_KONTROLLER_TVSHOWINFORMATIONSERVICE_H
 
 #include <QObject>
 #include <vector>
 #include <QQmlListProperty>
 
-class KodiFile;
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
+class File;
 
 class TvShowInformationService : public QObject
 {
@@ -29,7 +37,7 @@ class TvShowInformationService : public QObject
     QString dateAdded_;
     std::vector<QString> tags_;
     QString art_;
-    std::vector<KodiFile*> seasons_;
+    std::vector<File*> seasons_;
 
 public:
     explicit TvShowInformationService(QObject *parent = 0);
@@ -48,7 +56,7 @@ public:
     Q_PROPERTY(QString originalTitle READ originalTitle WRITE setOriginalTitle NOTIFY originalTitleChanged)
     Q_PROPERTY(QString dateAdded READ dateAdded WRITE setDateAdded NOTIFY dateAddedChanged)
     Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
-    Q_PROPERTY(QQmlListProperty<KodiFile> seasons READ seasons NOTIFY seasonsChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> seasons READ seasons NOTIFY seasonsChanged)
     Q_PROPERTY(QStringList genres READ genres NOTIFY genresChanged)
 
     int tvshowId() const;
@@ -96,7 +104,7 @@ public:
     QString thumbnail() const;
     void setThumbnail(const QString &thumbnail);
 
-    QQmlListProperty<KodiFile> seasons();
+    QQmlListProperty<File> seasons();
     QStringList genres();
 
 signals:
@@ -126,4 +134,8 @@ private slots:
     void handleSeasons_();
 };
 
-#endif // TVSHOWINFORMATIONSERVICE_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_TVSHOWINFORMATIONSERVICE_H

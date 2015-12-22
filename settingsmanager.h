@@ -1,8 +1,14 @@
-#ifndef KODISETTINGSMANAGER_H
-#define KODISETTINGSMANAGER_H
+#ifndef EU_TGCM_KONTROLLER_SETTINGSMANAGER_H
+#define EU_TGCM_KONTROLLER_SETTINGSMANAGER_H
 
 #include <QString>
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 enum class DeviceType {
     Undefined,
@@ -14,12 +20,12 @@ enum class DeviceType {
 };
 
 /**
- * @brief The KodiSettingsManager class is a singleton class used to store and update
+ * @brief The SettingsManager class is a singleton class used to store and update
  * application parameters
  */
-class KodiSettingsManager
+class SettingsManager
 {
-    KodiSettingsManager();
+    SettingsManager();
 private:
     QString m_serverAddress;
     int m_serverPort;
@@ -30,10 +36,10 @@ private:
     int dpi_;
 public:
     /**
-     * @brief instance returns a reference to the current KodiSettingsManager
+     * @brief instance returns a reference to the current SettingsManager
      * @return
      */
-    static KodiSettingsManager& instance();
+    static SettingsManager& instance();
 
     /**
      * @brief serverAddress The address of the server the application connects to
@@ -75,4 +81,8 @@ public:
     void setDpi(int dpi);
 };
 
-#endif // KODISETTINGSMANAGER_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_SETTINGSMANAGER_H

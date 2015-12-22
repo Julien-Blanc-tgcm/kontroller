@@ -1,9 +1,15 @@
-#ifndef ALBUMSREQUEST_H
-#define ALBUMSREQUEST_H
+#ifndef EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
+#define EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
 
 #include <QObject>
 
-class KodiFile;
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+class File;
 
 class AlbumsRequest : public QObject
 {
@@ -13,7 +19,7 @@ public:
     ~AlbumsRequest();
     void start(int artistid);
 
-    QList<KodiFile*> results;
+    QList<File*> results;
     bool success;
 signals:
     void finished();
@@ -21,4 +27,7 @@ private slots:
     void parseAlbumsResult();
 };
 
-#endif // ALBUMSREQUEST_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_ALBUMSREQUEST_H

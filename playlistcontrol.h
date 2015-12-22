@@ -1,9 +1,16 @@
-#ifndef PLAYLISTCONTROL_H
-#define PLAYLISTCONTROL_H
+#ifndef EU_TGCM_KONTROLLER_PLAYLISTCONTROL_H
+#define EU_TGCM_KONTROLLER_PLAYLISTCONTROL_H
 
 #include <QObject>
 #include <QQmlListProperty>
 #include "playlistservice.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class PlaylistControl : public QObject
 {
@@ -12,7 +19,7 @@ public:
     explicit PlaylistControl(QObject *parent = 0);
 
     Q_PROPERTY(int playlistId READ playlistId NOTIFY playlistIdChanged)
-    Q_PROPERTY(QQmlListProperty<PlaylistItem> items READ items NOTIFY itemsChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::PlaylistItem> items READ items NOTIFY itemsChanged)
     Q_PROPERTY(QString playlistType READ playlistType WRITE setPlaylistType NOTIFY playlistTypeChanged)
     Q_PROPERTY(int playlistPosition READ playlistPosition NOTIFY playlistPositionChanged)
 
@@ -34,4 +41,8 @@ public slots:
     void setPlaylistType(QString type);
 };
 
-#endif // PLAYLISTCONTROL_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_PLAYLISTCONTROL_H

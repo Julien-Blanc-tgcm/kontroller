@@ -4,7 +4,7 @@
         <file>MusicPage.qml</file>
         <file>SettingsPage.qml</file>
         <file>RemoteControl.qml</file>
-        <file>KodiMain.qml</file>
+        <file>KontrollerMain.qml</file>
         <file>StatusBar.qml</file>
         <file>PlaylistPage.qml</file>
         <file>VideoPage.qml</file>

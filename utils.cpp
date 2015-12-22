@@ -1,6 +1,13 @@
 #include "utils.h"
 #include "client.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
+
 QUrl getImageUrl(QString kodiUrl)
 {
     if(kodiUrl.size() > 0)
@@ -11,4 +18,8 @@ QUrl getImageUrl(QString kodiUrl)
     }
     else
         return QUrl{};
+}
+
+}
+}
 }

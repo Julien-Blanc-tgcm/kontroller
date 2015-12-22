@@ -1,23 +1,30 @@
-#ifndef PLAYERCONTROL_H
-#define PLAYERCONTROL_H
+#ifndef EU_TGCM_KONTROLLER_PLAYERCONTROL_H
+#define EU_TGCM_KONTROLLER_PLAYERCONTROL_H
 
 #include <QObject>
 #include <QTimer>
 #include <QQmlListProperty>
-#include "kodiplayer.h"
+#include "player.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 class PlayerControl : public QObject
 {
     Q_OBJECT
 public:
     explicit PlayerControl(QObject *parent = 0);
-    Q_PROPERTY(QQmlListProperty<KodiPlayer> players READ players NOTIFY playersChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Player> players READ players NOTIFY playersChanged)
 private:
-    QList<KodiPlayer*> players_;
+    QList<Player*> players_;
 signals:
     void playersChanged();
 public:
-    QQmlListProperty<KodiPlayer> players();
+    QQmlListProperty<Player> players();
 
 public slots:
     void refreshPlayerInfo();
@@ -37,4 +44,7 @@ private slots:
     void handleShuffleResult_(int playerId, bool shuffle);
 };
 
-#endif // PLAYERCONTROL_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_PLAYERCONTROL_H

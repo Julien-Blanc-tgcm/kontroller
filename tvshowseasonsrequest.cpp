@@ -1,6 +1,13 @@
 #include "tvshowseasonsrequest.h"
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 TvShowSeasonsRequest::TvShowSeasonsRequest(QObject *parent) : QObject(parent),
     success(false)
@@ -10,7 +17,7 @@ TvShowSeasonsRequest::TvShowSeasonsRequest(QObject *parent) : QObject(parent),
 
 TvShowSeasonsRequest::~TvShowSeasonsRequest()
 {
-    for(KodiFile* file : seasons)
+    for(File* file : seasons)
         file->deleteLater();
     seasons.clear();
 }
@@ -54,7 +61,7 @@ void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile();
+                        File* file = new File();
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -75,4 +82,8 @@ void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
         success = true;
     }
     emit finished();
+}
+
+}
+}
 }

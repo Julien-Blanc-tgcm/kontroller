@@ -1,9 +1,16 @@
-#ifndef PLAYLISTSERVICE_H
-#define PLAYLISTSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_PLAYLISTSERVICE_H
+#define EU_TGCM_KONTROLLER_PLAYLISTSERVICE_H
 
 #include <QObject>
 #include "playlistitem.h"
 #include <QQmlListProperty>
+
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 
 /**
  * @brief The PlaylistService class handles the current playlist related operations
@@ -60,4 +67,8 @@ private slots:
     void handlePlayerChanged_();
 };
 
-#endif // PLAYLISTSERVICE_H
+}
+}
+}
+
+#endif // EU_TGCM_KONTROLLER_PLAYLISTSERVICE_H

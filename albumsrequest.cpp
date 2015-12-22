@@ -1,7 +1,13 @@
 #include "albumsrequest.h"
 #include "client.h"
-#include "kodifile.h"
+#include "file.h"
 
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 AlbumsRequest::AlbumsRequest(QObject *parent) : QObject(parent),
   success(false)
 {
@@ -44,7 +50,7 @@ void AlbumsRequest::parseAlbumsResult()
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        KodiFile* file = new KodiFile();
+                        File* file = new File();
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
@@ -72,4 +78,8 @@ AlbumsRequest::~AlbumsRequest()
     for(auto res : results)
         res->deleteLater();
     results.clear();
+}
+
+}
+}
 }

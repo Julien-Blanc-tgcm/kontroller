@@ -1,10 +1,15 @@
-#ifndef ARTISTINFORMATIONSERVICE_H
-#define ARTISTINFORMATIONSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_ARTISTINFORMATIONSERVICE_H
+#define EU_TGCM_KONTROLLER_ARTISTINFORMATIONSERVICE_H
 
 #include <QObject>
-#include <kodifile.h>
+#include <file.h>
 #include <QQmlListProperty>
-
+namespace eu
+{
+namespace tgcm
+{
+namespace kontroller
+{
 class ArtistInformationService : public QObject
 {
     Q_OBJECT
@@ -17,7 +22,7 @@ private:
     QString thumbnail_;
     QList<QString> genres_;
     QList<QString> style_;
-    QList<KodiFile*> albums_;
+    QList<File*> albums_;
 public:
     explicit ArtistInformationService(QObject *parent = 0);
     Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged)
@@ -27,7 +32,7 @@ public:
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
     Q_PROPERTY(QString genres READ genres NOTIFY genresChanged)
     Q_PROPERTY(QString style READ style NOTIFY styleChanged)
-    Q_PROPERTY(QQmlListProperty<KodiFile> albums READ albums NOTIFY albumsChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> albums READ albums NOTIFY albumsChanged)
 
     int artistId() const;
     void setArtistId(int artistId);
@@ -48,7 +53,7 @@ public:
 
     QString style() const;
 
-    QQmlListProperty<KodiFile> albums();
+    QQmlListProperty<File> albums();
 
 signals:
     void artistIdChanged();
@@ -65,5 +70,7 @@ private slots:
     void handleRefresh_();
     void handleAlbums_();
 };
-
-#endif // ARTISTINFORMATIONSERVICE_H
+}
+}
+}
+#endif // EU_TGCM_KONTROLLER_ARTISTINFORMATIONSERVICE_H
