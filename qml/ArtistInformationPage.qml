@@ -13,6 +13,7 @@ Item {
             fanart1.visible = true;
             txtTitle.height = fanart1.height
             fanart.width = 0;
+            txtTitle.width = main.width
         }
         else
         {
@@ -20,6 +21,8 @@ Item {
             fanart.width = fanart.height
             fanart1.visible = false;
             txtTitle.height = 22 * scalingFactor
+            txtTitle.width = main.width - fanart.width
+            console.log(txtTitle.width + " " + main.width + " " + fanart.width)
         }
     }
 
@@ -38,7 +41,7 @@ Item {
             font.pixelSize: 16 * scalingFactor
             anchors.left: parent.left
             anchors.top:parent.top
-            anchors.right: parent.right
+            width:parent.width
             id:txtTitle
             wrapMode: Text.WordWrap
             horizontalAlignment: Text.AlignHCenter
@@ -74,6 +77,16 @@ Item {
             color:"black"
             opacity: 0.2
         }
+        Image {
+            id: fanart
+            source: service.thumbnail
+            //height:150 * scalingFactor
+            height:parent.width / 3
+            width:parent.width / 3
+            fillMode: Image.PreserveAspectFit
+            anchors.right: parent.right
+            anchors.top:parent.top
+        }
 
         clip:true
         anchors.top : parent.top
@@ -84,7 +97,7 @@ Item {
         anchors.leftMargin: 5 * scalingFactor
         anchors.rightMargin: 5 * scalingFactor
         contentWidth: width;
-        contentHeight: theRect.childrenRect.height + txtTitle.height;
+        contentHeight: theRect.childrenRect.height + Math.max(txtTitle.height, fanart.height);
         interactive: height < contentHeight
         flickableDirection: Flickable.VerticalFlick
         Rectangle {
@@ -93,16 +106,7 @@ Item {
             anchors.right: parent.right
             anchors.left: parent.left
 
-            Image {
-                id: fanart
-                source: service.thumbnail
-                //height:150 * scalingFactor
-                height:parent.width / 3
-                width:parent.width / 3
-                fillMode: Image.PreserveAspectFit
-                anchors.right: parent.right
-                anchors.top:parent.top
-            }
+
             Rectangle {
                 id:textRect
                 anchors.top: parent.top
@@ -146,8 +150,9 @@ Item {
 
                 Text {
                     id : albumslbl
-                    anchors.top: stylelbl.bottom
-                    anchors.topMargin: 5 * scalingFactor
+                    y:Math.max(stylelbl.y + stylelbl.height, fanart.y + fanart.height - contentHeight)
+                    //anchors.top: stylelbl.bottom
+                    //anchors.topMargin: 5 * scalingFactor
                     text: qsTr("Available albums : ")
                     font.bold: true
                     color: "#eee"
@@ -200,7 +205,7 @@ Item {
                                 text:model.modelData.label
                                 clip:true
                                 elide: Text.ElideMiddle
-                                width:theRect.width - fanart.width - btnplay.width  - btnaddtopl.width - 15 * scalingFactor
+                                width:theRect.width - btnplay.width  - btnaddtopl.width - 10 * scalingFactor
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: mediaInformationClicked(model.modelData.filetype,
@@ -217,6 +222,18 @@ Item {
                 }
 
             }
+            Text {
+                id:lblDesc
+                font.bold: true
+                anchors.top: theRect.top
+                anchors.topMargin: Math.max(textRect.childrenRect.height, fanart.height)
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: 5 * scalingFactor
+                color: Styling.textColor
+                font.pixelSize: 12 * scalingFactor
+                text: qsTr("Description")
+            }
 
             Text {
                 id:theText
@@ -224,8 +241,8 @@ Item {
                 text:service.artistDescription
                 font.pixelSize: 12 * scalingFactor
                 wrapMode: Text.WordWrap
-                anchors.top: theRect.top
-                anchors.topMargin: Math.max(textRect.childrenRect.height, fanart.height)
+                anchors.top: lblDesc.bottom
+                anchors.topMargin:5 * scalingFactor
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.rightMargin: 5 * scalingFactor

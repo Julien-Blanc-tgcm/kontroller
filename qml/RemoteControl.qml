@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.4
 import eu.tgcm 1.0
 import "."
 
@@ -8,11 +8,7 @@ Item {
         id: remoteController
     }
 
-    KodiPlayingInformation {
-        id:playingInformation
-    }
-
-    property int buttonWidth : 36 * scalingFactor;
+    property int buttonWidth : 25 * touchScalingFactor;
     Rectangle {
         anchors.fill: parent
         color:"#000";
@@ -128,13 +124,6 @@ Item {
             }
         }
 
-    }
-    MusicInformation {
-        information: playingInformation
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        height:200
     }
 
 /*    Text {

@@ -1,5 +1,5 @@
 #include "songsrequest.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodifile.h"
 
 SongsRequest::SongsRequest(QObject *parent) : QObject(parent),
@@ -18,7 +18,7 @@ void SongsRequest::start(int albumid)
         parameters.insert("filter", filter);
     }
     auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
-    QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+    QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)
         connect(reply, &QJsonRpcServiceReply::finished, this, &SongsRequest::parseSongsResult);
     else

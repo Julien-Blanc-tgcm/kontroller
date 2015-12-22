@@ -1,6 +1,6 @@
 #include "kodisettings.h"
 
-#include "kodiclient.h"
+#include "client.h"
 #include "kodisettingsmanager.h"
 
 KodiSettings::KodiSettings()
@@ -10,9 +10,9 @@ KodiSettings::KodiSettings()
 
 void KodiSettings::setServer(QString address, int port)
 {
-    KodiClient::current().setServerAddress(address);
-    KodiClient::current().setServerPort(port);
-    KodiClient::current().refresh();
+    Client::current().setServerAddress(address);
+    Client::current().setServerPort(port);
+    Client::current().refresh();
     KodiSettingsManager::instance().setServer(address, port);
     KodiSettingsManager::instance().save();
 }

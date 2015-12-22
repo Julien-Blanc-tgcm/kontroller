@@ -1,11 +1,11 @@
 #include "utils.h"
-#include "kodiclient.h"
+#include "client.h"
 
 QUrl getImageUrl(QString kodiUrl)
 {
     if(kodiUrl.size() > 0)
     {
-        QString url =QString("http://") + KodiClient::current().serverAddress() + ":" + QString::number(KodiClient::current().serverHttpPort()) + "/image/" +
+        QString url =QString("http://") + Client::current().serverAddress() + ":" + QString::number(Client::current().serverHttpPort()) + "/image/" +
                 QUrl::toPercentEncoding(kodiUrl);
         return QUrl{url};
     }

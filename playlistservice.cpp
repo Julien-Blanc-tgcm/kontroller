@@ -1,6 +1,7 @@
 #include "playlistservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodiplayerservice.h"
+#include "utils.h"
 
 PlaylistService::PlaylistService(QObject *parent) : QObject(parent),
     playlistId_(-1),
@@ -8,8 +9,9 @@ PlaylistService::PlaylistService(QObject *parent) : QObject(parent),
     restartAfterRefreshing_(false)
 {
     connect(&KodiPlayerService::instance(), &KodiPlayerService::playersChanged, this, &PlaylistService::handlePlayerChanged_);
-    connect(&KodiClient::current(), &KodiClient::playlistCleared, this, &PlaylistService::handlePlaylistCleared_);
-    connect(&KodiClient::current(), &KodiClient::playlistElementRemoved, this, &PlaylistService::handlePlaylistElementRemoved);
+    connect(&Client::current(), &Client::playlistCleared, this, &PlaylistService::handlePlaylistCleared_);
+    connect(&Client::current(), &Client::playlistElementRemoved, this, &PlaylistService::handlePlaylistElementRemoved);
+    connect(&Client::current(), &Client::playlistCurrentItemChanged, this, &PlaylistService::setCurrentlyPlayedItem_);
 }
 
 PlaylistService&PlaylistService::instance()
@@ -43,7 +45,10 @@ int itemsPropCount(QQmlListProperty<PlaylistItem>* list)
 
 PlaylistItem* itemsPropAt(QQmlListProperty<PlaylistItem>* list, int index)
 {
-    return static_cast<QList<PlaylistItem*>*>(list->data)->at(index);
+    auto l = static_cast<QList<PlaylistItem*>*>(list->data);
+    if(index < l->size())
+        return (*l)[index];
+    return nullptr;
 }
 
 }
@@ -60,10 +65,13 @@ QString PlaylistService::playlistType() const
 
 void PlaylistService::setPlaylistType(const QString &playlistType)
 {
-    playlistType_ = playlistType;
-//    playlistId_ = -1;
-    findMatchingPlaylist_();
-    emit playlistTypeChanged();
+    if(playlistType != playlistType_)
+    {
+        playlistType_ = playlistType;
+        //    playlistId_ = -1;
+        findMatchingPlaylist_();
+        emit playlistTypeChanged();
+    }
 }
 
 int PlaylistService::playlistPosition() const
@@ -76,6 +84,14 @@ void PlaylistService::setPlaylistPosition(int playlistPosition)
     playlistPosition_ = playlistPosition;
     emit playlistPositionChanged();
     emit itemsChanged();
+    for(auto player : KodiPlayerService::instance().players())
+    {
+        if(player->type() == playlistType_)
+        {
+            player->setPlaylistPosition(playlistPosition_);
+        }
+    }
+    KodiPlayerService::instance().refreshPlayerInfo();
 }
 
 const QList<PlaylistItem*> PlaylistService::currentItems() const
@@ -92,7 +108,7 @@ void PlaylistService::switchToItem(int position)
     parameters["playerid"] = playerId;
     parameters["to"] = position;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GoTo", parameters);
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }
 
 void PlaylistService::refreshPlaylist_()
@@ -111,10 +127,13 @@ void PlaylistService::refreshPlaylist_()
         properties.append(QString("album"));
         properties.append(QString("displayartist"));
         properties.append(QString("albumartist"));
+        properties.append(QString("fanart"));
+        properties.append(QString("thumbnail"));
+        properties.append(QString("showtitle"));
         parameters["properties"] = properties;
         parameters["playlistid"] = playlistId_;
         QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetItems", parameters);
-        auto reply = KodiClient::current().send(message);
+        auto reply = Client::current().send(message);
         connect(reply, SIGNAL(finished()), this, SLOT(refreshPlaylistCb_()));
     }
     else
@@ -143,11 +162,24 @@ void PlaylistService::refreshPlaylistCb_()
                         PlaylistItem* item = new PlaylistItem(this);
                         item->setAlbumId(val.value("albumid").toInt());
                         item->setArtistId(val.value("artistid").toInt());
+                        QString type = val.value("type").toString();
+                        int id = val.value("id").toInt();
+                        if(type == "song")
+                            item->setSongId(id);
+                        else if(type == "movie")
+                            item->setMovieId(id);
+                        else if(type == "episode")
+                            item->setEpisodeId(id);
+                        else if(type == "musicvideo")
+                            item->setMusicvideoId(id);
                         item->setFile(val.value("file").toString());
                         item->setLabel(val.value("label").toString());
                         item->setType(val.value("type").toString());
                         item->setAlbum(val.value("album").toString());
                         item->setArtist(val.value("displayartist").toString());
+                        item->setFanart(getImageUrl(val.value("fanart").toString()).toString());
+                        item->setThumbnail(getImageUrl(val.value("thumbnail").toString()).toString());
+                        item->setTvshow(val.value("showtitle").toString());
                         currentItems_.push_back(item);
                     }
                 }
@@ -172,7 +204,7 @@ void PlaylistService::refreshPlaylistCb_()
 void PlaylistService::findMatchingPlaylist_()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetPlaylists");
-    auto reply = KodiClient::current().send(message);
+    auto reply = Client::current().send(message);
     connect(reply, SIGNAL(finished()), this, SLOT(findMatchingPlaylistCb_()));
 }
 
@@ -244,7 +276,7 @@ void PlaylistService::clearPlaylist()
     QJsonObject params;
     params.insert("playlistid", playlistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }
 
 void PlaylistService::removeElement(int index)
@@ -254,7 +286,48 @@ void PlaylistService::removeElement(int index)
     params.insert("playlistid", playlistId_);
     params.insert("position", index);
     message = QJsonRpcMessage::createRequest("Playlist.Remove", params);
-    KodiClient::current().send(message);
+    Client::current().send(message);
+}
+
+void PlaylistService::setCurrentlyPlayedItem_(int /*playerId*/, QString type, int id)
+{
+    bool found = false;
+    for(int i = 0; i < currentItems_.size(); ++i)
+    {
+        auto item = currentItems_[i];
+        if(type == "song")
+        {
+            if(item->songId() == id)
+            {
+                setPlaylistPosition(i);
+                found = true;
+            }
+        }
+        else if(type == "movie")
+        {
+            if(item->movieId() == id)
+            {
+                found = true;
+                setPlaylistPosition(i);
+            }
+        }
+        else if(type == "episode")
+        {
+            if(item->episodeId() == id)
+            {
+                found = true;
+                setPlaylistPosition(i);
+            }
+        }
+        else if(type == "musicvideo")
+            if(item->musicvideoId() == id)
+            {
+                found = true;
+                setPlaylistPosition(i);
+            }
+    }
+    if(!found)
+        refreshPlaylist_();
 }
 
 void PlaylistService::handlePlayerChanged_()

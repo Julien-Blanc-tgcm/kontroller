@@ -5,41 +5,31 @@ Rectangle {
     color:"#000"
     anchors.fill: parent
     id: main
-    states: [
-        State {
-            name: "remote"
-        },
-        State {
-            name: "settings"
-        },
-        State {
-            name: "music"
-        },
-        State {
-            name: "videos"
-        },
-        State {
-            name: "other"
-        }
-    ]
 
     RemoteControl {
         id:remote
-        visible: main.state === "remote" || main.state == ""
-        state: "remote"
         anchors.top: parent.top
-        anchors.bottom: status.top
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
     }
 
-    SettingsPage {
-        id:settings
-        visible: main.state === "settings"
+    CurrentlyPlaying {
+        id : currentplaying
         anchors.top: parent.top
-        anchors.bottom: status.top
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        visible:false
+    }
+
+    SettingsPage {
+        id:settings
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        visible:false
     }
 
     property var musicList;
@@ -68,11 +58,16 @@ Rectangle {
                 settings.visible = false
                 settings.focus = false
             }
+            if(currentplaying)
+            {
+                currentplaying.visible = false
+                currentplaying.focus = false
+            }
         }
     }
 
 
-    StatusBar {
+  /*  StatusBar {
         id:status
         anchors.bottom: parent.bottom
         height: computeStatusBarHeight()
@@ -81,20 +76,19 @@ Rectangle {
         onPlaylistClicked: showPlaylist(type)
         onStateChanged: focusAccordingToState()
         z:2
-    }
+    }*/
     Hideable {
         id:flickable
         anchorRaised:main.top
-        anchorFlicked:status.top
+        anchorFlicked:main.bottom
         anchors.left: main.left
         anchors.right: main.right
-        anchors.bottom: status.top
+        anchors.bottom: main.bottom
     }
 
     function activateSettingsPage() {
         creator.hideAllPages()
         settings.visible = true;
-        main.state = "settings"
     }
 
     function activateMusicPage() {
@@ -125,7 +119,6 @@ Rectangle {
         }
         else
             console.log(creator.listComponent.errorString());
-        main.state = "music"
     }
 
     function activateVideosPage() {
@@ -157,13 +150,16 @@ Rectangle {
         }
         else
             console.log(creator.listComponent.errorString());
-        main.state = "videos"
     }
 
     function activateRemotePage() {
         creator.hideAllPages()
         remote.visible = true;
-        main.state = "remote"
+    }
+
+    function activateCurrentlyPlayingPage() {
+        creator.hideAllPages()
+        currentplaying.visible = true;
     }
 
     function createMusicListComponent() {

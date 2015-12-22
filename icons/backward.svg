@@ -15,8 +15,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="backward.svg"
-   inkscape:export-filename="/home/whity/dev/telexbmc/icons/backward_128x128.png"
+   sodipodi:docname="prev.svg"
+   inkscape:export-filename="/home/whity/dev/telexbmc/icons/next_128x128.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -516,37 +516,6 @@
        y1="19.714285"
        x2="60.857143"
        y2="108.28571" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3818-5-2"
-       id="linearGradient4001"
-       x1="108.85714"
-       y1="23.178568"
-       x2="108.64286"
-       y2="111.75"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1,0,0,0.99757083,2,921.41802)" />
-    <linearGradient
-       id="linearGradient3818-5-2">
-      <stop
-         style="stop-color:#000055;stop-opacity:1;"
-         offset="0"
-         id="stop3820-5-1" />
-      <stop
-         style="stop-color:#0000cc;stop-opacity:1;"
-         offset="1"
-         id="stop3822-7-3" />
-    </linearGradient>
-    <linearGradient
-       y2="111.75"
-       x2="108.64286"
-       y1="23.178568"
-       x1="108.85714"
-       gradientTransform="matrix(1,0,0,0.99757083,-90.25,921.41798)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient4018"
-       xlink:href="#linearGradient3818-5-2"
-       inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -556,7 +525,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="-34.48699"
+     inkscape:cx="22.298724"
      inkscape:cy="51.582573"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -599,12 +568,5 @@
          d="m 47.964286,944.79074 71.214284,44 -71.214284,44.00006 z"
          style="fill:url(#linearGradient4038);fill-opacity:1;stroke:none" />
     </g>
-    <rect
-       style="fill:url(#linearGradient4018);fill-opacity:1;stroke:none"
-       id="rect3224"
-       width="18.214285"
-       height="88"
-       x="9.0357132"
-       y="944.36218" />
   </g>
 </svg>

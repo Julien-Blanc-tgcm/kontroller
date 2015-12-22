@@ -49,6 +49,7 @@ public slots:
     void clearPlaylist();
     void removeElement(int index);
 private slots:
+    void setCurrentlyPlayedItem_(int playerId, QString type, int id);
     void refreshPlaylist_();
     void refreshPlaylistCb_();
     void findMatchingPlaylist_();

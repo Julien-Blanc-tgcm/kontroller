@@ -1,5 +1,5 @@
 #include "seasoninformationservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include <QStringList>
 #include "tvshowepisodesrequest.h"
 #include "utils.h"
@@ -79,7 +79,10 @@ int episodesPropCount(QQmlListProperty<KodiFile>* list)
 
 KodiFile* episodesPropAt(QQmlListProperty<KodiFile>* list, int index)
 {
-    return static_cast<std::vector<KodiFile*>*>(list->data)->at(index);
+    auto l = static_cast<std::vector<KodiFile*>*>(list->data);
+    if(index < (int)l->size())
+        return (*l)[index];
+    return nullptr;
 }
 
 }
@@ -123,7 +126,7 @@ void SeasonInformationService::refresh()
     properties.append(QString("art"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetSeasons", parameters);
-    auto reply = KodiClient::current().send(message);
+    auto reply = Client::current().send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, &SeasonInformationService::handleRefresh_);
     refreshEpisodes_();
 }

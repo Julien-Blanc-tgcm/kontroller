@@ -18,6 +18,7 @@ public:
     Q_PROPERTY(QString mediaId READ mediaId WRITE setMediaId NOTIFY mediaIdChanged)
     Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged)
     Q_PROPERTY(PlaylistItem* currentItem READ currentItem NOTIFY currentItemChanged)
+    Q_PROPERTY(PlaylistItem* nextItem READ nextItem NOTIFY currentItemChanged)
 
     QString playerType() const;
 
@@ -28,6 +29,7 @@ public:
     int artistId() const;
 
     PlaylistItem* currentItem();
+    PlaylistItem* nextItem();
 
 signals:
 
@@ -40,6 +42,7 @@ signals:
     void artistIdChanged(int artistId);
 
     void currentItemChanged();
+
 
 public slots:
     void setPlayerType(QString playerType);

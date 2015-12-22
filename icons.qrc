@@ -20,5 +20,9 @@
         <file alias="home.png">icons/home_128x128.png</file>
         <file alias="contextmenu.png">icons/contextmenu_128x128.png</file>
         <file alias="info.png">icons/info_128x128.png</file>
+        <file alias="backward.png">icons/backward_128x128.png</file>
+        <file alias="forward.png">icons/forward.png</file>
+        <file alias="shuffledisabled.png">icons/shuffledisabled_128x128.png</file>
+        <file alias="shuffleenabled.png">icons/shuffleenabled_128x128.png</file>
     </qresource>
 </RCC>

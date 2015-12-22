@@ -109,9 +109,36 @@ bool KodiPlayer::partyMode() const
     return partyMode_;
 }
 
-bool KodiPlayer::subtitlesEnabled() const
+/*bool KodiPlayer::subtitlesEnabled() const
 {
     return subtitlesEnabled_;
+}*/
+
+namespace {
+int propSubtitlesCount(QQmlListProperty<Subtitle>* list)
+{
+    return static_cast<std::vector<Subtitle*>*>(list->data)->size();
+}
+
+Subtitle* propSubtitlesAt(QQmlListProperty<Subtitle>*list, int index)
+{
+    auto l = static_cast<std::vector<Subtitle*>*>(list->data);
+    if(index < (int)l->size())
+        return (*l)[index];
+    return nullptr;
+}
+}
+
+QQmlListProperty<Subtitle> KodiPlayer::subtitles()
+{
+    return QQmlListProperty<Subtitle>(this, &subtitles_, &propSubtitlesCount, &propSubtitlesAt);
+}
+
+void KodiPlayer::setSubtitles(std::vector<Subtitle*>&& subtitles, int currentSubtitleIndex)
+{
+    subtitles_ = std::move(subtitles);
+    currentSubtitleIndex_ = currentSubtitleIndex;
+    emit subtitlesChanged();
 }
 
 void KodiPlayer::setPercentage(double percentage)
@@ -208,20 +235,21 @@ void KodiPlayer::setPartyMode(bool partyMode)
     emit partyModeChanged(partyMode);
 }
 
-void KodiPlayer::setSubtitlesEnabled(bool subtitlesEnabled)
+/*void KodiPlayer::setSubtitlesEnabled(bool subtitlesEnabled)
 {
     if (subtitlesEnabled_ == subtitlesEnabled)
         return;
 
     subtitlesEnabled_ = subtitlesEnabled;
-    emit subtitlesEnabledChanged(subtitlesEnabled);
-}
+    emit subtitlesChanged();
+}*/
 
 void KodiPlayer::updateTimer_()
 {
     time_ += timer_.interval();
     if(totalTime_ != 0)
         setPercentage(100 * (double)time_ / (double)totalTime_);
+    emit timeChanged(time_);
 }
 
 KodiPlayer::KodiPlayer(QObject *parent) :

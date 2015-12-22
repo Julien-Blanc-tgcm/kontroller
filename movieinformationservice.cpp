@@ -1,5 +1,5 @@
 #include "movieinformationservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodifile.h"
 #include "videocontrol.h"
 #include "utils.h"
@@ -116,7 +116,7 @@ void MovieInformationService::refresh()
     properties.append(QString("file"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetMovieDetails", parameters);
-    auto reply = KodiClient::current().send(message);
+    auto reply = Client::current().send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, &MovieInformationService::handleRefresh_);
 }
 

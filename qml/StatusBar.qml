@@ -13,7 +13,7 @@ Rectangle {
 
     signal playlistClicked(string type)
 
-    KodiPlayerControl {
+    PlayerControl {
         id: playerController
     }
 
@@ -21,7 +21,7 @@ Rectangle {
         anchors.fill: parent
         text: "Unconnected"
         color: "#ff0000";
-        visible: status.connectionStatus === 0
+        visible: status.connectionStatus === 0 || !status.wifiEnabled
     }
     Text {
         anchors.fill: parent
@@ -39,7 +39,7 @@ Rectangle {
     Rectangle {
         color:"#000"
         anchors.fill: parent
-        visible: status.connectionStatus === 2 && playerController.players.length > activePlayer
+        visible: status.connectionStatus === 2 && playerController.players.length > activePlayer && status.wifiEnabled
         Image {
             source : {
                 if(playerController.players.length > activePlayer)
@@ -149,19 +149,6 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top:parent.top
-    }
-    Rectangle
-    {
-        color:"#0000ff"
-        height:12
-        x:0
-        y:1
-        width: {
-            if(activePlayer < playerController.players.length)
-                return playerController.players[activePlayer].percentage * parent.width / 100
-            else
-                return 0;
-        }
     }
 
     function activePlayerId()

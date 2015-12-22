@@ -1,10 +1,10 @@
-#ifndef KODICLIENT_H
-#define KODICLIENT_H
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <QObject>
 #include <qjsonrpchttpclient.h>
 
-class KodiClient : public QObject
+class Client : public QObject
 {
     Q_OBJECT
 
@@ -25,10 +25,10 @@ class KodiClient : public QObject
 
     void freeConnections();
 public:
-    explicit KodiClient(QObject *parent = 0);
-    ~KodiClient();
+    explicit Client(QObject *parent = 0);
+    ~Client();
 
-    static KodiClient& current();
+    static Client& current();
 
     void setServerAddress(QString address);
 
@@ -81,12 +81,14 @@ signals:
     // these ones are the notifications the kodi api can send
     // note that if using HTTP transport, no notifications will be available
     void playerSpeedChanged(int playerid, int speed);
+    void playlistCurrentItemChanged(int playerid, QString type, int id);
     // a player stopped (any player, information not in notification)
     void playerStopped();
 
     void playlistCleared(int playlistId);
     void playlistElementRemoved(int playlistId, int position);
     void playlistElementAdded(int playlistId);
+    void playerSeekChanged(int playerId, int hours, int minutes, int seconds, int milliseconds);
 };
 
-#endif // KODICLIENT_H
+#endif // CLIENT_H

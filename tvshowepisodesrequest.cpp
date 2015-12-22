@@ -1,5 +1,5 @@
 #include "tvshowepisodesrequest.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodifile.h"
 
 
@@ -21,11 +21,11 @@ void TvShowEpisodesRequest::start(int tvshowId, int season)
     parameters.insert("season", season);
     parameters.insert("tvshowid", tvshowId);
     QJsonObject sort;
-    sort.insert("order", "ascending");
-    sort.insert("method", "episode");
+    sort.insert("order", QLatin1String("ascending"));
+    sort.insert("method", QLatin1String("episode"));
     parameters.insert("sort", sort);
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetEpisodes", parameters);
-    QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+    QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)
         connect(reply, &QJsonRpcServiceReply::finished, this, &TvShowEpisodesRequest::parseEpisodesResult_);
 }

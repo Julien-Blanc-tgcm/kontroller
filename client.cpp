@@ -1,8 +1,8 @@
-#include "kodiclient.h"
+#include "client.h"
 #include <QSettings>
 #include "kodisettingsmanager.h"
 
-KodiClient::KodiClient(QObject *parent) :
+Client::Client(QObject *parent) :
     QObject(parent),
     serverPort_(9090),
     serverHttpPort_(8080),
@@ -13,12 +13,12 @@ KodiClient::KodiClient(QObject *parent) :
 {
 }
 
-KodiClient::~KodiClient()
+Client::~Client()
 {
     freeConnections();
 }
 
-void KodiClient::freeConnections()
+void Client::freeConnections()
 {
     if(client_)
         client_->deleteLater();
@@ -31,13 +31,13 @@ void KodiClient::freeConnections()
     tcpClient_ = nullptr;
 }
 
-KodiClient& KodiClient::current()
+Client& Client::current()
 {
-    static KodiClient instance_;
+    static Client instance_;
     return instance_;
 }
 
-void KodiClient::setServerAddress(QString address)
+void Client::setServerAddress(QString address)
 {
     if(serverAddress_ != address)
     {
@@ -46,12 +46,12 @@ void KodiClient::setServerAddress(QString address)
     }
 }
 
-QString KodiClient::serverAddress() const
+QString Client::serverAddress() const
 {
     return serverAddress_;
 }
 
-void KodiClient::setServerPort(int port)
+void Client::setServerPort(int port)
 {
     if(serverPort_ != port)
     {
@@ -60,17 +60,17 @@ void KodiClient::setServerPort(int port)
     }
 }
 
-int KodiClient::serverPort() const
+int Client::serverPort() const
 {
     return serverPort_;
 }
 
-int KodiClient::serverHttpPort() const
+int Client::serverHttpPort() const
 {
     return serverHttpPort_;
 }
 
-void KodiClient::refresh()
+void Client::refresh()
 {
     freeConnections();
     if(serverAddress_.size() > 0 && serverPort_ > 0)
@@ -90,12 +90,12 @@ void KodiClient::refresh()
     }
 }
 
-int KodiClient::connectionStatus() const
+int Client::connectionStatus() const
 {
     return connectionStatus_;
 }
 
-void KodiClient::handleError(QJsonRpcMessage error)
+void Client::handleError(QJsonRpcMessage error)
 {
     if(error.errorCode() == QJsonRpc::ErrorCode::TimeoutError)
     {
@@ -112,22 +112,24 @@ void KodiClient::handleError(QJsonRpcMessage error)
     }
 }
 
-QJsonRpcServiceReply* KodiClient::send(QJsonRpcMessage message)
+QJsonRpcServiceReply* Client::send(QJsonRpcMessage message)
 {
     if(connectionStatus_ == 0)
+    {
         setConnectionStatus(1);
+        refresh();
+    }
     if(tcpClient_)
     {
         auto reply = tcpClient_->sendMessage(message);
         connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
-        qDebug() << message;
         return reply;
     }
     else
         return nullptr;
 }
 
-QJsonRpcServiceReply *KodiClient::httpSend(QJsonRpcMessage message)
+QJsonRpcServiceReply *Client::httpSend(QJsonRpcMessage message)
 {
     if(!client_)
     {
@@ -138,7 +140,7 @@ QJsonRpcServiceReply *KodiClient::httpSend(QJsonRpcMessage message)
     return reply;
 }
 
-void KodiClient::handleReplyFinished()
+void Client::handleReplyFinished()
 {
     QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
@@ -155,26 +157,26 @@ void KodiClient::handleReplyFinished()
     reply->deleteLater();
 }
 
-void KodiClient::setConnectionStatus(int connectionStatus)
+void Client::setConnectionStatus(int connectionStatus)
 {
     connectionStatus_ = connectionStatus;
     emit connectionStatusChanged(connectionStatus_);
 }
 
-void KodiClient::handleConnectionSuccess()
+void Client::handleConnectionSuccess()
 {
     tcpClient_ = new QJsonRpcSocket(clientSocket_);
     connect(tcpClient_, SIGNAL(messageReceived(QJsonRpcMessage)), this, SLOT(handleMessageReceived(QJsonRpcMessage)));
     setConnectionStatus(2);
 }
 
-void KodiClient::handleConnectionError(QAbstractSocket::SocketError err)
+void Client::handleConnectionError(QAbstractSocket::SocketError err)
 {
     setConnectionStatus(0);
     qDebug() << err;
 }
 
-void KodiClient::handleMessageReceived(QJsonRpcMessage message)
+void Client::handleMessageReceived(QJsonRpcMessage message)
 {
 /*    QJsonValue result_ = message.result();
     if(!result_.isObject())
@@ -185,19 +187,29 @@ void KodiClient::handleMessageReceived(QJsonRpcMessage message)
         QString method = message.method();
         if(method == "Player.OnPause" || method == "Player.OnPlay")
         {
-            QJsonValue player = message.params().toObject().value("data").toObject().value("player");
-            if(player.isObject())
-            {
-                auto playerIdVal = player.toObject().value("playerid");
-                if(!playerIdVal.isDouble())
-                    return;
-                int playerid = (int)playerIdVal.toDouble();
-                auto speedVal = player.toObject().value("speed");
-                if(!speedVal.isDouble())
-                    return;
-                int speed = (int)speedVal.toDouble();
-                emit playerSpeedChanged(playerid, speed);
-            }
+            QJsonObject data = message.params().toObject().value("data").toObject();
+            QJsonValue player = data.value("player");
+            int playerId;
+            int speed;
+            int itemId = -1;
+            if(!player.isObject())
+                return;
+            auto playerIdVal = player.toObject().value("playerid");
+            if(!playerIdVal.isDouble())
+                return;
+            playerId = (int)playerIdVal.toDouble();
+            auto speedVal = player.toObject().value("speed");
+            if(!speedVal.isDouble())
+                return;
+            speed = (int)speedVal.toDouble();
+            emit playerSpeedChanged(playerId, speed);
+            QJsonObject item = data.value("item").toObject();
+            QJsonValue id = item.value("id");
+            QString type = item.value("type").toString();
+            if(id.isDouble())
+                itemId = (int)id.toDouble();
+            emit playlistCurrentItemChanged(playerId, type, itemId);
+            qDebug() << message;
         }
         else if(method == "Player.OnStop")
         {
@@ -230,6 +242,27 @@ void KodiClient::handleMessageReceived(QJsonRpcMessage message)
                 QJsonValue playlistId = data.value("playlistid");
                 if(playlistId.isDouble())
                     emit playlistElementAdded((int)playlistId.toDouble());
+            }
+        }
+        else if(method == "Player.OnSeek")
+        {
+            QJsonObject data = message.params().toObject().value("data").toObject();
+            if(!data.isEmpty())
+            {
+                QJsonObject player = data.value("player").toObject();
+                if(!player.isEmpty())
+                {
+                    int playerId = player.value("playerId").toDouble();
+                    QJsonObject offset = player.value("seekoffset").toObject();
+                    if(!offset.isEmpty())
+                    {
+                        int hours = offset.value("hours").toDouble();
+                        int minutes = offset.value("minutes").toDouble();
+                        int seconds = offset.value("seconds").toDouble();
+                        int milliseconds = offset.value("milliseconds").toDouble();
+                        emit playerSeekChanged(playerId, hours, minutes, seconds, milliseconds);
+                    }
+                }
             }
         }
         else

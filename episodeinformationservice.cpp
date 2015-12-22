@@ -1,5 +1,5 @@
 #include "episodeinformationservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "utils.h"
 #include "videocontrol.h"
 #include "kodifile.h"
@@ -200,7 +200,7 @@ void EpisodeInformationService::refresh()
 
         parameters["properties"] = properties;
         QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetEpisodeDetails", parameters);
-        auto reply = KodiClient::current().send(message);
+        auto reply = Client::current().send(message);
         connect(reply, &QJsonRpcServiceReply::finished, this, &EpisodeInformationService::handleRefresh_);
     }
 }

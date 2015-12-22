@@ -1,5 +1,5 @@
 #include "albuminformationservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "songsrequest.h"
 #include "utils.h"
 
@@ -11,7 +11,11 @@ int filesPropCount(QQmlListProperty<KodiFile>* list)
 
 KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->at(index);
+    auto l = static_cast<QList<KodiFile*>*>(list->data);
+    if(index < l->size())
+        return (*l)[index];
+    else
+        return nullptr;
 }
 }
 
@@ -132,7 +136,7 @@ void AlbumInformationService::refresh()
     properties.append(QString("rating"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbumDetails", parameters);
-    auto reply = KodiClient::current().send(message);
+    auto reply = Client::current().send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumInformationService::handleRefresh_);
     auto songsQuery = new SongsRequest();
     connect(songsQuery, &SongsRequest::finished, this, &AlbumInformationService::handleSongs_);

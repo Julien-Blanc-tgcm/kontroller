@@ -1,6 +1,6 @@
 #include "videocontrol.h"
 
-#include "kodiclient.h"
+#include "client.h"
 #include "kodifile.h"
 
 VideoControl::VideoControl(QObject *parent) : QObject(parent)
@@ -24,7 +24,7 @@ void VideoControl::clearPlaylist()
     QJsonObject params;
     params.insert("playlistid", videoPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }
 
 void VideoControl::addToPlaylist(KodiFile* file)
@@ -49,7 +49,7 @@ void VideoControl::addToPlaylist(KodiFile* file)
         params.insert("item", item);
         params.insert("playlistid", videoPlaylistId_);
         message = QJsonRpcMessage::createRequest("Playlist.Add", params);
-        KodiClient::current().send(message);
+        Client::current().send(message);
     }
 }
 
@@ -61,5 +61,5 @@ void VideoControl::startPlaying()
     item.insert("playlistid", videoPlaylistId_);
     params.insert("item", item);
     message = QJsonRpcMessage::createRequest("Player.Open", params);
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }

@@ -57,6 +57,8 @@ private slots:
 
     void updatePlayerSpeed(int playerId, int speed);
     void stopPlayer_();
+
+    void updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds);
 };
 
 #endif // KODIPLAYERSERVICE_H

@@ -1,5 +1,5 @@
 import QtQuick 2.2
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.4
 import eu.tgcm 1.0
 
 ApplicationWindow {
@@ -31,11 +31,15 @@ ApplicationWindow {
                 text: qsTr("Videos")
                 onTriggered: main.activateVideosPage()
             }
-
+            MenuItem {
+                text: qsTr("Now playing")
+                onTriggered: main.activateCurrentlyPlayingPage()
+            }
             MenuItem {
                 text: qsTr("Settings")
                 onTriggered: main.activateSettingsPage()
             }
+
             MenuItem {
                 text: qsTr("Exit")
                 onTriggered: Qt.quit();
@@ -53,5 +57,20 @@ ApplicationWindow {
             }
         }
         anchors.fill: parent
+    }
+
+    StatusService {
+        id:status
+        onConnectionStatusChanged: {
+            if(connectionStatus === 2)
+                main.activateCurrentlyPlayingPage()
+        }
+    }
+
+    Component.onCompleted: {
+        if(!status.settingsSet)
+        {
+            main.activateSettingsPage()
+        }
     }
 }

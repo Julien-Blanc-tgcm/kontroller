@@ -68,7 +68,14 @@ double getCorrectionFactor(double dpi, double distance)
     double pixelsOnDevice = deviceCm * pow(dpi, 2) / 2.54;
     double referencePixels = 1.0 * pow(96,2) / 2.54;
 
-    return sqrt(pixelsOnDevice / referencePixels);
+    double ratio =  sqrt(pixelsOnDevice / referencePixels);
+    // now, text is more lisible if on a high dpi device, so we can reduce its size
+    // accordingly
+    if(ratio * 12 > 18)
+    {
+        ratio = ratio * 12 / 18;
+    }
+    return ratio;
 }
 
 double computeTouchCorrectionFactor(double dpi, double scalingFactor)
@@ -93,7 +100,11 @@ DeviceInformation::Impl&DeviceInformation::internal()
     return i;
 }
 
+#ifdef SAILFISH_TARGET
+void DeviceInformation::setup(QGuiApplication &app)
+#else
 void DeviceInformation::setup(QApplication &app)
+#endif
 {
     QRect rect = app.primaryScreen()->geometry();
     internal().deviceDpi = app.primaryScreen()->physicalDotsPerInch();

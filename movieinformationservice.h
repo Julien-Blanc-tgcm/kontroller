@@ -2,6 +2,7 @@
 #define MOVIEINFORMATIONSERVICE_H
 
 #include <QObject>
+#include <QStringList>
 
 class MovieInformationService : public QObject
 {

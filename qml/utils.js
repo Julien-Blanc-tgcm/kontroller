@@ -48,3 +48,24 @@ function join(vals, sep)
     }
     return ret;
 }
+
+function formatMsecTime(time)
+{
+    var timeInSec = Math.floor(time / 1000);
+    if(timeInSec < 0)
+        return "0:00";
+    var secs = timeInSec % 60;
+    var timeInMins = Math.floor(timeInSec / 60);
+    var mins = timeInMins % 60;
+    var hours = Math.floor(timeInMins / 60);
+    var ret = "";
+    if(hours > 0)
+        ret += hours + ":";
+    if( mins < 10 && hours > 0)
+        ret += "0";
+    ret += mins + ":";
+    if(secs < 10)
+        ret += "0"
+    ret += secs;
+    return ret;
+}

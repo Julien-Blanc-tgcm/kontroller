@@ -1,5 +1,5 @@
 #include "musiccontrol.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodifile.h"
 MusicControl::MusicControl(QObject *parent) : QObject(parent)
 {
@@ -34,7 +34,7 @@ void MusicControl::addToPlaylist(KodiFile *file)
         params.insert("item", item);
         params.insert("playlistid", audioPlaylistId_);
         message = QJsonRpcMessage::createRequest("Playlist.Add", params);
-        KodiClient::current().send(message);
+        Client::current().send(message);
     }
 }
 
@@ -46,7 +46,7 @@ void MusicControl::startPlaying()
     item.insert("playlistid", audioPlaylistId_);
     params.insert("item", item);
     message = QJsonRpcMessage::createRequest("Player.Open", params);
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }
 
 void MusicControl::clearPlaylist()
@@ -55,5 +55,5 @@ void MusicControl::clearPlaylist()
     QJsonObject params;
     params.insert("playlistid", audioPlaylistId_);
     message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }

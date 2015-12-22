@@ -17,8 +17,14 @@ class PlaylistItem : public QObject
     int movieId_;
     int episodeId_;
     int musicvideoId_;
+    int songId_;
     QString artist_;
     QString album_;
+    QString fanart_;
+    QString thumbnail_;
+    QString tvshow_;
+
+
 
 public:
     explicit PlaylistItem(QObject *parent = 0);
@@ -31,8 +37,12 @@ public:
     Q_PROPERTY(int movieId READ movieId WRITE setMovieId NOTIFY movieIdChanged)
     Q_PROPERTY(int episodeId READ episodeId WRITE setEpisodeId NOTIFY episodeIdChanged)
     Q_PROPERTY(int musicvideoId READ musicvideoId WRITE setMusicvideoId NOTIFY musicvideoIdChanged)
+    Q_PROPERTY(int songId READ songId WRITE setSongId NOTIFY songIdChanged)
     Q_PROPERTY(QString artist READ artist WRITE setArtist NOTIFY artistChanged)
     Q_PROPERTY(QString album READ album WRITE setAlbum NOTIFY albumChanged)
+    Q_PROPERTY(QString fanart READ fanart WRITE setFanart NOTIFY fanartChanged)
+    Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
+    Q_PROPERTY(QString tvshow READ tvshow WRITE setTvshow NOTIFY tvshowChanged)
 
     /**
      * @brief type the type of the playlist list item, may be photo, video or audio
@@ -78,6 +88,26 @@ public:
         return album_;
     }
 
+    QString fanart() const
+    {
+        return fanart_;
+    }
+
+    QString thumbnail() const
+    {
+        return thumbnail_;
+    }
+
+    int songId() const
+    {
+        return songId_;
+    }
+
+    QString tvshow() const
+    {
+        return tvshow_;
+    }
+
 signals:
     void typeChanged();
     void fileChanged();
@@ -93,6 +123,14 @@ signals:
     void artistChanged(QString artist);
 
     void albumChanged(QString album);
+
+    void fanartChanged(QString fanart);
+
+    void thumbnailChanged(QString thumbnail);
+
+    void songIdChanged(int songId);
+
+    void tvshowChanged(QString tvshow);
 
 public slots:
 void setMovieId(int movieId)
@@ -134,6 +172,38 @@ void setAlbum(QString album)
 
     album_ = album;
     emit albumChanged(album);
+}
+void setFanart(QString fanart)
+{
+    if (fanart_ == fanart)
+        return;
+
+    fanart_ = fanart;
+    emit fanartChanged(fanart);
+}
+void setThumbnail(QString thumbnail)
+{
+    if (thumbnail_ == thumbnail)
+        return;
+
+    thumbnail_ = thumbnail;
+    emit thumbnailChanged(thumbnail);
+}
+void setSongId(int songId)
+{
+    if (songId_ == songId)
+        return;
+
+    songId_ = songId;
+    emit songIdChanged(songId);
+}
+void setTvshow(QString tvshow)
+{
+    if (tvshow_ == tvshow)
+        return;
+
+    tvshow_ = tvshow;
+    emit tvshowChanged(tvshow);
 }
 };
 

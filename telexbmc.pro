@@ -1,14 +1,15 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick
+QT += widgets
+
+#CONFIG += sailfishapp
 
 SOURCES += main.cpp \
     musicservice.cpp \
     kodifile.cpp \
-    kodiclient.cpp \
     kodiremote.cpp \
     kodisettings.cpp \
-    kodiplayercontrol.cpp \
     kodisettingsmanager.cpp \
     statusservice.cpp \
     kodiplayer.cpp \
@@ -31,7 +32,10 @@ SOURCES += main.cpp \
     episodeinformationservice.cpp \
     kodiplayinginformation.cpp \
     playlistcontrol.cpp \
-    playlistitem.cpp
+    playlistitem.cpp \
+    playercontrol.cpp \
+    subtitle.cpp \
+    client.cpp
 
 RESOURCES += qml/qml.qrc \
     icons.qrc
@@ -46,12 +50,22 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
+#MER_TARGET=SailfishOS-armv7hl
+
 equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
   LIBS += -L../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Release/src
   LIBS += -L../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src
 } else {
+  equals(MER_TARGET,SailfishOS-armv7hl) {
+    LIBS += -L../qjsonrpc-Mer/src
+  } else {
   LIBS += -L../qjsonrpc-Desktop_Qt_5_2_1_GCC_64bit-Debug/src
   LIBS += -L../qjsonrpc-Qt5_desktop-Release/src
+  }
+}
+
+CONFIG(sailfishapp) {
+  DEFINES+= SAILFISH_TARGET
 }
 
 #LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
@@ -60,10 +74,8 @@ LIBS += -lqjsonrpc
 HEADERS += \
     musicservice.h \
     kodifile.h \
-    kodiclient.h \
     kodiremote.h \
     kodisettings.h \
-    kodiplayercontrol.h \
     kodisettingsmanager.h \
     statusservice.h \
     kodiplayer.h \
@@ -86,7 +98,10 @@ HEADERS += \
     episodeinformationservice.h \
     kodiplayinginformation.h \
     playlistcontrol.h \
-    playlistitem.h
+    playlistitem.h \
+    playercontrol.h \
+    subtitle.h \
+    client.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -99,5 +114,14 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 }
 
 DISTFILES += \
-    qml/qmldir
+    qml/qmldir \
+    telexbmc.prf \
+    rpm/telexbmc.yaml \
+    telexbmc.desktop
 
+equals(MER_TARGET,SailfishOS-armv7hl) {
+message(deploying lib)
+lib.path = /usr/share/telexbmc/lib/
+lib.files += ../qjsonrpc-Mer/src/libqjsonrpc.so.1
+INSTALLS += lib
+}

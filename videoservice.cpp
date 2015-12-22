@@ -1,5 +1,5 @@
 #include "videoservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodisettingsmanager.h"
 #include "tvshowseasonsrequest.h"
 #include "tvshowepisodesrequest.h"
@@ -13,7 +13,10 @@ int filesPropCount(QQmlListProperty<KodiFile>* list)
 
 KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
 {
-    return static_cast<std::vector<KodiFile*>*>(list->data)->at(index);
+    auto l = static_cast<std::vector<KodiFile*>*>(list->data);
+    if(index < (int)l->size())
+        return (*l)[index];
+    return nullptr;
 }
 }
 
@@ -84,7 +87,7 @@ void VideoService::refresh()
 void VideoService::refreshCollection()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.Scan");
-    KodiClient::current().send(message);
+    Client::current().send(message);
 }
 
 void VideoService::setFiles(const std::vector<KodiFile *> &value)
@@ -146,7 +149,7 @@ void VideoService::refresh_files()
         parameters.insert("media", QString::fromLatin1("video"));
         message = QJsonRpcMessage::createRequest("Files.GetSources", parameters);
     }
-    QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+    QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)
         connect(reply, SIGNAL(finished()), this, SLOT(parseDirectoryResults()));
 }
@@ -168,28 +171,28 @@ void VideoService::refresh_collection()
             if(browsingValue_ == "movies")
             {
                 message = QJsonRpcMessage::createRequest("VideoLibrary.GetMovies", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+                QJsonRpcServiceReply* reply = Client::current().send(message);
                 if(reply)
                     connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseMoviesResults_);
             }
             else if(browsingValue_ == "tvshows")
             {
                 message = QJsonRpcMessage::createRequest("VideoLibrary.GetTVShows", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+                QJsonRpcServiceReply* reply = Client::current().send(message);
                 if(reply)
                     connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseTVShowsResults_);
             }
             else if(browsingValue_ == "musicvideos")
             {
                 message = QJsonRpcMessage::createRequest("VideoLibrary.GetMusicVideos", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+                QJsonRpcServiceReply* reply = Client::current().send(message);
                 if(reply)
                     connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseMusicVideosResults_);
             }
             else if(browsingValue_ == "genres")
             {
                 message = QJsonRpcMessage::createRequest("VideoLibrary.GetGenres", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+                QJsonRpcServiceReply* reply = Client::current().send(message);
                 if(reply)
                     connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseGenresResults_);
             }
@@ -218,7 +221,7 @@ void VideoService::refresh_collection()
             filter["albumid"] = browsingValue_.toInt();
             parameters.insert("filter", filter);
             message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+            QJsonRpcServiceReply* reply = Client::current().send(message);
             if(reply)
                 connect(reply, SIGNAL(finished()), this, SLOT(parseSongsResults()));
         }
@@ -228,7 +231,7 @@ void VideoService::refresh_collection()
             filter["genreid"] = browsingValue_.toInt();
             parameters.insert("filter", filter);
             message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+            QJsonRpcServiceReply* reply = Client::current().send(message);
             if(reply)
                 connect(reply, SIGNAL(finished()), this, SLOT(parseAlbumsResults()));
         }

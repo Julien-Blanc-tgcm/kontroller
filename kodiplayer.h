@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QTimer>
+#include "subtitle.h"
+#include <QQmlListProperty>
 
 class KodiPlayer : public QObject
 {
@@ -28,8 +30,10 @@ class KodiPlayer : public QObject
     bool partyMode_;
     bool subtitlesEnabled_;
     bool canSeek_;
-
     int playlistId_;
+    std::vector<Subtitle*> subtitles_;
+    int currentSubtitleIndex_;
+
 
 public:
     explicit KodiPlayer(QObject *parent = 0);
@@ -49,9 +53,11 @@ public:
     Q_PROPERTY(int repeat READ repeat WRITE setRepeat NOTIFY repeatChanged)
     Q_PROPERTY(bool live READ live WRITE setLive NOTIFY liveChanged)
     Q_PROPERTY(bool partyMode READ partyMode WRITE setPartyMode NOTIFY partyModeChanged)
-    Q_PROPERTY(bool subtitlesEnabled READ subtitlesEnabled WRITE setSubtitlesEnabled NOTIFY subtitlesEnabledChanged)
     Q_PROPERTY(bool canSeek READ canSeek WRITE setCanSeek NOTIFY canSeekChanged)
     Q_PROPERTY(int playlistId READ playlistId WRITE setPlaylistId NOTIFY playlistIdChanged)
+   // Q_PROPERTY(bool subtitlesEnabled READ subtitlesEnabled WRITE setSubtitlesEnabled NOTIFY subtitlesChanged)
+    Q_PROPERTY(QQmlListProperty<Subtitle> subtitles READ subtitles NOTIFY subtitlesChanged)
+    Q_PROPERTY(int currentSubtitleIndex READ currentSubtitleIndex WRITE setCurrentSubtitleIndex NOTIFY subtitlesChanged)
 
     /*!
      * \brief playerId id of the player
@@ -104,6 +110,15 @@ public:
         return playlistId_;
     }
 
+    int currentSubtitleIndex() const
+    {
+        return currentSubtitleIndex_;
+    }
+
+    QQmlListProperty<Subtitle> subtitles();
+
+    void setSubtitles(std::vector<Subtitle*> && subtitles, int currentSubtitleIndex);
+
 signals:
     void playerIdChanged();
     void typeChanged();
@@ -128,11 +143,13 @@ signals:
 
     void partyModeChanged(bool partyMode);
 
-    void subtitlesEnabledChanged(bool subtitlesEnabled);
-
     void canSeekChanged(bool canSeek);
 
     void playlistIdChanged(int playlistId);
+
+    void currentSubtitleIndexChanged(int currentSubtitleIndex);
+
+    void subtitlesChanged();
 
 public slots:
     void setPercentage(double percentage);
@@ -152,7 +169,7 @@ public slots:
 
     void setPartyMode(bool partyMode);
 
-    void setSubtitlesEnabled(bool subtitlesEnabled);
+//    void setSubtitlesEnabled(bool subtitlesEnabled);
 
     void setCanSeek(bool canSeek)
     {
@@ -170,6 +187,15 @@ public slots:
 
         playlistId_ = playlistId;
         emit playlistIdChanged(playlistId);
+    }
+
+    void setCurrentSubtitleIndex(int index)
+    {
+        if(currentSubtitleIndex_ != index)
+        {
+            currentSubtitleIndex_ = index;
+            emit subtitlesChanged();
+        }
     }
 
 private slots:

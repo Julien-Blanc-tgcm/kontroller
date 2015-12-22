@@ -15,8 +15,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="play.svg"
-   inkscape:export-filename="/home/whity/dev/telexbmc/icons/refresh.png"
+   sodipodi:docname="next.svg"
+   inkscape:export-filename="/home/whity/dev/telexbmc/icons/next.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -496,6 +496,16 @@
        id="linearGradient3994"
        xlink:href="#linearGradient3818-5"
        inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3818-5"
+       id="linearGradient4001"
+       x1="108.85714"
+       y1="23.178568"
+       x2="108.64286"
+       y2="111.75"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.99757083,2,921.41802)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -505,7 +515,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="22.298724"
+     inkscape:cx="-47.165562"
      inkscape:cy="51.582573"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -544,5 +554,12 @@
        id="rect3071-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
+    <rect
+       style="fill:url(#linearGradient4001);fill-opacity:1;stroke:none"
+       id="rect3224"
+       width="18.214285"
+       height="88"
+       x="101.28571"
+       y="944.36218" />
   </g>
 </svg>

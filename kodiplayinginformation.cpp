@@ -6,6 +6,7 @@ KodiPlayingInformation::KodiPlayingInformation(QObject *parent) : QObject(parent
 {
     connect(&KodiPlayerService::instance(), &KodiPlayerService::playersChanged, this, &KodiPlayingInformation::refreshCurrentPlayer_);
     connect(&PlaylistService::instance(), &PlaylistService::itemsChanged, this, &KodiPlayingInformation::refreshCurrentPlayer_);
+    connect(&PlaylistService::instance(), &PlaylistService::playlistPositionChanged, this, &KodiPlayingInformation::refreshCurrentPlayer_);
 }
 
 QString KodiPlayingInformation::playerType() const
@@ -28,7 +29,7 @@ int KodiPlayingInformation::artistId() const
     return artistId_;
 }
 
-PlaylistItem*KodiPlayingInformation::currentItem()
+PlaylistItem* KodiPlayingInformation::currentItem()
 {
     KodiPlayer* player = nullptr;
     for(auto p : KodiPlayerService::instance().players())
@@ -38,7 +39,23 @@ PlaylistItem*KodiPlayingInformation::currentItem()
     if(player == nullptr)
         return nullptr;
     int position = player->playlistPosition();
-    if(PlaylistService::instance().currentItems().size() > position)
+    if(position >= 0 && PlaylistService::instance().currentItems().size() > position)
+        return PlaylistService::instance().currentItems().at(position);
+    else
+        return nullptr;
+}
+
+PlaylistItem* KodiPlayingInformation::nextItem()
+{
+    KodiPlayer* player = nullptr;
+    for(auto p : KodiPlayerService::instance().players())
+    {
+        player = p;
+    }
+    if(player == nullptr)
+        return nullptr;
+    int position = player->playlistPosition() + 1;
+    if(position >= 0 && PlaylistService::instance().currentItems().size() > position)
         return PlaylistService::instance().currentItems().at(position);
     else
         return nullptr;
@@ -91,14 +108,16 @@ void KodiPlayingInformation::refreshCurrentPlayer_()
     {
         setPlayerType(player->type());
         int position = player->playlistPosition();
-        if(PlaylistService::instance().currentItems().size() > position)
+        auto list = PlaylistService::instance().currentItems();
+        if(list.size() > position && position >= 0)
         {
-            auto item = PlaylistService::instance().currentItems().at(position);
+            auto item = list.at(position);
             setMediaId(item->file());
             setMediaTitle(item->label());
             setArtistId(item->artistId());
 //            setAlbumId(item->albumId());
         }
+        connect(player, &KodiPlayer::playlistPositionChanged, this, &KodiPlayingInformation::currentItemChanged);
     }
     emit currentItemChanged();
 }

@@ -1,5 +1,5 @@
 #include "musicservice.h"
-#include "kodiclient.h"
+#include "client.h"
 #include "kodisettingsmanager.h"
 #include "albumsrequest.h"
 #include "songsrequest.h"
@@ -14,7 +14,10 @@ int filesPropCount(QQmlListProperty<KodiFile>* list)
 
 KodiFile* filesPropAt(QQmlListProperty<KodiFile>* list, int index)
 {
-    return static_cast<QList<KodiFile*>*>(list->data)->at(index);
+    auto l = static_cast<QList<KodiFile*>*>(list->data);
+    if(index < l->size())
+        return (*l)[index];
+    return nullptr;
 }
 
 }
@@ -134,7 +137,7 @@ void MusicService::refresh_files()
         obj["method"] = QLatin1String("label");
         obj["ignorearticle"] = true;
         parameters.insert("sort", obj);
-        parameters.insert("media", "music");
+        parameters.insert("media", QString("music"));
         message = QJsonRpcMessage::createRequest("Files.GetDirectory", parameters);
     }
     else
@@ -143,7 +146,7 @@ void MusicService::refresh_files()
         parameters.insert("media", QString::fromLatin1("music"));
         message = QJsonRpcMessage::createRequest("Files.GetSources", parameters);
     }
-    QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+    QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)
         connect(reply, SIGNAL(finished()), this, SLOT(parseDirectoryResults()));
 }
@@ -165,7 +168,7 @@ void MusicService::refresh_collection()
             if(browsingValue_ == "artists")
             {
                 message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtists", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+                QJsonRpcServiceReply* reply = Client::current().send(message);
                 if(reply)
                     connect(reply, SIGNAL(finished()), this, SLOT(parseArtistsResults()));
             }
@@ -184,7 +187,7 @@ void MusicService::refresh_collection()
             else if(browsingValue_ == "genres")
             {
                 message = QJsonRpcMessage::createRequest("AudioLibrary.GetGenres", parameters);
-                QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+                QJsonRpcServiceReply* reply = Client::current().send(message);
                 if(reply)
                     connect(reply, SIGNAL(finished()), this, SLOT(parseGenresResults()));
             }
@@ -208,7 +211,7 @@ void MusicService::refresh_collection()
             filter["genreid"] = browsingValue_.toInt();
             parameters.insert("filter", filter);
             message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-            QJsonRpcServiceReply* reply = KodiClient::current().send(message);
+            QJsonRpcServiceReply* reply = Client::current().send(message);
             if(reply)
                 connect(reply, SIGNAL(finished()), this, SLOT(parseAlbumsResults()));
         }

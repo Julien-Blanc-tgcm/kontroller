@@ -21,6 +21,7 @@
         <file>SeasonInformationPage.qml</file>
         <file>EpisodeInformationPage.qml</file>
         <file>qmldir</file>
-        <file>MusicInformation.qml</file>
+        <file>CurrentlyPlaying.qml</file>
+        <file>PlayerProperties.qml</file>
     </qresource>
 </RCC>
