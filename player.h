@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "subtitle.h"
 #include <QQmlListProperty>
+#include "audiostream.h"
 
 namespace eu
 {
@@ -28,18 +29,20 @@ class Player : public QObject
 
     QTimer timer_;
 
-    bool shuffled_;
-    bool canMove_;
-    bool canRepeat_;
-    bool canShuffle_;
-    int repeat_;
-    bool live_;
-    bool partyMode_;
-    bool subtitlesEnabled_;
-    bool canSeek_;
-    int playlistId_;
+    bool shuffled_ = false;
+    bool canMove_ = false;
+    bool canRepeat_ = false;
+    bool canShuffle_ = false;
+    int repeat_ = 0;
+    bool live_ = false;
+    bool partyMode_ = false;
+    bool subtitlesEnabled_ = false;
+    bool canSeek_ = false;
+    int playlistId_ = -1;
     std::vector<Subtitle*> subtitles_;
-    int currentSubtitleIndex_;
+    int currentSubtitleIndex_ = -1;
+    std::vector<AudioStream*> audioStreams_;
+    int currentAudioStreamIndex_ = -1;
 
 
 public:
@@ -64,7 +67,9 @@ public:
     Q_PROPERTY(int playlistId READ playlistId WRITE setPlaylistId NOTIFY playlistIdChanged)
    // Q_PROPERTY(bool subtitlesEnabled READ subtitlesEnabled WRITE setSubtitlesEnabled NOTIFY subtitlesChanged)
     Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Subtitle> subtitles READ subtitles NOTIFY subtitlesChanged)
-    Q_PROPERTY(int currentSubtitleIndex READ currentSubtitleIndex WRITE setCurrentSubtitleIndex NOTIFY subtitlesChanged)
+    Q_PROPERTY(int currentSubtitleIndex READ currentSubtitleIndex WRITE setCurrentSubtitleIndex NOTIFY currentSubtitleIndexChanged)
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::AudioStream> audioStreams READ audioStreams NOTIFY audioStreamsChanged)
+    Q_PROPERTY(int currentAudioStreamIndex READ currentAudioStreamIndex WRITE setCurrentAudioStreamIndex NOTIFY currentAudioStreamIndexChanged)
 
     /*!
      * \brief playerId id of the player
@@ -126,6 +131,15 @@ public:
 
     void setSubtitles(std::vector<Subtitle*> && subtitles, int currentSubtitleIndex);
 
+    QQmlListProperty<AudioStream> audioStreams();
+
+    void setAudioStreams(std::vector<AudioStream*>&& audioStreams, int currentAudioStreamIndex);
+
+    int currentAudioStreamIndex() const
+    {
+        return currentAudioStreamIndex_;
+    }
+
 signals:
     void playerIdChanged();
     void typeChanged();
@@ -154,9 +168,11 @@ signals:
 
     void playlistIdChanged(int playlistId);
 
-    void currentSubtitleIndexChanged(int currentSubtitleIndex);
-
+    void currentSubtitleIndexChanged();
     void subtitlesChanged();
+
+    void audioStreamsChanged();
+    void currentAudioStreamIndexChanged();
 
 public slots:
     void setPercentage(double percentage);
@@ -201,7 +217,16 @@ public slots:
         if(currentSubtitleIndex_ != index)
         {
             currentSubtitleIndex_ = index;
-            emit subtitlesChanged();
+            emit currentSubtitleIndexChanged();
+        }
+    }
+
+    void setCurrentAudioStreamIndex(int index)
+    {
+        if(currentAudioStreamIndex_ != index)
+        {
+            currentAudioStreamIndex_ = index;
+            emit currentAudioStreamIndexChanged();
         }
     }
 

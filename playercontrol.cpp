@@ -15,6 +15,7 @@ PlayerControl::PlayerControl(QObject *parent) :
 {
     // forward event
     connect(&PlayerService::instance(), &PlayerService::playersChanged, this, &PlayerControl::updatePlayers_);
+    updatePlayers_(); // update at object creation
 }
 
 void PlayerControl::refreshPlayerInfo()
@@ -107,7 +108,7 @@ void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
     if(subtitleIndex == -1)
     {
         parameters.insert("enable", false);
-        parameters.insert("subtitle", "off");
+        parameters.insert("subtitle", QString("off"));
     }
     else
     {
@@ -124,6 +125,22 @@ void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
             {
                 player->setCurrentSubtitleIndex(subtitleIndex);
             }
+        }
+    });
+}
+
+void PlayerControl::switchAudioStream(int playerId, int audioStreamIndex)
+{
+    QJsonObject parameters;
+    parameters.insert("playerid", playerId);
+    parameters.insert("stream", audioStreamIndex);
+    QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.SetAudioStream", parameters);
+    auto reply = Client::current().send(message);
+    connect(reply, &QJsonRpcServiceReply::finished, this, [this, playerId, audioStreamIndex]() {
+        for(auto player : PlayerService::instance().players())
+        {
+            if(player->playerId() == playerId)
+                player->setCurrentAudioStreamIndex(audioStreamIndex);
         }
     });
 }

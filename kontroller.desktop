@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=telexbmc
-Exec=telexbmc
-Name=telexbmc
+Icon=kontroller
+Exec=kontroller
+Name=kontroller
 # translation example:
 # your app name in German locale (de)
 #

@@ -15,29 +15,29 @@ SettingsManager::SettingsManager()
     QVariant val;
     val = settings.value("server");
     if(val.canConvert(QVariant::String))
-        m_serverAddress = val.toString();
+        serverAddress_ = val.toString();
     else
-        m_serverAddress = "";
+        serverAddress_ = "";
     val = settings.value("port");
     if(val.canConvert(QVariant::Int))
-        m_serverPort = val.toInt();
+        serverPort_ = val.toInt();
     else
-        m_serverPort = 9090;
+        serverPort_ = 9090;
     val = settings.value("musicFileBrowsing");
     if(val.canConvert(QVariant::Bool))
-        m_musicFileBrowsing = val.toBool();
+        musicFileBrowsing_ = val.toBool();
     else
-        m_musicFileBrowsing = false;
+        musicFileBrowsing_ = false;
     val = settings.value("videosFileBrowsing");
     if(val.canConvert(QVariant::Bool))
-        m_videosFileBrowsing = val.toBool();
+        videosFileBrowsing_ = val.toBool();
     else
-        m_videosFileBrowsing = false;
+        videosFileBrowsing_ = false;
     val = settings.value("useHttpInterface");
     if(val.canConvert(QVariant::Bool))
-        m_useHttpInterface = val.toBool();
+        useHttpInterface_ = val.toBool();
     else
-        m_useHttpInterface = m_serverPort == 8080;
+        useHttpInterface_ = serverPort_ == 8080;
     val = settings.value("deviceType");
     int valDt = -1;
     if(!val.isNull() && val.canConvert(QVariant::Int))
@@ -52,16 +52,32 @@ SettingsManager::SettingsManager()
         dpi_ = val.toInt();
     else
         dpi_ = 0;
+
+    val = settings.value("ignoreWifiStatus");
+    if(!val.isNull() && val.canConvert(QVariant::Bool))
+        ignoreWifiStatus_ = val.toBool();
+    else
+        ignoreWifiStatus_ = false;
+}
+
+bool SettingsManager::ignoreWifiStatus() const
+{
+    return ignoreWifiStatus_;
+}
+
+void SettingsManager::setIgnoreWifiStatus(bool ignoreWifiStatus)
+{
+    ignoreWifiStatus_ = ignoreWifiStatus;
 }
 
 bool SettingsManager::useHttpInterface() const
 {
-    return m_useHttpInterface;
+    return useHttpInterface_;
 }
 
 void SettingsManager::setUseHttpInterface(bool useHttpInterface)
 {
-    m_useHttpInterface = useHttpInterface;
+    useHttpInterface_ = useHttpInterface;
 }
 
 DeviceType SettingsManager::deviceType() const
@@ -92,50 +108,51 @@ SettingsManager& SettingsManager::instance()
 
 QString SettingsManager::serverAddress() const
 {
-    return m_serverAddress;
+    return serverAddress_;
 }
 
 int SettingsManager::serverPort() const
 {
-    return m_serverPort;
+    return serverPort_;
 }
 
 bool SettingsManager::musicFileBrowsing() const
 {
-    return m_musicFileBrowsing;
+    return musicFileBrowsing_;
 }
 
 bool SettingsManager::videosFileBrowsing() const
 {
-    return m_videosFileBrowsing;
+    return videosFileBrowsing_;
 }
 
 void SettingsManager::setServer(QString address, int port)
 {
-    m_serverAddress = address;
-    m_serverPort = port;
+    serverAddress_ = address;
+    serverPort_ = port;
 }
 
 void SettingsManager::setMusicFileBrowsing(bool browsing)
 {
-    m_musicFileBrowsing = browsing;
+    musicFileBrowsing_ = browsing;
 }
 
 void SettingsManager::setVideosFileBrowsing(bool browsing)
 {
-    m_videosFileBrowsing = browsing;
+    videosFileBrowsing_ = browsing;
 }
 
 void SettingsManager::save()
 {
     QSettings settings("tgcm.eu", "kontroller");
-    settings.setValue("server", m_serverAddress);
-    settings.setValue("port", m_serverPort);
-    settings.setValue("musicFileBrowsing", m_musicFileBrowsing);
-    settings.setValue("videosFileBrowsing", m_videosFileBrowsing);
-    settings.setValue("useHttpInterface", m_useHttpInterface);
+    settings.setValue("server", serverAddress_);
+    settings.setValue("port", serverPort_);
+    settings.setValue("musicFileBrowsing", musicFileBrowsing_);
+    settings.setValue("videosFileBrowsing", videosFileBrowsing_);
+    settings.setValue("useHttpInterface", useHttpInterface_);
     settings.setValue("dpi", dpi_);
     settings.setValue("deviceType", (int)deviceType_);
+    settings.setValue("ignoreWifiStatus", ignoreWifiStatus_);
     settings.sync();
 }
 

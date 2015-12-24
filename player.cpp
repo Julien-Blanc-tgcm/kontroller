@@ -141,6 +141,7 @@ void Player::setSubtitles(std::vector<Subtitle*>&& subtitles, int currentSubtitl
     subtitles_ = std::move(subtitles);
     currentSubtitleIndex_ = currentSubtitleIndex;
     emit subtitlesChanged();
+    emit currentSubtitleIndexChanged();
 }
 
 void Player::setPercentage(double percentage)
@@ -251,6 +252,34 @@ Player::Player(QObject *parent) :
 {
     timer_.setInterval(1000);
     connect(&timer_, &QTimer::timeout, this, &Player::updateTimer_);
+}
+
+namespace {
+int propAudioStreamsCount(QQmlListProperty<AudioStream>* list)
+{
+    return static_cast<std::vector<AudioStream*>*>(list->data)->size();
+}
+
+AudioStream* propAudioStreamsAt(QQmlListProperty<AudioStream>*list, int index)
+{
+    auto l = static_cast<std::vector<AudioStream*>*>(list->data);
+    if(index < (int)l->size())
+        return (*l)[index];
+    return nullptr;
+}
+}
+
+QQmlListProperty<eu::tgcm::kontroller::AudioStream> eu::tgcm::kontroller::Player::audioStreams()
+{
+    return QQmlListProperty<AudioStream>(this, &audioStreams_, &propAudioStreamsCount, &propAudioStreamsAt);
+}
+
+void Player::setAudioStreams(std::vector<AudioStream*>&& audioStreams, int currentAudioStreamIndex)
+{
+    audioStreams_ = std::move(audioStreams);
+    currentAudioStreamIndex_ = currentAudioStreamIndex;
+    emit audioStreamsChanged();
+    emit currentAudioStreamIndexChanged();
 }
 
 }

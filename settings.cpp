@@ -86,6 +86,17 @@ void Settings::setDpi(int dpi)
     emit dpiChanged(dpi);
 }
 
+void Settings::setIgnoreWifiStatus(bool value)
+{
+    SettingsManager::instance().setIgnoreWifiStatus(value);
+    emit ignoreWifiStatusChanged(value);
+}
+
+bool Settings::ignoreWifiStatus() const
+{
+    return SettingsManager::instance().ignoreWifiStatus();
+}
+
 }
 }
 }

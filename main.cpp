@@ -41,6 +41,8 @@ void registerTypes()
     assert(ret);
     ret = qmlRegisterType<Subtitle>();
     assert(ret);
+    ret = qmlRegisterType<AudioStream>();
+    assert(ret);
     ret = qmlRegisterType<MusicService>(qmlprefix, 1, 0, "MusicService");
     assert(ret);
     ret = qmlRegisterType<Remote>(qmlprefix, 1, 0, "Remote");
@@ -86,30 +88,28 @@ int main(int argc, char *argv[])
 {
 #ifdef SAILFISH_TARGET
     QGuiApplication* app = SailfishApp::application(argc, argv);
+    auto view = SailfishApp::createView();
+    registerTypes();
+    view->setSource(SailfishApp::pathTo("qml/sailfish/kontroller.qml"));
+    view->showFullScreen();
+    auto engine = QtQml::qmlEngine(view->rootObject());
+    QObject::connect(engine, &QQmlEngine::quit, app, &QGuiApplication::quit);
 #else
     QApplication* app = new QApplication(argc, argv);
-#endif
-
-    QQmlApplicationEngine engine;
-
-    //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
+    QQmlEngine engine;
     registerTypes();
+    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+#endif
+    //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
+
     using namespace eu::tgcm;
     kontroller::Settings settings;
     kontroller::Client::current().setServerAddress(settings.serverAddress());
     kontroller::Client::current().setServerPort(settings.serverPort());
     kontroller::Client::current().refresh();
-/*    MusicService service("/mnt/files/mp3/MODERNE/Muse");
-    service.refresh();
-    for(int i = 0; i < service.files().size(); ++i)
-    {
-        std::cout << service.files().at(i)->file().toUtf8().constData() << " " <<
-                     service.files().at(i)->filetype().toUtf8().constData() << "\n";
-    }
-    std::cout << std::endl; */
-   // service.playFile(service.files().back());
-    kontroller::DeviceInformation inf;
-    inf.setup(*app);
-    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+
+//    kontroller::DeviceInformation inf;
+//    inf.setup(*app);
+
     return app->exec();
 }

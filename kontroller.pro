@@ -1,9 +1,11 @@
 TEMPLATE = app
 
 QT += qml quick
-QT += widgets
-
-#CONFIG += sailfishapp
+CONFIG(sailfish) {
+  CONFIG += sailfishapp
+} else {
+  QT += widgets
+}
 
 SOURCES += main.cpp \
     musicservice.cpp \
@@ -35,10 +37,20 @@ SOURCES += main.cpp \
     playerservice.cpp \
     settingsmanager.cpp \
     settings.cpp \
-    remote.cpp
+    remote.cpp \
+    audiostream.cpp
 
-RESOURCES += qml/qml.qrc \
-    icons.qrc
+RESOURCES += icons.qrc
+CONFIG(sailfish) {
+    RESOURCES += qml/sailfish/qml.qrc
+#    OTHER_FILES += qml/sailfish/kontroller.qml \
+#        qml/sailfish/cover/CoverPage.qml \
+#        qml/sailfish/KontrollerMain.qml \
+#        qml/sailfish/AlbumInformationPage.qml
+
+} else {
+#    RESOURCES += qml/generic/qml.qrc
+}
 
 INCLUDEPATH += ../qjsonrpc/src
 
@@ -50,13 +62,12 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-#MER_TARGET=SailfishOS-armv7hl
 
 equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
   LIBS += -L../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Release/src
   LIBS += -L../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src
 } else {
-  equals(MER_TARGET,SailfishOS-armv7hl) {
+  CONFIG(sailfishapp) {
     LIBS += -L../qjsonrpc-Mer/src
   } else {
   LIBS += -L../qjsonrpc-Desktop_Qt_5_2_1_GCC_64bit-Debug/src
@@ -101,27 +112,30 @@ HEADERS += \
     playerservice.h \
     settingsmanager.h \
     settings.h \
-    remote.h
+    remote.h \
+    audiostream.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 OTHER_FILES += \
     android/AndroidManifest.xml
 
+CONFIG(sailfishapp) {
+  OTHER_FILES += rpm/kontroller.yaml \
+       rpm/kontroller.spec
+}
+
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 #    ANDROID_EXTRA_LIBS = ../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src/libqjsonrpc.so
     ANDROID_EXTRA_LIBS = ../qjsonrpc-android/src/libqjsonrpc.so
 }
 
-DISTFILES += \
-    qml/qmldir \
-    telexbmc.prf \
-    rpm/telexbmc.yaml \
-    telexbmc.desktop
+CONFIG(sailfishapp) {
+DISTFILES += kontroller.prf \
+    rpm/kontroller.yaml \
+    kontroller.desktop
 
-equals(MER_TARGET,SailfishOS-armv7hl) {
-message(deploying lib)
-lib.path = /usr/share/telexbmc/lib/
+lib.path = /usr/share/kontroller/lib/
 lib.files += ../qjsonrpc-Mer/src/libqjsonrpc.so.1
 INSTALLS += lib
 }

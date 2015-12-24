@@ -216,6 +216,8 @@ void PlayerService::refreshPlayerStatus(int playerId)
     properties.append(QString("subtitles"));
     properties.append(QString("currentsubtitle"));
     properties.append(QString("subtitleenabled"));
+    properties.append(QString("audiostreams"));
+    properties.append(QString("currentaudiostream"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GetProperties", parameters);
     auto reply = Client::current().send(message);
@@ -297,6 +299,29 @@ void PlayerService::refreshPlayerInfo_(int playerId)
                     }
                     else
                         player->setSubtitles(std::move(subs), -1);
+                }
+                auto audiostreams = obj.value("audiostreams").toArray();
+                if(!audiostreams.isEmpty())
+                {
+                    std::vector<AudioStream*> streams;
+                    for(auto stream_ : audiostreams)
+                    {
+                        auto stream = stream_.toObject();
+                        auto index = stream.value("index").toInt();
+                        auto language = stream.value("language").toString();
+                        auto name = stream.value("name").toString();
+                        auto s = new AudioStream();
+                        s->setIndex(index);
+                        s->setLanguage(language);
+                        if(name.size() > 0)
+                            s->setName(name);
+                        else
+                            s->setName(language);
+                        streams.push_back(s);
+                    }
+                    auto currentStream = obj.value("currentaudiostream");
+                    auto index = currentStream.toObject().value("index").toInt();
+                    player->setAudioStreams(std::move(streams), index);
                 }
                 //setBoolValue(obj.value("canzoom"), *player, &Player::setCanZoom);
                 //setBoolValue(obj.value("canrotate"), *player, &Player::setCanRotate);

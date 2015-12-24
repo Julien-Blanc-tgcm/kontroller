@@ -73,8 +73,16 @@ void StatusService::setWifiEnabled(bool wifi)
 {
     if(wifi != wifiEnabled_)
     {
-        wifiEnabled_ = wifi;
-        emit wifiEnabledChanged(wifi);
+        if(!SettingsManager::instance().ignoreWifiStatus())
+        {
+            wifiEnabled_ = wifi;
+            emit wifiEnabledChanged(wifi);
+        }
+        else if(!wifiEnabled_)
+        {
+            wifiEnabled_ = true;
+            emit wifiEnabledChanged(wifiEnabled_);
+        }
     }
 }
 

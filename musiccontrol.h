@@ -24,8 +24,8 @@ public:
 signals:
 
 public slots:
-    void playFile(File* file);
-    void addToPlaylist(File* file);
+    void playFile(eu::tgcm::kontroller::File* file);
+    void addToPlaylist(eu::tgcm::kontroller::File* file);
     void startPlaying();
     void clearPlaylist();
 };

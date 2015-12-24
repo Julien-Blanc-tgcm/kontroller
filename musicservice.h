@@ -51,7 +51,7 @@ signals:
     void refreshingChanged();
 public slots:
     void refresh();
-    void setFiles(const QList<File *> &value);
+    void setFiles(const QList<eu::tgcm::kontroller::File *> &value);
     void setBrowsingMode(QString browsingMode);
     void setBrowsingValue(QString browsingValue);
     void setLabel(QString label);

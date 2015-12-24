@@ -27,13 +27,14 @@ class SettingsManager
 {
     SettingsManager();
 private:
-    QString m_serverAddress;
-    int m_serverPort;
-    bool m_musicFileBrowsing;
-    bool m_videosFileBrowsing;
-    bool m_useHttpInterface;
+    QString serverAddress_;
+    int serverPort_;
+    bool musicFileBrowsing_;
+    bool videosFileBrowsing_;
+    bool useHttpInterface_;
     DeviceType deviceType_;
     int dpi_;
+    bool ignoreWifiStatus_;
 public:
     /**
      * @brief instance returns a reference to the current SettingsManager
@@ -79,6 +80,8 @@ public:
 
     int dpi() const;
     void setDpi(int dpi);
+    bool ignoreWifiStatus() const;
+    void setIgnoreWifiStatus(bool ignoreWifiStatus);
 };
 
 }

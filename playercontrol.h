@@ -39,6 +39,7 @@ public slots:
     void setShuffle(int playerId, bool shuffle);
 
     void switchSubtitle(int playerId, int subtitleIndex);
+    void switchAudioStream(int playerId, int audioStreamIndex);
 private slots:
     void updatePlayers_();
     void handleShuffleResult_(int playerId, bool shuffle);
