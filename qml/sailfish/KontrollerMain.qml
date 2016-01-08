@@ -7,82 +7,182 @@ Page {
     anchors.fill: parent
     id: main
 
-    SilicaGridView {
-        id:theGrid
+
+
+    StatusService {
+        id:status
+    }
+
+    SilicaFlickable {
         anchors.fill: parent
-        cellWidth:theGrid.width / 2
-        cellHeight:cellWidth
-        model : ListModel {
-            ListElement{
-                page:"music"
-                icon:"image://theme/icon-m-music"
+        PullDownMenu {
+            Repeater {
+                model:status.servers
+                delegate: MenuItem {
+                    text:modelData.name
+                    onClicked: {
+                        status.switchToServer(modelData.name)
+                    }
+                }
             }
-            ListElement{
-                page:"videos"
-                icon:"image://theme/icon-m-video"
-            }
-            ListElement{
-                page:"current"
-                icon:"image://theme/icon-m-accessory-speaker"
-            }
-            ListElement {
-                page:"remote"
-                icon:"image://theme/icon-m-game-controller"
-            }
-
-            ListElement {
-                page:"playlist"
-                icon:"image://theme/icon-m-clipboard"
-            }
-
-            ListElement{
-                page:"settings"
-                icon:"image://theme/icon-s-setting"
-            }
-
         }
-        delegate : Item {
-            Rectangle {
-                width: theGrid.width / 2 - 20
-                height: width
-                opacity:0.1
-                color:"#fff"
-                id:theRect
-                radius : 15
-                x:10
-                y:10
-            }
 
-            IconButton {
-                anchors.horizontalCenter: theRect.horizontalCenter
-                anchors.top:theRect.top
-                anchors.topMargin: 20
-                icon.source: model.icon
-                onClicked: pushRelevantPage(model.page)
-                id:btn
-            }
+        Label {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: qsTr("Connected to %1").arg(status.server)
+            visible: status.connectionStatus === 2
+            height:Theme.itemSizeSmall
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Row {
+            visible:status.connectionStatus === 0
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: Theme.horizontalPageMargin
+            height:Theme.itemSizeSmall
             Label {
-                anchors.top:btn.bottom
-                anchors.topMargin:20
-                anchors.left: theRect.left
-                anchors.right: theRect.right
+                height:Theme.itemSizeSmall
+                text:qsTr("Unable to connect to %1").arg(status.server)
+                color: Theme.highlightColor;
+                verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
-                text: page
-                MouseArea
-                {
-                    anchors.fill:parent
-                    onClicked: pushRelevantPage(page);
+            }
+            IconButton {
+                icon.source: "image://theme/icon-m-refresh"
+                onClicked: status.retryConnect();
+            }
+        }
+        Label {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text:qsTr("Trying to connect to %1").arg(status.server)
+            visible:status.connectionStatus === 1
+            height:Theme.itemSizeSmall
+            verticalAlignment: Text.AlignVCenter
+            color: Theme.highlightColor
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Label {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: qsTr("Connection status : %1").arg(status.connectionStatus)
+            visible: status.connectionStatus !== 0 && status.connectionStatus !== 1 && status.connectionStatus !== 2
+            height: Theme.itemSizeSmall
+            verticalAlignment: Text.AlignVCenter
+            color:Theme.highlightColor
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        SilicaGridView {
+            id:theGrid
+            anchors.fill: parent
+            anchors.topMargin:Theme.itemSizeSmall
+            cellWidth:theGrid.width / 2
+            cellHeight:cellWidth
+            model : ListModel {
+                ListElement{
+                    page:"music"
+                    icon:"image://theme/icon-m-music"
+                    needConnect:true
+                }
+                ListElement{
+                    page:"videos"
+                    icon:"image://theme/icon-m-video"
+                    needConnect:true
+                }
+                ListElement{
+                    page:"current"
+                    icon:"image://theme/icon-m-accessory-speaker"
+                    needConnect:true
+                }
+                ListElement {
+                    page:"remote"
+                    icon:"image://theme/icon-m-game-controller"
+                    needConnect:true
+                }
+
+                ListElement {
+                    page:"playlist"
+                    icon:"image://theme/icon-m-clipboard"
+                    needConnect:true
+                }
+
+                ListElement{
+                    page:"settings"
+                    icon:"image://theme/icon-s-setting"
+                    needConnect:false
+                }
+
+            }
+            delegate : Item {
+                Rectangle {
+                    width: theGrid.width / 2 - 20
+                    height: width
+                    opacity:0.1
+                    color:"#fff"
+                    id:theRect
+                    radius : 15
+                    x:10
+                    y:10
+                }
+
+                IconButton {
+                    anchors.horizontalCenter: theRect.horizontalCenter
+                    anchors.top:theRect.top
+                    anchors.topMargin: 20
+                    icon.source: {
+                        if(!model.needConnect || status.connectionStatus === 2)
+                            return model.icon;
+                        else
+                            return model.icon + "?" + Theme.highlightDimmerColor;
+                    }
+                    onClicked: {
+                        if(!model.needConnect || status.connectionStatus === 2)
+                            pushRelevantPage(model.page)
+                    }
+                    id:btn
+                }
+                Label {
+                    anchors.top:btn.bottom
+                    anchors.topMargin:20
+                    anchors.left: theRect.left
+                    anchors.right: theRect.right
+                    horizontalAlignment: Text.AlignHCenter
+                    text: page
+                    MouseArea
+                    {
+                        anchors.fill:parent
+                        onClicked: {
+                            if(!model.needConnect || status.connectionStatus === 2)
+                                pushRelevantPage(page);
+                        }
+                    }
+                    color:{
+                        if(!model.needConnect || status.connectionStatus === 2)
+                            return Theme.primaryColor;
+                        else
+                            return Theme.highlightDimmerColor
+                    }
                 }
             }
         }
     }
 
+
     QtObject {
         id:internal
         property var musicPageComponent:null
         property var videoPageComponent:null
+        property var informationPageComponents
 
-        function createMusicPage(fileType, file, label) {
+        function createMusicPage(filetype, file, label) {
+            if(!!informationPageComponents[filetype])
+            {
+                createInformationPage(filetype, file, label);
+                return;
+            }
             if(!musicPageComponent)
                 musicPageComponent = Qt.createComponent("MusicPage.qml");
             if(musicPageComponent.status !== Component.Ready)
@@ -95,21 +195,52 @@ Page {
                 {
                     "visible": true,
                     "anchors.fill":pageStack,
-                    "browsingMode": fileType,
+                    "browsingMode": filetype,
                     "browsingValue":file,
                     "label":label
                 });
             musicList.mediaClicked.connect(createMusicPage);
             musicList.mediaInformationClicked.connect(createInformationPage);
+            musicList.remoteClicked.connect(pushRemotePage);
+            musicList.currentClicked.connect(pushCurrentPage);
+            musicList.backToMenuClicked.connect(toMenu);
             pageStack.push(musicList);
         }
 
         function createInformationPage(filetype, file, label)
         {
-            console.log("media info");
+            var newView;
+            var component = internal.informationPageComponents[filetype];
+            if(component && component.status === Component.Ready)
+            {
+                newView = component.createObject(pageStack, {"itemId":file});
+                if(newView)
+                {
+                    newView.mediaInformationClicked.connect(createInformationPage);
+                    //newView.label = pageStack.currentItem.label + "/" + label;
+                    newView.label = label;
+                }
+                else
+                    console.log("Error at view creation : " + component.errorString())
+            }
+            else if(component)
+            {
+                console.log(filetype + " " + component.errorString());
+            }
+            else
+            {
+                console.log("no component defined for " + filetype);
+            }
+            if(newView)
+                pageStack.push(newView);
         }
 
         function createVideoPage(filetype, file, label) {
+            if(!!informationPageComponents[filetype])
+            {
+                createInformationPage(filetype, file, label);
+                return;
+            }
             if(!videoPageComponent)
                 videoPageComponent = Qt.createComponent("VideoPage.qml");
             if(videoPageComponent.status !== Component.Ready)
@@ -128,6 +259,9 @@ Page {
                 });
             videoList.mediaClicked.connect(createVideoPage);
             videoList.mediaInformationClicked.connect(createInformationPage);
+            videoList.remoteClicked.connect(pushRemotePage);
+            videoList.currentClicked.connect(pushCurrentPage);
+            videoList.backToMenuClicked.connect(toMenu);
             pageStack.push(videoList);
         }
     }
@@ -146,6 +280,7 @@ Page {
         else if(page === "current")
         {
             pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"));
+            pageStack.pushAttached(Qt.resolvedUrl("RemoteControl.qml"));
         }
 
         else if(page === "settings")
@@ -162,152 +297,21 @@ Page {
         }
     }
 
-/*    RemoteControl {
-        id:remote
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-    } */
-
-/*    CurrentlyPlaying {
-        id : currentplaying
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible:false
-    } */
-
-    /*SettingsPage {
-        id:settings
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        visible:true
-    }
-
-    property var musicList;
-    property var videosList; */
-
-
-  /*  StatusBar {
-        id:status
-        anchors.bottom: parent.bottom
-        height: computeStatusBarHeight()
-        anchors.left: parent.left
-        anchors.right: parent.right
-        onPlaylistClicked: showPlaylist(type)
-        onStateChanged: focusAccordingToState()
-        z:2
-    }*/
-/*    Hideable {
-        id:flickable
-        anchorRaised:main.top
-        anchorFlicked:main.bottom
-        anchors.left: main.left
-        anchors.right: main.right
-        anchors.bottom: main.bottom
-    } */
-
-    function activateSettingsPage() {
-        creator.hideAllPages()
-        settings.visible = true;
-    }
-
-    function activateMusicPage() {
-        creator.hideAllPages()
-        if(main.musicList)
-        {
-            main.musicList.visible = true;
-            main.musicList.focus = true;
-            return;
-        }
-
-        if(!creator.listComponent)
-            creator.listComponent = Qt.createComponent("GenericList.qml");
-        if(creator.listComponent.status === Component.Ready)
-        {
-            musicList = creator.listComponent.createObject(main,
-                                                               {
-                                                               "visible": true,
-                                                               "anchors.fill":main,
-                                                               "pageComponent": "MusicPage",
-                                                               "informationPageComponents": [
-                                                                  {'type':'artist', 'component':'ArtistInformationPage'},
-                                                                  {'type':'album', 'component':'AlbumInformationPage'}
-                                                              ],
-                                                              "defaultsToInformation": ['artist', 'album']
-                                                               });
-            musicList.focus = true;
-        }
-        else
-            console.log(creator.listComponent.errorString());
-    }
-
-    function activateVideosPage() {
-        creator.hideAllPages()
-        if(videosList)
-        {
-            videosList.visible = true;
-            videosList.focus = true;
-            return
-        }
-        if(!creator.listComponent)
-            creator.listComponent = Qt.createComponent("GenericList.qml");
-        if(creator.listComponent.status === Component.Ready)
-        {
-            videosList = creator.listComponent.createObject(main,
-                                                               {
-                                                               "visible": true,
-                                                               "anchors.fill":main,
-                                                               "pageComponent": "VideoPage",
-                                                                "informationPageComponents": [
-                                                                    {'type':'movie', 'component':'MovieInformationPage'},
-                                                                    {'type':'tvshow', 'component' : 'TvShowInformationPage'},
-                                                                    {'type':'season', 'component' : 'SeasonInformationPage'},
-                                                                    {'type':'episode', 'component': 'EpisodeInformationPage'}
-                                                                ],
-                                                                "defaultsToInformation": ['movie', 'tvshow']
-                                                            });
-            videosList.focus = true;
-        }
-        else
-            console.log(creator.listComponent.errorString());
-    }
-
-    function activateRemotePage() {
-        creator.hideAllPages()
-        remote.visible = true;
-    }
-
-    function activateCurrentlyPlayingPage() {
-        creator.hideAllPages()
-        currentplaying.visible = true;
-    }
-
-    function createMusicListComponent() {
-        if(active && musicTab.children.length === 0)
-        {
-            var theMusicTab = musicList.createObject(musicTab,
-                                                              {
-                                                                  "anchors.fill":musicTab,
-                                                              });
-        }
-    }
-
-    function computeStatusBarHeight()
+    function pushRemotePage()
     {
-        if(main.width < main.height)
-        {
-            return main.width / 6;
-        }
-        else
-        {
-            return 40 * touchScalingFactor;
-           // return main.height / 6;
-        }
+        pageStack.pushAttached(Qt.resolvedUrl("RemoteControl.qml"));
+        pageStack.navigateForward(PageStackAction.Animated)
+    }
+
+    function pushCurrentPage()
+    {
+        pageStack.pushAttached(Qt.resolvedUrl("CurrentlyPlaying.qml"));
+        pageStack.navigateForward(PageStackAction.Animated)
+    }
+
+    function toMenu()
+    {
+        pageStack.pop(main)
     }
 
     property var playlist;
@@ -365,4 +369,21 @@ Page {
         else
             console.log("bordel");
     }
+
+    function createInfoComponents() {
+        internal.informationPageComponents = {};
+        var informationPageComponents = [{"type":"album", "component":"AlbumInformationPage"},
+                {"type":"artist", "component":"ArtistInformationPage"},
+                {"type":"episode", "component":"EpisodeInformationPage"},
+                {"type":"movie", "component":"MovieInformationPage"},
+                {"type":"season", "component":"SeasonInformationPage"},
+                {"type":"tvshow", "component":"TvShowInformationPage"}];
+        for(var i = 0; i < informationPageComponents.length; ++i)
+        {
+            internal.informationPageComponents[informationPageComponents[i].type] =
+                    Qt.createComponent(informationPageComponents[i].component + '.qml');
+        }
+    }
+
+    Component.onCompleted: createInfoComponents()
 }

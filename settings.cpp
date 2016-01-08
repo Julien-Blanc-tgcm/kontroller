@@ -10,91 +10,83 @@ namespace tgcm
 namespace kontroller
 {
 
-Settings::Settings()
+Settings::Settings() :
+    currentServerIdx_(0)
 {
-
+    if(SettingsManager::instance().servers().size() == 0)
+        newServer(tr("Default"));
+    else
+    {
+        setCurrentServerIdx(0);
+    }
 }
 
-void Settings::setServer(QString address, int port)
+void Settings::setCurrentServerIdx(int idx)
 {
-    Client::current().setServerAddress(address);
-    Client::current().setServerPort(port);
-    Client::current().refresh();
-    SettingsManager::instance().setServer(address, port);
+    if(idx != currentServerIdx_)
+    {
+        currentServerIdx_ = idx;
+        emit currentServerIdxChanged();
+    }
+}
+
+void Settings::save()
+{
     SettingsManager::instance().save();
+    Client::current().refresh();
 }
 
-void Settings::setMusicFileBrowsing(bool browsing)
+//void Settings::setDeviceType(int type)
+//{
+//    SettingsManager::instance().setDeviceType(static_cast<DeviceType>(type));
+//    emit deviceTypeChanged(type);
+//}
+
+//int Settings::deviceType() const
+//{
+//    return (int) SettingsManager::instance().deviceType();
+//}
+
+//int Settings::dpi() const
+//{
+//    return SettingsManager::instance().dpi();
+//}
+
+//void Settings::setDpi(int dpi)
+//{
+//    SettingsManager::instance().setDpi(dpi);
+//    emit dpiChanged(dpi);
+//}
+
+namespace
 {
-    SettingsManager::instance().setMusicFileBrowsing(browsing);
+int getServerCount(QQmlListProperty<Server>*)
+{
+    return SettingsManager::instance().servers().size();
 }
 
-void Settings::setVideosFileBrowsing(bool browsing)
+Server* getServerAt(QQmlListProperty<Server>*, int index )
 {
-    SettingsManager::instance().setVideosFileBrowsing(browsing);
+    return SettingsManager::instance().servers()[index].get();
+}
 }
 
-void Settings::setUseHttpInterface(bool http)
+QQmlListProperty<Server> Settings::servers()
 {
-    SettingsManager::instance().setUseHttpInterface(http);
+    return QQmlListProperty<Server>(this, nullptr, getServerCount, getServerAt);
 }
 
-void Settings::setDeviceType(int type)
+int Settings::currentServerIdx() const
 {
-    SettingsManager::instance().setDeviceType(static_cast<DeviceType>(type));
-    emit deviceTypeChanged(type);
+    return currentServerIdx_;
 }
 
-QString Settings::serverAddress() const
+void Settings::newServer(QString serverName)
 {
-    return SettingsManager::instance().serverAddress();
-}
-
-int Settings::serverPort() const
-{
-    return SettingsManager::instance().serverPort();
-}
-
-bool Settings::musicFileBrowsing() const
-{
-    return SettingsManager::instance().musicFileBrowsing();
-}
-
-bool Settings::videosFileBrowsing() const
-{
-    return SettingsManager::instance().videosFileBrowsing();
-}
-
-bool Settings::useHttpInterface() const
-{
-    return SettingsManager::instance().useHttpInterface();
-}
-
-int Settings::deviceType() const
-{
-    return (int) SettingsManager::instance().deviceType();
-}
-
-int Settings::dpi() const
-{
-    return SettingsManager::instance().dpi();
-}
-
-void Settings::setDpi(int dpi)
-{
-    SettingsManager::instance().setDpi(dpi);
-    emit dpiChanged(dpi);
-}
-
-void Settings::setIgnoreWifiStatus(bool value)
-{
-    SettingsManager::instance().setIgnoreWifiStatus(value);
-    emit ignoreWifiStatusChanged(value);
-}
-
-bool Settings::ignoreWifiStatus() const
-{
-    return SettingsManager::instance().ignoreWifiStatus();
+    SettingsManager::instance().servers().emplace_back(new Server);
+    emit serversChanged();
+    SettingsManager::instance().servers().back()->setName(serverName);
+    setCurrentServerIdx(SettingsManager::instance().servers().size() - 1);
 }
 
 }

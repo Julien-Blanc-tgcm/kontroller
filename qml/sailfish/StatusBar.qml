@@ -32,7 +32,6 @@ Rectangle {
     Text {
         text: "No active players"
         visible: status.connectionStatus === 2 && playerController.players.length === 0
-        color: Styling.linkColor
         anchors.fill: parent
     }
 

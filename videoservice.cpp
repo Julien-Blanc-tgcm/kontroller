@@ -80,15 +80,10 @@ QQmlListProperty<File> VideoService::filesAsList()
 void VideoService::refresh()
 {
     clearFiles();
-    if(SettingsManager::instance().videosFileBrowsing())
+    if(browsingMode_ == "directory")
         refresh_files();
     else
-    {
-        if(browsingMode_ == "directory")
-            refresh_files();
-        else
-            refresh_collection();
-    }
+        refresh_collection();
 }
 
 void VideoService::refreshCollection()

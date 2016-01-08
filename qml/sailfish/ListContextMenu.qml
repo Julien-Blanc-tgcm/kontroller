@@ -99,29 +99,27 @@ Rectangle {
     //property string color;
     //property alias border : genericMenu.border;
     state: ""
-    property double elementHeight : 20 * touchScalingFactor
+    property double elementHeight : 20
 
     property var contextMenuModel : [];
 
-    height: genericMenu.height + 10 * scalingFactor
-    width: genericMenu.width + 10 * scalingFactor
+    height: genericMenu.height + 10
+    width: genericMenu.width + 10
     Column {
         //height : contextMenuModel.length * elementHeight
         id: genericMenu;
         visible:true
         anchors.left: parent.left
-        anchors.leftMargin: 5 * scalingFactor
+        anchors.leftMargin: 5
         anchors.top:parent.top
-        anchors.topMargin: 5 * scalingFactor
+        anchors.topMargin: 5
         //color:parent.color
         Repeater {
             model:contextMenuModel
             Text {
                 height:elementHeight
-                font.pixelSize: 12 * scalingFactor
                 verticalAlignment: Text.AlignVCenter
                 text:model.modelData.text
-                color:Styling.linkColor
                 MouseArea {
                     anchors.fill: parent
                     onClicked: dispatchEvent(model.modelData.type)
@@ -178,7 +176,7 @@ Rectangle {
         {
             if(x + width > parent.width)
             {
-                x = parent.width - width - 5 * scalingFactor
+                x = parent.width - width - 5
             }
             if(y + height > parent.height)
                 y = parent.height - height

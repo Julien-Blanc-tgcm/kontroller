@@ -1,188 +1,104 @@
 import QtQuick 2.0
 import harbour.eu.tgcm 1.0
+import Sailfish.Silica 1.0
 import "utils.js" as Utils
 import "."
-Item {
+Page {
     id:main
 
-    function recomputeLayout() {
- /*       if(main.width == 0)
-            return;
-        if(main.width / scalingFactor < 200)
-        {
-            fanart.visible = false;
-            fanart1.visible = true;
-            txtTitle.height = fanart1.height
-            fanart.width = 0;
-        }
-        else
-        {
-            fanart.visible = true;
-            fanart.width = fanart.height
-            fanart1.visible = false;
-            txtTitle.height = 22 * scalingFactor
-        } */
-    }
+    SilicaFlickable {
 
-    onWidthChanged: recomputeLayout()
-    //onXChanged: if(x===0)recomputeLayout()
-    Flickable {
-
-        Text {
-            color:"white"
-            text:service.title
-            font.pixelSize: 16 * scalingFactor
-            anchors.left: parent.left
-            anchors.top:parent.top
-            anchors.right: parent.right
-            id:txtTitle
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            z:1
-            style:Text.Raised
-            styleColor: "#111"
-            height:22 * scalingFactor
+        PageHeader {
+            id:header
+            title:service.title
         }
-  /*      Image {
-            id:fanart1
-            anchors.right: parent.right
-            anchors.left: parent.left
-            anchors.top:parent.top
-            source: service.thumbnailservice.thumbnail
-            height: {
-                if(sourceSize.width != 0)
-                    return Math.max(100 * scalingFactor, width * sourceSize.height / sourceSize.width);
-                else
-                    return txtTitle.contentHeight + 10 * scalingFactor
-            }
-            fillMode: Image.PreserveAspectCrop
-            visible:false;
-            onHeightChanged: recomputeLayout()
-
-        } */
-        Rectangle {
-            height:txtTitle.contentHeight
-            width:txtTitle.contentWidth
-            x:txtTitle.x + (txtTitle.width - txtTitle.contentWidth) / 2
-            y:txtTitle.y + (txtTitle.height - txtTitle.contentHeight) / 2
-            visible:false
-            color:"black"
-            opacity: 0.2
-        }
+        VerticalScrollDecorator {}
 
         clip:true
-        anchors.top : parent.top
-        anchors.topMargin: 5 * scalingFactor
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 5 * scalingFactor
-        anchors.rightMargin: 5 * scalingFactor
+        anchors.fill:parent
         contentWidth: width;
-        contentHeight: theRect.childrenRect.height + txtTitle.height;
-        interactive: height < contentHeight
-        flickableDirection: Flickable.VerticalFlick
-        Rectangle {
-            id:theRect
-            anchors.top: txtTitle.bottom
+        contentHeight: fanart.height + header.height + theCol.contentHeight;
+        Image {
+            id: fanart
+            source: service.thumbnail
+            height:parent.width / 3
+            width:parent.width / 3
+            fillMode: Image.PreserveAspectFit
             anchors.right: parent.right
+            anchors.top:header.bottom
+        }
+        Column {
+            id:theCol
             anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top:header.bottom
+            spacing:Theme.paddingSmall
 
-            Image {
-                id: fanart
-                source: service.thumbnail
-                //height:150 * scalingFactor
-                height:parent.width / 3
-                width:parent.width / 3
-                fillMode: Image.PreserveAspectFit
-                anchors.right: parent.right
-                anchors.top:parent.top
-            }
-            Item {
-                id:textRect
+            Label {
                 anchors.left: parent.left
-                anchors.right: fanart.left
-
-                Rectangle {
-                    anchors.top: parent.top
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    height:movieProperties.model.length * 20 * scalingFactor
-                    id:propertiesRect
-                    color:"black"
-                    Repeater {
-                        id:movieProperties
-                        model:[
-                            {text:qsTr("Year:"), value:(service.year !== 0)?service.year:""},
-                            {text:qsTr("Genre:"), value:service.genres},
-                            {text:qsTr("Rating:"), value:Utils.formatRating(service.rating)},
-                            {text:qsTr("Runtime:"), value:Utils.formatTime(service.runtime)}
-                        ]
-                        delegate: Item {
-
-                            Text {
-                                id:txt
-                                height:20 * scalingFactor
-                                text: model.modelData.text
-                                font.bold: true
-                                color:"#eee"
-                                font.pixelSize: 12 * scalingFactor
-                                x:0
-                                y:index * 20 * scalingFactor
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                            Text {
-                                anchors.verticalCenter: txt.verticalCenter
-                                anchors.left: txt.right
-                                anchors.leftMargin: 5 * scalingFactor;
-                                color:"#eee"
-                                font.pixelSize: 12 * scalingFactor
-                                text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
-                            }
-                        }
-                    }
-                }
-                Text {
-                    color:Styling.linkColor
-                    font.pixelSize: 12 * scalingFactor
-                    height:20 * scalingFactor
-                    verticalAlignment: Text.AlignVCenter
-                    text:qsTr("Play movie")
-                    anchors.top:propertiesRect.bottom
-                    anchors.left:parent.left
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: service.playFile()
-                    }
-                }
+                anchors.leftMargin: Theme.horizontalPageMargin
+                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                text:qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:"")
+                color:Theme.highlightColor
+                verticalAlignment: Text.AlignTop
             }
 
+            Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                text:qsTr("<b>Genre:</b> %1").arg(service.genres)
+                color:Theme.highlightColor
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.WordWrap
+            }
 
-            Text {
+            Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                text:qsTr("<b>Rating:</b> %1").arg(Utils.formatRating(service.rating))
+                color:Theme.highlightColor
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.WordWrap
+            }
+
+            Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                text:qsTr("<b>Runtime:</b> %1").arg(Utils.formatTime(service.runtime))
+                color:Theme.highlightColor
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.WordWrap
+            }
+
+            Button {
+                text:qsTr("Play movie")
+                anchors.left:parent.left
+                onClicked: service.playFile()
+                anchors.leftMargin: Theme.horizontalPageMargin
+            }
+
+            Label {
                 id:theText
-                color:"#eee"
                 text:qsTr("Plot:")
-                font.pixelSize: 12 * scalingFactor
                 wrapMode: Text.WordWrap
-                anchors.top: theRect.top
-                anchors.topMargin: Math.max(textRect.childrenRect.height, fanart.height) + 5*scalingFactor
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.rightMargin: 5 * scalingFactor
                 font.bold: true
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                color:Theme.highlightColor
+
             }
-            Text {
-                color:"#eee"
-                font.pixelSize: 12 * scalingFactor
+            Label {
                 wrapMode: Text.WordWrap
-                anchors.top:theText.bottom
-                anchors.topMargin: 5 * scalingFactor
+                font.pixelSize: Theme.fontSizeSmall
+                text:service.plot
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.rightMargin: 5 * scalingFactor
-                text:service.plot
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                color:Theme.highlightColor
             }
         }
     }

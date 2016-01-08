@@ -83,15 +83,10 @@ QQmlListProperty<File> MusicService::filesAsList()
 void MusicService::refresh()
 {
     clearFiles();
-    if(SettingsManager::instance().musicFileBrowsing())
+    if(browsingMode_ == "directory")
         refresh_files();
     else
-    {
-        if(browsingMode_ == "directory")
-            refresh_files();
-        else
-            refresh_collection();
-    }
+        refresh_collection();
 }
 
 void MusicService::setFiles(const QList<File *> &value)

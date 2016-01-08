@@ -9,36 +9,15 @@ Page{
     property alias playlistType: service.playlistType
     property alias playlistPosition: service.playlistPosition
 
+    onStatusChanged: {
+        if(status === PageStatus.Active)
+            service.refresh()
+    }
+
     PlaylistControl
     {
         id :service
     }
-
-/*        Text {
-            color:Styling.textColor
-            font.bold: true
-            text: qsTr("Current playlist")
-            id:theTitle
-            anchors.top: parent.top
-            anchors.topMargin: height / 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pixelSize: 12 * scalingFactor
-        }
-
-        Text {
-            color:Styling.linkColor
-            text: qsTr("Clear")
-            id:clear
-            anchors.top:parent.top
-            anchors.topMargin: height / 2
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            font.pixelSize: 12 * scalingFactor
-            MouseArea {
-                anchors.fill: parent
-                onClicked: main.clear()
-            }
-        } */
 
     SilicaListView {
         header:PageHeader {
@@ -94,6 +73,7 @@ Page{
     {
         service.clearPlaylist()
     }
+
 
 }
 

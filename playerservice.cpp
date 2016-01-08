@@ -337,7 +337,7 @@ void PlayerService::updateConnectionStatus(int newStatus)
     if(newStatus == 2)
     {
         refreshPlayerInfo();
-        if(SettingsManager::instance().useHttpInterface())
+        if(Client::current().useHttpInterface())
             refreshTimer_.start();
         else
             refreshTimer_.stop();

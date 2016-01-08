@@ -29,7 +29,6 @@ Rectangle
                        popCurrentView();
             anchors.fill: parent
         }
-        color: Styling.linkColor
         font.bold: true
         anchors.left: upbtnimage.right
         anchors.leftMargin: 5 * scalingFactor

@@ -11,17 +11,16 @@ namespace tgcm
 namespace kontroller
 {
 
+class Server;
+
 class Client : public QObject
 {
     Q_OBJECT
 
-
-    Q_PROPERTY(QString serverAddress READ serverAddress WRITE setServerAddress NOTIFY serverAddressChanged)
-    Q_PROPERTY(int serverPort READ serverPort WRITE setServerPort NOTIFY serverPortChanged)
-
     QString serverAddress_;
     int serverPort_;
     int serverHttpPort_;
+    QString serverName_;
     QJsonRpcHttpClient* client_;
     QTcpSocket* clientSocket_;
     QJsonRpcSocket* tcpClient_;
@@ -37,11 +36,7 @@ public:
 
     static Client& current();
 
-    void setServerAddress(QString address);
-
     QString serverAddress() const;
-
-    void setServerPort(int port);
 
     int serverPort() const;
 
@@ -54,10 +49,14 @@ public:
      * @return
      */
     int connectionStatus() const;
+
+    bool useHttpInterface() const;
+
+    Server* server();
+    void switchToServer(QString const& serverName);
 signals:
-    void serverAddressChanged(QString address);
-    void serverPortChanged(int port);
     void connectionStatusChanged(int connected);
+    void serverChanged();
 
 public slots:
     void refresh();

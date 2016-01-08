@@ -14,12 +14,13 @@ StatusService::StatusService(QObject* parent) :
     QObject(parent)
 {
     connect(&Client::current(), SIGNAL(connectionStatusChanged(int)), this, SLOT(updateConnectionStatus(int)));
+    connect(&Client::current(), &Client::serverChanged, this, &StatusService::serverChanged);
     setWifiEnabled(atLeastOneWifiConnected());
     connect(&manager_, &QNetworkConfigurationManager::configurationAdded, this, &StatusService::handleConnectionAdded_);
     connect(&manager_, &QNetworkConfigurationManager::configurationRemoved, this, &StatusService::handleConnectionRemoved_);
     connect(&manager_, &QNetworkConfigurationManager::configurationChanged, this, &StatusService::handleConnectionChanged_);
-    Settings settings;
-    if(settings.serverAddress().size() > 0)
+
+    if(SettingsManager::instance().servers().size() > 0)
         settingsSet_ = true;
     else
         settingsSet_ = false;
@@ -33,6 +34,42 @@ int StatusService::connectionStatus() const
 bool StatusService::wifiEnabled() const
 {
     return wifiEnabled_;
+}
+
+QString StatusService::server() const
+{
+    if(Client::current().server())
+        return Client::current().server()->name();
+    return "";
+}
+
+void StatusService::switchToServer(QString server)
+{
+    Client::current().switchToServer(server);
+}
+
+void StatusService::retryConnect()
+{
+    Client::current().refresh();
+}
+
+namespace
+{
+int serverPropCount(QQmlListProperty<Server>*)
+{
+    return SettingsManager::instance().servers().size();
+}
+
+Server* serverPropAt(QQmlListProperty<Server>*, int index)
+{
+    return SettingsManager::instance().servers()[index].get();
+}
+
+}
+
+QQmlListProperty<Server> StatusService::servers()
+{
+    return QQmlListProperty<Server>(this, nullptr, &serverPropCount, &serverPropAt);
 }
 
 bool StatusService::atLeastOneWifiConnected()

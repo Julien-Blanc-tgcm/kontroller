@@ -119,11 +119,11 @@ void DeviceInformation::setup(QApplication &app)
     internal().deviceWidth = rect.width();
     internal().size = app.primaryScreen()->physicalSize();
     internal().logicalDpi = app.primaryScreen()->logicalDotsPerInch();
-    Settings settings;
-    if(settings.dpi() > 25) // less than 25 is not usable
-        internal().dpi = settings.dpi();
-    else
-        settings.setDpi(internal().deviceDpi);
+//    Settings settings;
+//    if(settings.dpi() > 25) // less than 25 is not usable
+//        internal().dpi = settings.dpi();
+//    else
+//        settings.setDpi(internal().deviceDpi);
     update();
 }
 
@@ -173,15 +173,15 @@ void DeviceInformation::update()
 {
     DeviceType device;
     Settings settings;
-    internal().dpi = settings.dpi();
-    if(internal().dpi <= 25 || internal().dpi > 3000) // obviously wrong value
-    {
-        internal().dpi = internal().deviceDpi;
-        settings.setDpi(internal().dpi);
-    }
-    if(settings.deviceType() != static_cast<int>(DeviceType::Undefined))
-        device = static_cast<DeviceType>(settings.deviceType());
-    else
+//    internal().dpi = settings.dpi();
+//    if(internal().dpi <= 25 || internal().dpi > 3000) // obviously wrong value
+//    {
+//        internal().dpi = internal().deviceDpi;
+//        settings.setDpi(internal().dpi);
+//    }
+//    if(settings.deviceType() != static_cast<int>(DeviceType::Undefined))
+//        device = static_cast<DeviceType>(settings.deviceType());
+//    else
         device = getDeviceType(internal().deviceDpi, internal().deviceHeight, internal().deviceWidth);
 
     qreal viewDistance = getViewDistance(device);

@@ -10,18 +10,21 @@ Page {
         id: settings
     }
 
-
-    function getLeftMargin()
-    {
-        var x = Math.max(serverText.width, serverPortText.width) + 10
-        if(x < parent.width / 4)
-            return x + 30;
-        else
-            return x + 5;
-    }
-
     SilicaFlickable {
         anchors.fill: parent
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("New server")
+                onClicked: settings.newServer("Test")
+            }
+            Repeater {
+                model:settings.servers
+                delegate: MenuItem {
+                    text:modelData.name
+                    onClicked:settings.setCurrentServerIdx(index)
+                }
+            }
+        }
         Column {
             spacing:10
             anchors.fill: parent
@@ -29,34 +32,61 @@ Page {
                 title: qsTr("Settings")
             }
             TextField {
-                id: serverAddress
-                text:settings.serverAddress
-                anchors.left: parent.left;
-                anchors.leftMargin: 10
+                id:serverName
+                text:settings.servers[settings.currentServerIdx].name
+                anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                label:qsTr("Server name");
+                placeholderText: qsTr("Server name")
+            }
+
+            TextField {
+                id: serverAddress
+                text:settings.servers[settings.currentServerIdx].serverAddress
+                anchors.left: parent.left;
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("Server address");
+                placeholderText: qsTr("Server address");
             }
 
             TextField {
                 id: serverPort
-                text:settings.serverPort
+                text:settings.servers[settings.currentServerIdx].serverPort
                 anchors.left: parent.left
-                anchors.leftMargin: 10
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
                 validator: IntValidator { bottom: 1; top: 65535 }
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Server port")
+                placeholderText: qsTr("Server port")
             }
+            TextField {
+                id : serverHttpPort
+                text:settings.servers[settings.currentServerIdx].serverHttpPort
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                validator: IntValidator{ bottom:1; top:65535}
+                inputMethodHints: Qt.ImhDigitsOnly
+                label:qsTr("Web port")
+                placeholderText: qsTr("Web port")
+            }
+
             TextSwitch {
                 id:chkIgnoreWifi
                 checked: settings.ignoreWifiStatus
                 text:qsTr("Ignore wi-fi status")
                 anchors.left: parent.left
-                anchors.leftMargin: 5
                 anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
             }
 
 /*        TextSwitch {
@@ -118,41 +148,15 @@ Page {
                 onClicked: {
                     // settings.musicFileBrowsing = chkMusicFileBrowsing.checked;
                     //settings.videosFileBrowsing = chkVideosFileBrowsing.checked;
-                    settings.setServer(serverAddress.text, serverPort.text)
+                    settings.servers[settings.currentServerIdx].setServerAddress(serverAddress.text);
+                    settings.servers[settings.currentServerIdx].setServerPort(serverPort.text);
+                    settings.servers[settings.currentServerIdx].setServerHttpPort(serverHttpPort.text);
+                    settings.servers[settings.currentServerIdx].setName(serverName.text)
+                    settings.setIgnoreWifiStatus(chkIgnoreWifi.checked);
+                    settings.save();
                     deviceInformation.update()
                 }
             }
         }
-    }
-
-    Binding {
-        target: settings
-        property: "serverAddress"
-        value: serverAddress.text
-    }
-    Binding {
-        target:settings
-        property: "serverPort"
-        value:serverPort.text
-    }
-/*    Binding{
-        target:settings
-        property: "videosFileBrowsing"
-        value: chkVideosFileBrowsing.checked
-    }
-    Binding {
-        target: settings
-        property: "musicFileBrowsing"
-        value: chkMusicFileBrowsing.checked;
-    }
-    Binding {
-        target: settings
-        property: "useHttpInterface"
-        value: chkUseHttpInterface.checked
-    } */
-    Binding {
-        target:settings
-        property: "ignoreWifiStatus"
-        value:chkIgnoreWifi.checked
     }
 }

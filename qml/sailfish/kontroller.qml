@@ -11,7 +11,12 @@ ApplicationWindow {
 
     allowedOrientations: Orientation.Portrait
     _defaultPageOrientations: Orientation.All
-    cover:Qt.resolvedUrl("cover/CoverPage.qml")
+    cover: {
+        if(status.connectionStatus === 2)
+            return Qt.resolvedUrl("cover/CoverPage.qml")
+        else
+            return Qt.resolvedUrl("cover/UnconnectedCover.qml");
+    }
     initialPage: Component {
         KontrollerMain {
             anchors.fill: parent
@@ -29,7 +34,7 @@ ApplicationWindow {
         onConnectionStatusChanged: {
             if(connectionStatus === 2)
             {
-                pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"))
+                //pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"))
             }
         }
     }

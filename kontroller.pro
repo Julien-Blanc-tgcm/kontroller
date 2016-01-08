@@ -38,7 +38,8 @@ SOURCES += main.cpp \
     settingsmanager.cpp \
     settings.cpp \
     remote.cpp \
-    audiostream.cpp
+    audiostream.cpp \
+    server.cpp
 
 RESOURCES += icons.qrc
 CONFIG(sailfish) {
@@ -113,7 +114,8 @@ HEADERS += \
     settingsmanager.h \
     settings.h \
     remote.h \
-    audiostream.h
+    audiostream.h \
+    server.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

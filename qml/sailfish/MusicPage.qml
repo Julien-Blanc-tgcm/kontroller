@@ -10,6 +10,9 @@ Page {
     signal mediaClicked(string filetype, string file, string label)
     signal mediaPlayClicked(string dir)
     signal mediaInformationClicked(string filetype, string file, string label)
+    signal remoteClicked()
+    signal currentClicked()
+    signal backToMenuClicked()
 
     MusicService {
         id: musicService

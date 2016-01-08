@@ -13,6 +13,7 @@ Client::Client(QObject *parent) :
     QObject(parent),
     serverPort_(9090),
     serverHttpPort_(8080),
+    serverName_(),
     client_(nullptr),
     clientSocket_(nullptr),
     tcpClient_(nullptr),
@@ -44,27 +45,9 @@ Client& Client::current()
     return instance_;
 }
 
-void Client::setServerAddress(QString address)
-{
-    if(serverAddress_ != address)
-    {
-        serverAddress_ = address;
-        emit serverAddressChanged(serverAddress_);
-    }
-}
-
 QString Client::serverAddress() const
 {
     return serverAddress_;
-}
-
-void Client::setServerPort(int port)
-{
-    if(serverPort_ != port)
-    {
-        serverPort_ = port;
-        emit serverPortChanged(serverPort_);
-    }
 }
 
 int Client::serverPort() const
@@ -80,26 +63,65 @@ int Client::serverHttpPort() const
 void Client::refresh()
 {
     freeConnections();
-    if(serverAddress_.size() > 0 && serverPort_ > 0)
+    Server* server = nullptr;
+    if(serverName_.size() > 0)
+        server = SettingsManager::instance().server(serverName_);
+    else if(SettingsManager::instance().servers().size() >= 1)
     {
-        setConnectionStatus(1);
-        if(SettingsManager::instance().useHttpInterface())
+        server = SettingsManager::instance().servers().front().get();
+        serverName_ = server->name();
+    }
+    if(server)
+    {
+        serverAddress_ = server->serverAddress();
+        serverPort_ = server->serverPort();
+        serverHttpPort_ = server->serverHttpPort();
+        qDebug() << "Connection to " << serverAddress_ << serverPort_;
+        if(serverAddress_.size() > 0 && serverPort_ > 0)
         {
-            client_ = new QJsonRpcHttpClient("http://" + serverAddress_ + ":" + QString::number(serverPort_) + "/jsonrpc");
-        }
-        else
-        {
-            clientSocket_ = new QTcpSocket();
-            connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess()));
-            connect(clientSocket_, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleConnectionError(QAbstractSocket::SocketError)));
-            clientSocket_->connectToHost(serverAddress_, serverPort_);
+            setConnectionStatus(1);
+//            if(server->useHttpInterface())
+//            {
+//                client_ = new QJsonRpcHttpClient("http://" + serverAddress_ + ":" + QString::number(serverPort_) + "/jsonrpc");
+//            }
+//            else
+            {
+                clientSocket_ = new QTcpSocket();
+                connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess()));
+                connect(clientSocket_, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleConnectionError(QAbstractSocket::SocketError)));
+                clientSocket_->connectToHost(serverAddress_, serverPort_);
+            }
         }
     }
+    else
+        setConnectionStatus(-1);
 }
 
 int Client::connectionStatus() const
 {
     return connectionStatus_;
+}
+
+bool Client::useHttpInterface() const
+{
+    return false;
+}
+
+Server *Client::server()
+{
+    for(auto& server : SettingsManager::instance().servers())
+    {
+        if(server->name() == serverName_)
+            return server.get();
+    }
+    return nullptr;
+}
+
+void Client::switchToServer(const QString &serverName)
+{
+    serverName_ = serverName;
+    emit serverChanged();
+    refresh();
 }
 
 void Client::handleError(QJsonRpcMessage error)
@@ -175,6 +197,7 @@ void Client::handleConnectionSuccess()
     tcpClient_ = new QJsonRpcSocket(clientSocket_);
     connect(tcpClient_, SIGNAL(messageReceived(QJsonRpcMessage)), this, SLOT(handleMessageReceived(QJsonRpcMessage)));
     setConnectionStatus(2);
+    emit serverChanged();
 }
 
 void Client::handleConnectionError(QAbstractSocket::SocketError err)

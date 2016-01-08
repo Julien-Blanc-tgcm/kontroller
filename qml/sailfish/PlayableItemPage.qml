@@ -22,6 +22,22 @@ Item {
         currentIndex: -1
         visible: !service.refreshing
 
+        VerticalScrollDecorator {}
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("Remote control")
+                onClicked: remoteClicked()
+            }
+            MenuItem {
+                text:qsTr("Currently playing")
+                onClicked: currentClicked()
+            }
+            MenuItem {
+                text:qsTr("Back to menu")
+                onClicked: backToMenuClicked();
+            }
+        }
+
         delegate: ListItem {
             width: ListView.view.width
             contentHeight:Theme.itemSizeSmall
@@ -98,47 +114,13 @@ Item {
                         { text:qsTr("View information"), type:"information"}
                     ];
         }
-        console.log(item.filetype);
+       // console.log(item.filetype);
     }
 
     function execute(action, item)
     {
         console.log("Executing " + action + " on " + item.file);
     }
-
-    /*ListContextMenu {
-        visible: false
-        color:"black"
-        border.color: Styling.borderColor
-        border.width: 2 * scalingFactor
-        id:theSubMenu
-        onInformationPressed: {
-            visible = false;
-            var model = service.filesAsList[thelist.currentIndex];
-            if(model)
-            {
-                mediaInformationClicked(model.filetype, model.file, model.label);
-            }
-        }
-        onAddToPlaylistPressed: {
-            var model = service.filesAsList[thelist.currentIndex];
-            if(model)
-            {
-                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || model.filetype === "file")
-                    control.addToPlaylist(model)
-            }
-            visible = false
-        }
-        onPlayPressed: {
-            var model = service.filesAsList[thelist.currentIndex];
-            if(model)
-            {
-                if(model.filetype === "directory" || model.filetype === "album" || model.filetype === "song" || model.filetype === "file")
-                    control.playFile(model)
-            }
-            visible = false
-        }
-    } */
 
     property var currentMenuItem
 

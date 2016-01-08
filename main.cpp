@@ -1,6 +1,8 @@
 #ifdef SAILFISH_TARGET
 #include <sailfishapp.h>
 #include <QGuiApplication>
+#include <QQuickView>
+#include <QQuickItem>
 #else
 #include <QApplication>
 #endif
@@ -28,6 +30,7 @@
 #include "seasoninformationservice.h"
 #include "episodeinformationservice.h"
 #include "playinginformation.h"
+#include "server.h"
 
 void registerTypes()
 {
@@ -42,6 +45,8 @@ void registerTypes()
     ret = qmlRegisterType<Subtitle>();
     assert(ret);
     ret = qmlRegisterType<AudioStream>();
+    assert(ret);
+    ret = qmlRegisterType<Server>();
     assert(ret);
     ret = qmlRegisterType<MusicService>(qmlprefix, 1, 0, "MusicService");
     assert(ret);
@@ -103,9 +108,9 @@ int main(int argc, char *argv[])
     //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
 
     using namespace eu::tgcm;
-    kontroller::Settings settings;
-    kontroller::Client::current().setServerAddress(settings.serverAddress());
-    kontroller::Client::current().setServerPort(settings.serverPort());
+//    kontroller::Settings settings;
+//    kontroller::Client::current().setServerAddress(settings.serverAddress());
+//    kontroller::Client::current().setServerPort(settings.serverPort());
     kontroller::Client::current().refresh();
 
 //    kontroller::DeviceInformation inf;

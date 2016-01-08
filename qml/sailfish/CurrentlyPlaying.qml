@@ -62,9 +62,8 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text:internal.getThumbDisplay(playingInformation.currentItem);
+
         }
-
-
 
         Label {
             anchors.left: parent.left
@@ -86,7 +85,7 @@ Page {
             anchors.top: mainDisplay.bottom
             text:internal.getSubDisplay(playingInformation.currentItem)
             horizontalAlignment: Text.AlignHCenter
-            color:Styling.textColor
+            color:Theme.highlightColor
             id:subDisplay
             wrapMode: Text.WordWrap
         }
@@ -114,6 +113,7 @@ Page {
             text:internal.getTime(activePlayer)
             font.pixelSize: Theme.fontSizeExtraSmall
             id:lblCurrentTime
+            color:Theme.highlightColor
         }
         Label {
             anchors.right: progressSlider.right
@@ -121,6 +121,7 @@ Page {
             text:internal.getTotalTime(activePlayer)
             font.pixelSize: Theme.fontSizeExtraSmall
             id:lblTotalTime
+            color:Theme.highlightColor
         }
 
         Label {
@@ -134,6 +135,7 @@ Page {
             text: internal.getNextDisplay(playingInformation.nextItem)
             elide: Text.ElideMiddle
             clip:true
+            color:Theme.highlightColor
         }
 
         Repeater {

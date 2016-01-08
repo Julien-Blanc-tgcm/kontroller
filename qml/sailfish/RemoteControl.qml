@@ -11,6 +11,7 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
+        anchors.topMargin:2 * Theme.itemSizeSmall
         IconButton {
             width: buttonWidth
             height: buttonWidth
@@ -23,6 +24,7 @@ Page {
             icon.scale: 2
         }
         IconButton {
+            id:btnDown
             width: buttonWidth
             height: buttonWidth
             anchors.top: btnOk.bottom
@@ -104,34 +106,15 @@ Page {
             icon.source: "image://theme/icon-m-acknowledge"
             onClicked: remoteController.select()
         }
+        IconButton {
+            width: buttonWidth
+            height:buttonWidth
+            id:btnOsd
+            anchors.bottom:btnDown.bottom
+            anchors.right: btnRight.right
+            icon.scale: 2
+            icon.source: "image://theme/icon-m-acknowledge"
+            onClicked: remoteController.showOSD();
+        }
     }
-
-/*    Text {
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        text : scalingFactor + " " + touchScalingFactor
-        color: Styling.linkColor
-        id : txtScale
-    }
-
-    Text {
-        id:txtDpi
-        anchors.bottom: txtScale.top
-        anchors.bottomMargin: 10
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        color:Styling.linkColor
-        text: deviceInformation.dpi + " " + deviceInformation.size().width + "x" + deviceInformation.size().height
-    }
-
-    Text {
-        anchors.bottom: txtDpi.top
-        anchors.bottomMargin: 10
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        color:Styling.linkColor
-        text: deviceInformation.logicalDpi()
-    } */
 }

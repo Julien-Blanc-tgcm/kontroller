@@ -3,6 +3,9 @@
 
 #include <QString>
 
+#include "server.h"
+#include <memory>
+
 namespace eu
 {
 namespace tgcm
@@ -27,13 +30,15 @@ class SettingsManager
 {
     SettingsManager();
 private:
-    QString serverAddress_;
+    std::vector<std::unique_ptr<Server> > servers_;
+/*    QString serverAddress_;
     int serverPort_;
     bool musicFileBrowsing_;
     bool videosFileBrowsing_;
     bool useHttpInterface_;
     DeviceType deviceType_;
     int dpi_;
+    int serverHttpPort_; */
     bool ignoreWifiStatus_;
 public:
     /**
@@ -42,44 +47,20 @@ public:
      */
     static SettingsManager& instance();
 
-    /**
-     * @brief serverAddress The address of the server the application connects to
-     * (currently, only on server address is supported)
-     * @return address of the remote server
-     */
-    QString serverAddress() const;
-    /**
-     * @brief serverPort the port the application will connect to. Defaults to 8080
-     * @return port of the remote server
-     */
-    int serverPort() const;
-    /**
-     * @brief musicFileBrowsing Tells whether music browsing uses file mode or library
-     * mode.
-     * @return true if music browsing uses file mode, false otherwise
-     */
-    bool musicFileBrowsing() const;
-    /**
-     * @brief moviesFileBrowsing Tells whether movies browsing uses file mode or library
-     * mode.
-     * @return true if movies browsing uses file mode, false otherwise (video file browsing)
-     */
-    bool videosFileBrowsing() const;
+    std::vector<std::unique_ptr<Server>>& servers();
 
-    void setServer(QString address, int port);
-    void setMusicFileBrowsing(bool browsing);
-    void setVideosFileBrowsing(bool browsing);
+    Server* server(QString const& name);
 
     void save();
 
-    bool useHttpInterface() const;
+/*    bool useHttpInterface() const;
     void setUseHttpInterface(bool useHttpInterface);
 
     DeviceType deviceType() const;
     void setDeviceType(DeviceType type);
 
     int dpi() const;
-    void setDpi(int dpi);
+    void setDpi(int dpi);*/
     bool ignoreWifiStatus() const;
     void setIgnoreWifiStatus(bool ignoreWifiStatus);
 };

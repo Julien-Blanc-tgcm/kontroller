@@ -4,6 +4,7 @@
 #include <QString>
 #include <QObject>
 #include "settingsmanager.h"
+#include <QQmlListProperty>
 
 namespace eu
 {
@@ -16,42 +17,45 @@ class Settings : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString serverAddress READ serverAddress NOTIFY serverAddressChanged)
-    Q_PROPERTY(int serverPort READ serverPort NOTIFY serverPortChanged)
-    Q_PROPERTY(bool musicFileBrowsing READ musicFileBrowsing WRITE setMusicFileBrowsing NOTIFY musicFileBrowsingChanged)
-    Q_PROPERTY(bool videosFileBrowsing READ videosFileBrowsing WRITE setVideosFileBrowsing NOTIFY videosFileBrowsingChanged)
-    Q_PROPERTY(bool useHttpInterface READ useHttpInterface WRITE setUseHttpInterface NOTIFY useHttpInterfaceChanged)
-    Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
+    bool ignoreWifiStatus_;
+    int currentServerIdx_;
+
+
+public:
+    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Server> servers READ servers NOTIFY serversChanged)
+    Q_PROPERTY(int currentServerIdx READ currentServerIdx WRITE setCurrentServerIdx NOTIFY currentServerIdxChanged)
+
     Q_PROPERTY(bool ignoreWifiStatus READ ignoreWifiStatus WRITE setIgnoreWifiStatus NOTIFY ignoreWifiStatusChanged)
 
 public:
     Settings();
 
-    QString serverAddress() const;
-    int serverPort() const;
-    bool musicFileBrowsing() const;
-    bool videosFileBrowsing() const;
-    bool useHttpInterface() const;
-    int deviceType() const;
-    int dpi() const;
-    bool ignoreWifiStatus() const;
+    QQmlListProperty<Server> servers();
+    int currentServerIdx() const;
+
+    bool ignoreWifiStatus() const
+    {
+        return ignoreWifiStatus_;
+    }
+
 public slots:
-    void setServer(QString address, int port);
-    void setMusicFileBrowsing(bool browsing);
-    void setVideosFileBrowsing(bool browsing);
-    void setUseHttpInterface(bool http);
-    void setDeviceType(int type);
-    void setDpi(int dpi);
-    void setIgnoreWifiStatus(bool value);
+    void setCurrentServerIdx(int idx);
+    void save();
+    void newServer(QString serverName);
+
+    void setIgnoreWifiStatus(bool ignoreWifiStatus)
+    {
+        if (ignoreWifiStatus_ == ignoreWifiStatus)
+            return;
+
+        ignoreWifiStatus_ = ignoreWifiStatus;
+        emit ignoreWifiStatusChanged(ignoreWifiStatus);
+    }
+
 signals:
-    void serverAddressChanged(QString serverAddress);
-    void serverPortChanged(int serverPort);
-    void musicFileBrowsingChanged(bool);
-    void videosFileBrowsingChanged(bool);
-    void useHttpInterfaceChanged(bool);
-    void deviceTypeChanged(int);
-    void dpiChanged(int);
-    void ignoreWifiStatusChanged(bool);
+    void serversChanged();
+    void currentServerIdxChanged();
+    void ignoreWifiStatusChanged(bool ignoreWifiStatus);
 };
 
 }

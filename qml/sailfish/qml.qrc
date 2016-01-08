@@ -26,5 +26,6 @@
     </qresource>
     <qresource prefix="/cover">
         <file alias="CoverPage.qml">cover/CoverPage.qml</file>
+        <file>cover/UnconnectedCover.qml</file>
     </qresource>
 </RCC>
