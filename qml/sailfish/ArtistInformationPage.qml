@@ -4,12 +4,30 @@ import Sailfish.Silica 1.0
 import "."
 Page {
     id:main
+    signal remoteClicked()
+    signal currentClicked()
+    signal backToMenuClicked()
 
     SilicaFlickable {
         anchors.fill:parent
         contentHeight:theCol.childrenRect.height
 
         VerticalScrollDecorator {}
+
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("Remote control")
+                onClicked: remoteClicked()
+            }
+            MenuItem {
+                text:qsTr("Currently playing")
+                onClicked: currentClicked()
+            }
+            MenuItem {
+                text:qsTr("Back to menu")
+                onClicked: backToMenuClicked();
+            }
+        }
 
         Column {
             id:theCol

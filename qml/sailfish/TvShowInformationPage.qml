@@ -6,11 +6,33 @@ import "."
 
 Page {
     id:main
+    signal remoteClicked()
+    signal currentClicked()
+    signal backToMenuClicked()
+
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: txtTitle.height + theCol.height
+        contentHeight: header.height + col.childrenRect.height
         contentWidth: parent.width
         clip:true
+
+        VerticalScrollDecorator {}
+
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("Remote control")
+                onClicked: remoteClicked()
+            }
+            MenuItem {
+                text:qsTr("Currently playing")
+                onClicked: currentClicked()
+            }
+            MenuItem {
+                text:qsTr("Back to menu")
+                onClicked: backToMenuClicked();
+            }
+        }
+
 
         PageHeader {
             id:header
@@ -24,13 +46,14 @@ Page {
             width:parent.width / 3
             fillMode: Image.PreserveAspectFit
             anchors.right: parent.right
-            anchors.top:parent.top
+            anchors.top:header.bottom
         }
 
         Column {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top:header.bottom
+            id:col
             Repeater {
                 id:properties
                 model:[
@@ -42,8 +65,9 @@ Page {
                 ]
                 delegate: Item {
                     height:Theme.itemSizeSmall
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                    anchors.left: col.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    width:col.width - fanart.width
                     Label {
                         id:txt
                         text: model.modelData.text
@@ -51,13 +75,17 @@ Page {
                         x:0
                         verticalAlignment: Text.AlignVCenter
                         height:parent.height
+                        color:Theme.highlightColor
                     }
                     Label {
                         anchors.left: txt.right
-                        anchors.leftMargin: 5
+                        anchors.leftMargin: Theme.paddingSmall
                         text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
                         verticalAlignment: Text.AlignVCenter
                         height:parent.height
+                        width: parent.width - x
+                        wrapMode: Text.WordWrap
+                        color:Theme.highlightColor
                     }
                 }
             }
@@ -67,17 +95,23 @@ Page {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 text:qsTr("Seasons:")
+                color:Theme.highlightColor
+                font.bold: true
+                anchors.leftMargin: Theme.horizontalPageMargin
             }
 
             Repeater {
                 id:songs
                 model:service.seasons
-                delegate: Rectangle {
+                delegate: Item {
                     height:Theme.itemSizeSmall
+                    anchors.left: col.left
+                    anchors.right: col.right
+                    anchors.leftMargin: Theme.horizontalPageMargin
                     Label {
                         height: Theme.itemSizeSmall
                         verticalAlignment: Text.AlignVCenter
-                        x: 10
+                        x: Theme.paddingMedium
                         text:model.modelData.label
                         clip:true
                         elide: Text.ElideMiddle
@@ -99,19 +133,22 @@ Page {
                 id:theText
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.rightMargin: 5
-                anchors.leftMargin: 5
                 font.bold: true
+                text:qsTr("Plot")
+                color:Theme.highlightColor
+                anchors.rightMargin: Theme.horizontalPageMargin
+                anchors.leftMargin: Theme.horizontalPageMargin
             }
             Label {
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
                 anchors.left: parent.left
-                anchors.leftMargin: 5
                 anchors.right: parent.right
-                anchors.rightMargin: 5
+                anchors.rightMargin: Theme.horizontalPageMargin
+                anchors.leftMargin: Theme.horizontalPageMargin
                 text:service.plot
                 textFormat: Text.PlainText
+                color:Theme.highlightColor
             }
         }
     }

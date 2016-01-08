@@ -89,6 +89,19 @@ void Settings::newServer(QString serverName)
     setCurrentServerIdx(SettingsManager::instance().servers().size() - 1);
 }
 
+void Settings::removeCurrentServer()
+{
+    if(SettingsManager::instance().servers().size() > 1)
+    {
+        auto it = SettingsManager::instance().servers().begin();
+        std::advance(it, currentServerIdx_);
+        if(it != SettingsManager::instance().servers().end())
+            SettingsManager::instance().servers().erase(it);
+        setCurrentServerIdx(0);
+        emit serversChanged();
+    }
+}
+
 }
 }
 }

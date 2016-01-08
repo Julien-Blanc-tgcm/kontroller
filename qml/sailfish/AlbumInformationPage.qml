@@ -5,6 +5,9 @@ import "."
 
 Page {
     id:main
+    signal remoteClicked()
+    signal currentClicked()
+    signal backToMenuClicked()
 
     SilicaFlickable {
         clip:true
@@ -16,6 +19,21 @@ Page {
             id:txtTitle
             wrapMode: Text.WordWrap
             clip:true
+        }
+
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("Remote control")
+                onClicked: remoteClicked()
+            }
+            MenuItem {
+                text:qsTr("Currently playing")
+                onClicked: currentClicked()
+            }
+            MenuItem {
+                text:qsTr("Back to menu")
+                onClicked: backToMenuClicked();
+            }
         }
 
         VerticalScrollDecorator {}

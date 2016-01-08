@@ -123,6 +123,7 @@ std::vector<std::unique_ptr<Server> > &SettingsManager::servers()
 void SettingsManager::save()
 {
     QSettings settings("tgcm.eu", "kontroller");
+    settings.clear();
     settings.beginWriteArray("servers", servers_.size());
     int i = 0;
     for(auto& server : servers_)

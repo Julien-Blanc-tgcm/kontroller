@@ -42,6 +42,7 @@ public slots:
     void setCurrentServerIdx(int idx);
     void save();
     void newServer(QString serverName);
+    void removeCurrentServer();
 
     void setIgnoreWifiStatus(bool ignoreWifiStatus)
     {

@@ -3,6 +3,7 @@
 #include "settingsmanager.h"
 #include "albumsrequest.h"
 #include "songsrequest.h"
+#include "utils.h"
 
 namespace eu
 {
@@ -165,6 +166,9 @@ void MusicService::refresh_collection()
         obj["ignorearticle"] = true;
         QJsonObject parameters;
         parameters.insert("sort", obj);
+        QJsonArray properties;
+        properties.append(QLatin1String("thumbnail"));
+        parameters.insert("properties", properties);
         if(browsingMode_ == "media")
         {
             if(browsingValue_ == "artists")
@@ -286,6 +290,7 @@ void MusicService::parseArtistsResults()
                                 file->setFile(QString::number(val.toDouble()));
                             file->setFiletype("artist");
                             file->setType("artist");
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }
@@ -353,6 +358,7 @@ void MusicService::parseGenresResults()
                                 file->setFile(QString::number(val.toDouble()));
                             file->setFiletype("genre");
                             file->setType("genre");
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }
@@ -404,6 +410,7 @@ void MusicService::parseDirectoryResults()
                             val = obj.value("type");
                             if(val.type() == QJsonValue::String)
                                 file->setType(val.toString());
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }

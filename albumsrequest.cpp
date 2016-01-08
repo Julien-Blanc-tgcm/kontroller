@@ -1,6 +1,7 @@
 #include "albumsrequest.h"
 #include "client.h"
 #include "file.h"
+#include "utils.h"
 
 namespace eu
 {
@@ -23,6 +24,9 @@ void AlbumsRequest::start(int artistid)
         filter["artistid"] = artistid;
         parameters.insert("filter", filter);
     }
+    QJsonArray properties;
+    properties.append(QLatin1String("thumbnail"));
+    parameters.insert("properties", properties);
     auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
     QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)
@@ -62,6 +66,7 @@ void AlbumsRequest::parseAlbumsResult()
                                 file->setFile(QString::number(val.toDouble()));
                             file->setFiletype("album");
                             file->setType("album");
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             results.push_back(file);
                         }
                     }

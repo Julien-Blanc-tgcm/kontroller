@@ -5,6 +5,9 @@ import "utils.js" as Utils
 import "."
 Page {
     id:main
+    signal remoteClicked()
+    signal currentClicked()
+    signal backToMenuClicked()
 
     SilicaFlickable {
 
@@ -12,7 +15,22 @@ Page {
             id:header
             title:service.title
         }
+
         VerticalScrollDecorator {}
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("Remote control")
+                onClicked: remoteClicked()
+            }
+            MenuItem {
+                text:qsTr("Currently playing")
+                onClicked: currentClicked()
+            }
+            MenuItem {
+                text:qsTr("Back to menu")
+                onClicked: backToMenuClicked();
+            }
+        }
 
         clip:true
         anchors.fill:parent
@@ -75,9 +93,8 @@ Page {
 
             Button {
                 text:qsTr("Play movie")
-                anchors.left:parent.left
                 onClicked: service.playFile()
-                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Label {

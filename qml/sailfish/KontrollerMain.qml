@@ -16,6 +16,7 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {
+            visible: status.servers.length > 1
             Repeater {
                 model:status.servers
                 delegate: MenuItem {
@@ -216,7 +217,14 @@ Page {
                 newView = component.createObject(pageStack, {"itemId":file});
                 if(newView)
                 {
-                    newView.mediaInformationClicked.connect(createInformationPage);
+                    if(typeof(newView.mediaInformationClicked) !== "undefined")
+                        newView.mediaInformationClicked.connect(createInformationPage);
+                    if(typeof(newView.remoteClicked) !== "undefined")
+                        newView.remoteClicked.connect(pushRemotePage);
+                    if(typeof(newView.currentClicked) !== "undefined")
+                        newView.currentClicked.connect(pushCurrentPage);
+                    if(typeof(newView.backToMenuClicked) !== "undefined")
+                        newView.backToMenuClicked.connect(toMenu);
                     //newView.label = pageStack.currentItem.label + "/" + label;
                     newView.label = label;
                 }

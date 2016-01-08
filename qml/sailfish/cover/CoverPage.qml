@@ -34,11 +34,35 @@ CoverBackground {
 
         CoverAction {
             iconSource: "image://theme/icon-cover-next"
-            onTriggered: console.log("Next")
+            onTriggered: {
+                if(playerController.players.length > 0)
+                {
+                    var player = playerController.players[0];
+                    playerController.next(player.playerId);
+                }
+            }
         }
         CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
-            onTriggered: console.log("Pause");
+            iconSource: {
+                if(playerController.players.length > 0)
+                {
+                    var player = playerController.players[0];
+                    if(player.speed > 0)
+                        return "image://theme/icon-cover-pause"
+                }
+                return "image://theme/icon-cover-play"
+            }
+            onTriggered: {
+                if(playerController.players.length > 0)
+                {
+                    var player = playerController.players[0];
+                    playerController.playPause(player.playerId);
+                }
+            }
         }
+    }
+
+    PlayerControl {
+        id:playerController
     }
 }

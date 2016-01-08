@@ -17,6 +17,11 @@ Page {
                 text:qsTr("New server")
                 onClicked: settings.newServer("Test")
             }
+            MenuItem {
+                text:qsTr("Delete server")
+                onClicked:settings.deleteCurrentServer()
+                visible: settings.servers.length > 1
+            }
             Repeater {
                 model:settings.servers
                 delegate: MenuItem {

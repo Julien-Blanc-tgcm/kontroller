@@ -144,7 +144,7 @@ Page {
                 {"icon":"image://theme/icon-m-clear", "action":"stop"},
                 {"icon":"image://theme/icon-m-previous", "action":"prev"},
                 {"icon":"image://theme/icon-m-left", "action":"backward"},
-                {"icon":"image://theme/icon-m-play", "action":"playpause"},
+                {"icon":["image://theme/icon-m-play", "image://theme/icon-m-pause"], "action":"playpause"},
                 {"icon":"image://theme/icon-m-right", "action":"forward"},
                 {"icon":"image://theme/icon-m-next", "action":"next"}
             ]
@@ -162,7 +162,18 @@ Page {
                 y: rptr.y
                 width:rptr.height
                 height:rptr.height
-                icon.source:model.modelData.icon
+                icon.source: {
+                    if(typeof(model.modelData.icon) === "string")
+                        return model.modelData.icon;
+                    else
+                    {
+                        var player = internal.getPlayer(activePlayer);
+                        if(player && player.speed > 0)
+                            return model.modelData.icon[1];
+                        else
+                            return model.modelData.icon[0];
+                    }
+                }
                 onClicked: internal.executeCommand(model.modelData.action);
             }
         }

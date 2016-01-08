@@ -6,11 +6,32 @@ import "."
 
 Page {
     id:main
+    signal remoteClicked()
+    signal currentClicked()
+    signal backToMenuClicked()
+
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: theCol.childrenRect.height
+        contentHeight: theCol.childrenRect.height + header.height
+        VerticalScrollDecorator {}
+
+        PullDownMenu {
+            MenuItem {
+                text:qsTr("Remote control")
+                onClicked: remoteClicked()
+            }
+            MenuItem {
+                text:qsTr("Currently playing")
+                onClicked: currentClicked()
+            }
+            MenuItem {
+                text:qsTr("Back to menu")
+                onClicked: backToMenuClicked();
+            }
+        }
 
         PageHeader {
+            id:header
             title:service.showTitle
         }
         Image {
@@ -20,10 +41,13 @@ Page {
             width:parent.width / 3
             fillMode: Image.PreserveAspectFit
             anchors.right: parent.right
-            anchors.top:parent.top
+            anchors.top:header.bottom
         }
         Column {
             id:theCol
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top:header.bottom
             Repeater {
                 id:properties
                 model:[
@@ -32,18 +56,22 @@ Page {
                 ]
             delegate: Item {
                     height:Theme.itemSizeSmall
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                    anchors.left: theCol.left
+                    anchors.right: theCol.right
+                    anchors.leftMargin: Theme.horizontalPageMargin
                     Label {
                         id:txt
                         text: model.modelData.text
                         x:0
                         verticalAlignment: Text.AlignVCenter
+                        color:Theme.highlightColor
+                        font.bold: true
                     }
                     Label {
                         anchors.left: txt.right
-                        anchors.leftMargin: 5
+                        anchors.leftMargin: Theme.paddingSmall
                         text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
+                        color:Theme.highlightColor
                     }
                 }
             }
@@ -53,29 +81,37 @@ Page {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 text:qsTr("Episodes:")
+                color:Theme.highlightColor
+                font.bold: true
+                anchors.leftMargin: Theme.horizontalPageMargin
             }
 
             Repeater {
                 id:songs
                 model:service.episodes
                 delegate: Item {
-                    height:episodesList.itemHeight
+                    height:Theme.itemSizeSmall
+                    width:theCol.width
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.horizontalPageMargin
                     IconButton {
                         icon.source: "image://theme/icon-m-play"
                         width:height
                         height:parent.height
-                        x:0
+                        anchors.left: parent.left
                         onClicked: control.playFile(model.modelData)
                     }
 
                     Label {
                         height: parent.height
                         verticalAlignment: Text.AlignVCenter
-                        x: height + 5
+                        x: height + Theme.paddingSmall
                         text:model.modelData.label
                         clip:true
                         elide: Text.ElideMiddle
-                        width:main.width - height - 5
+                        width:parent.width - height - Theme.paddingSmall
                         MouseArea {
                             anchors.fill: parent
                             onClicked: mediaInformationClicked(model.modelData.filetype,

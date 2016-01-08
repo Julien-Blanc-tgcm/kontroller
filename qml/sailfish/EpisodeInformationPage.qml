@@ -7,29 +7,34 @@ import "."
 Page {
     id:main
     SilicaFlickable {
-        contentHeight: theCol.childrenRect.height
+        contentHeight: theCol.childrenRect.height + header.height
         anchors.fill: parent
         clip:true
 
         VerticalScrollDecorator {}
+        PageHeader {
+            id:header
+            title:service.title
+            wrapMode:Text.WordWrap
+        }
+
+        Image {
+            id: fanart
+            source: service.thumbnail
+            height:parent.width / 3
+            width:parent.width / 3
+            fillMode: Image.PreserveAspectFit
+            anchors.right: parent.right
+            anchors.top:header.bottom
+            anchors.rightMargin: Theme.horizontalPageMargin
+        }
 
         Column {
             id:theCol
-            PageHeader {
-                id:header
-                title:service.title
-                wrapMode:Text.WordWrap
-            }
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: header.bottom
 
-            Image {
-                id: fanart
-                source: service.thumbnail
-                height:parent.width / 3
-                width:parent.width / 3
-                fillMode: Image.PreserveAspectFit
-                anchors.right: parent.right
-                anchors.top:header.bottom
-            }
             Repeater {
                 id:properties
                 model:[
@@ -41,28 +46,30 @@ Page {
                 ]
                 delegate: Item {
                     height:Theme.itemSizeSmall
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    Text {
+                    anchors.left: theCol.left
+                    anchors.right: theCol.right
+                    Label {
                         id:txt
                         text: model.modelData.text
                         font.bold: true
-                        x:0
+                        x:Theme.horizontalPageMargin
                         verticalAlignment: Text.AlignVCenter
+                        color:Theme.highlightColor
                     }
-                    Text {
+                    Label {
                         anchors.left: txt.right
-                        anchors.leftMargin: 5
+                        anchors.leftMargin: Theme.paddingSmall
                         text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
+                        color:Theme.highlightColor
                     }
                 }
             }
 
             Button {
                 text:qsTr("Play episode")
-                anchors.left: parent.left
                 id:playlink
                 onClicked: service.playFile()
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Label {
@@ -70,15 +77,21 @@ Page {
                 text:qsTr("Plot:")
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                anchors.leftMargin: Theme.horizontalPageMargin
                 font.bold: true
+                color:Theme.highlightColor
             }
             Label {
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                anchors.leftMargin: Theme.horizontalPageMargin
                 text:service.plot
                 textFormat: Text.PlainText
+                color:Theme.highlightColor
             }
         }
     }

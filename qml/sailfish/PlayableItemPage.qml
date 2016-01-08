@@ -42,10 +42,21 @@ Item {
             width: ListView.view.width
             contentHeight:Theme.itemSizeSmall
             id:currentItem
+            Image {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                visible:model.thumbnail.length > 0
+                source:model.thumbnail
+                height:parent.height - 2 * Theme.paddingSmall
+                width: height * sourceSize.width / sourceSize.height
+                anchors.verticalCenter: parent.verticalCenter
+                id:img
+            }
+
             Label {
                 text : formatFile(filetype, label)
-                anchors.left: parent.left
-                anchors.leftMargin: 5
+                anchors.left: img.visible ? img.right :parent.left
+                anchors.leftMargin: img.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
                 anchors.right: btnplay.left
                 anchors.verticalCenter: parent.verticalCenter
                 clip:true
@@ -119,7 +130,21 @@ Item {
 
     function execute(action, item)
     {
-        console.log("Executing " + action + " on " + item.file);
+        if(action === "information")
+        {
+            var modelItem = service.filesA
+            mediaInformationClicked(item.filetype, item.file, item.label)
+        }
+        else if(action === "play")
+        {
+            control.playFile(service.filesAsList[item.index]);
+        }
+        else if(action === "addtoplaylist")
+        {
+            control.addToPlaylist(service.filesAsList[item.index]);
+        }
+        else
+            console.log("Executing " + action + " on " + item.file);
     }
 
     property var currentMenuItem
@@ -134,6 +159,8 @@ Item {
         if(modelItem.filetype === "file")
             control.playFile(service.filesAsList[modelItem.index]);
         else if(modelItem.filetype === "song")
+            control.playFile(service.filesAsList[modelItem.index]);
+        else if(modelItem.filetype === "musicvideo")
             control.playFile(service.filesAsList[modelItem.index]);
         else
             mediaClicked(modelItem.filetype, modelItem.file, modelItem.label)

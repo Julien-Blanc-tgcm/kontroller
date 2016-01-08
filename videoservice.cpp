@@ -3,6 +3,7 @@
 #include "settingsmanager.h"
 #include "tvshowseasonsrequest.h"
 #include "tvshowepisodesrequest.h"
+#include "utils.h"
 
 namespace eu
 {
@@ -168,6 +169,9 @@ void VideoService::refresh_collection()
         obj["ignorearticle"] = true;
         QJsonObject parameters;
         parameters.insert("sort", obj);
+        QJsonArray properties;
+        properties.append(QLatin1String("thumbnail"));
+        parameters.insert("properties", properties);
         if(browsingMode_ == "media")
         {
             if(browsingValue_ == "movies")
@@ -308,6 +312,7 @@ void VideoService::parseMoviesResults_()
                                 file->setFile(QString::number(val.toDouble()));
                             file->setFiletype("movie");
                             file->setType("movie");
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }
@@ -351,6 +356,7 @@ void VideoService::parseTVShowsResults_()
                                 file->setFile(QString::number(val.toDouble()));
                             file->setFiletype("tvshow");
                             file->setType("tvshow");
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }
@@ -394,6 +400,7 @@ void VideoService::parseMusicVideosResults_()
                                 file->setFile(QString::number(val.toDouble()));
                             file->setFiletype("musicvideo");
                             file->setType("musicvideo");
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }
@@ -512,6 +519,7 @@ void VideoService::parseDirectoryResults()
                             val = obj.value("type");
                             if(val.type() == QJsonValue::String)
                                 file->setType(val.toString());
+                            file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
                             files_.push_back(file);
                         }
                     }
