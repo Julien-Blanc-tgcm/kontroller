@@ -36,9 +36,11 @@ private:
     bool musicFileBrowsing_;
     bool videosFileBrowsing_;
     bool useHttpInterface_;
-    DeviceType deviceType_;
+    DeviceType deviceType_; */
+#ifndef SAILFISH_TARGET
     int dpi_;
-    int serverHttpPort_; */
+#endif
+/*    int serverHttpPort_; */
     bool ignoreWifiStatus_;
 public:
     /**
@@ -57,10 +59,12 @@ public:
     void setUseHttpInterface(bool useHttpInterface);
 
     DeviceType deviceType() const;
-    void setDeviceType(DeviceType type);
+    void setDeviceType(DeviceType type); */
 
+#ifndef SAILFISH_TARGET
     int dpi() const;
-    void setDpi(int dpi);*/
+    void setDpi(int dpi);
+#endif
     bool ignoreWifiStatus() const;
     void setIgnoreWifiStatus(bool ignoreWifiStatus);
 };

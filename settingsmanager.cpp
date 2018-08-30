@@ -98,8 +98,8 @@ void SettingsManager::setDeviceType(DeviceType type)
 {
     deviceType_ = type;
 }*/
-
-/*int SettingsManager::dpi() const
+#ifndef SAILFISH_TARGET
+int SettingsManager::dpi() const
 {
     return dpi_;
 }
@@ -107,7 +107,8 @@ void SettingsManager::setDeviceType(DeviceType type)
 void SettingsManager::setDpi(int dpi)
 {
     dpi_ = dpi;
-}*/
+}
+#endif
 
 SettingsManager& SettingsManager::instance()
 {
@@ -133,10 +134,14 @@ void SettingsManager::save()
         settings.setValue("server", server->serverAddress());
         settings.setValue("port", server->serverPort());
         settings.setValue("serverHttpPort", server->serverHttpPort());
+        settings.setValue("hasZones", server->hasZones());
+        settings.setValue("zones", server->zones());
         i += 1;
     }
     settings.endArray();
-//    settings.setValue("dpi", dpi_);
+#ifndef SAILFISH_TARGET
+    settings.setValue("dpi", dpi_);
+#endif
 //    settings.setValue("deviceType", (int)deviceType_);
 //    settings.setValue("ignoreWifiStatus", ignoreWifiStatus_);
     settings.sync();

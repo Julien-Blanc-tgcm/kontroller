@@ -31,6 +31,9 @@
 #include "episodeinformationservice.h"
 #include "playinginformation.h"
 #include "server.h"
+#ifndef SAILFISH_TARGET
+#include "themeinformation.h"
+#endif
 
 void registerTypes()
 {
@@ -86,6 +89,10 @@ void registerTypes()
     assert(ret);
     ret = qmlRegisterType<PlayingInformation>(qmlprefix, 1, 0, "PlayingInformation");
     assert(ret);
+#ifndef SAILFISH_TARGET
+    ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");
+    assert(ret);
+#endif
 }
 
 
@@ -101,20 +108,21 @@ int main(int argc, char *argv[])
     QObject::connect(engine, &QQmlEngine::quit, app, &QGuiApplication::quit);
 #else
     QApplication* app = new QApplication(argc, argv);
-    QQmlEngine engine;
+    QQmlApplicationEngine engine;
     registerTypes();
+
+    eu::tgcm::kontroller::DeviceInformation inf;
+    inf.setup(*app);
+
+    //QQmlComponent component(&engine);
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
 #endif
     //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
 
-    using namespace eu::tgcm;
 //    kontroller::Settings settings;
 //    kontroller::Client::current().setServerAddress(settings.serverAddress());
 //    kontroller::Client::current().setServerPort(settings.serverPort());
-    kontroller::Client::current().refresh();
-
-//    kontroller::DeviceInformation inf;
-//    inf.setup(*app);
+    eu::tgcm::kontroller::Client::current().refresh();
 
     return app->exec();
 }

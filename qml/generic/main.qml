@@ -15,6 +15,9 @@ ApplicationWindow {
     DeviceInformation {
         id:deviceInformation
     }
+    ThemeInformation {
+        id:theme
+    }
 
     menuBar: MenuBar {
         Menu {
@@ -68,6 +71,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        theme.configure(deviceInformation)
         if(!status.settingsSet)
         {
             main.activateSettingsPage()

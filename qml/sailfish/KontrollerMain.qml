@@ -7,7 +7,16 @@ Page {
     anchors.fill: parent
     id: main
 
+    Remote {
+        id:remote
+    }
 
+    Keys.onVolumeUpPressed: {
+            remote.volumeUp();
+    }
+    Keys.onVolumeDownPressed: {
+            remote.volumeDown();
+    }
 
     StatusService {
         id:status

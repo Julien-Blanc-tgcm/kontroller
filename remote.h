@@ -30,6 +30,8 @@ public slots:
     void showCodec();
     void showOSD();
     void up();
+    void volumeUp();
+    void volumeDown();
 };
 
 }

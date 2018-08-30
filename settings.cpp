@@ -11,7 +11,8 @@ namespace kontroller
 {
 
 Settings::Settings() :
-    currentServerIdx_(0)
+    currentServerIdx_(0),
+    timer_{new QTimer(this)}
 {
     if(SettingsManager::instance().servers().size() == 0)
         newServer(tr("Default"));
@@ -19,6 +20,9 @@ Settings::Settings() :
     {
         setCurrentServerIdx(0);
     }
+    timer_->setInterval(2000);
+    timer_->setSingleShot(false);
+    connect(timer_, SIGNAL(timeout()), this, SLOT(pollCurrentZone()));
 }
 
 void Settings::setCurrentServerIdx(int idx)
@@ -46,17 +50,18 @@ void Settings::save()
 //{
 //    return (int) SettingsManager::instance().deviceType();
 //}
+#ifndef SAILFISH_TARGET
+int Settings::dpi() const
+{
+    return SettingsManager::instance().dpi();
+}
 
-//int Settings::dpi() const
-//{
-//    return SettingsManager::instance().dpi();
-//}
-
-//void Settings::setDpi(int dpi)
-//{
-//    SettingsManager::instance().setDpi(dpi);
-//    emit dpiChanged(dpi);
-//}
+void Settings::setDpi(int dpi)
+{
+    SettingsManager::instance().setDpi(dpi);
+    emit dpiChanged(dpi);
+}
+#endif
 
 namespace
 {
@@ -99,6 +104,48 @@ void Settings::removeCurrentServer()
             SettingsManager::instance().servers().erase(it);
         setCurrentServerIdx(0);
         emit serversChanged();
+    }
+}
+
+void Settings::pollForZones()
+{
+    Server* server = getServerAt(nullptr, currentServerIdx());
+    if(server)
+    {
+        Client::current().switchToServer(server->name());
+        timer_->start();
+    }
+}
+
+void Settings::pollCurrentZone()
+{
+    QJsonObject params;
+    params.insert("setting", QString{"audiooutput.audiodevice"});
+    QJsonRpcMessage message = QJsonRpcMessage::createRequest("Settings.GetSettingValue", params);
+    auto reply = Client::current().send(message);
+    connect(reply, SIGNAL(finished()), this, SLOT(pollCurrentZoneReply()));
+}
+
+void Settings::endPolling()
+{
+    timer_->stop();
+}
+
+void Settings::pollCurrentZoneReply()
+{
+    auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+    auto resp = reply->response().toObject();
+    if(resp["result"].isObject())
+    {
+        auto result = resp["result"].toObject();
+        auto zones = getServerAt(nullptr, currentServerIdx())->zones();
+        QString zone = result["value"].toString();
+        if(!zones.contains(zone))
+        {
+            zones.append(zone);
+            getServerAt(nullptr, currentServerIdx_)->setZones(zones);
+        }
+
     }
 }
 

@@ -79,6 +79,22 @@ void Remote::up()
     Client::current().send(message);
 }
 
+void Remote::volumeUp()
+{
+    QJsonArray parameters;
+    parameters.append(QString("increment"));
+    QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
+    Client::current().send(message);
+}
+
+void Remote::volumeDown()
+{
+    QJsonArray parameters;
+    parameters.append(QString("decrement"));
+    QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
+    Client::current().send(message);
+}
+
 }
 }
 }

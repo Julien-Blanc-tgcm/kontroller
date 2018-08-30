@@ -150,9 +150,10 @@ QJsonRpcServiceReply* Client::send(QJsonRpcMessage message)
     }
     if(tcpClient_)
     {
-        auto reply = tcpClient_->sendMessage(message);
+/*        auto reply = tcpClient_->sendMessage(message);
         connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
-        return reply;
+        return reply; */
+        return httpSend(message);
     }
     else
         return nullptr;
@@ -294,6 +295,17 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
                     }
                 }
             }
+        }
+        else if(method == "Input.OnInputRequested")
+        {
+            auto data = message.params().toObject().take("data").toObject();
+            emit inputRequested(data["title"].toString(),
+                    data["type"].toString(),
+                    data["value"].toString());
+        }
+        else if(method == "Input.OnInputFinished")
+        {
+            emit inputFinished();
         }
         else
             qDebug() << message;

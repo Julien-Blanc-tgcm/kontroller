@@ -24,12 +24,22 @@ private:
     QString label_;
     bool refreshing_;
 
+    bool inputRequested_;
+
+    QString inputTitle_;
+
+    QString inputValue_;
+
 public:
     Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> filesAsList READ filesAsList NOTIFY filesAsListChanged)
     Q_PROPERTY(QString browsingMode READ browsingMode WRITE setBrowsingMode NOTIFY browsingModeChanged)
     Q_PROPERTY(QString browsingValue READ browsingValue WRITE setBrowsingValue NOTIFY browsingValueChanged)
     Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
     Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
+
+    Q_PROPERTY(bool inputRequested READ inputRequested WRITE setInputRequested NOTIFY inputRequestedChanged)
+    Q_PROPERTY(QString inputTitle READ inputTitle WRITE setInputTitle NOTIFY inputTitleChanged)
+    Q_PROPERTY(QString inputValue READ inputValue WRITE setInputValue NOTIFY inputValueChanged)
 
 public:
     VideoService(QObject * parent = NULL);
@@ -42,12 +52,24 @@ public:
     QString label() const;
     bool refreshing() const;
 
+    bool inputRequested() const;
+
+    QString inputTitle() const;
+
+    QString inputValue() const;
+
 signals:
     void filesAsListChanged();
     void browsingModeChanged();
     void browsingValueChanged();
     void labelChanged();
     void refreshingChanged();
+    void inputRequestedChanged(bool inputRequested);
+
+    void inputTitleChanged(QString inputTitle);
+
+    void inputValueChanged(QString inputValue);
+
 public slots:
     void refresh();
     void setFiles(const std::vector<File *> &value);
@@ -56,6 +78,15 @@ public slots:
     void setLabel(QString label);
     void setRefreshing(bool refreshing);
     void refreshCollection();
+
+
+
+    void setInputRequested(bool inputRequested);
+
+    void setInputTitle(QString inputTitle);
+
+    void setInputValue(QString inputValue);
+
 private:
     bool clearPlayList();
     bool addFileToPlaylist(File* file);
@@ -65,6 +96,7 @@ private:
     void refresh_files();
     void refresh_collection();
 
+
 private slots:
     void parseMoviesResults_();
     void parseTVShowsResults_();
@@ -73,6 +105,8 @@ private slots:
     void parseSeasonsResults_();
     void parseEpisodesResults_();
     void parseDirectoryResults();
+    void requestInput_(QString title, QString type, QString value);
+    void requestInputFinished_();
 };
 
 }

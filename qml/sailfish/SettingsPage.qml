@@ -83,6 +83,16 @@ Page {
                 label:qsTr("Web port")
                 placeholderText: qsTr("Web port")
             }
+            TextSwitch {
+                id: serverHasZones
+                text:qsTr("Use multiples zones")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                checked:settings.servers[settings.currentServerIdx].hasZones
+                onCheckedChanged: pushOrPullZonePage()
+            }
 
             TextSwitch {
                 id:chkIgnoreWifi
@@ -94,74 +104,49 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
             }
 
-/*        TextSwitch {
-            id: chkUseHttpInterface
-            checked:settings.useHttpInterface
-            text: qsTr("Use HTTP transport")
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.top: serverPort.bottom
-            anchors.topMargin:10
-        }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargi
+                color:Theme.highlightColor
+                text:qsTr("Zones uses different audio output. Go to next page to learn for current zones.")
+                wrapMode: Text.WordWrap
+            }
 
-        TextSwitch {
-            id : chkMusicFileBrowsing
-            checked: settings.musicFileBrowsing
-            text: qsTr("Use file browsing for music")
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.top: chkUseHttpInterface.bottom
-            anchors.topMargin:10
-        }
-        TextSwitch {
-            id: chkVideosFileBrowsing
-            checked:settings.videosFileBrowsing
-            text: qsTr("Use file browsing for videos")
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.top: chkMusicFileBrowsing.bottom
-            anchors.topMargin:10
-        } */
-/*    Text {
-        id:labelDpi
-        text: qsTr("Dpi")
-        anchors.left: parent.left
-        anchors.leftMargin:  5
-        anchors.verticalCenter:valueDpi.verticalCenter
-        font.bold: true
-    }
-
-    TextField {
-        id: valueDpi
-        text:settings.dpi
-        anchors.left: parent.left
-        anchors.leftMargin: getLeftMargin()
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.top: chkVideosFileBrowsing.bottom
-        anchors.topMargin:10
-        validator: IntValidator { bottom: 25; top: 65535 }
-        inputMethodHints: Qt.ImhDigitsOnly
-    } */
             Button {
                 text: "Save"
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 onClicked: {
-                    // settings.musicFileBrowsing = chkMusicFileBrowsing.checked;
-                    //settings.videosFileBrowsing = chkVideosFileBrowsing.checked;
                     settings.servers[settings.currentServerIdx].setServerAddress(serverAddress.text);
                     settings.servers[settings.currentServerIdx].setServerPort(serverPort.text);
                     settings.servers[settings.currentServerIdx].setServerHttpPort(serverHttpPort.text);
                     settings.servers[settings.currentServerIdx].setName(serverName.text)
+                    settings.servers[settings.currentServerIdx].setHasZones(serverHasZones.checked)
                     settings.setIgnoreWifiStatus(chkIgnoreWifi.checked);
                     settings.save();
                     deviceInformation.update()
                 }
             }
         }
+    }
+
+    property var zones;
+
+    Component.onCompleted: {
+        pushOrPullZonePage();
+    }
+
+    function pushOrPullZonePage()
+    {
+        console.log("pushhere");
+        if(chkIgnoreWifi.checked)
+        {
+            console.log("pushAttached");
+            zones = pageStack.pushAttached(Qt.resolvedUrl("ManageZones.qml"));
+        }
+        else if(zones)
+            pageStack.popAttached(zones);
     }
 }

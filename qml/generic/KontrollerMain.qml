@@ -67,16 +67,6 @@ Rectangle {
     }
 
 
-  /*  StatusBar {
-        id:status
-        anchors.bottom: parent.bottom
-        height: computeStatusBarHeight()
-        anchors.left: parent.left
-        anchors.right: parent.right
-        onPlaylistClicked: showPlaylist(type)
-        onStateChanged: focusAccordingToState()
-        z:2
-    }*/
     Hideable {
         id:flickable
         anchorRaised:main.top

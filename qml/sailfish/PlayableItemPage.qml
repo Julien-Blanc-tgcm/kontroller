@@ -10,6 +10,53 @@ Item {
 
     property alias header : thelist.header
 
+    Rectangle {
+        id: inputMain
+        z: 10
+        anchors.top:parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        clip:true
+        visible: service.inputRequested?true:false
+        color: "transparent"
+        Label {
+            id: inputTitle
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: Theme.itemSizeMedium
+            text: service.inputTitle
+            color: Theme.primaryColor
+        }
+        TextField {
+            id: textInput
+            anchors.top: inputTitle.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: Theme.paddingMedium
+            anchors.rightMargin: Theme.paddingMedium
+            placeholderText: service.inputValue
+            color: Theme.primaryColor
+            height: Theme.itemSizeLarge
+            label: qsTr("Input text")
+        }
+        Row {
+            anchors.top : textInput.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: Theme.paddingMedium
+            anchors.rightMargin: Theme.paddingMedium
+            Button {
+                text: qsTr("Cancel")
+                onClicked: { service.inputBack(); }
+            }
+            Button {
+                text: qsTr("OK")
+                onClicked: { service.inputText(textInput.text); }
+            }
+        }
+    }
+
     SilicaListView {
         id:thelist
         anchors.top: parent.top

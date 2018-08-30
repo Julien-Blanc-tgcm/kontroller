@@ -62,11 +62,6 @@ Rectangle
         anchors.left: parent.left
         anchors.right: parent.right
         id: stackedview
-        /*initialItem: MusicPage {
-            browsingMode: ""
-            browsingValue: ""
-            label: ""
-        }*/
         Component.onCompleted: {
             if(internal.pageComponent.status === Component.Ready)
                 internal.createConnections()

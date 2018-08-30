@@ -5,7 +5,6 @@
         <file>SettingsPage.qml</file>
         <file>RemoteControl.qml</file>
         <file>KontrollerMain.qml</file>
-        <file>StatusBar.qml</file>
         <file>PlaylistPage.qml</file>
         <file>VideoPage.qml</file>
         <file>Hideable.qml</file>
@@ -23,6 +22,7 @@
         <file>qmldir</file>
         <file>CurrentlyPlaying.qml</file>
         <file>PlayerProperties.qml</file>
+        <file>ManageZones.qml</file>
     </qresource>
     <qresource prefix="/cover">
         <file alias="CoverPage.qml">cover/CoverPage.qml</file>

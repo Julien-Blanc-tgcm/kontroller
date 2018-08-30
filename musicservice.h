@@ -32,6 +32,9 @@ public:
     Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
     Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
 
+    Q_PROPERTY(bool inputRequested READ inputRequested WRITE setInputRequested NOTIFY inputRequestedChanged)
+    Q_PROPERTY(QString inputTitle READ inputTitle WRITE setInputTitle NOTIFY inputTitleChanged)
+    Q_PROPERTY(QString inputValue READ inputValue WRITE setInputValue NOTIFY inputValueChanged)
 public:
     MusicService(QObject * parent = NULL);
     MusicService(QString browsingMode, QString browsingValue, QObject* parent = NULL);
@@ -43,12 +46,24 @@ public:
     QString label() const;
     bool refreshing() const;
 
+    bool inputRequested() const;
+
+    QString inputTitle() const;
+
+    QString inputValue() const;
+
 signals:
     void filesAsListChanged();
     void browsingModeChanged();
     void browsingValueChanged();
     void labelChanged();
     void refreshingChanged();
+    void inputRequestedChanged(bool inputRequested);
+
+    void inputTitleChanged(QString inputTitle);
+
+    void inputValueChanged(QString inputValue);
+
 public slots:
     void refresh();
     void setFiles(const QList<eu::tgcm::kontroller::File *> &value);
@@ -56,11 +71,28 @@ public slots:
     void setBrowsingValue(QString browsingValue);
     void setLabel(QString label);
     void setRefreshing(bool refreshing);
+    void setInputRequested(bool inputRequested);
+
+    void setInputTitle(QString inputTitle);
+
+    void setInputValue(QString inputValue);
+
+    void inputBack();
+
+    void inputText(QString inputValue);
+
 private:
 
     void clearFiles();
     void refresh_files();
     void refresh_collection();
+    void refreshAddons_();
+
+    bool inputRequested_ = false;
+
+    QString inputTitle_;
+
+    QString inputValue_;
 
 private slots:
     void parseArtistsResults();
@@ -68,6 +100,9 @@ private slots:
     void parseSongsResults();
     void parseGenresResults();
     void parseDirectoryResults();
+    void parseRefreshAddonsResult_();
+    void requestInput_(QString title, QString type, QString value);
+    void requestInputFinished_();
 };
 
 }

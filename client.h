@@ -57,7 +57,8 @@ public:
 signals:
     void connectionStatusChanged(int connected);
     void serverChanged();
-
+    void inputRequested(QString title, QString type, QString value);
+    void inputFinished();
 public slots:
     void refresh();
     void handleError(QJsonRpcMessage error);

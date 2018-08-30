@@ -35,10 +35,70 @@ bool MusicService::refreshing() const
     return refreshing_;
 }
 
+bool MusicService::inputRequested() const
+{
+    return inputRequested_;
+}
+
+QString MusicService::inputTitle() const
+{
+    return inputTitle_;
+}
+
+QString MusicService::inputValue() const
+{
+    return inputValue_;
+}
+
 void MusicService::setRefreshing(bool refreshing)
 {
     refreshing_ = refreshing;
     emit refreshingChanged();
+}
+
+void MusicService::setInputRequested(bool inputRequested)
+{
+    if (inputRequested_ == inputRequested)
+        return;
+
+    inputRequested_ = inputRequested;
+    emit inputRequestedChanged(inputRequested_);
+}
+
+void MusicService::setInputTitle(QString inputTitle)
+{
+    if (inputTitle_ == inputTitle)
+        return;
+
+    inputTitle_ = inputTitle;
+    emit inputTitleChanged(inputTitle_);
+}
+
+void MusicService::setInputValue(QString inputValue)
+{
+    if (inputValue_ == inputValue)
+        return;
+
+    inputValue_ = inputValue;
+    emit inputValueChanged(inputValue_);
+}
+
+void MusicService::inputBack()
+{
+    auto message = QJsonRpcMessage::createRequest("Input.Back");
+    auto reply = Client::current().send(message);
+    connect(reply, &QJsonRpcServiceReply::finished, [this]() { sender()->deleteLater();});
+}
+
+void MusicService::inputText(QString inputValue)
+{
+    QJsonObject parameters;
+    parameters["text"] = inputValue;
+    parameters["done"] = true;
+    auto message = QJsonRpcMessage::createRequest("Input.SendText", parameters);
+    auto& client = Client::current();
+    auto reply = client.send(message);
+    connect(reply, &QJsonRpcServiceReply::finished, [this]() { sender()->deleteLater();});
 }
 
 MusicService::MusicService(QObject *parent) :
@@ -48,7 +108,8 @@ MusicService::MusicService(QObject *parent) :
     refreshing_(false),
     audioPlaylistId_(0)
 {
-
+    connect(&Client::current(), &Client::inputRequested, this, &MusicService::requestInput_);
+    connect(&Client::current(), &Client::inputFinished, this, &MusicService::requestInputFinished_);
 }
 
 MusicService::MusicService(QString browsingMode, QString browsingValue, QObject* parent) :
@@ -85,6 +146,8 @@ void MusicService::refresh()
 {
     clearFiles();
     if(browsingMode_ == "directory")
+        refresh_files();
+    else if(browsingMode_ == "addon")
         refresh_files();
     else
         refresh_collection();
@@ -141,6 +204,13 @@ void MusicService::refresh_files()
         obj["ignorearticle"] = true;
         parameters.insert("sort", obj);
         parameters.insert("media", QString("music"));
+        QJsonArray properties;
+        properties.push_back("title");
+        properties.push_back("artist");
+        properties.push_back("track");
+        properties.push_back("thumbnail");
+        properties.push_back("file");
+        parameters.insert("properties", properties);
         message = QJsonRpcMessage::createRequest("Files.GetDirectory", parameters);
     }
     else
@@ -224,6 +294,7 @@ void MusicService::refresh_collection()
     }
     else
     {
+        files_.clear();
         File* file = new File(this);
         file->setLabel(tr("Artists"));
         file->setFile("artists");
@@ -254,6 +325,28 @@ void MusicService::refresh_collection()
         file->setType("directory");
         file->setFiletype("directory");
         files_.push_back(file);
+        refreshAddons_();
+        emit filesAsListChanged();
+        setRefreshing(false);
+    }
+}
+
+void MusicService::refreshAddons_()
+{
+    QJsonObject parameters;
+    parameters.insert("type", "xbmc.addon.audio");
+    QJsonArray data;
+    data.push_back("name");
+    data.push_back("thumbnail");
+    data.push_back("description");
+    data.push_back("summary");
+    parameters.insert("properties", data);
+    auto message = QJsonRpcMessage::createRequest("Addons.GetAddons", parameters);
+    auto reply = Client::current().send(message);
+    if(reply)
+        connect(reply, &QJsonRpcServiceReply::finished, this, &MusicService::parseRefreshAddonsResult_);
+    else
+    {
         emit filesAsListChanged();
         setRefreshing(false);
     }
@@ -374,6 +467,7 @@ void MusicService::parseGenresResults()
 void MusicService::parseDirectoryResults()
 {
     QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+    qDebug() << reply;
     if(reply)
     {
         QJsonObject obj = reply->response().toObject();
@@ -421,6 +515,55 @@ void MusicService::parseDirectoryResults()
     setRefreshing(false);
     reply->deleteLater();
     emit filesAsListChanged();
+}
+
+void MusicService::parseRefreshAddonsResult_()
+{
+    auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+    if(reply)
+    {
+        auto obj = reply->response().toObject();
+        if(obj.find("result") != obj.end())
+        {
+            QJsonValue result = obj.take("result");
+            if(result.type() == QJsonValue::Object)
+            {
+                auto resobj = result.toObject();
+                auto addonsIt = resobj.find("addons");
+                if(addonsIt != resobj.end() && addonsIt->isArray())
+                {
+                    for(auto const& addon : addonsIt->toArray())
+                    {
+                        if(addon.isObject())
+                        {
+                            QJsonObject addonObj = addon.toObject();
+                            auto file = new File(this);
+                            file->setLabel(addonObj["name"].toString());
+                            file->setFile("plugin://" + addonObj["addonid"].toString());
+                            file->setType("addon");
+                            file->setFiletype("addon");
+                            file->setThumbnail(getImageUrl(addonObj["thumbnail"].toString()).toString());
+                            files_.push_back(file);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    emit filesAsListChanged();
+    setRefreshing(false);
+}
+
+void MusicService::requestInput_(QString title, QString type, QString value)
+{
+    setInputTitle(title);
+    setInputValue(value);
+    setInputRequested(true);
+}
+
+void MusicService::requestInputFinished_()
+{
+    setInputRequested(false);
 }
 
 }

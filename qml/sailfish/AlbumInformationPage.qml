@@ -127,7 +127,7 @@ Page {
                         Label {
                             height:Theme.itemSizeSmall
                             verticalAlignment: Text.AlignVCenter
-                            x:btnplay.x + btnplay.width + 5
+                            x:btnplay.x + btnplay.width + Theme.paddingSmall
                             text:model.modelData.label
                             clip:true
                             elide: Text.ElideMiddle
@@ -143,24 +143,24 @@ Page {
 
             Label {
                 id:theText
+                color:Theme.highlightColor
                 wrapMode: Text.WordWrap
                 anchors.left: parent.left
-                anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
                 font.bold: true
                 text:qsTr("Description")
-                color:Theme.highlightColor
             }
             Label {
+                color:Theme.highlightColor
+                font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
                 anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
                 text:service.description
-                color:Theme.highlightColor
-                font.pixelSize: Theme.fontSizeSmall
             }
         }
     }
@@ -168,28 +168,6 @@ Page {
     property alias itemId : service.albumId
     property string label
     onItemIdChanged: service.refresh()
-
-//    ListContextMenu {
-//        visible:false
-//        color:"black"
-//        border.color: Styling.borderColor
-//        border.width: 2 * scalingFactor
-//        id:theSubMenu
-//        onInformationPressed:
-//        {
-//            visible = false
-//            if(currentModel)
-//                mediaInformationClicked(currentModel.filetype, currentModel.file, currentModel.label)
-//        }
-//        onAddToPlaylistPressed:  {
-//            visible = false
-//            control.addToPlaylist(currentModel)
-//        }
-//        onPlayPressed: {
-//            visible = false
-//            control.playFile(currentModel)
-//        }
-//    }
 
     AlbumInformationService
     {

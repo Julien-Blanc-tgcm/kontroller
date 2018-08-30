@@ -33,6 +33,21 @@ bool VideoService::refreshing() const
     return refreshing_;
 }
 
+bool VideoService::inputRequested() const
+{
+    return inputRequested_;
+}
+
+QString VideoService::inputTitle() const
+{
+    return inputTitle_;
+}
+
+QString VideoService::inputValue() const
+{
+    return inputValue_;
+}
+
 void VideoService::setRefreshing(bool refreshing)
 {
     refreshing_ = refreshing;
@@ -43,9 +58,11 @@ VideoService::VideoService(QObject *parent) :
     QObject(parent),
     browsingMode_(""),
     browsingValue_(""),
-    refreshing_(false)
+    refreshing_(false),
+    inputRequested_{false}
 {
-
+    connect(&Client::current(), &Client::inputRequested, this, &VideoService::requestInput_);
+    connect(&Client::current(), &Client::inputFinished, this, &VideoService::requestInputFinished_);
 }
 
 VideoService::VideoService(QString browsingMode, QString browsingValue, QObject* parent) :
@@ -91,6 +108,33 @@ void VideoService::refreshCollection()
 {
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.Scan");
     Client::current().send(message);
+}
+
+void VideoService::setInputRequested(bool inputRequested)
+{
+    if (inputRequested_ == inputRequested)
+        return;
+
+    inputRequested_ = inputRequested;
+    emit inputRequestedChanged(inputRequested_);
+}
+
+void VideoService::setInputTitle(QString inputTitle)
+{
+    if (inputTitle_ == inputTitle)
+        return;
+
+    inputTitle_ = inputTitle;
+    emit inputTitleChanged(inputTitle_);
+}
+
+void VideoService::setInputValue(QString inputValue)
+{
+    if (inputValue_ == inputValue)
+        return;
+
+    inputValue_ = inputValue;
+    emit inputValueChanged(inputValue_);
 }
 
 void VideoService::setFiles(const std::vector<File *> &value)
@@ -531,6 +575,20 @@ void VideoService::parseDirectoryResults()
     reply->deleteLater();
     emit filesAsListChanged();
 }
+
+void VideoService::requestInput_(QString title, QString type, QString value)
+{
+    setInputTitle(title);
+    setInputValue(value);
+    setInputRequested(true);
+}
+
+void VideoService::requestInputFinished_()
+{
+    setInputRequested(false);
+}
+
+
 
 }
 }

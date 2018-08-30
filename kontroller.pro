@@ -1,8 +1,9 @@
 TEMPLATE = app
-
-QT += qml quick
+CONFIG += sailfish
+QT += qml quick core
 CONFIG(sailfish) {
   CONFIG += sailfishapp
+  message(sailfish)
 } else {
   QT += widgets
 }
@@ -39,7 +40,8 @@ SOURCES += main.cpp \
     settings.cpp \
     remote.cpp \
     audiostream.cpp \
-    server.cpp
+    server.cpp \
+    themeinformation.cpp
 
 RESOURCES += icons.qrc
 CONFIG(sailfish) {
@@ -50,7 +52,7 @@ CONFIG(sailfish) {
 #        qml/sailfish/AlbumInformationPage.qml
 
 } else {
-#    RESOURCES += qml/generic/qml.qrc
+    RESOURCES += qml/generic/qml.qrc
 }
 
 INCLUDEPATH += ../qjsonrpc/src
@@ -69,7 +71,9 @@ equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
   LIBS += -L../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src
 } else {
   CONFIG(sailfishapp) {
-    LIBS += -L../qjsonrpc-Mer/src
+    LIBS += -L../../build/qjsonrpc-Mer/src
+
+#    LIBS += -L/home/whity/dev/build/qjsonrpc-MerSDK_SailfishOS_armv7hl-Release/src
   } else {
   LIBS += -L../qjsonrpc-Desktop_Qt_5_2_1_GCC_64bit-Debug/src
   LIBS += -L../qjsonrpc-Qt5_desktop-Release/src
@@ -115,7 +119,8 @@ HEADERS += \
     settings.h \
     remote.h \
     audiostream.h \
-    server.h
+    server.h \
+    themeinformation.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
