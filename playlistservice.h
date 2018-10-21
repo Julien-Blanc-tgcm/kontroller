@@ -55,6 +55,10 @@ public slots:
     void switchToItem(int position);
     void clearPlaylist();
     void removeElement(int index);
+	/**
+	 * @brief refresh refreshes the default playlist from the server
+	 */
+	void refresh();
 private slots:
     void setCurrentlyPlayedItem_(int playerId, QString type, int id);
     void refreshPlaylist_();

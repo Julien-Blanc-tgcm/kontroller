@@ -80,7 +80,7 @@ void Client::refresh()
         if(serverAddress_.size() > 0 && serverPort_ > 0)
         {
             setConnectionStatus(1);
-//            if(server->useHttpInterface())
+//            if(useHttpInterface())
 //            {
 //                client_ = new QJsonRpcHttpClient("http://" + serverAddress_ + ":" + QString::number(serverPort_) + "/jsonrpc");
 //            }
@@ -104,7 +104,7 @@ int Client::connectionStatus() const
 
 bool Client::useHttpInterface() const
 {
-    return false;
+    return true;
 }
 
 Server *Client::server()

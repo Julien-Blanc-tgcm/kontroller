@@ -18,10 +18,21 @@ void MusicControl::playFile(File *file)
 {
     if(file)
     {
-        clearPlaylist();
-        addToPlaylist(file);
-        startPlaying();
-    }
+		QJsonObject params;
+		QJsonObject item;
+		if(file->filetype() == "directory")
+			item.insert("directory", file->file());
+		else if(file->filetype() == "file")
+			item.insert("file", file->file());
+		else if(file->filetype() == "album")
+			item.insert("albumid", file->file().toInt());
+		else if(file->filetype() == "song")
+			item.insert("songid", file->file().toInt());
+		params.insert("item", item);
+		params.insert("options", QJsonObject{});
+		auto message = QJsonRpcMessage::createRequest("Player.Open", params);
+		Client::current().send(message);
+	}
 }
 
 void MusicControl::addToPlaylist(File *file)
@@ -41,7 +52,7 @@ void MusicControl::addToPlaylist(File *file)
             item.insert("songid", file->file().toInt());
         params.insert("item", item);
         params.insert("playlistid", audioPlaylistId_);
-        message = QJsonRpcMessage::createRequest("Playlist.Add", params);
+		message = QJsonRpcMessage::createRequest("Playlist.Add", params);
         Client::current().send(message);
     }
 }

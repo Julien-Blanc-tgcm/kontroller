@@ -39,6 +39,7 @@ public slots:
     void clearPlaylist();
     void removeElement(int index);
     void setPlaylistType(QString type);
+	void refresh();
 };
 
 }

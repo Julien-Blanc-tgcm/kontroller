@@ -53,7 +53,13 @@ void PlaylistControl::removeElement(int index)
 
 void PlaylistControl::setPlaylistType(QString type)
 {
-    PlaylistService::instance().setPlaylistType(type);
+	PlaylistService::instance().setPlaylistType(type);
+}
+
+void PlaylistControl::refresh()
+{
+	PlaylistService::instance().refresh();
+	// TODO : implement
 }
 
 }

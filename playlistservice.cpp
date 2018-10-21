@@ -293,7 +293,12 @@ void PlaylistService::removeElement(int index)
     params.insert("playlistid", playlistId_);
     params.insert("position", index);
     message = QJsonRpcMessage::createRequest("Playlist.Remove", params);
-    Client::current().send(message);
+	Client::current().send(message);
+}
+
+void PlaylistService::refresh()
+{
+	refreshPlaylist_();
 }
 
 void PlaylistService::setCurrentlyPlayedItem_(int /*playerId*/, QString type, int id)

@@ -71,7 +71,7 @@ equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
   LIBS += -L../qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_5_1-Release/src
 } else {
   CONFIG(sailfishapp) {
-    LIBS += -L../../build/qjsonrpc-Mer/src
+    LIBS += -L../qjsonrpc/src
 
 #    LIBS += -L/home/whity/dev/build/qjsonrpc-MerSDK_SailfishOS_armv7hl-Release/src
   } else {
@@ -128,8 +128,8 @@ OTHER_FILES += \
     android/AndroidManifest.xml
 
 CONFIG(sailfishapp) {
-  OTHER_FILES += rpm/kontroller.yaml \
-       rpm/kontroller.spec
+  OTHER_FILES += ../rpm/kontroller.yaml \
+       ../rpm/kontroller.spec
 }
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
@@ -143,6 +143,6 @@ DISTFILES += kontroller.prf \
     kontroller.desktop
 
 lib.path = /usr/share/kontroller/lib/
-lib.files += ../qjsonrpc-Mer/src/libqjsonrpc.so.1
+lib.files += ../qjsonrpc/src/libqjsonrpc.so.1
 INSTALLS += lib
 }
