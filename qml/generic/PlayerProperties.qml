@@ -14,7 +14,7 @@ Item {
     Text {
         id:lblSubtitles
         text:qsTr("Subtitles")
-        font.pixelSize: 12 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         y:0
         visible:player && player.type === "video"
         color:Styling.textColor
@@ -39,7 +39,7 @@ Item {
     Text {
         id:lblAudio
         text:qsTr("Audio")
-        font.pixelSize: 12 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         y:lblSubtitles.height + 5 * scalingFactor
         visible: player && player.type === "video"
         color:Styling.textColor

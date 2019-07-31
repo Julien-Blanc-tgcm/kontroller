@@ -246,7 +246,7 @@ void MusicService::refresh_collection()
 		}
 		QJsonArray properties;
 		properties.append(QLatin1String("thumbnail"));
-		parameters.insert("properties", properties);
+        parameters.insert("properties", properties);
 		if(browsingMode_ == "media")
 		{
 			if(browsingValue_ == "artists")

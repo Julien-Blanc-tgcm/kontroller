@@ -1,7 +1,9 @@
 import QtQuick 2.0
 import eu.tgcm 1.0
 import "."
-Item {
+Rectangle
+{
+    color: theme.backgroundColor
     id:main
     Text {
         color:theme.primaryColor

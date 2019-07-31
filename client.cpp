@@ -89,7 +89,7 @@ void Client::refresh()
                 clientSocket_ = new QTcpSocket();
                 connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess()));
                 connect(clientSocket_, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(handleConnectionError(QAbstractSocket::SocketError)));
-                clientSocket_->connectToHost(serverAddress_, serverPort_);
+                clientSocket_->connectToHost(serverAddress_, static_cast<quint16>(serverPort_));
             }
         }
     }
@@ -163,10 +163,23 @@ QJsonRpcServiceReply *Client::httpSend(QJsonRpcMessage message)
 {
     if(!client_)
     {
-        client_ = new QJsonRpcHttpClient("http://" + serverAddress_ + ":" + QString::number(serverHttpPort_) + "/jsonrpc");
+        client_ = new QJsonRpcHttpClient(baseUrl() + "jsonrpc");
     }
     auto reply = client_->sendMessage(message);
     connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
+    return reply;
+}
+
+QString Client::baseUrl() const
+{
+    return "http://" + serverAddress() + ":" + QString::number(serverHttpPort()) + "/";
+}
+
+QNetworkReply* Client::downloadFile(QString path)
+{
+    QNetworkRequest request;
+    request.setUrl(baseUrl() + path);
+    auto reply = client_->networkAccessManager()->get(request);
     return reply;
 }
 
@@ -228,17 +241,17 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
             auto playerIdVal = player.toObject().value("playerid");
             if(!playerIdVal.isDouble())
                 return;
-            playerId = (int)playerIdVal.toDouble();
+            playerId = static_cast<int>(playerIdVal.toDouble());
             auto speedVal = player.toObject().value("speed");
             if(!speedVal.isDouble())
                 return;
-            speed = (int)speedVal.toDouble();
+            speed = static_cast<int>(speedVal.toDouble());
             emit playerSpeedChanged(playerId, speed);
             QJsonObject item = data.value("item").toObject();
             QJsonValue id = item.value("id");
             QString type = item.value("type").toString();
             if(id.isDouble())
-                itemId = (int)id.toDouble();
+                itemId = static_cast<int>(id.toDouble());
             emit playlistCurrentItemChanged(playerId, type, itemId);
             qDebug() << message;
         }
@@ -251,7 +264,7 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
             QJsonValue val = message.params().toObject().value("data").toObject().value("playlistid");
             if(val.isDouble())
             {
-                emit playlistCleared((int)val.toDouble());
+                emit playlistCleared(static_cast<int>(val.toDouble()));
             }
         }
         else if(method == "Playlist.OnRemove")
@@ -262,7 +275,9 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
                 QJsonValue playlistId = data.value("playlistid");
                 QJsonValue position = data.value("position");
                 if(playlistId.isDouble() && position.isDouble())
-                    emit playlistElementRemoved((int)playlistId.toDouble(), (int)position.toDouble());
+                    emit playlistElementRemoved(
+                            static_cast<int>(playlistId.toDouble()),
+                            static_cast<int>(position.toDouble()));
             }
         }
         else if(method == "Playlist.OnAdd")
@@ -272,7 +287,7 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
             {
                 QJsonValue playlistId = data.value("playlistid");
                 if(playlistId.isDouble())
-                    emit playlistElementAdded((int)playlistId.toDouble());
+                    emit playlistElementAdded(static_cast<int>(playlistId.toDouble()));
             }
         }
         else if(method == "Player.OnSeek")
@@ -283,14 +298,14 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
                 QJsonObject player = data.value("player").toObject();
                 if(!player.isEmpty())
                 {
-                    int playerId = player.value("playerId").toDouble();
+                    int playerId = static_cast<int>(player.value("playerId").toDouble());
                     QJsonObject offset = player.value("seekoffset").toObject();
                     if(!offset.isEmpty())
                     {
-                        int hours = offset.value("hours").toDouble();
-                        int minutes = offset.value("minutes").toDouble();
-                        int seconds = offset.value("seconds").toDouble();
-                        int milliseconds = offset.value("milliseconds").toDouble();
+                        int hours = static_cast<int>(offset.value("hours").toDouble());
+                        int minutes = static_cast<int>(offset.value("minutes").toDouble());
+                        int seconds = static_cast<int>(offset.value("seconds").toDouble());
+                        int milliseconds = static_cast<int>(offset.value("milliseconds").toDouble());
                         emit playerSeekChanged(playerId, hours, minutes, seconds, milliseconds);
                     }
                 }

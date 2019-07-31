@@ -162,6 +162,7 @@ Item {
                         {text: qsTr("View information"), type: "information"}
                     ];
         case "audiodirectory":
+        case "directory":
         case "song":
             return [
                         { text:qsTr("Add to playlist"), type:"addtoplaylist"},
@@ -172,7 +173,8 @@ Item {
                         { text:qsTr("View information"), type:"information"}
                     ];
         }
-       // console.log(item.filetype);
+        console.log(item.filetype);
+        return [];
     }
 
     function execute(action, item)

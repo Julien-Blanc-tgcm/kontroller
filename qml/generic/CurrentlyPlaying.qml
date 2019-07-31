@@ -59,7 +59,7 @@ Item {
             Text {
                 anchors.fill: parent
                 color:Styling.textColor
-                font.pixelSize: 12 * scalingFactor
+                font.pixelSize: theme.fontSizeSmall
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -79,7 +79,7 @@ Item {
         anchors.rightMargin: 10 * scalingFactor
         text: internal.getMainDisplay(playingInformation.currentItem);
         horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 16 * scalingFactor
+        font.pixelSize: theme.fontSizeNormal
         color:Styling.textColor
         id:mainDisplay
         wrapMode: Text.WordWrap
@@ -92,7 +92,7 @@ Item {
         anchors.top: mainDisplay.bottom
         text:internal.getSubDisplay(playingInformation.currentItem)
         horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 14 * scalingFactor
+        font.pixelSize: theme.fontSizeNormal
         color:Styling.textColor
         font.italic: true
         id:subDisplay
@@ -105,8 +105,8 @@ Item {
         anchors.right: parent.right
         //anchors.top:subDisplay.bottom
         y: Math.max(thumbnailImg.y + thumbnailImg.height, subDisplay.y + subDisplay.height) + 10 * scalingFactor
-        anchors.leftMargin: 10 * scalingFactor
-        anchors.rightMargin: 10 * scalingFactor
+        anchors.leftMargin: theme.fontSizeSmall
+        anchors.rightMargin: theme.fontSizeSmall
         minimumValue: 0
         maximumValue: 100
         value: internal.getPercentage(activePlayer)
@@ -121,7 +121,7 @@ Item {
         anchors.top:progressSlider.bottom
         text:internal.getTime(activePlayer)
         color:Styling.textColor
-        font.pixelSize: 10 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         id:lblCurrentTime
     }
     Text {
@@ -129,7 +129,7 @@ Item {
         anchors.top:progressSlider.bottom
         text:internal.getTotalTime(activePlayer)
         color:Styling.textColor
-        font.pixelSize: 10 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         id:lblTotalTime
     }
 
@@ -139,7 +139,7 @@ Item {
         anchors.rightMargin: lblTotalTime.width + progressSlider.anchors.leftMargin * 2
         anchors.leftMargin: lblTotalTime.width + progressSlider.anchors.rightMargin * 2
         anchors.top:progressSlider.bottom
-        font.pixelSize: 10 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         horizontalAlignment: Text.AlignHCenter
         color:Styling.textColor
         text: internal.getNextDisplay(playingInformation.nextItem)

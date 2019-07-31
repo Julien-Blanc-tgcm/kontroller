@@ -162,6 +162,7 @@ void ThemeInformation::configure(DeviceInformation *information)
     setPrimaryColor("blue");
     setHighlightDimmerColor("#666666");
     qreal deviceDpi = information->deviceDpi();
+    setBackgroundColor("black");
     if(deviceDpi >= 72 && deviceDpi <= 96)
     {
         setFontSizeSmall(12);

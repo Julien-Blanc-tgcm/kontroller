@@ -1,5 +1,5 @@
-import QtQuick 2.2
-import QtQuick.Controls 1.4
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 import eu.tgcm 1.0
 
 ApplicationWindow {
@@ -19,54 +19,65 @@ ApplicationWindow {
         id:theme
     }
 
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("File")
-            MenuItem {
-                text: qsTr("Remote")
-                onTriggered: main.activateRemotePage()
-            }
-            MenuItem {
-                text: qsTr("Music")
-                onTriggered: main.activateMusicPage()
-            }
-            MenuItem {
-                text: qsTr("Videos")
-                onTriggered: main.activateVideosPage()
-            }
-            MenuItem {
-                text: qsTr("Now playing")
-                onTriggered: main.activateCurrentlyPlayingPage()
-            }
-            MenuItem {
-                text: qsTr("Settings")
-                onTriggered: main.activateSettingsPage()
-            }
-
-            MenuItem {
-                text: qsTr("Exit")
-                onTriggered: Qt.quit();
-            }
-        }
-    }
-
-    KontrollerMain {
-        id: main
-        Keys.onReleased: {
-            if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)
-            {
-                console.log(event.key)
-                event.accepted = true;
-            }
-        }
+    Rectangle
+    {
         anchors.fill: parent
+
+        Rectangle {
+            anchors.top:parent.top
+            anchors.left:parent.left
+            anchors.right: parent.right
+            height:50
+            color:"white"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: pageStack.pop()
+            }
+            Text {
+                text: pageStack.depth
+                color:"black"
+            }
+
+            id:topbar
+        }
+        StackView
+        {
+            anchors.top: topbar.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            id:pageStack
+//            anchors.fill: parent
+            Keys.onPressed: {
+                if(event.Key === Qt.Key_Escape)
+                {
+                    console.log("Popping current page")
+                    pageStack.pop()
+                }
+            }
+            initialItem: KontrollerMain
+            {
+                id: main
+                Keys.onReleased: {
+                    if(event.key === Qt.Key_Back || event.key === Qt.Key_Backspace)
+                    {
+                        console.log(event.key)
+                        event.accepted = true;
+                    }
+                }
+                anchors.fill: parent
+            }
+        }
     }
+
 
     StatusService {
         id:status
         onConnectionStatusChanged: {
             if(connectionStatus === 2)
-                main.activateCurrentlyPlayingPage()
+            {
+                // main.activateCurrentlyPlayingPage()
+            }
         }
     }
 

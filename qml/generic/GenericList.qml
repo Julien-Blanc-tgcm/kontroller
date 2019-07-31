@@ -36,7 +36,7 @@ Rectangle
         anchors.verticalCenter: refreshbtn.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: refreshbtn.width + 5 * scalingFactor
-        font.pixelSize: 12 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         elide:Text.ElideLeft
         clip:true
     }

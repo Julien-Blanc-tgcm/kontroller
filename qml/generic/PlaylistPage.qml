@@ -23,7 +23,7 @@ Rectangle{
         anchors.top: parent.top
         anchors.topMargin: height / 2
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: 12 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
     }
 
     Text {
@@ -34,7 +34,7 @@ Rectangle{
         anchors.topMargin: height / 2
         anchors.right: parent.right
         anchors.rightMargin: 10
-        font.pixelSize: 12 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
         MouseArea {
             anchors.fill: parent
             onClicked: main.clear()
@@ -54,7 +54,7 @@ Rectangle{
         currentIndex: service.playlistPosition
 
         delegate : Rectangle {
-            height: 20 * touchScalingFactor
+            height: theme.fontSizeSmall + 4
             anchors.left: parent.left
             anchors.right: parent.right
 
@@ -87,7 +87,7 @@ Rectangle{
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
-                font.pixelSize: 12 * scalingFactor
+                font.pixelSize: theme.fontSizeSmall
                 anchors.right: remove.left
                 elide: Text.ElideRight
                 clip:true
@@ -95,7 +95,7 @@ Rectangle{
             Text {
                 id: remove
                 text : "X"
-                font.pixelSize: 12 * touchScalingFactor
+                font.pixelSize: theme.fontSizeSmall
                 color: Styling.linkColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right

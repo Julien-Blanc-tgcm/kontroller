@@ -8,7 +8,7 @@ Page {
     Remote {
         id: remoteController
     }
-    property int buttonWidth : 100;
+    property int buttonWidth : page.width / 5;
 
     property int runningCount:0
 

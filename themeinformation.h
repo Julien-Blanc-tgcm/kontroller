@@ -30,6 +30,9 @@ class ThemeInformation : public QObject
     int fontSizeExtraSmall_;
     int fontSizeNormal_;
 
+    QString backgroundColor_;
+
+
 public:
     explicit ThemeInformation(QObject *parent = 0);
     Q_PROPERTY(int horizontalPageMargin READ horizontalPageMargin WRITE setHorizontalPageMargin NOTIFY horizontalPageMarginChanged)
@@ -43,6 +46,7 @@ public:
     Q_PROPERTY(QString highlightDimmerColor READ highlightDimmerColor WRITE setHighlightDimmerColor NOTIFY highlightDimmerColorChanged)
     Q_PROPERTY(int fontSizeExtraSmall READ fontSizeExtraSmall WRITE setFontSizeExtraSmall NOTIFY fontSizeExtraSmallChanged)
     Q_PROPERTY(int fontSizeNormal READ fontSizeNormal WRITE setFontSizeNormal NOTIFY fontSizeNormalChanged)
+    Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
 
     int horizontalPageMargin() const;
 
@@ -66,6 +70,11 @@ public:
 
     int fontSizeNormal() const;
 
+    QString backgroundColor() const
+    {
+        return backgroundColor_;
+    }
+
 signals:
     void horizontalPageMarginChanged(int horizontalPageMargin);
     void itemSizeSmallChanged(int itemSizeSmall);
@@ -78,6 +87,8 @@ signals:
     void highlightDimmerColorChanged(QString highlightDimmerColor);
     void fontSizeExtraSmallChanged(int fontSizeExtraSmall);
     void fontSizeNormalChanged(int fontSizeNormal);
+
+    void backgroundColorChanged(QString backgroundColor);
 
 public slots:
     void setHorizontalPageMargin(int horizontalPageMargin);
@@ -92,6 +103,14 @@ public slots:
     void setFontSizeExtraSmall(int fontSizeExtraSmall);
     void setFontSizeNormal(int fontSizeNormal);
     void configure(eu::tgcm::kontroller::DeviceInformation* information);
+    void setBackgroundColor(QString backgroundColor)
+    {
+        if (backgroundColor_ == backgroundColor)
+            return;
+
+        backgroundColor_ = backgroundColor;
+        emit backgroundColorChanged(backgroundColor_);
+    }
 };
 
 }

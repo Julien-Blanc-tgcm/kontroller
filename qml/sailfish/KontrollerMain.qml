@@ -94,7 +94,7 @@ Page {
             model : ListModel {
                 ListElement{
                     page:"music"
-                    icon:"image://theme/icon-m-music"
+                    icon:"image://theme/icon-m-media-songs"
                     needConnect:true
                 }
                 ListElement{
@@ -109,19 +109,19 @@ Page {
                 }
                 ListElement {
                     page:"remote"
-                    icon:"image://theme/icon-m-game-controller"
+                    icon:"image://theme/icon-m-traffic"
                     needConnect:true
                 }
 
                 ListElement {
                     page:"playlist"
-                    icon:"image://theme/icon-m-clipboard"
+                    icon:"image://theme/icon-m-menu"
                     needConnect:true
                 }
 
                 ListElement{
                     page:"settings"
-                    icon:"image://theme/icon-s-setting"
+                    icon:"image://theme/icon-m-developer-mode"
                     needConnect:false
                 }
 
@@ -137,43 +137,48 @@ Page {
                     x:10
                     y:10
                 }
-
-                IconButton {
+                Rectangle
+                {
                     anchors.horizontalCenter: theRect.horizontalCenter
-                    anchors.top:theRect.top
-                    anchors.topMargin: 20
-                    icon.source: {
-                        if(!model.needConnect || status.connectionStatus === 2)
-                            return model.icon;
-                        else
-                            return model.icon + "?" + Theme.highlightDimmerColor;
-                    }
-                    onClicked: {
-                        if(!model.needConnect || status.connectionStatus === 2)
-                            pushRelevantPage(model.page)
-                    }
-                    id:btn
-                }
-                Label {
-                    anchors.top:btn.bottom
-                    anchors.topMargin:20
-                    anchors.left: theRect.left
-                    anchors.right: theRect.right
-                    horizontalAlignment: Text.AlignHCenter
-                    text: page
-                    MouseArea
-                    {
-                        anchors.fill:parent
+                    anchors.verticalCenter: theRect.verticalCenter
+                    height: btn.height + lbl.height
+                    IconButton {
+                        anchors.top:parent.top
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        icon.source: {
+                            if(!model.needConnect || status.connectionStatus === 2)
+                                return model.icon;
+                            else
+                                return model.icon + "?" + Theme.highlightDimmerColor;
+                        }
                         onClicked: {
                             if(!model.needConnect || status.connectionStatus === 2)
-                                pushRelevantPage(page);
+                                pushRelevantPage(model.page)
                         }
+                        id:btn
                     }
-                    color:{
-                        if(!model.needConnect || status.connectionStatus === 2)
-                            return Theme.primaryColor;
-                        else
-                            return Theme.highlightDimmerColor
+                    Label {
+                        id:lbl
+                        anchors.top:btn.bottom
+                        anchors.topMargin:20
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        horizontalAlignment: Text.AlignHCenter
+                        text: page
+                        MouseArea
+                        {
+                            anchors.fill:parent
+                            onClicked: {
+                                if(!model.needConnect || status.connectionStatus === 2)
+                                    pushRelevantPage(page);
+                            }
+                        }
+                        color:{
+                            if(!model.needConnect || status.connectionStatus === 2)
+                                return Theme.primaryColor;
+                            else
+                                return Theme.highlightDimmerColor
+                        }
                     }
                 }
             }

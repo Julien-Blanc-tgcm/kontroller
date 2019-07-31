@@ -76,6 +76,20 @@ public slots:
      */
     QJsonRpcServiceReply* httpSend(QJsonRpcMessage message);
 
+    /**
+     * @brief baseUrl returns the base url of the server, without the
+     * "/jsonrpc". May be used to compute some paths
+     * @return
+     */
+    QString baseUrl() const;
+
+    /**
+     * @brief downloadFile downloads a file
+     * @param path the path to download
+     * @return the network reply associated with this download
+     */
+    QNetworkReply* downloadFile(QString path);
+
 private slots:
     void handleReplyFinished();
     void setConnectionStatus(int connectionStatus);

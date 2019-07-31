@@ -23,7 +23,7 @@ Item {
         onContentYChanged:hideSubMenu()
 
         delegate: Rectangle {
-            height:20 * touchScalingFactor
+            height: theme.itemSizeSmall
             anchors.left:parent.left;
             anchors.right: parent.right;
             id:rect
@@ -58,7 +58,7 @@ Item {
                 id: theText
                 text: formatFile(filetype, label)
                 color: Styling.linkColor
-                font.pixelSize: 12 * scalingFactor
+                font.pixelSize: theme.fontSizeSmall
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:parent.left;
                 anchors.leftMargin: 5 * scalingFactor;
@@ -130,7 +130,7 @@ Item {
         text: "Please wait..."
         visible:service.refreshing
         color:"#fff"
-        font.pixelSize: 12 * scalingFactor
+        font.pixelSize: theme.fontSizeSmall
     }
 
     ListContextMenu {

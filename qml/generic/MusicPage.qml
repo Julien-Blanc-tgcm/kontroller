@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 import eu.tgcm 1.0
 
-Item {
+Rectangle {
     id:main
     property alias browsingMode: musicService.browsingMode
     property alias browsingValue: musicService.browsingValue
@@ -12,6 +12,8 @@ Item {
     //signal songClicked(string song)
     signal mediaPlayClicked(string dir)
     signal mediaInformationClicked(string filetype, string file, string label)
+    anchors.fill: parent
+    color:theme.backgroundColor
 
     MusicService {
         id: musicService

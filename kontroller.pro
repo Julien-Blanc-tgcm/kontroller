@@ -41,7 +41,8 @@ SOURCES += main.cpp \
     remote.cpp \
     audiostream.cpp \
     server.cpp \
-    themeinformation.cpp
+    themeinformation.cpp \
+    downloadservice.cpp
 
 RESOURCES += icons.qrc
 CONFIG(sailfish) {
@@ -76,7 +77,7 @@ equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
 #    LIBS += -L/home/whity/dev/build/qjsonrpc-MerSDK_SailfishOS_armv7hl-Release/src
   } else {
   LIBS += -L../qjsonrpc-Desktop_Qt_5_2_1_GCC_64bit-Debug/src
-  LIBS += -L../qjsonrpc-Qt5_desktop-Release/src
+  LIBS += -L../qjsonrpc/src
   }
 }
 
@@ -120,7 +121,8 @@ HEADERS += \
     remote.h \
     audiostream.h \
     server.h \
-    themeinformation.h
+    themeinformation.h \
+    downloadservice.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -144,5 +146,6 @@ DISTFILES += kontroller.prf \
 
 lib.path = /usr/share/kontroller/lib/
 lib.files += ../qjsonrpc/src/libqjsonrpc.so.1
+
 INSTALLS += lib
 }

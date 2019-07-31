@@ -14,9 +14,9 @@ class SongsRequest : public QObject
 {
     Q_OBJECT
 public:
-    explicit SongsRequest(QObject *parent = 0);
+    explicit SongsRequest(QObject *parent = nullptr);
     ~SongsRequest();
-    void start(int artistid);
+    void start(int albumid);
 
     QList<File*> results;
     bool success;

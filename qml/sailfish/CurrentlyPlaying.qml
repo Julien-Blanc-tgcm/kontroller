@@ -102,7 +102,8 @@ Page {
             maximumValue: 100
             value: internal.getPercentage(activePlayer)
             onPressedChanged: {
-                if(!pressed && value !== internal.getPercentage(activePlayer) && internal.canSeek(activePlayer))
+                if(!pressed && value !== internal.getPercentage(activePlayer) &&
+                   internal.canSeek(activePlayer))
                     internal.seekTo(value)
             }
         }
@@ -141,9 +142,9 @@ Page {
         Repeater {
             id:rptr
             model: [
-                {"icon":"image://theme/icon-m-clear", "action":"stop"},
                 {"icon":"image://theme/icon-m-previous", "action":"prev"},
                 {"icon":"image://theme/icon-m-left", "action":"backward"},
+                {"icon":"image://theme/icon-m-clear", "action":"stop"},
                 {"icon":["image://theme/icon-m-play", "image://theme/icon-m-pause"], "action":"playpause"},
                 {"icon":"image://theme/icon-m-right", "action":"forward"},
                 {"icon":"image://theme/icon-m-next", "action":"next"}

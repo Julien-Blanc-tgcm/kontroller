@@ -1,8 +1,9 @@
 import QtQuick 2.0
 import eu.tgcm 1.0
 import "."
-Item {
+Rectangle {
     id:main
+    color:theme.backgroundColor
 
     function recomputeLayout() {
         if(main.width == 0)
@@ -36,9 +37,9 @@ Item {
         }
 
         Text {
-            color:"white"
+            color:theme.primaryColor
             text:service.artistName
-            font.pixelSize: 16 * scalingFactor
+            font.pixelSize: theme.fontSizeNormal
             anchors.left: parent.left
             anchors.top:parent.top
             width:parent.width
@@ -49,7 +50,7 @@ Item {
             z:1
             style:Text.Raised
             styleColor: "#111"
-            height:22 * scalingFactor
+            //height:22 * scalingFactor
         }
         Image {
             id:fanart1
@@ -119,7 +120,7 @@ Item {
                     text: qsTr("Genre :")
                     font.bold: true
                     color:"#eee"
-                    font.pixelSize: 12 * scalingFactor
+                    font.pixelSize: theme.fontSizeSmall
                 }
                 Text {
                     anchors.top:parent.top
@@ -127,7 +128,7 @@ Item {
                     anchors.leftMargin: 5 * scalingFactor
                     text: service.genres
                     color:"#eee"
-                    font.pixelSize: 12 * scalingFactor
+                    font.pixelSize: theme.fontSizeSmall
                 }
                 Text {
                     id : stylelbl
@@ -136,7 +137,7 @@ Item {
                     text: qsTr("Style :")
                     font.bold: true
                     color:"#eee"
-                    font.pixelSize: 12 * scalingFactor
+                    font.pixelSize: theme.fontSizeSmall
                 }
                 Text {
                     anchors.verticalCenter: stylelbl.verticalCenter
@@ -145,7 +146,7 @@ Item {
                     anchors.leftMargin: 5 * scalingFactor
                     text: service.style
                     color:"#eee"
-                    font.pixelSize: 12 * scalingFactor
+                    font.pixelSize: theme.fontSizeSmall
                 }
 
                 Text {
@@ -156,7 +157,7 @@ Item {
                     text: qsTr("Available albums : ")
                     font.bold: true
                     color: "#eee"
-                    font.pixelSize: 12 * scalingFactor
+                    font.pixelSize: theme.fontSizeSmall
                 }
 
                 Rectangle {
@@ -197,8 +198,8 @@ Item {
                             Text {
                                 id:albumtext
                                 color:"#eee"
-                                font.pixelSize: 12 * scalingFactor
-                                height: 20 * touchScalingFactor
+                                font.pixelSize: theme.fontSizeSmall
+                                //height: 20 * touchScalingFactor
                                 verticalAlignment: Text.AlignVCenter
                                 x:btnplay.x + btnplay.width+ 5 * scalingFactor
                                 y:index * 20 * touchScalingFactor
@@ -231,7 +232,7 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 5 * scalingFactor
                 color: Styling.textColor
-                font.pixelSize: 12 * scalingFactor
+                font.pixelSize: theme.fontSizeSmall
                 text: qsTr("Description")
             }
 
@@ -239,7 +240,7 @@ Item {
                 id:theText
                 color:"#eee"
                 text:service.artistDescription
-                font.pixelSize: 12 * scalingFactor
+                font.pixelSize: theme.fontSizeSmall
                 wrapMode: Text.WordWrap
                 anchors.top: lblDesc.bottom
                 anchors.topMargin:5 * scalingFactor

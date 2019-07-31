@@ -24,6 +24,10 @@ void SongsRequest::start(int albumid)
         filter["albumid"] = albumid;
         parameters.insert("filter", filter);
     }
+    QJsonArray properties;
+    properties.push_back("title");
+    properties.push_back("file");
+    parameters["properties"] = properties;
     auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
     QJsonRpcServiceReply* reply = Client::current().send(message);
     if(reply)

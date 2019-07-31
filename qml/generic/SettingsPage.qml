@@ -6,7 +6,7 @@ import "."
 
 Rectangle {
     id:page
-
+    color:theme.backgroundColor
     Settings {
         id: settings
     }
