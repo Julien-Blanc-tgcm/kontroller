@@ -43,6 +43,7 @@ SettingsManager::SettingsManager()
             server->setServerHttpPort(val.toInt());
         else
             server->setServerHttpPort(8080);
+
         servers_.push_back(std::move(server));
     }
     settings.endArray();
@@ -76,7 +77,22 @@ SettingsManager::SettingsManager()
         ignoreWifiStatus_ = val.toBool();
     else
         ignoreWifiStatus_ = false; */
+    auto val = settings.value("downloadFolder");
+    if(!val.isNull() && val.canConvert(QVariant::String))
+        setDownloadFolder(val.toString());
+    else
+        setDownloadFolder("/home/nemo/Music");
 
+}
+
+QString SettingsManager::downloadFolder() const
+{
+    return downloadFolder_;
+}
+
+void SettingsManager::setDownloadFolder(const QString &downloadFolder)
+{
+    downloadFolder_ = downloadFolder;
 }
 
 bool SettingsManager::ignoreWifiStatus() const

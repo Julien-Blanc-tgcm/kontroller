@@ -8,6 +8,8 @@ CONFIG(sailfish) {
   QT += widgets
 }
 
+CONFIG+=c++11
+
 SOURCES += main.cpp \
     musicservice.cpp \
     statusservice.cpp \
@@ -58,7 +60,7 @@ CONFIG(sailfish) {
 
 INCLUDEPATH += ../qjsonrpc/src
 
-QMAKE_CXXFLAGS = --std=c++11 -Wall
+QMAKE_CXXFLAGS = -Wall
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

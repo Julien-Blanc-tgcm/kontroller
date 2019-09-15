@@ -42,6 +42,7 @@ private:
 #endif
 /*    int serverHttpPort_; */
     bool ignoreWifiStatus_;
+    QString downloadFolder_;
 public:
     /**
      * @brief instance returns a reference to the current SettingsManager
@@ -67,6 +68,8 @@ public:
 #endif
     bool ignoreWifiStatus() const;
     void setIgnoreWifiStatus(bool ignoreWifiStatus);
+    QString downloadFolder() const;
+    void setDownloadFolder(const QString &downloadFolder);
 };
 
 }

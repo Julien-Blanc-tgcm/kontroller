@@ -117,24 +117,27 @@ Item {
                 anchors.rightMargin: 5
                 visible: {
                     for (var i = 0; i < playableItems.length; i++) {
-                        if (playableItems[i] === model.filetype) {
+                        if (playableItems[i] === filetype) {
                             return true;
                         }
                     }
                     return false;
                 }
-                onClicked: control.playFile(service.filesAsList[index])
+                onClicked:
+                {
+                    control.playFile(modelData)
+                }
             }
-            onClicked: activateItem(model)
-            property var listCurrentItem: model
+            onClicked: activateItem(modelData)
             menu: ContextMenu {
                 Repeater {
-                    model:getMenuItems(listCurrentItem)
+                    model:getMenuItems(modelData)
                     delegate: MenuItem{
-                        text:modelData.text
-                        onClicked: execute(modelData.type, listCurrentItem)
+                        text: modelData.text
+                        onClicked: execute(modelData.type, modelData.item)
                     }
                 }
+                hasContent: getMenuItems(modelData).length > 0
             }
         }
     }
@@ -147,9 +150,11 @@ Item {
         visible:service.refreshing
     }
 
-    function getMenuItems(item)
+    function getMenuItems(playableItem)
     {
-        switch(item.filetype)
+        if(playableItem == null)
+            return [];
+        switch(playableItem.filetype)
         {
         case "album":
         case "video":
@@ -157,24 +162,26 @@ Item {
         case "season":
         case "episode":
             return [
-                        {text: qsTr("Add to playlist"), type: "addtoplaylist"},
-                        {text:qsTr("Play immediately"), type: "play" },
-                        {text: qsTr("View information"), type: "information"}
+                        {text: qsTr("Add to playlist"), type: "addtoplaylist", item: playableItem},
+                        {text: qsTr("Play immediately"), type: "play", item: playableItem},
+                        {text: qsTr("View information"), type: "information", item: playableItem}
                     ];
         case "audiodirectory":
         case "directory":
         case "song":
+        case "file":
             return [
-                        { text:qsTr("Add to playlist"), type:"addtoplaylist"},
-                        { text:qsTr("Play immediately"), type:"play"}
+                        { text:qsTr("Add to playlist"), type:"addtoplaylist", item: playableItem},
+                        { text:qsTr("Play immediately"), type:"play", item: playableItem},
+                        { text:qsTr("Download"), type: "download", item: playableItem}
                     ];
         case "artist":
             return [
-                        { text:qsTr("View information"), type:"information"}
+                        { text:qsTr("View information"), type:"information", item : playableItem}
                     ];
         }
-        console.log(item.filetype);
-        return [];
+        return [  ];
+//        console.log(item.filetype);
     }
 
     function execute(action, item)
@@ -186,11 +193,26 @@ Item {
         }
         else if(action === "play")
         {
-            control.playFile(service.filesAsList[item.index]);
+            control.playFile(item.file);
         }
         else if(action === "addtoplaylist")
         {
-            control.addToPlaylist(service.filesAsList[item.index]);
+            control.addToPlaylist(item.file);
+        }
+        else if(action === "download")
+        {
+            if(item.filetype === "file" )
+            {
+                downloadService.addFile(item.file)
+            }
+            else if(item.filetype === "directory")
+            {
+                downloadService.addFolder(item.file)
+            }
+            else
+            {
+                console.log("Download action on " + item.filetype + " not implemented yet");
+            }
         }
         else
             console.log("Executing " + action + " on " + item.file);

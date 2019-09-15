@@ -9,6 +9,7 @@
 #include <QtQml>
 #include "musicservice.h"
 #include <cassert>
+#include "downloadservice.h"
 #include "remote.h"
 #include "settings.h"
 #include "client.h"
@@ -89,6 +90,7 @@ void registerTypes()
     assert(ret);
     ret = qmlRegisterType<PlayingInformation>(qmlprefix, 1, 0, "PlayingInformation");
     assert(ret);
+    ret = qmlRegisterType<DownloadService>(qmlprefix, 1, 0, "DownloadService");
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");
     assert(ret);

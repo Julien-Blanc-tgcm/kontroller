@@ -18,7 +18,6 @@ class Settings : public QObject
 {
     Q_OBJECT
 
-    bool ignoreWifiStatus_;
     int currentServerIdx_;
     QTimer* timer_;
 
@@ -31,20 +30,21 @@ public:
     Q_PROPERTY(int dpi READ dpi WRITE setDpi NOTIFY dpiChanged)
 #endif
 
+    Q_PROPERTY(QString downloadFolder READ downloadFolder WRITE setDownloadFolder NOTIFY downloadFolderChanged)
+
 public:
     Settings();
 
     QQmlListProperty<Server> servers();
     int currentServerIdx() const;
 
-    bool ignoreWifiStatus() const
-    {
-        return ignoreWifiStatus_;
-    }
+    bool ignoreWifiStatus() const;
 
 #ifndef SAILFISH_TARGET
     int dpi() const;
 #endif
+
+    QString downloadFolder() const;
 
 public slots:
     void setCurrentServerIdx(int idx);
@@ -52,20 +52,15 @@ public slots:
     void newServer(QString serverName);
     void removeCurrentServer();
 
-    void setIgnoreWifiStatus(bool ignoreWifiStatus)
-    {
-        if (ignoreWifiStatus_ == ignoreWifiStatus)
-            return;
-
-        ignoreWifiStatus_ = ignoreWifiStatus;
-        emit ignoreWifiStatusChanged(ignoreWifiStatus);
-    }
+    void setIgnoreWifiStatus(bool ignoreWifiStatus);
 #ifndef SAILFISH_TARGET
     void setDpi(int dpi);
 #endif
 
     void pollForZones();
     void endPolling();
+
+    void setDownloadFolder(QString downloadFolder);
 
 signals:
     void serversChanged();
@@ -74,6 +69,8 @@ signals:
 #ifndef SAILFISH_TARGET
     void dpiChanged(int dpi);
 #endif
+
+    void downloadFolderChanged(QString downloadFolder);
 
 private slots:
     void pollCurrentZone();

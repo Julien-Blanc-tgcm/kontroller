@@ -86,6 +86,16 @@ int Settings::currentServerIdx() const
     return currentServerIdx_;
 }
 
+bool Settings::ignoreWifiStatus() const
+{
+    return SettingsManager::instance().ignoreWifiStatus();
+}
+
+QString Settings::downloadFolder() const
+{
+    return SettingsManager::instance().downloadFolder();
+}
+
 void Settings::newServer(QString serverName)
 {
     SettingsManager::instance().servers().emplace_back(new Server);
@@ -105,6 +115,16 @@ void Settings::removeCurrentServer()
         setCurrentServerIdx(0);
         emit serversChanged();
     }
+}
+
+void Settings::setIgnoreWifiStatus(bool ignoreWifiStatus)
+{
+    bool old = SettingsManager::instance().ignoreWifiStatus();
+    if (old == ignoreWifiStatus)
+        return;
+    SettingsManager::instance().setIgnoreWifiStatus(ignoreWifiStatus);
+
+    emit ignoreWifiStatusChanged(ignoreWifiStatus);
 }
 
 void Settings::pollForZones()
@@ -129,6 +149,16 @@ void Settings::pollCurrentZone()
 void Settings::endPolling()
 {
     timer_->stop();
+}
+
+void Settings::setDownloadFolder(QString downloadFolder)
+{
+    QString old = SettingsManager::instance().downloadFolder();
+    if(old == downloadFolder)
+        return;
+
+    SettingsManager::instance().setDownloadFolder(downloadFolder);
+    emit downloadFolderChanged(downloadFolder);
 }
 
 void Settings::pollCurrentZoneReply()
