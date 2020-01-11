@@ -101,30 +101,26 @@ void registerTypes()
 int main(int argc, char *argv[])
 {
 #ifdef SAILFISH_TARGET
-    QGuiApplication* app = SailfishApp::application(argc, argv);
-    auto view = SailfishApp::createView();
-    registerTypes();
-    view->setSource(SailfishApp::pathTo("qml/sailfish/kontroller.qml"));
-    view->showFullScreen();
-    auto engine = QtQml::qmlEngine(view->rootObject());
-    QObject::connect(engine, &QQmlEngine::quit, app, &QGuiApplication::quit);
+	QGuiApplication* app = SailfishApp::application(argc, argv);
+	auto view = SailfishApp::createView();
+	registerTypes();
+	view->setSource(SailfishApp::pathTo("qml/sailfish/kontroller.qml"));
+	view->showFullScreen();
+	auto engine = QtQml::qmlEngine(view->rootObject());
+	QObject::connect(engine, &QQmlEngine::quit, app, &QGuiApplication::quit);
 #else
-    QApplication* app = new QApplication(argc, argv);
-    QQmlApplicationEngine engine;
-    registerTypes();
+	QApplication* app = new QApplication(argc, argv);
+	QQmlApplicationEngine engine;
+	registerTypes();
 
-    eu::tgcm::kontroller::DeviceInformation inf;
-    inf.setup(*app);
+	eu::tgcm::kontroller::DeviceInformation inf;
+	inf.setup(*app);
 
-    //QQmlComponent component(&engine);
-    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+	//QQmlComponent component(&engine);
+	engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
 #endif
-    //QJsonRpcHttpClient* client = new QJsonRpcHttpClient("http://localhost:8080/jsonrpc",&app);
 
-//    kontroller::Settings settings;
-//    kontroller::Client::current().setServerAddress(settings.serverAddress());
-//    kontroller::Client::current().setServerPort(settings.serverPort());
-    eu::tgcm::kontroller::Client::current().refresh();
+	eu::tgcm::kontroller::Client::current().refresh();
 
-    return app->exec();
+	return app->exec();
 }

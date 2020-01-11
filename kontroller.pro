@@ -3,6 +3,7 @@ CONFIG += sailfish
 QT += qml quick core
 CONFIG(sailfish) {
   CONFIG += sailfishapp
+  CONFIG += sailfishapp_i18n
   message(sailfish)
 } else {
   QT += widgets
@@ -85,7 +86,12 @@ equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
 
 CONFIG(sailfishapp) {
   DEFINES+= SAILFISH_TARGET
+  TARGET = kontroller
 }
+
+TRANSLATIONS += \
+        translations/kontroller-en.ts \
+        translations/kontroller-fr.ts
 
 #LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
 LIBS += -lqjsonrpc
@@ -133,7 +139,9 @@ OTHER_FILES += \
 
 CONFIG(sailfishapp) {
   OTHER_FILES += ../rpm/kontroller.yaml \
-       ../rpm/kontroller.spec
+       ../rpm/kontroller.spec \
+        translations/*.ts \
+
 }
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {

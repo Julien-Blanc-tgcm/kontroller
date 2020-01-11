@@ -92,33 +92,39 @@ Page {
                     page:"music"
                     icon:"image://theme/icon-m-media-songs"
                     needConnect:true
+                    label: qsTr("music")
                 }
                 ListElement{
                     page:"videos"
                     icon:"image://theme/icon-m-video"
                     needConnect:true
+                    label: qsTr("videos")
                 }
                 ListElement{
                     page:"current"
                     icon:"image://theme/icon-m-accessory-speaker"
                     needConnect:true
+                    label: qsTr("current")
                 }
                 ListElement {
                     page:"remote"
                     icon:"image://theme/icon-m-traffic"
                     needConnect:true
+                    label: qsTr("remote")
                 }
 
                 ListElement {
                     page:"playlist"
                     icon:"image://theme/icon-m-menu"
                     needConnect:true
+                    label: qsTr("playlist")
                 }
 
                 ListElement{
                     page:"settings"
                     icon:"image://theme/icon-m-developer-mode"
                     needConnect:false
+                    label: qsTr("settings")
                 }
 
             }
@@ -160,7 +166,7 @@ Page {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         horizontalAlignment: Text.AlignHCenter
-                        text: page
+                        text: label
                         MouseArea
                         {
                             anchors.fill:parent
