@@ -638,6 +638,73 @@
     </message>
 </context>
 <context>
+    <name>eu::tgcm::kontroller::MusicService</name>
+    <message>
+        <location filename="../musicservice.cpp" line="307"/>
+        <source>Artists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="314"/>
+        <source>Albums</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="319"/>
+        <source>Songs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="325"/>
+        <source>Genres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="331"/>
+        <source>Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>eu::tgcm::kontroller::PlayerService</name>
+    <message>
+        <location filename="../playerservice.cpp" line="313"/>
+        <source>No subtitle</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>eu::tgcm::kontroller::Settings</name>
+    <message>
+        <location filename="../settings.cpp" line="18"/>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>eu::tgcm::kontroller::VideoService</name>
+    <message>
+        <location filename="../videoservice.cpp" line="294"/>
+        <source>Movies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../videoservice.cpp" line="300"/>
+        <source>TV Shows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../videoservice.cpp" line="306"/>
+        <source>Clips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../videoservice.cpp" line="318"/>
+        <source>Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>kontroller</name>
     <message>
         <location filename="../qml/sailfish/kontroller.qml" line="62"/>

@@ -93,6 +93,8 @@ TRANSLATIONS += \
         translations/kontroller-en.ts \
         translations/kontroller-fr.ts
 
+TRANSLATION_SOURCES += $$PWD/*.cpp
+
 #LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
 LIBS += -lqjsonrpc
 
