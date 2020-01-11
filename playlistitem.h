@@ -12,24 +12,24 @@ namespace kontroller
 
 class PlaylistItem : public QObject
 {
-    Q_OBJECT
-    /**
-     * @see type()
-     */
-    QString type_;
-    QString file_;
-    QString label_;
-    int artistId_;
-    int albumId_;
-    int movieId_;
-    int episodeId_;
-    int musicvideoId_;
-    int songId_;
-    QString artist_;
-    QString album_;
-    QString fanart_;
-    QString thumbnail_;
-    QString tvshow_;
+	Q_OBJECT
+	/**
+	 * @see type()
+	 */
+	QString type_;
+	QString file_;
+	QString label_;
+	int artistId_;
+	int albumId_;
+	int movieId_;
+	int episodeId_;
+	int musicvideoId_;
+	int songId_;
+	QString artist_;
+	QString album_;
+	QString fanart_;
+	QString thumbnail_;
+	QString tvshow_;
 
 
 

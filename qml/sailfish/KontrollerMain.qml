@@ -18,20 +18,16 @@ Page {
             remote.volumeDown();
     }
 
-    StatusService {
-        id:status
-    }
-
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {
-            visible: status.servers.length > 1
+            visible: settings.servers.length > 1
             Repeater {
-                model:status.servers
+                model:settings.servers
                 delegate: MenuItem {
                     text:modelData.name
                     onClicked: {
-                        status.switchToServer(modelData.name)
+                        statusService.switchToServer(modelData.uuid)
                     }
                 }
             }
@@ -40,35 +36,35 @@ Page {
         Label {
             anchors.left: parent.left
             anchors.right: parent.right
-            text: qsTr("Connected to %1").arg(status.server)
-            visible: status.connectionStatus === 2
+            text: qsTr("Connected to %1").arg(statusService.serverName)
+            visible: statusService.connectionStatus === 2
             height:Theme.itemSizeSmall
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
         Row {
-            visible:status.connectionStatus === 0
+            visible:statusService.connectionStatus === 0
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: Theme.horizontalPageMargin
             height:Theme.itemSizeSmall
             Label {
                 height:Theme.itemSizeSmall
-                text:qsTr("Unable to connect to %1").arg(status.server)
+                text:qsTr("Unable to connect to %1").arg(statusService.serverName)
                 color: Theme.highlightColor;
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
             IconButton {
                 icon.source: "image://theme/icon-m-refresh"
-                onClicked: status.retryConnect();
+                onClicked: statusService.retryConnect();
             }
         }
         Label {
             anchors.left: parent.left
             anchors.right: parent.right
-            text:qsTr("Trying to connect to %1").arg(status.server)
-            visible:status.connectionStatus === 1
+            text:qsTr("Trying to connect to %1").arg(statusService.serverName)
+            visible:statusService.connectionStatus === 1
             height:Theme.itemSizeSmall
             verticalAlignment: Text.AlignVCenter
             color: Theme.highlightColor
@@ -77,8 +73,8 @@ Page {
         Label {
             anchors.left: parent.left
             anchors.right: parent.right
-            text: qsTr("Connection status : %1").arg(status.connectionStatus)
-            visible: status.connectionStatus !== 0 && status.connectionStatus !== 1 && status.connectionStatus !== 2
+            text: qsTr("Connection status : %1").arg(statusService.connectionStatus)
+            visible: statusService.connectionStatus !== 0 && statusService.connectionStatus !== 1 && statusService.connectionStatus !== 2
             height: Theme.itemSizeSmall
             verticalAlignment: Text.AlignVCenter
             color:Theme.highlightColor
@@ -146,13 +142,13 @@ Page {
                         anchors.top:parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         icon.source: {
-                            if(!model.needConnect || status.connectionStatus === 2)
+                            if(!model.needConnect || statusService.connectionStatus === 2)
                                 return model.icon;
                             else
                                 return model.icon + "?" + Theme.highlightDimmerColor;
                         }
                         onClicked: {
-                            if(!model.needConnect || status.connectionStatus === 2)
+                            if(!model.needConnect || statusService.connectionStatus === 2)
                                 pushRelevantPage(model.page)
                         }
                         id:btn
@@ -169,12 +165,12 @@ Page {
                         {
                             anchors.fill:parent
                             onClicked: {
-                                if(!model.needConnect || status.connectionStatus === 2)
+                                if(!model.needConnect || statusService.connectionStatus === 2)
                                     pushRelevantPage(page);
                             }
                         }
                         color:{
-                            if(!model.needConnect || status.connectionStatus === 2)
+                            if(!model.needConnect || statusService.connectionStatus === 2)
                                 return Theme.primaryColor;
                             else
                                 return Theme.highlightDimmerColor

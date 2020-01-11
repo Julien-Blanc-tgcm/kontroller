@@ -66,7 +66,8 @@ Rectangle
             if(internal.pageComponent.status === Component.Ready)
                 internal.createConnections()
             else
-                internal.pageComponent.statusChanged.connect(internal.createConnections());
+                internal.pageComponent.statusChanged.connect(
+                            internal.createConnections());
         }
     }
 
@@ -102,11 +103,12 @@ Rectangle
 
     function pushNewPage_(filetype, file, label)
     {
-        var newView = internal.pageComponent.createObject(stackedview, {
-                                                 browsingMode: filetype,
-                                                 browsingValue: file,
-                                                 label:stackedview.currentItem.label + "/" + label
-                                             });
+        var newView = internal.pageComponent.createObject(
+                    stackedview, {
+                        browsingMode: filetype,
+                        browsingValue: file,
+                        label:stackedview.currentItem.label + "/" + label
+                    });
         newView.mediaClicked.connect(pushNewPage)
         newView.mediaInformationClicked.connect(pushNewInformationPage);
         stackedview.push(newView)
@@ -184,7 +186,8 @@ Rectangle
         for(var i = 0; i < informationPageComponents.length; ++i)
         {
             internal.informationPageComponents[informationPageComponents[i].type] =
-                    Qt.createComponent(informationPageComponents[i].component + '.qml');
+                    Qt.createComponent(
+                        informationPageComponents[i].component + '.qml');
         }
     }
 }

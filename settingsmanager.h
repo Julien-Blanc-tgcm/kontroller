@@ -14,12 +14,12 @@ namespace kontroller
 {
 
 enum class DeviceType {
-    Undefined,
-    Phone,
-    Tablet,
-    Laptop,
-    Desktop,
-    TV
+	Undefined,
+	Phone,
+	Tablet,
+	Laptop,
+	Desktop,
+	TV
 };
 
 /**
@@ -28,48 +28,56 @@ enum class DeviceType {
  */
 class SettingsManager
 {
-    SettingsManager();
+	SettingsManager();
 private:
-    std::vector<std::unique_ptr<Server> > servers_;
-/*    QString serverAddress_;
-    int serverPort_;
-    bool musicFileBrowsing_;
-    bool videosFileBrowsing_;
-    bool useHttpInterface_;
-    DeviceType deviceType_; */
+	std::vector<std::unique_ptr<Server> > servers_;
+	/*    QString serverAddress_;
+	int serverPort_;
+	bool musicFileBrowsing_;
+	bool videosFileBrowsing_;
+	bool useHttpInterface_;
+	DeviceType deviceType_; */
 #ifndef SAILFISH_TARGET
-    int dpi_;
+	int dpi_;
 #endif
-/*    int serverHttpPort_; */
-    bool ignoreWifiStatus_;
-    QString downloadFolder_;
+	/*    int serverHttpPort_; */
+	bool ignoreWifiStatus_;
+	QString downloadFolder_;
+	QString lastServer_;
+
 public:
-    /**
-     * @brief instance returns a reference to the current SettingsManager
-     * @return
-     */
-    static SettingsManager& instance();
+	/**
+	 * @brief instance returns a reference to the current SettingsManager
+	 * @return
+	 */
+	static SettingsManager& instance();
 
-    std::vector<std::unique_ptr<Server>>& servers();
+	std::vector<std::unique_ptr<Server>>& servers();
 
-    Server* server(QString const& name);
+	Server* server(QString const& uuid);
 
-    void save();
+	void save();
 
-/*    bool useHttpInterface() const;
-    void setUseHttpInterface(bool useHttpInterface);
+	/*    bool useHttpInterface() const;
+	void setUseHttpInterface(bool useHttpInterface);
 
-    DeviceType deviceType() const;
-    void setDeviceType(DeviceType type); */
+	DeviceType deviceType() const;
+	void setDeviceType(DeviceType type); */
 
 #ifndef SAILFISH_TARGET
-    int dpi() const;
-    void setDpi(int dpi);
+	int dpi() const;
+	void setDpi(int dpi);
 #endif
-    bool ignoreWifiStatus() const;
-    void setIgnoreWifiStatus(bool ignoreWifiStatus);
-    QString downloadFolder() const;
-    void setDownloadFolder(const QString &downloadFolder);
+	bool ignoreWifiStatus() const;
+	void setIgnoreWifiStatus(bool ignoreWifiStatus);
+	QString downloadFolder() const;
+	void setDownloadFolder(const QString &downloadFolder);
+
+	void setLastServer(QString lastServerUuid);
+
+	QString lastServer() const;
+
+	int lastServerIndex() const;
 };
 
 }

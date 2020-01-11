@@ -12,77 +12,53 @@ namespace kontroller
 
 SettingsManager::SettingsManager()
 {
-    QSettings settings("tgcm.eu", "kontroller");
-    auto nbServers = settings.beginReadArray("servers");
-    for(auto i = 0; i < nbServers; ++i)
-    {
-        settings.setArrayIndex(i);
-        std::unique_ptr<Server> server{new Server};
-        QVariant val;
-        val = settings.value("name");
-        if(val.canConvert(QVariant::String))
-            server->setName(val.toString());
-        val = settings.value("server");
-        if(val.canConvert(QVariant::String))
-            server->setServerAddress(val.toString());
-        else
-            server->setServerAddress("");
-        val = settings.value("port");
-        if(val.canConvert(QVariant::Int))
-            server->setServerPort(val.toInt());
-        else
-            server->setServerPort(9090);
-/*        val = settings.value("useHttpInterface");
-        if(val.canConvert(QVariant::Bool))
-            useHttpInterface_ = val.toBool();
-        else
-            useHttpInterface_ = serverPort_ == 8080; */
+	QSettings settings("tgcm.eu", "kontroller");
+	auto nbServers = settings.beginReadArray("servers");
+	for(auto i = 0; i < nbServers; ++i)
+	{
+		settings.setArrayIndex(i);
+		std::unique_ptr<Server> server{new Server};
+		QVariant val;
+		val = settings.value("uuid");
+		if(val.canConvert(QVariant::String))
+			server->setUuid(val.toString());
+		val = settings.value("name");
+		if(val.canConvert(QVariant::String))
+			server->setName(val.toString());
+		val = settings.value("server");
+		if(val.canConvert(QVariant::String))
+			server->setServerAddress(val.toString());
+		else
+			server->setServerAddress("");
+		val = settings.value("port");
+		if(val.canConvert(QVariant::Int))
+			server->setServerPort(val.toInt());
+		else
+			server->setServerPort(9090);
+		/*        val = settings.value("useHttpInterface");
+		if(val.canConvert(QVariant::Bool))
+			useHttpInterface_ = val.toBool();
+		else
+			useHttpInterface_ = serverPort_ == 8080; */
 
-        val = settings.value("serverHttpPort");
-        if(!val.isNull() && val.canConvert(QVariant::Int))
-            server->setServerHttpPort(val.toInt());
-        else
-            server->setServerHttpPort(8080);
+		val = settings.value("serverHttpPort");
+		if(!val.isNull() && val.canConvert(QVariant::Int))
+			server->setServerHttpPort(val.toInt());
+		else
+			server->setServerHttpPort(8080);
 
-        servers_.push_back(std::move(server));
-    }
-    settings.endArray();
-/*    val = settings.value("musicFileBrowsing");
-    if(val.canConvert(QVariant::Bool))
-        musicFileBrowsing_ = val.toBool();
-    else
-        musicFileBrowsing_ = false;
-    val = settings.value("videosFileBrowsing");
-    if(val.canConvert(QVariant::Bool))
-        videosFileBrowsing_ = val.toBool();
-    else
-        videosFileBrowsing_ = false; */
-/*    val = settings.value("deviceType");
-    int valDt = -1;
-    if(!val.isNull() && val.canConvert(QVariant::Int))
-        valDt = val.toInt();
-    if(valDt > (int) DeviceType::Undefined && valDt <= (int) DeviceType::TV)
-        deviceType_ = static_cast<DeviceType>(valDt);
-    else
-        deviceType_ = DeviceType::Undefined; */
+		servers_.push_back(std::move(server));
+	}
+	settings.endArray();
 
-/*    val = settings.value("dpi");
-    if(!val.isNull() && val.canConvert(QVariant::Int))
-        dpi_ = val.toInt();
-    else
-        dpi_ = 0; */
-
-/*    val = settings.value("ignoreWifiStatus");
-    if(!val.isNull() && val.canConvert(QVariant::Bool))
-        ignoreWifiStatus_ = val.toBool();
-    else
-        ignoreWifiStatus_ = false; */
-    auto val = settings.value("downloadFolder");
-    if(!val.isNull() && val.canConvert(QVariant::String))
-        setDownloadFolder(val.toString());
-    else
-        setDownloadFolder("/home/nemo/Music");
-
+	auto val = settings.value("downloadFolder");
+	if(!val.isNull() && val.canConvert(QVariant::String))
+		setDownloadFolder(val.toString());
+	else
+		setDownloadFolder("/home/nemo/Music");
+	val = settings.value("lastServer");
+	if(!val.isNull() && val.canConvert(QVariant::String))
+		lastServer_ = val.toString();
 }
 
 QString SettingsManager::downloadFolder() const
@@ -92,7 +68,30 @@ QString SettingsManager::downloadFolder() const
 
 void SettingsManager::setDownloadFolder(const QString &downloadFolder)
 {
-    downloadFolder_ = downloadFolder;
+	downloadFolder_ = downloadFolder;
+}
+
+void SettingsManager::setLastServer(QString lastServerUuid)
+{
+	lastServer_ = lastServerUuid;
+	save();
+}
+
+QString SettingsManager::lastServer() const
+{
+	return lastServer_;
+}
+
+int SettingsManager::lastServerIndex() const
+{
+	int i = 0;
+	for(auto& server : servers_)
+	{
+		if(server->uuid() == lastServer_)
+			return i;
+		++i;
+	}
+	return 0;
 }
 
 bool SettingsManager::ignoreWifiStatus() const
@@ -139,38 +138,40 @@ std::vector<std::unique_ptr<Server> > &SettingsManager::servers()
 
 void SettingsManager::save()
 {
-    QSettings settings("tgcm.eu", "kontroller");
-    settings.clear();
-    settings.beginWriteArray("servers", servers_.size());
-    int i = 0;
-    for(auto& server : servers_)
-    {
-        settings.setArrayIndex(i);
-        settings.setValue("name", server->name());
-        settings.setValue("server", server->serverAddress());
-        settings.setValue("port", server->serverPort());
-        settings.setValue("serverHttpPort", server->serverHttpPort());
-        settings.setValue("hasZones", server->hasZones());
-        settings.setValue("zones", server->zones());
-        i += 1;
-    }
-    settings.endArray();
+	QSettings settings("tgcm.eu", "kontroller");
+	settings.clear();
+	settings.beginWriteArray("servers", servers_.size());
+	int i = 0;
+	for(auto& server : servers_)
+	{
+		settings.setArrayIndex(i);
+		settings.setValue("name", server->name());
+		settings.setValue("server", server->serverAddress());
+		settings.setValue("port", server->serverPort());
+		settings.setValue("serverHttpPort", server->serverHttpPort());
+		settings.setValue("hasZones", server->hasZones());
+		settings.setValue("zones", server->zones());
+		i += 1;
+	}
+	settings.endArray();
 #ifndef SAILFISH_TARGET
     settings.setValue("dpi", dpi_);
 #endif
+	settings.setValue("downloadFolder", downloadFolder());
+	settings.setValue("lastServer", lastServer());
 //    settings.setValue("deviceType", (int)deviceType_);
 //    settings.setValue("ignoreWifiStatus", ignoreWifiStatus_);
-    settings.sync();
+	settings.sync();
 }
 
-Server* SettingsManager::server(const QString &name)
+Server* SettingsManager::server(const QString &uuid)
 {
-    for(auto& server: servers_)
-    {
-        if(server->name() == name)
-            return server.get();
-    }
-    return nullptr;
+	for(auto& server: servers_)
+	{
+		if(server->uuid() == uuid)
+			return server.get();
+	}
+	return nullptr;
 }
 
 

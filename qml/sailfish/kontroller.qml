@@ -13,7 +13,7 @@ ApplicationWindow {
     allowedOrientations: Orientation.Portrait
     _defaultPageOrientations: Orientation.All
     cover: {
-        if(status.connectionStatus === 2)
+        if(statusService.connectionStatus === 2)
             return Qt.resolvedUrl("cover/CoverPage.qml")
         else
             return Qt.resolvedUrl("cover/UnconnectedCover.qml");
@@ -22,20 +22,25 @@ ApplicationWindow {
         KontrollerMain {
             anchors.fill: parent
         }
-
-/*            Component.onCompleted: {
-                if(!status.settingsSet)
-                {
-                    pageStack.push(Qt.resolvedUrl("SettingsPage.qml"));
-                }
-            }*/
+    }
+    Settings {
+        id: settings
     }
     StatusService {
-        id:status
+        id:statusService
         onConnectionStatusChanged: {
             if(connectionStatus === 2)
             {
                 //pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"))
+            }
+        }
+        onServerChanged: {
+            for(var i = 0; i < servers.length; ++i)
+            {
+                if(servers[i].uuid === statusService.server)
+                {
+                    settings.setCurrentServerIdx(i);
+                }
             }
         }
     }
@@ -80,36 +85,5 @@ ApplicationWindow {
             theNotif.publish()
         }
     }
-
-  /*  menuBar: MenuBar {
-        Menu {
-            title: qsTr("File")
-            MenuItem {
-                text: qsTr("Remote")
-                onTriggered: main.activateRemotePage()
-            }
-            MenuItem {
-                text: qsTr("Music")
-                onTriggered: main.activateMusicPage()
-            }
-            MenuItem {
-                text: qsTr("Videos")
-                onTriggered: main.activateVideosPage()
-            }
-            MenuItem {
-                text: qsTr("Now playing")
-                onTriggered: main.activateCurrentlyPlayingPage()
-            }
-            MenuItem {
-                text: qsTr("Settings")
-                onTriggered: main.activateSettingsPage()
-            }
-
-            MenuItem {
-                text: qsTr("Exit")
-                onTriggered: Qt.quit();
-            }
-        }
-    } */
 
 }

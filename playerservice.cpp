@@ -82,39 +82,70 @@ Player *PlayerService::getPlayer(QString type)
 
 void PlayerService::refreshPlayerInfoCb_()
 {
-    for(auto player: currentPlayers_)
-        player->deleteLater();
-    currentPlayers_.clear();
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
-    {
-        QJsonRpcMessage const& response = reply->response();
-        if(response.errorCode() == 0)
-        {
-            QJsonValue val = response.result();
-            if(val.isArray())
-            {
-                QJsonArray arr = val.toArray();
-                if(arr.size() != 0)
-                {
-                    for(int i = 0; i < arr.size(); ++i)
-                    {
-                        QJsonValue val2 = arr[i];
-                        if(val2.isObject())
-                        {
-                            Player* player = new Player(this);
-                            player->setPlayerId(val2.toObject()["playerid"].toInt());
-                            player->setType(val2.toObject()["type"].toString());
-                            refreshPlayerStatus(player->playerId());
-                            currentPlayers_.push_back(player);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    emit playersChanged();
-    refreshPending_ = false;
+	std::vector<bool> playerStillExistings; // stores a list of players still existing. Deleting and recreating
+	                                        // players cause a glitch, so we try to update them instead
+	for(int i = 0; i < currentPlayers_.size(); ++i)
+		playerStillExistings.push_back(false);
+	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply)
+	{
+		QJsonRpcMessage const& response = reply->response();
+		if(response.errorCode() == 0)
+		{
+			QJsonValue val = response.result();
+			if(val.isArray())
+			{
+				QJsonArray arr = val.toArray();
+				if(arr.size() != 0)
+				{
+					for(int i = 0; i < arr.size(); ++i)
+					{
+						QJsonValue val2 = arr[i];
+						if(val2.isObject())
+						{
+							// find wether this player already existed :
+							Player* player = nullptr;
+							auto playerId = val2.toObject()["playerid"].toInt();
+							for(int i = 0; i < playerStillExistings.size(); ++i)
+							{
+								if(currentPlayers_[i]->playerId() == playerId)
+								{
+									playerStillExistings[i] = true;
+									player = currentPlayers_[i];
+								}
+							}
+							if(player == nullptr)
+							{
+								currentPlayers_.push_back(new Player(this));
+								player = currentPlayers_.back();
+							}
+							player->setPlayerId(val2.toObject()["playerid"].toInt());
+							player->setType(val2.toObject()["type"].toString());
+							refreshPlayerStatus(player->playerId());
+						}
+					}
+				}
+			}
+		}
+	}
+	auto itPlayers = currentPlayers_.begin();
+	auto itExists = playerStillExistings.begin();
+	while(itExists != playerStillExistings.end())
+	{
+		if(!*itExists)
+		{
+			itExists = playerStillExistings.erase(itExists);
+			(*itPlayers)->deleteLater();
+			itPlayers = currentPlayers_.erase(itPlayers);
+		}
+		else
+		{
+			++itExists;
+			++itPlayers;
+		}
+	}
+	emit playersChanged();
+	refreshPending_ = false;
 }
 
 namespace {
@@ -140,16 +171,24 @@ void setTotalTime(QJsonValue totalTime, Player& player)
         player.setTotalTime(getTime(totalTime.toObject()));
 }
 
-void setBoolValue(QJsonValue value, Player& player, void(Player::*fn)(bool))
+void setBoolValue_(QJsonValue value, Player& player, void(Player::*fn)(bool), bool oldValue)
 {
-    if(value.isBool())
-        (player.*fn)(value.toBool());
+	if(value.isBool())
+	{
+		auto newValue = value.toBool();
+		if(newValue != oldValue)
+			(player.*fn)(newValue);
+	}
 }
 
-void setIntValue(QJsonValue value, Player& player, void(Player::*fn)(int))
+void setIntValue_(QJsonValue value, Player& player, void(Player::*fn)(int), int oldValue)
 {
-    if(value.isDouble())
-        (player.*fn)((int)value.toDouble());
+	if(value.isDouble())
+	{
+		int newValue = static_cast<int>(value.toDouble());
+		if(newValue != oldValue)
+			(player.*fn)(newValue);
+	}
 }
 
 void setDoubleValue(QJsonValue value, Player& player, void(Player::*fn)(double))
@@ -227,109 +266,110 @@ void PlayerService::refreshPlayerStatus(int playerId)
 
 void PlayerService::refreshPlayerInfo_(int playerId)
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
-    {
-        Player* player = nullptr;
-        for(int i = 0; i < this->currentPlayers_.size(); ++i)
-        {
-            if(currentPlayers_[i]->playerId() == playerId)
-                player = currentPlayers_[i];
-        }
-        if(!player)
-            return;
-        QJsonRpcMessage message = reply->response();
-        if(message.errorCode() == 0)
-        {
-            QJsonValue val = message.result();
-            if(val.isObject())
-            {
-                QJsonObject obj = val.toObject();
-                QJsonValue typeVal = obj.value("type");
-                if(!typeVal.isString())
-                    return;
-                QString type = typeVal.toString();
-                player->setType(type);
-                setDoubleValue(obj.value("percentage"), *player, &Player::setPercentage);
-                setTime(obj.value("time"), *player);
-                setTotalTime(obj.value("totaltime"), *player);
-                setIntValue(obj.value("speed"), *player, &Player::setSpeed);
-                setIntValue(obj.value("position"), *player, &Player::setPlaylistPosition);
-                setIntValue(obj.value("playlistid"), *player, &Player::setPlaylistId);
-                setBoolValue(obj.value("canseek"), *player, &Player::setCanSeek);
-                setBoolValue(obj.value("canshuffle"), *player, &Player::setCanShuffle);
-                setBoolValue(obj.value("canrepeat"), *player, &Player::setCanRepeat);
-                setBoolValue(obj.value("live"), *player, &Player::setLive);
-                setIntValue(obj.value("repeat"), *player, &Player::setRepeat);
-                setBoolValue(obj.value("shuffled"), *player, &Player::setShuffled);
-                setBoolValue(obj.value("canmove"), *player, &Player::setCanMove);
-                auto subtitles = obj.value("subtitles").toArray();
-                if(!subtitles.isEmpty())
-                {
-                    std::vector<Subtitle*> subs;
-                    auto nosub = new Subtitle();
-                    nosub->setIndex(-1);
-                    nosub->setLanguage("");
-                    nosub->setName(tr("No subtitle"));
-                    subs.push_back(nosub);
-                    for(auto sub_ : subtitles)
-                    {
-                        auto sub = sub_.toObject();
-                        auto index = sub.value("index").toInt();
-                        auto language = sub.value("language").toString();
-                        auto name = sub.value("name").toString();
-                        auto s = new Subtitle();
-                        s->setIndex(index);
-                        s->setLanguage(language);
-                        if(name.size() > 0)
-                            s->setName(name);
-                        else
-                            s->setName(language);
-                        subs.push_back(s);
-                    }
-                    auto currentSub = obj.value("currentsubtitle").toObject();
-                    auto enabled = obj.value("subtitleenabled").toBool();
-                    if(enabled)
-                    {
-                        if(!currentSub.isEmpty())
-                        {
-                            auto index = currentSub.value("index");
-                            player->setSubtitles(std::move(subs), index.toInt());
-                        }
-                    }
-                    else
-                        player->setSubtitles(std::move(subs), -1);
-                }
-                auto audiostreams = obj.value("audiostreams").toArray();
-                if(!audiostreams.isEmpty())
-                {
-                    std::vector<AudioStream*> streams;
-                    for(auto stream_ : audiostreams)
-                    {
-                        auto stream = stream_.toObject();
-                        auto index = stream.value("index").toInt();
-                        auto language = stream.value("language").toString();
-                        auto name = stream.value("name").toString();
-                        auto s = new AudioStream();
-                        s->setIndex(index);
-                        s->setLanguage(language);
-                        if(name.size() > 0)
-                            s->setName(name);
-                        else
-                            s->setName(language);
-                        streams.push_back(s);
-                    }
-                    auto currentStream = obj.value("currentaudiostream");
-                    auto index = currentStream.toObject().value("index").toInt();
-                    player->setAudioStreams(std::move(streams), index);
-                }
-                //setBoolValue(obj.value("canzoom"), *player, &Player::setCanZoom);
-                //setBoolValue(obj.value("canrotate"), *player, &Player::setCanRotate);
-                //setBoolValue(obj.value("canchangespeed"), *player, &Player::setCanChangeSpeed);
-            }
-        }
-    }
-    emit playersChanged();
+	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply)
+	{
+		Player* player = nullptr;
+		for(int i = 0; i < this->currentPlayers_.size(); ++i)
+		{
+			if(currentPlayers_[i]->playerId() == playerId)
+				player = currentPlayers_[i];
+		}
+		if(!player)
+			return;
+		QJsonRpcMessage message = reply->response();
+		if(message.errorCode() == 0)
+		{
+			QJsonValue val = message.result();
+			if(val.isObject())
+			{
+				QJsonObject obj = val.toObject();
+				QJsonValue typeVal = obj.value("type");
+				if(!typeVal.isString())
+					return;
+				QString type = typeVal.toString();
+				if(type != player->type())
+					player->setType(type);
+				setDoubleValue(obj.value("percentage"), *player, &Player::setPercentage);
+				setTime(obj.value("time"), *player);
+				setTotalTime(obj.value("totaltime"), *player);
+				setIntValue_(obj.value("speed"), *player, &Player::setSpeed, player->speed());
+				setIntValue_(obj.value("position"), *player, &Player::setPlaylistPosition, player->playlistPosition());
+				setIntValue_(obj.value("playlistid"), *player, &Player::setPlaylistId, player->playlistId());
+				setBoolValue_(obj.value("canseek"), *player, &Player::setCanSeek, player->canSeek());
+				setBoolValue_(obj.value("canshuffle"), *player, &Player::setCanShuffle, player->canShuffle());
+				setBoolValue_(obj.value("canrepeat"), *player, &Player::setCanRepeat, player->canRepeat());
+				setBoolValue_(obj.value("live"), *player, &Player::setLive, player->live());
+				setIntValue_(obj.value("repeat"), *player, &Player::setRepeat, player->repeat());
+				setBoolValue_(obj.value("shuffled"), *player, &Player::setShuffled, player->shuffled());
+				setBoolValue_(obj.value("canmove"), *player, &Player::setCanMove, player->canMove());
+				auto subtitles = obj.value("subtitles").toArray();
+				if(!subtitles.isEmpty())
+				{
+					std::vector<Subtitle*> subs;
+					auto nosub = new Subtitle();
+					nosub->setIndex(-1);
+					nosub->setLanguage("");
+					nosub->setName(tr("No subtitle"));
+					subs.push_back(nosub);
+					for(auto sub_ : subtitles)
+					{
+						auto sub = sub_.toObject();
+						auto index = sub.value("index").toInt();
+						auto language = sub.value("language").toString();
+						auto name = sub.value("name").toString();
+						auto s = new Subtitle();
+						s->setIndex(index);
+						s->setLanguage(language);
+						if(name.size() > 0)
+							s->setName(name);
+						else
+							s->setName(language);
+						subs.push_back(s);
+					}
+					auto currentSub = obj.value("currentsubtitle").toObject();
+					auto enabled = obj.value("subtitleenabled").toBool();
+					if(enabled)
+					{
+						if(!currentSub.isEmpty())
+						{
+							auto index = currentSub.value("index");
+							player->setSubtitles(std::move(subs), index.toInt());
+						}
+					}
+					else
+						player->setSubtitles(std::move(subs), -1);
+				}
+				auto audiostreams = obj.value("audiostreams").toArray();
+				if(!audiostreams.isEmpty())
+				{
+					std::vector<AudioStream*> streams;
+					for(auto stream_ : audiostreams)
+					{
+						auto stream = stream_.toObject();
+						auto index = stream.value("index").toInt();
+						auto language = stream.value("language").toString();
+						auto name = stream.value("name").toString();
+						auto s = new AudioStream();
+						s->setIndex(index);
+						s->setLanguage(language);
+						if(name.size() > 0)
+							s->setName(name);
+						else
+							s->setName(language);
+						streams.push_back(s);
+					}
+					auto currentStream = obj.value("currentaudiostream");
+					auto index = currentStream.toObject().value("index").toInt();
+					player->setAudioStreams(std::move(streams), index);
+				}
+				//setBoolValue(obj.value("canzoom"), *player, &Player::setCanZoom);
+				//setBoolValue(obj.value("canrotate"), *player, &Player::setCanRotate);
+				//setBoolValue(obj.value("canchangespeed"), *player, &Player::setCanChangeSpeed);
+			}
+		}
+		emit playersChanged();
+	}
 }
 
 void PlayerService::updateConnectionStatus(int newStatus)

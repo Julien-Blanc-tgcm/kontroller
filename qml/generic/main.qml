@@ -72,7 +72,7 @@ ApplicationWindow {
 
 
     StatusService {
-        id:status
+        id:statusService
         onConnectionStatusChanged: {
             if(connectionStatus === 2)
             {
@@ -83,7 +83,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         theme.configure(deviceInformation)
-        if(!status.settingsSet)
+        if(!statusService.settingsSet)
         {
             main.activateSettingsPage()
         }

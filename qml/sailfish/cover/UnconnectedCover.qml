@@ -10,7 +10,7 @@ CoverBackground {
     IconButton {
         id:unconnected
         anchors.top:label.bottom
-        icon.source: "image://theme/icon-m-error"
+        icon.source: "image://theme/icon-s-warning"
     }
 
 /*    CoverActionList {

@@ -25,7 +25,7 @@ Item {
                     model:player?player.subtitles:[]
                     delegate: MenuItem {
                         text: model.name
-                        onClicked: control.switchSubtitle(player.playerId, model.index)
+                        onClicked: control.switchSubtitle(player.playerId, model.modelData.index)
                     }
                 }
             }
@@ -72,8 +72,23 @@ Item {
         }
     }
 
-    function setAudioIndex() {
-        var i = getCurrentAudioIndex();
+    function getCurrentAudioIndex()
+    {
+        if(player)
+        {
+            var idx = player.currentAudioStreamIndex;
+            for(var i = 0; i < player.audioStreams.length; ++i)
+            {
+                if(player.audioStreams[i].index === idx)
+                    return i;
+            }
+        }
+        return -1;
+    }
+
+    function setAudioIndex()
+    {
+        var i = this.getCurrentAudioIndex();
         if(i !== -1)
         {
             cbxStreams.currentIndex = i;
@@ -104,20 +119,6 @@ Item {
             for(var i = 0; i < player.subtitles.length; ++i)
             {
                 if(player.subtitles[i].index === idx)
-                    return i;
-            }
-        }
-        return -1;
-    }
-
-    function getCurrentAudioIndex()
-    {
-        if(player)
-        {
-            var idx = player.currentAudioStreamIndex;
-            for(var i = 0; i < player.audioStreams.length; ++i)
-            {
-                if(player.audioStreams[i].index === idx)
                     return i;
             }
         }

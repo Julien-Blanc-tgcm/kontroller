@@ -6,9 +6,6 @@ import "."
 
 Page {
     id:page
-    Settings {
-        id: settings
-    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -26,7 +23,9 @@ Page {
                 model:settings.servers
                 delegate: MenuItem {
                     text:modelData.name
-                    onClicked:settings.setCurrentServerIdx(index)
+                    onClicked: {
+                        statusService.switchToServer(modelData.uuid)
+                    }
                 }
             }
         }
@@ -45,6 +44,10 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 label:qsTr("Server name");
                 placeholderText: qsTr("Server name")
+                onTextChanged: {
+                    settings.servers[settings.currentServerIdx].setName(serverName.text)
+                    settings.save();
+                }
             }
 
             TextField {
@@ -57,6 +60,10 @@ Page {
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("Server address");
                 placeholderText: qsTr("Server address");
+                onTextChanged: {
+                    settings.servers[settings.currentServerIdx].setServerAddress(serverAddress.text);
+                    settings.save();
+                }
             }
 
             TextField {
@@ -70,6 +77,10 @@ Page {
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Server port")
                 placeholderText: qsTr("Server port")
+                onTextChanged: {
+                    settings.servers[settings.currentServerIdx].setServerPort(serverPort.text);
+                    settings.save();
+                }
             }
             TextField {
                 id : serverHttpPort
@@ -82,6 +93,10 @@ Page {
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Web port")
                 placeholderText: qsTr("Web port")
+                onTextChanged: {
+                    settings.servers[settings.currentServerIdx].setServerHttpPort(serverHttpPort.text);
+                    settings.save();
+                }
             }
             TextSwitch {
                 id: serverHasZones
@@ -91,7 +106,11 @@ Page {
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 checked:settings.servers[settings.currentServerIdx].hasZones
-                onCheckedChanged: pushOrPullZonePage()
+                onCheckedChanged: {
+                    settings.servers[settings.currentServerIdx].setHasZones(serverHasZones.checked);
+                    pushOrPullZonePage();
+                    settings.save();
+                }
             }
 
             TextSwitch {
@@ -102,6 +121,11 @@ Page {
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
+                onTextChanged:
+                {
+                    settings.setIgnoreWifiStatus(chkIgnoreWifi.checked);
+                    settings.save();
+                }
             }
 
             Label {
@@ -112,22 +136,6 @@ Page {
                 color:Theme.highlightColor
                 text:qsTr("Zones uses different audio output. Go to next page to learn for current zones.")
                 wrapMode: Text.WordWrap
-            }
-
-            Button {
-                text: "Save"
-                anchors.right: parent.right
-                anchors.rightMargin: 10
-                onClicked: {
-                    settings.servers[settings.currentServerIdx].setServerAddress(serverAddress.text);
-                    settings.servers[settings.currentServerIdx].setServerPort(serverPort.text);
-                    settings.servers[settings.currentServerIdx].setServerHttpPort(serverHttpPort.text);
-                    settings.servers[settings.currentServerIdx].setName(serverName.text)
-                    settings.servers[settings.currentServerIdx].setHasZones(serverHasZones.checked)
-                    settings.setIgnoreWifiStatus(chkIgnoreWifi.checked);
-                    settings.save();
-                    deviceInformation.update()
-                }
             }
         }
     }

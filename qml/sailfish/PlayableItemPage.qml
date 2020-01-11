@@ -228,11 +228,11 @@ Item {
     function activateItem(modelItem)
     {
         if(modelItem.filetype === "file")
-            control.playFile(service.filesAsList[modelItem.index]);
+            control.playFile(modelItem);
         else if(modelItem.filetype === "song")
-            control.playFile(service.filesAsList[modelItem.index]);
+            control.playFile(modelItem);
         else if(modelItem.filetype === "musicvideo")
-            control.playFile(service.filesAsList[modelItem.index]);
+            control.playFile(modelItem);
         else
             mediaClicked(modelItem.filetype, modelItem.file, modelItem.label)
     }

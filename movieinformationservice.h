@@ -10,6 +10,8 @@ namespace tgcm
 namespace kontroller
 {
 
+class VideoControl;
+
 class MovieInformationService : public QObject
 {
     Q_OBJECT
@@ -22,6 +24,7 @@ private:
     QStringList genres_;
     QString plot_;
     double rating_;
+	VideoControl* ctrl_;
 public:
     explicit MovieInformationService(QObject *parent = 0);
 

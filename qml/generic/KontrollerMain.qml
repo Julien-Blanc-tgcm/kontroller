@@ -18,73 +18,6 @@ Rectangle {
             remote.volumeDown();
     }
 
-    StatusService {
-        id:status
-    }
-
-/*    Flickable {
-        anchors.fill: parent
-        PullDownMenu {
-            visible: status.servers.length > 1
-            Repeater {
-                model:status.servers
-                delegate: MenuItem {
-                    text:modelData.name
-                    onClicked: {
-                        status.switchToServer(modelData.name)
-                    }
-                }
-            }
-        }
-
-        Label {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            text: qsTr("Connected to %1").arg(status.server)
-            visible: status.connectionStatus === 2
-            height:Theme.itemSizeSmall
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Row {
-            visible:status.connectionStatus === 0
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: Theme.horizontalPageMargin
-            height:Theme.itemSizeSmall
-            Label {
-                height:Theme.itemSizeSmall
-                text:qsTr("Unable to connect to %1").arg(status.server)
-                color: Theme.highlightColor;
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
-            IconButton {
-                icon.source: "image://theme/icon-m-refresh"
-                onClicked: status.retryConnect();
-            }
-        }
-        Label {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            text:qsTr("Trying to connect to %1").arg(status.server)
-            visible:status.connectionStatus === 1
-            height:Theme.itemSizeSmall
-            verticalAlignment: Text.AlignVCenter
-            color: Theme.highlightColor
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Label {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            text: qsTr("Connection status : %1").arg(status.connectionStatus)
-            visible: status.connectionStatus !== 0 && status.connectionStatus !== 1 && status.connectionStatus !== 2
-            height: Theme.itemSizeSmall
-            verticalAlignment: Text.AlignVCenter
-            color:Theme.highlightColor
-            horizontalAlignment: Text.AlignHCenter
-        } */
-
         GridView {
             id:theGrid
             anchors.fill: parent
@@ -143,13 +76,13 @@ Rectangle {
                     anchors.top:theRect.top
                     anchors.topMargin: 20
                     icon.source: {
-                        if(!model.needConnect || status.connectionStatus === 2)
+                        if(!model.needConnect || statusService.connectionStatus === 2)
                             return model.icon;
                         else
                             return model.icon + "?" + theme.highlightDimmerColor;
                     }
                     onClicked: {
-                        if(!model.needConnect || status.connectionStatus === 2)
+                        if(!model.needConnect || statusService.connectionStatus === 2)
                             pushRelevantPage(model.page)
                     }
                     id:btn
@@ -166,12 +99,12 @@ Rectangle {
                     {
                         anchors.fill:parent
                         onClicked: {
-                            if(!model.needConnect || status.connectionStatus === 2)
+                            if(!model.needConnect || statusService.connectionStatus === 2)
                                 pushRelevantPage(page);
                         }
                     }
                     color:{
-                        if(!model.needConnect || status.connectionStatus === 2)
+                        if(!model.needConnect || statusService.connectionStatus === 2)
                             return theme.primaryColor;
                         else
                             return theme.highlightDimmerColor

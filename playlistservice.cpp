@@ -344,10 +344,14 @@ void PlaylistService::setCurrentlyPlayedItem_(int /*playerId*/, QString type, in
 
 void PlaylistService::handlePlayerChanged_()
 {
-    if(PlayerService::instance().players().size() > 0)
-    {
-        setPlaylistType(PlayerService::instance().players().at(0)->type());
-    }
+	if(PlayerService::instance().players().size() > 0)
+	{
+		setPlaylistType(PlayerService::instance().players().at(0)->type());
+	}
+	else
+	{
+		playlistType_.clear();
+	}
 }
 
 

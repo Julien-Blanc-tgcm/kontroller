@@ -20,7 +20,7 @@ class Client : public QObject
     QString serverAddress_;
     int serverPort_;
     int serverHttpPort_;
-    QString serverName_;
+	QString serverUuid_;
     QJsonRpcHttpClient* client_;
     QTcpSocket* clientSocket_;
     QJsonRpcSocket* tcpClient_;
