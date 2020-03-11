@@ -1,9 +1,11 @@
 #ifndef EU_TGCM_KONTROLLER_SETTINGS_H
 #define EU_TGCM_KONTROLLER_SETTINGS_H
 
+#include "downloadlocation.h"
+#include "settingsmanager.h"
+
 #include <QString>
 #include <QObject>
-#include "settingsmanager.h"
 #include <QQmlListProperty>
 #include <QTimer>
 
@@ -32,6 +34,7 @@ public:
 
 	Q_PROPERTY(QString downloadFolder READ downloadFolder WRITE setDownloadFolder NOTIFY downloadFolderChanged)
 
+	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::DownloadLocation> possibleDownloadFolders READ possibleDownloadFolders NOTIFY possibleDownloadFoldersChanged)
 public:
 	Settings();
 
@@ -46,10 +49,14 @@ public:
 
 	QString downloadFolder() const;
 
+	QQmlListProperty<DownloadLocation> possibleDownloadFolders();
+
+	Q_INVOKABLE eu::tgcm::kontroller::Server* server(QString uuid);
+
+	Q_INVOKABLE QString newServer();
 public slots:
 	void setCurrentServerIdx(int idx);
 	void save();
-	void newServer(QString serverName);
 	void removeCurrentServer();
 
 	void setIgnoreWifiStatus(bool ignoreWifiStatus);
@@ -62,6 +69,13 @@ public slots:
 
 	void setDownloadFolder(QString downloadFolder);
 
+	/**
+	 * @brief updateDownloadFolder selects the download folder at given idx as the active one. If an invalid
+	 * one is given, then the download location is unchanged.
+	 * @param idx the index of the download location (in the list).
+	 */
+	void updateDownloadFolder(int idx);
+
 signals:
 	void serversChanged();
 	void currentServerIdxChanged();
@@ -71,6 +85,8 @@ signals:
 #endif
 
 	void downloadFolderChanged(QString downloadFolder);
+
+	void possibleDownloadFoldersChanged(QStringList possibleDownloadFolders);
 
 private slots:
 	void pollCurrentZone();

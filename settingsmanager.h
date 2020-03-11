@@ -2,9 +2,10 @@
 #define EU_TGCM_KONTROLLER_SETTINGSMANAGER_H
 
 #include <QString>
+#include <QVector>
 
 #include "server.h"
-#include <memory>
+#include "downloadlocation.h"
 
 namespace eu
 {
@@ -26,11 +27,12 @@ enum class DeviceType {
  * @brief The SettingsManager class is a singleton class used to store and update
  * application parameters
  */
-class SettingsManager
+class SettingsManager : public QObject
 {
+	Q_OBJECT
 	SettingsManager();
 private:
-	std::vector<std::unique_ptr<Server> > servers_;
+	QVector<Server*> servers_;
 	/*    QString serverAddress_;
 	int serverPort_;
 	bool musicFileBrowsing_;
@@ -45,6 +47,8 @@ private:
 	QString downloadFolder_;
 	QString lastServer_;
 
+	QVector<DownloadLocation*> possibleDownloadLocations_;
+
 public:
 	/**
 	 * @brief instance returns a reference to the current SettingsManager
@@ -52,9 +56,11 @@ public:
 	 */
 	static SettingsManager& instance();
 
-	std::vector<std::unique_ptr<Server>>& servers();
+	QVector<Server *> servers();
 
 	Server* server(QString const& uuid);
+
+	Server* newServer();
 
 	void save();
 
@@ -73,11 +79,15 @@ public:
 	QString downloadFolder() const;
 	void setDownloadFolder(const QString &downloadFolder);
 
+	void setDownloadLocation(DownloadLocation* downloadLocation);
+
 	void setLastServer(QString lastServerUuid);
 
 	QString lastServer() const;
 
 	int lastServerIndex() const;
+
+	QVector<DownloadLocation*> possibleDownloadLocations() const;
 };
 
 }

@@ -68,7 +68,7 @@ void Client::refresh()
 		server = SettingsManager::instance().server(serverUuid_);
 	else if(SettingsManager::instance().servers().size() >= 1)
 	{
-		server = SettingsManager::instance().servers().front().get();
+		server = SettingsManager::instance().servers().front();
 		serverUuid_ = server->uuid();
 	}
 	if(server)
@@ -108,7 +108,7 @@ Server *Client::server()
 	for(auto& server : SettingsManager::instance().servers())
 	{
 		if(server->uuid() == serverUuid_)
-			return server.get();
+			return server;
 	}
 	return nullptr;
 }

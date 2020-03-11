@@ -19,9 +19,12 @@ class Server : public QObject
 	int serverHttpPort_;
 	QString name_;
 	bool hasZones_;
-    QStringList zones_;
-
+	QStringList zones_;
 	QString uuid_;
+
+	QString login_;
+
+	QString password_;
 
 public:
 	explicit Server(QObject *parent = 0);
@@ -32,6 +35,8 @@ public:
 	Q_PROPERTY(bool hasZones READ hasZones WRITE setHasZones NOTIFY hasZonesChanged)
 	Q_PROPERTY(QStringList zones READ zones WRITE setZones NOTIFY zonesChanged)
 	Q_PROPERTY(QString uuid READ uuid WRITE setUuid NOTIFY uuidChanged)
+	Q_PROPERTY(QString login READ login WRITE setLogin NOTIFY loginChanged)
+	Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
 	QString serverAddress() const;
 
 	int serverPort() const;
@@ -45,6 +50,10 @@ public:
 	QStringList zones() const;
 
 	QString uuid() const;
+
+	QString login() const;
+
+	QString password() const;
 
 signals:
 
@@ -63,6 +72,10 @@ signals:
 
 	void uuidChanged(QString uuid);
 
+	void loginChanged(QString login);
+
+	void passwordChanged(QString password);
+
 public slots:
 	void setServerAddress(QString serverAddress);
 	void setServerPort(int serverPort);
@@ -74,6 +87,8 @@ public slots:
 	void setZones(QStringList zones);
 
 	void setUuid(QString uuid);
+	void setLogin(QString login);
+	void setPassword(QString password);
 };
 
 }

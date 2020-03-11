@@ -2,6 +2,8 @@
 
 #include <QSettings>
 #include <QDebug>
+#include <QDir>
+#include <QDirIterator>
 
 namespace eu
 {
@@ -17,7 +19,7 @@ SettingsManager::SettingsManager()
 	for(auto i = 0; i < nbServers; ++i)
 	{
 		settings.setArrayIndex(i);
-		std::unique_ptr<Server> server{new Server};
+		auto server = new Server{this};
 		QVariant val;
 		val = settings.value("uuid");
 		if(val.canConvert(QVariant::String))
@@ -47,6 +49,17 @@ SettingsManager::SettingsManager()
 		else
 			server->setServerHttpPort(8080);
 
+		val = settings.value("login");
+		if(!val.isNull() && val.canConvert(QVariant::String))
+			server->setLogin(val.toString());
+		else
+			server->setLogin(QString{});
+		val = settings.value("password");
+		if(!val.isNull() && val.canConvert(QVariant::String))
+			server->setPassword(val.toString());
+		else
+			server->setPassword(QString{});
+
 		servers_.push_back(std::move(server));
 	}
 	settings.endArray();
@@ -59,6 +72,26 @@ SettingsManager::SettingsManager()
 	val = settings.value("lastServer");
 	if(!val.isNull() && val.canConvert(QVariant::String))
 		lastServer_ = val.toString();
+
+	possibleDownloadLocations_.push_back(
+	            new DownloadLocation(this));
+	possibleDownloadLocations_.back()->setType(DownloadLocation::LocationType::Phone);
+	possibleDownloadLocations_.back()->setBaseFolder("/home/nemo");
+	QDir dir{"/media/sdcard"};
+	if(dir.exists() && dir.isReadable())
+	{
+		QDirIterator iterator(dir, QDirIterator::IteratorFlag::NoIteratorFlags);
+		while(iterator.hasNext())
+		{
+			iterator.next();
+			if(!iterator.fileName().startsWith(".") && iterator.fileInfo().isDir())
+			{
+				possibleDownloadLocations_.push_back(new DownloadLocation(this));
+				possibleDownloadLocations_.back()->setType(DownloadLocation::LocationType::MemoryCard);
+				possibleDownloadLocations_.back()->setBaseFolder(iterator.filePath());
+			}
+		}
+	}
 }
 
 QString SettingsManager::downloadFolder() const
@@ -69,6 +102,11 @@ QString SettingsManager::downloadFolder() const
 void SettingsManager::setDownloadFolder(const QString &downloadFolder)
 {
 	downloadFolder_ = downloadFolder;
+}
+
+void SettingsManager::setDownloadLocation(DownloadLocation *downloadLocation)
+{
+	downloadFolder_ = downloadLocation->baseFolder();
 }
 
 void SettingsManager::setLastServer(QString lastServerUuid)
@@ -92,6 +130,11 @@ int SettingsManager::lastServerIndex() const
 		++i;
 	}
 	return 0;
+}
+
+QVector<DownloadLocation*> SettingsManager::possibleDownloadLocations() const
+{
+	return possibleDownloadLocations_;
 }
 
 bool SettingsManager::ignoreWifiStatus() const
@@ -131,7 +174,7 @@ SettingsManager& SettingsManager::instance()
     return manager;
 }
 
-std::vector<std::unique_ptr<Server> > &SettingsManager::servers()
+QVector<Server*> SettingsManager::servers()
 {
     return servers_;
 }
@@ -151,6 +194,8 @@ void SettingsManager::save()
 		settings.setValue("serverHttpPort", server->serverHttpPort());
 		settings.setValue("hasZones", server->hasZones());
 		settings.setValue("zones", server->zones());
+		settings.setValue("login", server->login());
+		settings.setValue("password", server->password());
 		i += 1;
 	}
 	settings.endArray();
@@ -169,11 +214,16 @@ Server* SettingsManager::server(const QString &uuid)
 	for(auto& server: servers_)
 	{
 		if(server->uuid() == uuid)
-			return server.get();
+			return server;
 	}
 	return nullptr;
 }
 
+Server *SettingsManager::newServer()
+{
+	servers_.push_back(new Server{this});
+	return servers_.back();
+}
 
 }
 }

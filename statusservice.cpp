@@ -73,7 +73,7 @@ int serverPropCount(QQmlListProperty<Server>*)
 
 Server* serverPropAt(QQmlListProperty<Server>*, int index)
 {
-	return SettingsManager::instance().servers()[index].get();
+	return SettingsManager::instance().servers()[index];
 }
 
 }

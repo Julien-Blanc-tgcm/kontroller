@@ -12,6 +12,7 @@ CONFIG(sailfish) {
 CONFIG+=c++11
 
 SOURCES += main.cpp \
+    downloadlocation.cpp \
     musicservice.cpp \
     statusservice.cpp \
     playlistservice.cpp \
@@ -99,6 +100,7 @@ TRANSLATION_SOURCES += $$PWD/*.cpp
 LIBS += -lqjsonrpc
 
 HEADERS += \
+    downloadlocation.h \
     musicservice.h \
     statusservice.h \
     playlistservice.h \

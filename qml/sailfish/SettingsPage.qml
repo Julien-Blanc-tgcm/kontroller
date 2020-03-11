@@ -9,107 +9,79 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
-        PullDownMenu {
-            MenuItem {
-                text:qsTr("New server")
-                onClicked: settings.newServer("Test")
-            }
-            MenuItem {
-                text:qsTr("Delete server")
-                onClicked:settings.deleteCurrentServer()
-                visible: settings.servers.length > 1
-            }
-            Repeater {
-                model:settings.servers
-                delegate: MenuItem {
-                    text:modelData.name
-                    onClicked: {
-                        statusService.switchToServer(modelData.uuid)
-                    }
-                }
-            }
-        }
+        contentHeight: theCol.height
+
         Column {
+            id:theCol
             spacing:10
-            anchors.fill: parent
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top:parent.top
+
             PageHeader {
                 title: qsTr("Settings")
             }
-            TextField {
-                id:serverName
-                text:settings.servers[settings.currentServerIdx].name
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                label:qsTr("Server name");
-                placeholderText: qsTr("Server name")
-                onTextChanged: {
-                    settings.servers[settings.currentServerIdx].setName(serverName.text)
-                    settings.save();
+            SectionHeader {
+                text: qsTr("Servers")
+            }
+
+            Repeater {
+                model: settings.servers
+                delegate: DetailItem {
+                    label: model.name
+                    value: model.serverAddress
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: pushServerSettingsPage(model.uuid)
+                    }
                 }
             }
 
-            TextField {
-                id: serverAddress
-                text:settings.servers[settings.currentServerIdx].serverAddress
-                anchors.left: parent.left;
+            Item {
+                height: row.height
+                anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
-                label:qsTr("Server address");
-                placeholderText: qsTr("Server address");
-                onTextChanged: {
-                    settings.servers[settings.currentServerIdx].setServerAddress(serverAddress.text);
-                    settings.save();
+                Row {
+                    id:row
+                    Icon {
+                    source:"image://theme/icon-m-add"
+                    }
+                    Label {
+                        text: qsTr("Add server")
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: addNewServer()
                 }
             }
 
-            TextField {
-                id: serverPort
-                text:settings.servers[settings.currentServerIdx].serverPort
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                validator: IntValidator { bottom: 1; top: 65535 }
-                inputMethodHints: Qt.ImhDigitsOnly
-                label:qsTr("Server port")
-                placeholderText: qsTr("Server port")
-                onTextChanged: {
-                    settings.servers[settings.currentServerIdx].setServerPort(serverPort.text);
-                    settings.save();
-                }
+            SectionHeader {
+                text: qsTr("Common")
             }
-            TextField {
-                id : serverHttpPort
-                text:settings.servers[settings.currentServerIdx].serverHttpPort
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                validator: IntValidator{ bottom:1; top:65535}
-                inputMethodHints: Qt.ImhDigitsOnly
-                label:qsTr("Web port")
-                placeholderText: qsTr("Web port")
-                onTextChanged: {
-                    settings.servers[settings.currentServerIdx].setServerHttpPort(serverHttpPort.text);
-                    settings.save();
+
+            ComboBox {
+                label: qsTr("Download location")
+                description: qsTr("Where to put downloaded files. By default, use \
+the phone memory, but SD card memory can be used as well. The relevant folder will \
+be used, depending on the downoaded file type.")
+                onCurrentItemChanged: {
+                    settings.updateDownloadFolder(currentIndex)
                 }
-            }
-            TextSwitch {
-                id: serverHasZones
-                text:qsTr("Use multiples zones")
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                checked:settings.servers[settings.currentServerIdx].hasZones
-                onCheckedChanged: {
-                    settings.servers[settings.currentServerIdx].setHasZones(serverHasZones.checked);
-                    pushOrPullZonePage();
-                    settings.save();
+                menu: ContextMenu
+                {
+                    Repeater {
+                        model: settings.possibleDownloadFolders
+                        delegate: MenuItem {
+                            text: (model.typeAsInt === DownloadLocation.Phone) ?
+                                      qsTr("Phone memory") :
+                                      qsTr("SD Card %1").arg(model.name);
+                        }
+                    }
+                }
+                Component.onCompleted: {
+                    currentIndex = (settings.downloadFolder === StandardPaths.music) ? 0 : 1;
                 }
             }
 
@@ -127,23 +99,16 @@ Page {
                     settings.save();
                 }
             }
-
-            Label {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargi
-                color:Theme.highlightColor
-                text:qsTr("Zones uses different audio output. Go to next page to learn for current zones.")
-                wrapMode: Text.WordWrap
-            }
         }
     }
 
     property var zones;
 
+    property var serverSettingsComponent
+
     Component.onCompleted: {
         pushOrPullZonePage();
+        serverSettingsComponent = Qt.createComponent(Qt.resolvedUrl("ServerSettingsPage.qml"))
     }
 
     function pushOrPullZonePage()
@@ -156,5 +121,18 @@ Page {
         }
         else if(zones)
             pageStack.popAttached(zones);
+    }
+
+    function pushServerSettingsPage(serveruuid)
+    {
+        console.log("push server settings for server " + serveruuid);
+        pageStack.push(serverSettingsComponent.createObject(pageStack,
+                                                            {"serverUuid": serveruuid}))
+    }
+
+    function addNewServer()
+    {
+        var newserveruuid = settings.newServer(); // will give a uuid
+        pushServerSettingsPage(newserveruuid); // go to settings page
     }
 }

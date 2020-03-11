@@ -495,24 +495,79 @@
     </message>
 </context>
 <context>
+    <name>ServerSettingsPage</name>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="20"/>
+        <source>Server Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="30"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="31"/>
+        <source>Server name</source>
+        <translation type="unfinished">Nom du serveur</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="45"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="46"/>
+        <source>Server address</source>
+        <translation type="unfinished">Adresse</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="60"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="61"/>
+        <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="74"/>
+        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="100"/>
+        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="86"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="87"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="114"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="115"/>
+        <source>Server port</source>
+        <translation type="unfinished">Port</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="128"/>
+        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="141"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="142"/>
+        <source>Web port</source>
+        <translation type="unfinished">Port web</translation>
+    </message>
+</context>
+<context>
     <name>SettingsPage</name>
     <message>
         <location filename="../qml/generic/SettingsPage.qml" line="27"/>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="36"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="22"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
         <location filename="../qml/generic/SettingsPage.qml" line="35"/>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="45"/>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="46"/>
         <source>Server name</source>
         <translation>Nom du serveur</translation>
     </message>
     <message>
         <location filename="../qml/generic/SettingsPage.qml" line="62"/>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="61"/>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="62"/>
         <source>Server address</source>
         <translation>Adresse</translation>
     </message>
@@ -532,41 +587,44 @@
         <translation>Dpi</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="14"/>
-        <source>New server</source>
-        <translation>Nouveau serveur</translation>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="25"/>
+        <source>Servers</source>
+        <translation>Serveurs</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="18"/>
-        <source>Delete server</source>
-        <translation>Supprimer le serveur</translation>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="50"/>
+        <source>Add server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="61"/>
+        <source>Common</source>
+        <translation>Paramètres globaux</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="65"/>
+        <source>Download location</source>
+        <translation>Télécharger vers</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="66"/>
+        <source>Where to put downloaded files. By default, use the phone memory, but SD card memory can be used as well. The relevant folder will be used, depending on the downoaded file type.</source>
+        <translation>Mémoire à utiliser pour les fichiers téléchargés. Par défaut, la mémoire du téléphone est utilisée. Le dossier est choisi en fonction du type de la donnée téléchargée (Musique, Vidéo, Image...).</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="78"/>
+        <source>Phone memory</source>
+        <translation type="unfinished">Téléphone</translation>
+    </message>
+    <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="79"/>
-        <source>Server port</source>
-        <translation>Port</translation>
+        <source>SD Card %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="94"/>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="95"/>
-        <source>Web port</source>
-        <translation>Port web</translation>
-    </message>
-    <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="103"/>
-        <source>Use multiples zones</source>
-        <translation>Utiliser plusieurs zones</translation>
-    </message>
-    <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="119"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="91"/>
         <source>Ignore wi-fi status</source>
         <translation>Ignorer l’état wi-fi</translation>
-    </message>
-    <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="137"/>
-        <source>Zones uses different audio output. Go to next page to learn for current zones.</source>
-        <translation>Les zones nécessitent plusieurs sorties audio. Allez à la page suivante pour configurer les zones.</translation>
     </message>
 </context>
 <context>
@@ -676,7 +734,7 @@
 <context>
     <name>eu::tgcm::kontroller::Settings</name>
     <message>
-        <location filename="../settings.cpp" line="18"/>
+        <location filename="../settings.cpp" line="19"/>
         <source>Default</source>
         <translation>Défaut</translation>
     </message>

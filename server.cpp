@@ -54,6 +54,16 @@ QString Server::uuid() const
 	return uuid_;
 }
 
+QString Server::login() const
+{
+	return login_;
+}
+
+QString Server::password() const
+{
+	return password_;
+}
+
 void Server::setServerAddress(QString serverAddress)
 {
 	if (serverAddress_ == serverAddress)
@@ -113,6 +123,24 @@ void Server::setUuid(QString uuid)
 
 	uuid_ = uuid;
 	emit uuidChanged(uuid_);
+}
+
+void Server::setLogin(QString login)
+{
+	if (login_ == login)
+		return;
+
+	login_ = login;
+	emit loginChanged(login_);
+}
+
+void Server::setPassword(QString password)
+{
+	if (password_ == password)
+		return;
+
+	password_ = password;
+	emit passwordChanged(password_);
 }
 
 }

@@ -7,6 +7,7 @@
 #include <QApplication>
 #endif
 #include <QtQml>
+
 #include "musicservice.h"
 #include <cassert>
 #include "downloadservice.h"
@@ -20,7 +21,6 @@
 #include "playlistitem.h"
 #include "videoservice.h"
 #include "settingsmanager.h"
-#include <QScreen>
 #include "deviceinformation.h"
 #include "artistinformationservice.h"
 #include "albuminformationservice.h"
@@ -32,6 +32,9 @@
 #include "episodeinformationservice.h"
 #include "playinginformation.h"
 #include "server.h"
+#include "downloadlocation.h"
+
+#include <QScreen>
 #ifndef SAILFISH_TARGET
 #include "themeinformation.h"
 #endif
@@ -91,6 +94,9 @@ void registerTypes()
     ret = qmlRegisterType<PlayingInformation>(qmlprefix, 1, 0, "PlayingInformation");
     assert(ret);
     ret = qmlRegisterType<DownloadService>(qmlprefix, 1, 0, "DownloadService");
+	assert(ret);
+	ret = qmlRegisterType<DownloadLocation>(qmlprefix, 1, 0, "DownloadLocation");
+	assert(ret);
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");
     assert(ret);

@@ -15,7 +15,9 @@ Settings::Settings() :
     timer_{new QTimer(this)}
 {
 	if(SettingsManager::instance().servers().size() == 0)
-		newServer(tr("Default"));
+	{
+		SettingsManager::instance().newServer()->setName(tr("Default"));
+	}
 	else
 	{
 		setCurrentServerIdx(SettingsManager::instance().lastServerIndex());
@@ -62,7 +64,7 @@ int getServerCount(QQmlListProperty<Server>*)
 
 Server* getServerAt(QQmlListProperty<Server>*, int index )
 {
-	return SettingsManager::instance().servers()[index].get();
+	return SettingsManager::instance().servers()[index];
 }
 }
 
@@ -86,12 +88,36 @@ QString Settings::downloadFolder() const
 	return SettingsManager::instance().downloadFolder();
 }
 
-void Settings::newServer(QString serverName)
+namespace
 {
-	SettingsManager::instance().servers().emplace_back(new Server);
+int getDownloadLocationCount(QQmlListProperty<DownloadLocation>*)
+{
+	return SettingsManager::instance().possibleDownloadLocations().size();
+}
+
+DownloadLocation* getDownloadLocationAt(QQmlListProperty<DownloadLocation>*, int index )
+{
+	return SettingsManager::instance().possibleDownloadLocations()[index];
+}
+}
+
+QQmlListProperty<DownloadLocation> Settings::possibleDownloadFolders()
+{
+	return QQmlListProperty<DownloadLocation>(this, nullptr, getDownloadLocationCount, getDownloadLocationAt);
+}
+
+Server *Settings::server(QString uuid)
+{
+	return SettingsManager::instance().server(uuid);
+}
+
+QString Settings::newServer()
+{
+	auto ret = SettingsManager::instance().newServer();
 	emit serversChanged();
-	SettingsManager::instance().servers().back()->setName(serverName);
-	setCurrentServerIdx(SettingsManager::instance().servers().size() - 1);
+	return ret->uuid();
+	//->setName(serverName);
+	//setCurrentServerIdx(SettingsManager::instance().servers().size() - 1);
 }
 
 void Settings::removeCurrentServer()
@@ -149,6 +175,16 @@ void Settings::setDownloadFolder(QString downloadFolder)
 
 	SettingsManager::instance().setDownloadFolder(downloadFolder);
 	emit downloadFolderChanged(downloadFolder);
+}
+
+void Settings::updateDownloadFolder(int idx)
+{
+	if(idx < 0)
+		return;
+	if(idx >= SettingsManager::instance().possibleDownloadLocations().size())
+		return;
+	SettingsManager::instance().setDownloadLocation(
+	            SettingsManager::instance().possibleDownloadLocations()[idx]);
 }
 
 void Settings::pollCurrentZoneReply()
