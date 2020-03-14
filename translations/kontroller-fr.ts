@@ -499,58 +499,58 @@
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="20"/>
         <source>Server Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres Serveur</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="30"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="31"/>
         <source>Server name</source>
-        <translation type="unfinished">Nom du serveur</translation>
+        <translation>Nom du serveur</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="45"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="46"/>
         <source>Server address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="60"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="61"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifiant</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="74"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe utilisé pour l’authentification à Kodi. Laisser vide si aucun mot de passe n’est nécessaire. Attention, ce mot de passe est enregistré en clair sur le périphérique.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="100"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Port TCP utilisé pour les notifications. Sauf changement dans kodi, laisser la valeur par défaut (9090). Il faut activer l’accès à distance dans les paramètres de Kodi.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="86"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="87"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="114"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="115"/>
         <source>Server port</source>
-        <translation type="unfinished">Port</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="128"/>
         <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
-        <translation type="unfinished"></translation>
+        <translation>Port HTTP utilisé. Sauf changement dans kodi, laisser la valeur par défaut (8080). Vous devez autoriser l’accès à distance HTTP dans Kodi pour utiliser l’application.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="141"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="142"/>
         <source>Web port</source>
-        <translation type="unfinished">Port web</translation>
+        <translation>Port web</translation>
     </message>
 </context>
 <context>
@@ -592,14 +592,19 @@
         <translation>Serveurs</translation>
     </message>
     <message>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="47"/>
+        <source>Deleted</source>
+        <translation>Suppression</translation>
+    </message>
+    <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="53"/>
         <source>Delete server</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le serveur</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="70"/>
         <source>Add server</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un serveur</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="81"/>
@@ -619,12 +624,12 @@
     <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="98"/>
         <source>Phone memory</source>
-        <translation type="unfinished">Téléphone</translation>
+        <translation>Téléphone</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="99"/>
         <source>SD Card %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Carte mémoire %1</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="111"/>

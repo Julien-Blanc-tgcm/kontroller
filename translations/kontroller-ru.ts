@@ -592,6 +592,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="47"/>
+        <source>Deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/sailfish/SettingsPage.qml" line="53"/>
         <source>Delete server</source>
         <translation type="unfinished"></translation>

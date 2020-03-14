@@ -44,7 +44,7 @@ Page {
                     onClicked: pushServerSettingsPage(model.uuid)
                     function showRemorseItem() {
                         var uuid = model.uuid;
-                        remorse.execute(listItem, "Deleted", function() { deleteServer(uuid) });
+                        remorse.execute(listItem, qsTr("Deleted"), function() { deleteServer(uuid) });
                     }
 
                     menu: ContextMenu {
