@@ -92,7 +92,8 @@ CONFIG(sailfishapp) {
 
 TRANSLATIONS += \
         translations/kontroller-en.ts \
-        translations/kontroller-fr.ts
+        translations/kontroller-fr.ts \
+        translations/kontroller-ru.ts
 
 TRANSLATION_SOURCES += $$PWD/*.cpp
 

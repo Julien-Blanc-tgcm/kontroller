@@ -225,6 +225,21 @@ Server *SettingsManager::newServer()
 	return servers_.back();
 }
 
+bool SettingsManager::deleteServer(const QString &uuid)
+{
+	using namespace std;
+	for(auto it = begin(servers_); it != end(servers_); ++it)
+	{
+		if((*it)->uuid() == uuid)
+		{
+			(*it)->deleteLater();
+			servers_.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
 }
 }
 }

@@ -35,6 +35,8 @@ public:
 	Q_PROPERTY(QString downloadFolder READ downloadFolder WRITE setDownloadFolder NOTIFY downloadFolderChanged)
 
 	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::DownloadLocation> possibleDownloadFolders READ possibleDownloadFolders NOTIFY possibleDownloadFoldersChanged)
+
+	Q_PROPERTY(QString currentServerUuid READ currentServerUuid NOTIFY currentServerUuidChanged)
 public:
 	Settings();
 
@@ -54,6 +56,10 @@ public:
 	Q_INVOKABLE eu::tgcm::kontroller::Server* server(QString uuid);
 
 	Q_INVOKABLE QString newServer();
+
+	Q_INVOKABLE void deleteServer(QString uuid);
+
+	QString currentServerUuid() const;
 public slots:
 	void setCurrentServerIdx(int idx);
 	void save();
@@ -87,6 +93,8 @@ signals:
 	void downloadFolderChanged(QString downloadFolder);
 
 	void possibleDownloadFoldersChanged(QStringList possibleDownloadFolders);
+
+	void currentServerUuidChanged(QString currentServerUuid);
 
 private slots:
 	void pollCurrentZone();

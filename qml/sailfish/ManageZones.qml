@@ -6,10 +6,6 @@ import "."
 
 Page {
 
-    Settings {
-        id:settings
-    }
-
     Column {
         anchors.left: parent.left
         anchors.right: parent.right

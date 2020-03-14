@@ -1,6 +1,9 @@
 #include "client.h"
-#include <QSettings>
 #include "settingsmanager.h"
+
+#include <QSettings>
+#include <QAuthenticator>
+#include <QNetworkReply>
 
 namespace eu
 {
@@ -77,6 +80,8 @@ void Client::refresh()
 		serverPort_ = server->serverPort();
 		serverHttpPort_ = server->serverHttpPort();
 		qDebug() << "Connection to " << serverAddress_ << serverPort_;
+		serverLogin_ = server->login();
+		serverPassword_ = server->password();
 		if(serverAddress_.size() > 0 && serverPort_ > 0)
 		{
 			setConnectionStatus(1);
@@ -115,9 +120,12 @@ Server *Client::server()
 
 void Client::switchToServer(const QString &serverUuid)
 {
-	serverUuid_ = serverUuid;
-	emit serverChanged();
-	refresh();
+	if(serverUuid != serverUuid_)
+	{
+		serverUuid_ = serverUuid;
+		emit serverChanged();
+		refresh();
+	}
 }
 
 void Client::handleError(QJsonRpcMessage error)
@@ -160,6 +168,8 @@ QJsonRpcServiceReply *Client::httpSend(QJsonRpcMessage message)
 	if(!client_)
 	{
 		client_ = new QJsonRpcHttpClient(baseUrl() + "jsonrpc");
+		connect(client_->networkAccessManager(), &QNetworkAccessManager::authenticationRequired,
+		        this, &Client::provideCredentials_);
 	}
 	auto reply = client_->sendMessage(message);
 	connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
@@ -317,6 +327,12 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
 		else
 			qDebug() << message;
 	}
+}
+
+void Client::provideCredentials_(QNetworkReply */*reply*/, QAuthenticator *authenticator)
+{
+	authenticator->setUser(serverLogin_);
+	authenticator->setPassword(serverPassword_);
 }
 
 }

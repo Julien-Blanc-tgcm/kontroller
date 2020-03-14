@@ -23,16 +23,36 @@ Page {
             }
             SectionHeader {
                 text: qsTr("Servers")
+                id: endOfHeaders
             }
 
-            Repeater {
+            SilicaListView {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: contentHeight
                 model: settings.servers
-                delegate: DetailItem {
-                    label: model.name
-                    value: model.serverAddress
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: pushServerSettingsPage(model.uuid)
+                delegate: ListItem {
+                    id: listItem
+                    DetailItem {
+                        label: model.name
+                        value: model.serverAddress
+                    }
+                    RemorseItem {
+                        id: remorse
+                    }
+
+                    onClicked: pushServerSettingsPage(model.uuid)
+                    function showRemorseItem() {
+                        var uuid = model.uuid;
+                        remorse.execute(listItem, "Deleted", function() { deleteServer(uuid) });
+                    }
+
+                    menu: ContextMenu {
+                        MenuItem
+                        {
+                            text: qsTr("Delete server")
+                            onClicked: showRemorseItem()
+                        }
                     }
                 }
             }
@@ -134,5 +154,10 @@ be used, depending on the downoaded file type.")
     {
         var newserveruuid = settings.newServer(); // will give a uuid
         pushServerSettingsPage(newserveruuid); // go to settings page
+    }
+
+    function deleteServer(uuid)
+    {
+        settings.deleteServer(uuid)
     }
 }

@@ -62,6 +62,8 @@ public:
 
 	Server* newServer();
 
+	bool deleteServer(QString const& uuid);
+
 	void save();
 
 	/*    bool useHttpInterface() const;

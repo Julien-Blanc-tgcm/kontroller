@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1">
 <context>
     <name>AlbumInformationPage</name>
     <message>
@@ -525,14 +525,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="100"/>
-        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="86"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="87"/>
         <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="100"/>
+        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

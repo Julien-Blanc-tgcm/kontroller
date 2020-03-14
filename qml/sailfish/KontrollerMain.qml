@@ -18,6 +18,13 @@ Page {
             remote.volumeDown();
     }
 
+    Connections {
+        target: settings
+        onCurrentServerIdxChanged: {
+            statusService.switchToServer(settings.currentServerUuid)
+        }
+    }
+
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {

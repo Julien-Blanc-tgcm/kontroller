@@ -3,6 +3,8 @@
 #include "client.h"
 #include "settingsmanager.h"
 
+#include <limits>
+
 namespace eu
 {
 namespace tgcm
@@ -118,6 +120,30 @@ QString Settings::newServer()
 	return ret->uuid();
 	//->setName(serverName);
 	//setCurrentServerIdx(SettingsManager::instance().servers().size() - 1);
+}
+
+void Settings::deleteServer(QString uuid)
+{
+	int deletedServerIdx = std::numeric_limits<int>::max();
+	auto servers = SettingsManager::instance().servers();
+	for(int i = 0; i < servers.size(); ++i)
+	{
+		if(servers[i]->uuid() == uuid)
+			deletedServerIdx = i;
+	}
+	SettingsManager::instance().deleteServer(uuid);
+	if(currentServerIdx_ > deletedServerIdx)
+		currentServerIdx_ -= 1;
+	emit serversChanged();
+	emit currentServerIdxChanged();
+}
+
+QString Settings::currentServerUuid() const
+{
+	if(currentServerIdx_ < SettingsManager::instance().servers().size() &&
+	   currentServerIdx_ >= 0)
+		return SettingsManager::instance().servers()[currentServerIdx_]->uuid();
+	return QString{};
 }
 
 void Settings::removeCurrentServer()

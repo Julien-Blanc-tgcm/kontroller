@@ -188,58 +188,58 @@
     <message>
         <location filename="../qml/generic/KontrollerMain.qml" line="225"/>
         <location filename="../qml/generic/KontrollerMain.qml" line="229"/>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="298"/>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="302"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="305"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="309"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="39"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="46"/>
         <source>Connected to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="53"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="60"/>
         <source>Unable to connect to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="66"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="73"/>
         <source>Trying to connect to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="76"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="83"/>
         <source>Connection status : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="95"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="102"/>
         <source>music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="101"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="108"/>
         <source>videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="107"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="114"/>
         <source>current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="113"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="120"/>
         <source>remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="120"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="127"/>
         <source>playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="127"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="134"/>
         <source>settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -302,7 +302,7 @@
 <context>
     <name>ManageZones</name>
     <message>
-        <location filename="../qml/sailfish/ManageZones.qml" line="25"/>
+        <location filename="../qml/sailfish/ManageZones.qml" line="21"/>
         <source>To learn new zones, start polling and then switch the audio output inside Kodi. Zones will be added automatically. Don’t forget go back and save afterwhile</source>
         <translation type="unfinished"></translation>
     </message>
@@ -592,37 +592,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="50"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="53"/>
+        <source>Delete server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="70"/>
         <source>Add server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="61"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="81"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="65"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="85"/>
         <source>Download location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="66"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="86"/>
         <source>Where to put downloaded files. By default, use the phone memory, but SD card memory can be used as well. The relevant folder will be used, depending on the downoaded file type.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="78"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="98"/>
         <source>Phone memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="79"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="99"/>
         <source>SD Card %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="91"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="111"/>
         <source>Ignore wi-fi status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -734,7 +739,7 @@
 <context>
     <name>eu::tgcm::kontroller::Settings</name>
     <message>
-        <location filename="../settings.cpp" line="19"/>
+        <location filename="../settings.cpp" line="21"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
