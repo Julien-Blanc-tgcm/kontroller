@@ -1,0 +1,28 @@
+Name: kontroller
+Summary: A remote control for xbmc/kodi
+Version: 0.3
+Release: 1
+Group: Qt/Qt
+URL: https://github.com/Julien-Blanc-tgcm/kontroller/
+License: GPL_v2
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |
+  A remote control for the Kodi media player application
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- sailfishapp >= 0.0.10
+- Qt5Core
+- Qt5Qml
+- Qt5Quick
+Requires:
+- sailfishsilica-qt5 >= 0.10.0
+Files:
+- '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+- '%{_datadir}/applications/%{name}.desktop'
+- '%{_datadir}/%{name}/qml'
+- '%{_bindir}'
+- '%{_datadir}/%{name}/lib/libqjsonrpc.so.1'
+- '%{_datadir}/%{name}/translations'
+
