@@ -23,6 +23,7 @@
         <file>CurrentlyPlaying.qml</file>
         <file>PlayerProperties.qml</file>
         <file>ManageZones.qml</file>
+        <file>ServerSettingsPage.qml</file>
     </qresource>
     <qresource prefix="/cover">
         <file alias="CoverPage.qml">cover/CoverPage.qml</file>

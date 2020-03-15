@@ -1,6 +1,6 @@
-Name: kontroller
+Name: harbour-kontroller
 Summary: A remote control for xbmc/kodi
-Version: 0.3
+Version: 0.4
 Release: 1
 Group: Qt/Qt
 URL: https://github.com/Julien-Blanc-tgcm/kontroller/
@@ -21,8 +21,7 @@ Requires:
 Files:
 - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
-- '%{_datadir}/%{name}/qml'
+- '%{_datadir}/%{name}/qml/sailfish'
 - '%{_bindir}'
-- '%{_datadir}/%{name}/lib/libqjsonrpc.so.1'
 - '%{_datadir}/%{name}/translations'
 

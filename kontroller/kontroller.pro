@@ -57,7 +57,8 @@ CONFIG(sailfish) {
 #        qml/sailfish/AlbumInformationPage.qml
 
 } else {
-    RESOURCES += qml/generic/qml.qrc
+#    RESOURCES += qml/generic/qml.qrc
+#    message("Adding generic components to resources")
 }
 
 INCLUDEPATH += ../qjsonrpc/src
@@ -87,18 +88,19 @@ equals(ANDROID_TARGET_ARCH, armeabi-v7a) {
 
 CONFIG(sailfishapp) {
   DEFINES+= SAILFISH_TARGET
-  TARGET = kontroller
+  TARGET = harbour-kontroller
 }
 
 TRANSLATIONS += \
-        translations/kontroller-en.ts \
-        translations/kontroller-fr.ts \
-        translations/kontroller-ru.ts
+        translations/harbour-kontroller-en.ts \
+        translations/harbour-kontroller-fr.ts \
+        translations/harbour-kontroller-ru.ts \
+        translations/harbour-kontroller-sv.ts
 
 TRANSLATION_SOURCES += $$PWD/*.cpp
 
 #LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
-LIBS += -lqjsonrpc
+LIBS += -llibqjsonrpc.a
 
 HEADERS += \
     downloadlocation.h \
@@ -137,14 +139,15 @@ HEADERS += \
     themeinformation.h \
     downloadservice.h
 
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-OTHER_FILES += \
-    android/AndroidManifest.xml
+    OTHER_FILES += \
+        android/AndroidManifest.xml
+}
 
 CONFIG(sailfishapp) {
-  OTHER_FILES += ../rpm/kontroller.yaml \
-       ../rpm/kontroller.spec \
+  OTHER_FILES +=
         translations/*.ts \
 
 }
@@ -156,11 +159,10 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 
 CONFIG(sailfishapp) {
 DISTFILES += kontroller.prf \
-    rpm/kontroller.yaml \
-    kontroller.desktop
+    harbour-kontroller.desktop
 
-lib.path = /usr/share/kontroller/lib/
-lib.files += ../qjsonrpc/src/libqjsonrpc.so.1
+#lib.path = /usr/share/harbour-kontroller/lib/
+#lib.files += ../qjsonrpc/src/libqjsonrpc.so.1
 
-INSTALLS += lib
+#INSTALLS += lib
 }

@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QDirIterator>
+#include <QStandardPaths>
 
 namespace eu
 {
@@ -68,7 +69,7 @@ SettingsManager::SettingsManager()
 	if(!val.isNull() && val.canConvert(QVariant::String))
 		setDownloadFolder(val.toString());
 	else
-		setDownloadFolder("/home/nemo/Music");
+		setDownloadFolder(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).front());
 	val = settings.value("lastServer");
 	if(!val.isNull() && val.canConvert(QVariant::String))
 		lastServer_ = val.toString();
@@ -76,7 +77,7 @@ SettingsManager::SettingsManager()
 	possibleDownloadLocations_.push_back(
 	            new DownloadLocation(this));
 	possibleDownloadLocations_.back()->setType(DownloadLocation::LocationType::Phone);
-	possibleDownloadLocations_.back()->setBaseFolder("/home/nemo");
+	possibleDownloadLocations_.back()->setBaseFolder(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).front());
 	QDir dir{"/media/sdcard"};
 	if(dir.exists() && dir.isReadable())
 	{

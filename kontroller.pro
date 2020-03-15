@@ -6,5 +6,5 @@ SUBDIRS += \
 
 kontroller.depends = qjsonrpc
 
-DISTFILES += \
-    kontroller/qml/sailfish/ServerSettingsPage.qml
+OTHER_FILES += rpm/harbour-kontroller.yaml \
+       rpm/harbour-kontroller.spec
