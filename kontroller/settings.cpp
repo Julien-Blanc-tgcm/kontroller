@@ -13,7 +13,7 @@ namespace kontroller
 {
 
 Settings::Settings() :
-    currentServerIdx_(0),
+    currentServerIdx_(-1),
     timer_{new QTimer(this)}
 {
 	if(SettingsManager::instance().servers().size() == 0)

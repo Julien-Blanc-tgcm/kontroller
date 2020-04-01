@@ -20,7 +20,7 @@ class Settings : public QObject
 {
 	Q_OBJECT
 
-	int currentServerIdx_;
+	int currentServerIdx_ = -1;
 	QTimer* timer_;
 
 public:
