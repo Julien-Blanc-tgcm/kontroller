@@ -46,7 +46,9 @@ SOURCES += main.cpp \
     audiostream.cpp \
     server.cpp \
     themeinformation.cpp \
-    downloadservice.cpp
+    downloadservice.cpp \
+    volumeplugin.cpp \
+    kodivolumeplugin.cpp
 
 RESOURCES += icons.qrc
 CONFIG(sailfish) {
@@ -137,7 +139,9 @@ HEADERS += \
     audiostream.h \
     server.h \
     themeinformation.h \
-    downloadservice.h
+    downloadservice.h \
+    volumeplugin.h \
+    kodivolumeplugin.h
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

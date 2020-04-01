@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QStringList>
 
+#include "volumeplugin.h"
+
 namespace eu
 {
 namespace tgcm
@@ -25,6 +27,8 @@ class Server : public QObject
 	QString login_;
 
 	QString password_;
+
+	VolumePlugin* volumePlugin_;
 
 public:
 	explicit Server(QObject *parent = 0);
