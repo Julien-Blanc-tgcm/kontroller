@@ -2,6 +2,8 @@ import QtQuick 2.0
 import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
+import org.nemomobile.policy 1.0
+import Sailfish.Media 1.0
 
 Page {
     anchors.fill: parent
@@ -11,12 +13,30 @@ Page {
         id:remote
     }
 
-    Keys.onVolumeUpPressed: {
-            remote.volumeUp();
+    MediaKey {
+        enabled: Qt.application.active
+        key: Qt.Key_VolumeUp
+        onPressed: remote.volumeUp()
+        onRepeat: remote.volumeUp()
     }
-    Keys.onVolumeDownPressed: {
-            remote.volumeDown();
+    MediaKey {
+        enabled: Qt.application.active
+        key: Qt.Key_VolumeDown
+        onPressed: remote.volumeDown()
+        onRepeat: remote.volumeDown()
     }
+    Permissions {
+        enabled: Qt.application.active
+        autoRelease: true
+        applicationClass: "camera"
+
+        Resource {
+            id: volumeKeysResource
+            type: Resource.ScaleButton
+            optional: true
+        }
+    }
+
 
     Connections {
         target: settings
