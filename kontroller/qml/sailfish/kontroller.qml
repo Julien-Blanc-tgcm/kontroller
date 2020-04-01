@@ -10,7 +10,7 @@ ApplicationWindow {
 //    property alias scalingFactor : deviceInformation.scalingFactor
 //    property alias touchScalingFactor: deviceInformation.touchScalingFactor
 
-    allowedOrientations: Orientation.Portrait
+    allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
     cover: {
         if(statusService.connectionStatus === 2)
@@ -20,9 +20,9 @@ ApplicationWindow {
     }
     initialPage: Component {
         KontrollerMain {
-            anchors.fill: parent
         }
     }
+
     Settings {
         id: settings
     }

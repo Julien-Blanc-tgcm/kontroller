@@ -6,7 +6,6 @@ import org.nemomobile.policy 1.0
 import Sailfish.Media 1.0
 
 Page {
-    anchors.fill: parent
     id: main
 
     Remote {
@@ -60,160 +59,177 @@ Page {
             }
         }
 
-        Label {
+        Item {
+            id:titleBar
             anchors.left: parent.left
             anchors.right: parent.right
-            text: qsTr("Connected to %1").arg(statusService.serverName)
-            visible: statusService.connectionStatus === 2
-            height:Theme.itemSizeSmall
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Row {
-            visible:statusService.connectionStatus === 0
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: Theme.horizontalPageMargin
-            height:Theme.itemSizeSmall
+            anchors.top:parent.top
+            height: childrenRect.height
             Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text: qsTr("Connected to %1").arg(statusService.serverName)
+                visible: statusService.connectionStatus === 2
                 height:Theme.itemSizeSmall
-                text:qsTr("Unable to connect to %1").arg(statusService.serverName)
-                color: Theme.highlightColor;
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
-            IconButton {
-                icon.source: "image://theme/icon-m-refresh"
-                onClicked: statusService.retryConnect();
+            Row {
+                visible:statusService.connectionStatus === 0
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                height:Theme.itemSizeSmall
+                Label {
+                    height:Theme.itemSizeSmall
+                    text:qsTr("Unable to connect to %1").arg(statusService.serverName)
+                    color: Theme.highlightColor;
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                IconButton {
+                    icon.source: "image://theme/icon-m-refresh"
+                    onClicked: statusService.retryConnect();
+                }
+            }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text:qsTr("Trying to connect to %1").arg(statusService.serverName)
+                visible:statusService.connectionStatus === 1
+                height:Theme.itemSizeSmall
+                verticalAlignment: Text.AlignVCenter
+                color: Theme.highlightColor
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text: qsTr("Connection status : %1").arg(statusService.connectionStatus)
+                visible: statusService.connectionStatus !== 0 && statusService.connectionStatus !== 1 && statusService.connectionStatus !== 2
+                height: Theme.itemSizeSmall
+                verticalAlignment: Text.AlignVCenter
+                color:Theme.highlightColor
+                horizontalAlignment: Text.AlignHCenter
             }
         }
-        Label {
+
+        Item {
             anchors.left: parent.left
             anchors.right: parent.right
-            text:qsTr("Trying to connect to %1").arg(statusService.serverName)
-            visible:statusService.connectionStatus === 1
-            height:Theme.itemSizeSmall
-            verticalAlignment: Text.AlignVCenter
-            color: Theme.highlightColor
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Label {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            text: qsTr("Connection status : %1").arg(statusService.connectionStatus)
-            visible: statusService.connectionStatus !== 0 && statusService.connectionStatus !== 1 && statusService.connectionStatus !== 2
-            height: Theme.itemSizeSmall
-            verticalAlignment: Text.AlignVCenter
-            color:Theme.highlightColor
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        SilicaGridView {
-            id:theGrid
-            anchors.fill: parent
-            anchors.topMargin:Theme.itemSizeSmall
-            cellWidth:theGrid.width / 2
-            cellHeight:cellWidth
-            model : ListModel {
-                ListElement{
-                    page:"music"
-                    icon:"image://theme/icon-m-media-songs"
-                    needConnect:true
-                    label: qsTr("music")
-                }
-                ListElement{
-                    page:"videos"
-                    icon:"image://theme/icon-m-video"
-                    needConnect:true
-                    label: qsTr("videos")
-                }
-                ListElement{
-                    page:"current"
-                    icon:"image://theme/icon-m-accessory-speaker"
-                    needConnect:true
-                    label: qsTr("current")
-                }
-                ListElement {
-                    page:"remote"
-                    icon:"image://theme/icon-m-traffic"
-                    needConnect:true
-                    label: qsTr("remote")
-                }
-
-                ListElement {
-                    page:"playlist"
-                    icon:"image://theme/icon-m-menu"
-                    needConnect:true
-                    label: qsTr("playlist")
-                }
-
-                ListElement{
-                    page:"settings"
-                    icon:"image://theme/icon-m-developer-mode"
-                    needConnect:false
-                    label: qsTr("settings")
-                }
-
-            }
-            delegate : Item {
-                Rectangle {
-                    width: theGrid.width / 2 - 20
-                    height: width
-                    opacity:0.1
-                    color:"#fff"
-                    id:theRect
-                    radius : 15
-                    x:10
-                    y:10
-                }
-                Rectangle
-                {
-                    anchors.horizontalCenter: theRect.horizontalCenter
-                    anchors.verticalCenter: theRect.verticalCenter
-                    height: btn.height + lbl.height
-                    IconButton {
-                        anchors.top:parent.top
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        icon.source: {
-                            if(!model.needConnect || statusService.connectionStatus === 2)
-                                return model.icon;
-                            else
-                                return model.icon + "?" + Theme.highlightDimmerColor;
-                        }
-                        onClicked: {
-                            if(!model.needConnect || statusService.connectionStatus === 2)
-                                pushRelevantPage(model.page)
-                        }
-                        id:btn
+            anchors.bottom: parent.bottom
+            anchors.top:titleBar.bottom
+            anchors.topMargin:Theme.paddingMedium
+            id: theGrid
+            property bool landscape: height < width
+            property int cellWidth: landscape ? Math.min(theGrid.width / 3, theGrid.height / 2) :  Math.min(theGrid.width / 2, theGrid.height / 3)
+            property int numberOfRows : landscape ? 2 : 3;
+            property int numberOfCols : landscape ? 3 : 2;
+            Repeater {
+                model : ListModel {
+                    ListElement {
+                        page:"music"
+                        icon:"image://theme/icon-m-media-songs"
+                        needConnect:true
+                        label: qsTr("music")
                     }
-                    Label {
-                        id:lbl
-                        anchors.top:btn.bottom
-                        anchors.topMargin:20
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        horizontalAlignment: Text.AlignHCenter
-                        text: label
-                        MouseArea
-                        {
-                            anchors.fill:parent
+                    ListElement {
+                        page:"videos"
+                        icon:"image://theme/icon-m-video"
+                        needConnect:true
+                        label: qsTr("videos")
+                    }
+                    ListElement {
+                        page:"current"
+                        icon:"image://theme/icon-m-accessory-speaker"
+                        needConnect:true
+                        label: qsTr("current")
+                    }
+                    ListElement {
+                        page:"remote"
+                        icon:"image://theme/icon-m-traffic"
+                        needConnect:true
+                        label: qsTr("remote")
+                    }
+
+                    ListElement {
+                        page:"playlist"
+                        icon:"image://theme/icon-m-menu"
+                        needConnect:true
+                        label: qsTr("playlist")
+                    }
+
+                    ListElement {
+                        page:"settings"
+                        icon:"image://theme/icon-m-developer-mode"
+                        needConnect:false
+                        label: qsTr("settings")
+                    }
+                }
+
+                delegate : Item {
+                    property int positionX : (theGrid.landscape ? model.index % 3 : model.index % 2)
+                    property int positionY : (theGrid.landscape ? model.index % 2 : model.index % 3)
+                    x: (main.width - (theGrid.cellWidth * theGrid.numberOfCols)) /2 + (positionX * theGrid.cellWidth)
+                    y: positionY * theGrid.cellWidth
+                    width: theGrid.cellWidth
+                    height: theGrid.cellWidth
+                    Rectangle {
+                        anchors.fill: parent
+                        opacity:0.1
+                        color:"#fff"
+                        id:theRect
+                        radius : 15
+                        anchors.margins: Theme.paddingMedium
+                    }
+                    Rectangle
+                    {
+                        anchors.horizontalCenter: theRect.horizontalCenter
+                        anchors.verticalCenter: theRect.verticalCenter
+                        height: btn.height + lbl.height
+                        IconButton {
+                            anchors.top:parent.top
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            icon.source: {
+                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                    return model.icon;
+                                else
+                                    return model.icon + "?" + Theme.highlightDimmerColor;
+                            }
                             onClicked: {
                                 if(!model.needConnect || statusService.connectionStatus === 2)
-                                    pushRelevantPage(page);
+                                    pushRelevantPage(model.page)
                             }
+                            id:btn
                         }
-                        color:{
-                            if(!model.needConnect || statusService.connectionStatus === 2)
-                                return Theme.primaryColor;
-                            else
-                                return Theme.highlightDimmerColor
+                        Label {
+                            id:lbl
+                            anchors.top:btn.bottom
+                            anchors.topMargin:20
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            horizontalAlignment: Text.AlignHCenter
+                            text: label
+                            MouseArea
+                            {
+                                anchors.fill:parent
+                                onClicked: {
+                                    if(!model.needConnect || statusService.connectionStatus === 2)
+                                        pushRelevantPage(page);
+                                }
+                            }
+                            color:{
+                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                    return Theme.primaryColor;
+                                else
+                                    return Theme.highlightDimmerColor
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 
     QtObject {
         id:internal
@@ -238,7 +254,6 @@ Page {
             var musicList = musicPageComponent.createObject(pageStack,
                 {
                     "visible": true,
-                    "anchors.fill":pageStack,
                     "browsingMode": filetype,
                     "browsingValue":file,
                     "label":label
@@ -303,7 +318,6 @@ Page {
             var videoList = videoPageComponent.createObject(pageStack,
                 {
                     "visible":true,
-                    "anchors.fill":pageStack,
                     "browsingMode":filetype,
                     "browsingValue":file,
                     "label":label
@@ -436,5 +450,9 @@ Page {
         }
     }
 
-    Component.onCompleted: createInfoComponents()
+    Component.onCompleted:{
+        if(settings.currentServerUuid.length > 0)
+            statusService.switchToServer(settings.currentServerUuid)
+        createInfoComponents()
+    }
 }

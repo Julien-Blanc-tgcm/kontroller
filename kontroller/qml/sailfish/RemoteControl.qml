@@ -6,6 +6,7 @@ import "."
 
 Page {
     id:page;
+    allowedOrientations: Orientation.Portrait
     anchors.fill: parent
     Remote {
         id: remoteController
