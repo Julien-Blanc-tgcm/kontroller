@@ -188,58 +188,58 @@
     <message>
         <location filename="../qml/generic/KontrollerMain.qml" line="225"/>
         <location filename="../qml/generic/KontrollerMain.qml" line="229"/>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="341"/>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="345"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="339"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="343"/>
         <source>Sources</source>
         <translation>Источники</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="73"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="71"/>
         <source>Connected to %1</source>
         <translation>Подключено к %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="87"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="85"/>
         <source>Unable to connect to %1</source>
         <translation>Невозможно подключиться к %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="100"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="98"/>
         <source>Trying to connect to %1</source>
         <translation>Подключение к %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="110"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="108"/>
         <source>Connection status : %1</source>
         <translation>Состояние : %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="136"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="134"/>
         <source>music</source>
         <translation>Музыка</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="142"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="140"/>
         <source>videos</source>
         <translation>Видео</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="148"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="146"/>
         <source>current</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="154"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="152"/>
         <source>remote</source>
         <translation>Пульт</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="161"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="159"/>
         <source>playlist</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="168"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="166"/>
         <source>settings</source>
         <translation>Настройка</translation>
     </message>
@@ -363,18 +363,18 @@
     </message>
     <message>
         <location filename="../qml/sailfish/MovieInformationPage.qml" line="68"/>
-        <source>&lt;b&gt;Жанр:&lt;/b&gt; %1</source>
-        <translation></translation>
+        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/MovieInformationPage.qml" line="78"/>
-        <source>&lt;b&gt;Рейтинг:&lt;/b&gt; %1</source>
-        <translation></translation>
+        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Рейтинг:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/MovieInformationPage.qml" line="88"/>
-        <source>&lt;b&gt;Длительность:&lt;/b&gt; %1</source>
-        <translation></translation>
+        <source>&lt;b&gt;Runtime:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Длительность:&lt;/b&gt; %1</translation>
     </message>
 </context>
 <context>

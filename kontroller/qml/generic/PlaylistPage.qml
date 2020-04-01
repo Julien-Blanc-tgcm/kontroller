@@ -72,9 +72,6 @@ Rectangle{
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    thelist.currentIndex = index
-                }
-                onDoubleClicked: {
                     activateItem(model)
                 }
             }

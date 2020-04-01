@@ -188,60 +188,60 @@
     <message>
         <location filename="../qml/generic/KontrollerMain.qml" line="225"/>
         <location filename="../qml/generic/KontrollerMain.qml" line="229"/>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="341"/>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="345"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="339"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="343"/>
         <source>Sources</source>
         <translation>Sources</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="73"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="71"/>
         <source>Connected to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecté à %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="87"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="85"/>
         <source>Unable to connect to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de se connecter à %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="100"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="98"/>
         <source>Trying to connect to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Connexion en cours à %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="110"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="108"/>
         <source>Connection status : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>État de la connexion : %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="136"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="134"/>
         <source>music</source>
-        <translation type="unfinished"></translation>
+        <translation>Musique</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="142"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="140"/>
         <source>videos</source>
-        <translation type="unfinished"></translation>
+        <translation>Vidéos</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="148"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="146"/>
         <source>current</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture en cours</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="154"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="152"/>
         <source>remote</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécommande</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="161"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="159"/>
         <source>playlist</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste de lecture</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/KontrollerMain.qml" line="168"/>
+        <location filename="../qml/sailfish/KontrollerMain.qml" line="166"/>
         <source>settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres</translation>
     </message>
 </context>
 <context>
