@@ -9,6 +9,18 @@ Page {
     signal currentClicked()
     signal backToMenuClicked()
 
+    function formatArray(strings)
+    {
+        var ret = "";
+        for(var i = 0; i < strings.length; ++i)
+        {
+            if(i !== 0)
+                ret += ", ";
+            ret += strings[i];
+        }
+        return ret;
+    }
+
     SilicaFlickable {
         clip:true
         anchors.fill: parent
@@ -83,7 +95,7 @@ Page {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
                 width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Genre:</b> %1").arg(service.genre)
+                text:qsTr("<b>Genre:</b> %1").arg(formatArray(service.genres))
                 color:Theme.highlightColor
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.WordWrap

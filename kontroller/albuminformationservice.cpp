@@ -75,15 +75,15 @@ void AlbumInformationService::setAlbumId(int albumId)
     emit albumIdChanged();
 }
 
-QString AlbumInformationService::genre() const
+QStringList AlbumInformationService::genres() const
 {
-    return genre_;
+    return genres_;
 }
 
-void AlbumInformationService::setGenre(const QString &genre)
+void AlbumInformationService::setGenres(const QStringList &genre)
 {
-    genre_ = genre;
-    emit genreChanged();
+    genres_ = genre;
+    emit genresChanged();
 }
 
 int AlbumInformationService::year() const
@@ -164,7 +164,19 @@ void AlbumInformationService::handleRefresh_()
         auto details = detailsTmp.toObject();
         setName(details.value("title").toString());
         setDescription(details.value("description").toString());
-        setGenre(details.value("genre").toString());
+        auto genres = details.value("genre");
+        QStringList genresTmp;
+        if(genres.isArray())
+        {
+            auto arr = genres.toArray();
+            for(auto const& genre : arr)
+            {
+                if(genre.isString())
+                    genresTmp.push_back(genre.toString());
+            }
+
+        }
+        setGenres(genresTmp);
         setYear(details.value("year").toInt());
         auto artists = details.value("artist");
         if(artists.isArray())

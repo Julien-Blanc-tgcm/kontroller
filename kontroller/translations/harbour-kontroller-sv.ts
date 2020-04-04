@@ -5,52 +5,52 @@
     <name>AlbumInformationPage</name>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="55"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="62"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="74"/>
         <source>&lt;b&gt;Artists:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Artister:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="65"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="70"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="82"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;År:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="74"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="78"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="90"/>
         <source>&lt;b&gt;Label:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Etikett:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="83"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="86"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="98"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="91"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="94"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="106"/>
         <source>Songs :</source>
         <translation>Låtar :</translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="160"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="153"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="165"/>
         <source>Description</source>
         <translation>Beskrivning</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="26"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="38"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="30"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="42"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="34"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="46"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>

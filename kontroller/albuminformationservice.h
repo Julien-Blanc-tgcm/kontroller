@@ -21,7 +21,7 @@ private:
     QString description_;
     QString thumbnail_;
     QList<File*> songs_;
-    QString genre_;
+    QStringList genres_;
     int year_;
     QString label_;
     QStringList artists_;
@@ -33,7 +33,7 @@ public:
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
     Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> songs READ songs NOTIFY songsChanged)
-    Q_PROPERTY(QString genre READ genre WRITE setGenre NOTIFY genreChanged)
+    Q_PROPERTY(QStringList genres READ genres WRITE setGenres NOTIFY genresChanged)
     Q_PROPERTY(int year READ year WRITE setYear NOTIFY yearChanged)
     Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
     Q_PROPERTY(QStringList artists READ artists WRITE setArtists NOTIFY artistsChanged)
@@ -49,8 +49,8 @@ public:
 
     QQmlListProperty<File> songs();
 
-    QString genre() const;
-    void setGenre(const QString &genre);
+    QStringList genres() const;
+    void setGenres(const QStringList &genre);
 
     int year() const;
     void setYear(const int &year);
@@ -70,7 +70,7 @@ signals:
     void descriptionChanged();
     void thumbnailChanged();
     void songsChanged();
-    void genreChanged();
+    void genresChanged();
     void yearChanged();
     void labelChanged();
     void artistsChanged();
