@@ -168,8 +168,8 @@ Page {
                 }
 
                 delegate : Item {
-                    property int positionX : (theGrid.landscape ? model.index % 3 : model.index % 2)
-                    property int positionY : (theGrid.landscape ? model.index % 2 : model.index % 3)
+                    property int positionX : (theGrid.landscape ? (model.index % 3) : (model.index % 2))
+                    property int positionY : Math.floor(theGrid.landscape ? (model.index / 3) : (model.index / 2))
                     x: (main.width - (theGrid.cellWidth * theGrid.numberOfCols)) /2 + (positionX * theGrid.cellWidth)
                     y: positionY * theGrid.cellWidth
                     width: theGrid.cellWidth
@@ -181,6 +181,14 @@ Page {
                         id:theRect
                         radius : 15
                         anchors.margins: Theme.paddingMedium
+                        MouseArea
+                        {
+                            anchors.fill:parent
+                            onClicked: {
+                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                    pushRelevantPage(model.page);
+                            }
+                        }
                     }
                     Rectangle
                     {
@@ -210,14 +218,6 @@ Page {
                             anchors.right: parent.right
                             horizontalAlignment: Text.AlignHCenter
                             text: label
-                            MouseArea
-                            {
-                                anchors.fill:parent
-                                onClicked: {
-                                    if(!model.needConnect || statusService.connectionStatus === 2)
-                                        pushRelevantPage(page);
-                                }
-                            }
                             color:{
                                 if(!model.needConnect || statusService.connectionStatus === 2)
                                     return Theme.primaryColor;
