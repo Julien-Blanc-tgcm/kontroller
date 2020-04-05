@@ -708,27 +708,27 @@
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="307"/>
+        <location filename="../musicservice.cpp" line="303"/>
         <source>Artists</source>
         <translation>Artistes</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="314"/>
+        <location filename="../musicservice.cpp" line="310"/>
         <source>Albums</source>
         <translation>Albums</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="319"/>
+        <location filename="../musicservice.cpp" line="315"/>
         <source>Songs</source>
         <translation>Chansons</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="325"/>
+        <location filename="../musicservice.cpp" line="321"/>
         <source>Genres</source>
         <translation>Genres</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="331"/>
+        <location filename="../musicservice.cpp" line="327"/>
         <source>Files</source>
         <translation>Fichiers</translation>
     </message>

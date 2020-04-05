@@ -246,7 +246,7 @@ void MusicService::refresh_collection()
 		}
 		QJsonArray properties;
 		properties.append(QLatin1String("thumbnail"));
-        parameters.insert("properties", properties);
+		parameters.insert("properties", properties);
 		if(browsingMode_ == "media")
 		{
 			if(browsingValue_ == "artists")
@@ -291,13 +291,9 @@ void MusicService::refresh_collection()
 		}
 		else if(browsingMode_ == "genre")
 		{
-			QJsonObject filter;
-			filter["genreid"] = browsingValue_.toInt();
-			parameters.insert("filter", filter);
-			message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-			QJsonRpcServiceReply* reply = Client::current().send(message);
-			if(reply)
-				connect(reply, SIGNAL(finished()), this, SLOT(parseAlbumsResults()));
+			auto req = new AlbumsRequest(this);
+			connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+			req->startWithGenre(browsingValue_.toInt());
 		}
 	}
 	else

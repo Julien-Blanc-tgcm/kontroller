@@ -13,18 +13,19 @@ class File;
 
 class AlbumsRequest : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit AlbumsRequest(QObject *parent = 0);
-    ~AlbumsRequest();
-    void start(int artistid);
+	explicit AlbumsRequest(QObject *parent = 0);
+	~AlbumsRequest();
+	void start(int artistid);
+	void startWithGenre(int genreid);
 
-    QList<File*> results;
-    bool success;
+	QList<File*> results;
+	bool success;
 signals:
-    void finished();
+	void finished();
 private slots:
-    void parseAlbumsResult();
+	void parseAlbumsResult();
 };
 
 }
