@@ -497,58 +497,58 @@
 <context>
     <name>ServerSettingsPage</name>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="20"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="21"/>
         <source>Server Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="30"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="31"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="32"/>
         <source>Server name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="45"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="46"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="43"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="44"/>
         <source>Server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="60"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="61"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="55"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="56"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="74"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="66"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="100"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="89"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="86"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="87"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="78"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="79"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="114"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="115"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="103"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="104"/>
         <source>Server port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="128"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="114"/>
         <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="141"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="142"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="127"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="128"/>
         <source>Web port</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2,13 +2,14 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
-Page {
+Dialog {
     property string serverUuid: ""
 
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: theCol.height
-
+        DialogHeader
+        {}
         Column {
             id:theCol
             spacing:10
@@ -29,9 +30,6 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 label:qsTr("Server name");
                 placeholderText: qsTr("Server name")
-                onTextChanged: {
-                    settings.server(serverUuid).setName(serverName.text)
-                }
             }
 
             TextField {
@@ -44,9 +42,6 @@ Page {
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("Server address");
                 placeholderText: qsTr("Server address");
-                onTextChanged: {
-                    settings.server(serverUuid).setServerAddress(serverAddress.text);
-                }
             }
 
             TextField {
@@ -59,9 +54,6 @@ Page {
                 inputMethodHints: Qt.ImhNoAutoUppercase
                 label:qsTr("Login");
                 placeholderText: qsTr("Login");
-                onTextChanged: {
-                    settings.server(serverUuid).setLogin(serverLogin.text);
-                }
             }
 
             Label {
@@ -85,9 +77,6 @@ will be stored unencrypted on the device")
                 inputMethodHints: Qt.ImhNoAutoUppercase
                 label:qsTr("Password");
                 placeholderText: qsTr("Password");
-                onTextChanged: {
-                    settings.server(serverUuid).setPassword(serverPassword.text);
-                }
             }
 
             Label {
@@ -113,9 +102,6 @@ will not function properly.")
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Server port")
                 placeholderText: qsTr("Server port")
-                onTextChanged: {
-                    settings.server(serverUuid).setServerPort(serverPort.text);
-                }
             }
 
             Label {
@@ -140,9 +126,6 @@ You need to enable HTTP remote access in kodi for this to work")
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Web port")
                 placeholderText: qsTr("Web port")
-                onTextChanged: {
-                    settings.server(serverUuid).setServerHttpPort(serverHttpPort.text);
-                }
             }
 /*            TextSwitch {
                 id: serverHasZones
@@ -170,8 +153,13 @@ You need to enable HTTP remote access in kodi for this to work")
         }
     }
 
-    onStatusChanged: {
-        if(status === PageStatus.Deactivating)
-            settings.save()
+    onAccepted: {
+        settings.server(serverUuid).setName(serverName.text)
+        settings.server(serverUuid).setPassword(serverPassword.text);
+        settings.server(serverUuid).setServerAddress(serverAddress.text);
+        settings.server(serverUuid).setServerHttpPort(serverHttpPort.text);
+        settings.server(serverUuid).setServerPort(serverPort.text);
+        settings.server(serverUuid).setLogin(serverLogin.text);
+        settings.save()
     }
 }

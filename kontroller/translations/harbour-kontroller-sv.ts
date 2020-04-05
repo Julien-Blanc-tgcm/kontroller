@@ -497,58 +497,58 @@
 <context>
     <name>ServerSettingsPage</name>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="20"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="21"/>
         <source>Server Settings</source>
         <translation>Serverinställningar</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="30"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="31"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="32"/>
         <source>Server name</source>
         <translation>Servernamn</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="45"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="46"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="43"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="44"/>
         <source>Server address</source>
         <translation>Serveradress</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="60"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="61"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="55"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="56"/>
         <source>Login</source>
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="74"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="66"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
         <translation>Lösenord för att autentisera inloggning till Kodi. Lämnas tomt om inget lösenord används. Notera att lösenordet kommer att lagras okrypterat på enheten.</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="100"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="89"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation>TCP-port för att ansluta till servern. Om du inte har ändrat det i Kodi skall standardvärdet fungera. Du måste aktivera fjärråtkomst i Kodi, annars kommer inte aviseringar att fungera korrekt.</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="86"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="87"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="78"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="79"/>
         <source>Password</source>
         <translation>Lösenord</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="114"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="115"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="103"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="104"/>
         <source>Server port</source>
         <translation>Serverport</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="128"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="114"/>
         <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
         <translation>HTTP-port för att ansluta till servern. Om du inte har ändrat det i Kodi skall standardvärdet (8080) fungera. Du måste aktivera HTTP fjärråtkomst i Kodi, för att detta skall fungera.</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="141"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="142"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="127"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="128"/>
         <source>Web port</source>
         <translation>Webb-port</translation>
     </message>
