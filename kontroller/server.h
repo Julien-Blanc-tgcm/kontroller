@@ -59,6 +59,8 @@ public:
 
 	QString password() const;
 
+	VolumePlugin* volumePlugin();
+
 signals:
 
 	void serverAddressChanged(QString serverAddress);
@@ -93,6 +95,7 @@ public slots:
 	void setUuid(QString uuid);
 	void setLogin(QString login);
 	void setPassword(QString password);
+	void setVolumePlugin(VolumePlugin* volumePlugin);
 };
 
 }

@@ -76,8 +76,8 @@ void Client::refresh()
 		{
 			server = SettingsManager::instance().servers().front();
 		}
-		emit serverChanged();
 		serverUuid_ = server->uuid();
+		emit serverChanged();
 	}
 	if(server)
 	{
@@ -223,6 +223,7 @@ void Client::handleConnectionSuccess()
 	connect(tcpClient_, SIGNAL(messageReceived(QJsonRpcMessage)), this,
 	        SLOT(handleMessageReceived(QJsonRpcMessage)));
 	setConnectionStatus(2);
+	server()->volumePlugin()->refreshVolume();
 	emit serverChanged();
 }
 

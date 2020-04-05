@@ -1,5 +1,9 @@
 #include "kodivolumeplugin.h"
 
+#include "client.h"
+
+#include <qjsonrpcservicereply.h>
+
 namespace eu
 {
 namespace tgcm
@@ -31,8 +35,13 @@ int KodiVolumePlugin::currentVolume_() const
 	return currentVolumeStored_;
 }
 
-void KodiVolumePlugin::updateVolume_(int /*newVolume*/)
+void KodiVolumePlugin::updateVolume_(int newVolume)
 {
+	QJsonArray parameters;
+	parameters.append(newVolume);
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
+	auto reply = Client::current().send(message);
+	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 // todo : implement
 }
 
@@ -43,17 +52,58 @@ int KodiVolumePlugin::volumeStep_() const
 
 void KodiVolumePlugin::refreshVolume_()
 {
-// todo : implement
+	QJsonObject parameters;
+	QJsonArray properties;
+	properties.push_back(QString::fromUtf8("volume"));
+	parameters["properties"] = properties;
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.GetProperties", parameters);
+	auto reply = Client::current().send(message);
+	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 }
 
 void KodiVolumePlugin::increaseVolume_()
 {
-// todo : migrate code from remote
+	QJsonArray parameters;
+	parameters.append(QString("increment"));
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
+	auto reply = Client::current().send(message);
+	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 }
 
 void KodiVolumePlugin::decreaseVolume_()
 {
-// todo : migrate code from remote
+	QJsonArray parameters;
+	parameters.append(QString("decrement"));
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
+	auto reply = Client::current().send(message);
+	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
+}
+
+void KodiVolumePlugin::volumeReply_()
+{
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply != nullptr)
+	{
+		auto obj = reply->response().toObject();
+		if(obj.contains("result"))
+		{
+			auto result = obj["result"];
+			if(result.isObject() && result.toObject().contains("volume"))
+			{
+				auto volume = result.toObject()["volume"];
+				if(volume.isDouble())
+				{
+					currentVolumeStored_ = volume.toInt();
+					emit currentVolumeChanged(currentVolumeStored_);
+				}
+			}
+			else if(result.isDouble())
+			{
+				currentVolumeStored_ = result.toInt();
+				emit currentVolumeChanged(currentVolumeStored_);
+			}
+		}
+	}
 }
 
 }

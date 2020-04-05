@@ -143,6 +143,16 @@ void Server::setPassword(QString password)
 	emit passwordChanged(password_);
 }
 
+void Server::setVolumePlugin(VolumePlugin* volumePlugin)
+{
+	volumePlugin_ = volumePlugin;
+}
+
+VolumePlugin* Server::volumePlugin()
+{
+	return volumePlugin_;
+}
+
 }
 }
 }

@@ -31,6 +31,9 @@ protected:
 	void decreaseVolume_();
 private:
 	int currentVolumeStored_ = -1;
+
+private slots:
+	void volumeReply_();
 };
 
 }

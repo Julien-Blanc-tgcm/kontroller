@@ -18,20 +18,20 @@ public:
 signals:
 
 public slots:
-    void back();
-    void contextMenu();
-    void down();
-    //void executeAction();
-    void home();
-    void info();
-    void left();
-    void right();
-    void select();
-    void showCodec();
-    void showOSD();
-    void up();
-    void volumeUp();
-    void volumeDown();
+	void back();
+	void contextMenu();
+	void down();
+	//void executeAction();
+	void home();
+	void info();
+	void left();
+	void right();
+	void select();
+	void showCodec();
+	void showOSD();
+	void up();
+	void volumeUp();
+	void volumeDown();
 };
 
 }

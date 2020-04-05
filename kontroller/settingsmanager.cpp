@@ -1,5 +1,7 @@
 #include "settingsmanager.h"
 
+#include "kodivolumeplugin.h"
+
 #include <QSettings>
 #include <QDebug>
 #include <QDir>
@@ -60,7 +62,7 @@ SettingsManager::SettingsManager()
 			server->setPassword(val.toString());
 		else
 			server->setPassword(QString{});
-
+		server->setVolumePlugin(new KodiVolumePlugin(server));
 		servers_.push_back(std::move(server));
 	}
 	settings.endArray();
@@ -177,7 +179,7 @@ SettingsManager& SettingsManager::instance()
 
 QVector<Server*> SettingsManager::servers()
 {
-    return servers_;
+	return servers_;
 }
 
 void SettingsManager::save()
@@ -223,7 +225,9 @@ Server* SettingsManager::server(const QString &uuid)
 Server *SettingsManager::newServer()
 {
 	servers_.push_back(new Server{this});
-	return servers_.back();
+	auto ret = servers_.back();
+	ret->setVolumePlugin(new KodiVolumePlugin(ret));
+	return ret;
 }
 
 bool SettingsManager::deleteServer(const QString &uuid)
