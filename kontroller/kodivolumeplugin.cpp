@@ -15,9 +15,14 @@ KodiVolumePlugin::KodiVolumePlugin(QObject *parent) : VolumePlugin(parent)
 
 }
 
-QString KodiVolumePlugin::realName_() const
+QString KodiVolumePlugin::static_name()
 {
 	return QString::fromUtf8("Kodi");
+}
+
+QString KodiVolumePlugin::realName_() const
+{
+	return static_name();
 }
 
 int KodiVolumePlugin::maxVolume_() const

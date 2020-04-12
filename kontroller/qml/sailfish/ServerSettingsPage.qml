@@ -126,6 +126,55 @@ You need to enable HTTP remote access in kodi for this to work")
                 label:qsTr("Web port")
                 placeholderText: qsTr("Web port")
             }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text: qsTr("Select here the volume plugin to use. Default (Kodi) is to use kodi integrated \
+volume. If using an amplifier to control the volume, select the corresponding plugin and configure it \
+to make the remote control the amplifier volume.")
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                color: Theme.highlightColor
+            }
+            ComboBox {
+                id: serverVolumePlugin
+                anchors.left: parent.left
+                anchors.right: parent.right
+                label: qsTr("Volume plugin")
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTr("Kodi")
+                    }
+                    MenuItem {
+                        text: qsTr("Minidsp")
+                    }
+                }
+                currentIndex: settings.server(serverUuid).volumePlugin.name === "Minidsp"?1:0
+            }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
+                text: qsTr("IP address of the minidsp device")
+                visible: serverVolumePlugin.currentIndex === 1
+            }
+            TextField {
+                id : miniDSPAddress
+                text: appSettings.server(serverUuid).volumePlugin && appSettings.server(serverUuid).volumePlugin.name === "Minidsp"?
+                    appSettings.server(serverUuid).volumePlugin.ipAddress:""
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                label:qsTr("Minidsp ip address")
+                placeholderText: qsTr("Minidsp ip address")
+                visible: serverVolumePlugin.currentIndex === 1
+            }
+            
 /*            TextSwitch {
                 id: serverHasZones
                 text:qsTr("Use multiples zones")

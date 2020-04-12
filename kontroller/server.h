@@ -96,6 +96,15 @@ public slots:
 	void setLogin(QString login);
 	void setPassword(QString password);
 	void setVolumePlugin(VolumePlugin* volumePlugin);
+
+	/**
+	 * For use by qml, set kodi plugin as the volume one
+	 */
+	void setKodiVolumePlugin();
+	/**
+	 * For use by qml, set minidps plugin as the volume one. Takes the ip address
+	 */
+	void setMinidspVolumePlugin(QString address);
 };
 
 }

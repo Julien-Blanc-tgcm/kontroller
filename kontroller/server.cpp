@@ -2,6 +2,9 @@
 
 #include <QUuid>
 
+#include <kodivolumeplugin.h>
+#include <minidspvolumeplugin.h>
+
 namespace eu
 {
 namespace tgcm
@@ -151,6 +154,22 @@ void Server::setVolumePlugin(VolumePlugin* volumePlugin)
 VolumePlugin* Server::volumePlugin()
 {
 	return volumePlugin_;
+}
+
+void Server::setKodiVolumePlugin()
+{
+	if(volumePlugin_ != nullptr)
+		volumePlugin_->deleteLater();
+	volumePlugin_ = new KodiVolumePlugin(this);
+}
+
+void Server::setMinidspVolumePlugin(QString address)
+{
+	if(volumePlugin_ != nullptr)
+		volumePlugin_->deleteLater();
+	auto plugin = new MinidspVolumePlugin(this);
+	plugin->setIpAddress(address);
+	volumePlugin_ = plugin;
 }
 
 }
