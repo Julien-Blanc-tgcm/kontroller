@@ -4,9 +4,9 @@
 #include <QFile>
 #include <QNetworkReply>
 #include <QObject>
+#include <QVector>
 
 #include <memory>
-#include <vector>
 
 namespace eu
 {
@@ -14,6 +14,9 @@ namespace tgcm
 {
 namespace kontroller
 {
+
+class Client;
+class ApplicationSettings;
 
 enum class FileType
 {
@@ -23,11 +26,11 @@ enum class FileType
 
 struct FileDownload
 {
-    FileType type;
-    QString sourceFile;
-    QString destinationPath;
-    std::unique_ptr<QFile> output;
-    QNetworkReply* reply;
+	FileType type;
+	QString sourceFile;
+	QString destinationPath;
+	QFile* output;
+	QNetworkReply* reply;
 };
 
 /**
@@ -38,7 +41,7 @@ class DownloadService : public QObject
 {
     Q_OBJECT
 public:
-    explicit DownloadService(QObject *parent = nullptr);
+	explicit DownloadService(Client* client, ApplicationSettings* settings, QObject *parent = nullptr);
 
 signals:
     void downloadCompleted(QString file);
@@ -57,8 +60,11 @@ private:
     void startDownloadHttp_(QString httppath);
     void addFile_(QString filePath, QString outputFolder);
     void addFolder_(QString folderPath, QString outputFolder);
-    std::vector<FileDownload> queue_;
+	QVector<FileDownload> queue_;
     QString downloadFolder_;
+
+	Client* client_;
+	ApplicationSettings* appSettings_;
 };
 
 }

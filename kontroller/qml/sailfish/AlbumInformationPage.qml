@@ -179,16 +179,18 @@ Page {
 
     property alias itemId : service.albumId
     property string label
-    onItemIdChanged: service.refresh()
 
     AlbumInformationService
     {
         id : service
+        client: appClient
     }
     MusicControl
     {
         id: control
+        client: appClient
     }
+    Component.onCompleted: service.refresh()
 
     signal mediaInformationClicked(string filetype, string file, string label)
     function refresh() { service.refresh(); }

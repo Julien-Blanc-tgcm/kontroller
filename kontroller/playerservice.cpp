@@ -1,7 +1,4 @@
 #include "playerservice.h"
-#include "client.h"
-#include "settingsmanager.h"
-#include "playlistservice.h"
 
 namespace eu
 {
@@ -10,39 +7,35 @@ namespace tgcm
 namespace kontroller
 {
 
-PlayerService::PlayerService(QObject *parent) : QObject(parent)
+PlayerService::PlayerService(eu::tgcm::kontroller::Client* client, QObject *parent) : QObject(parent),
+    client_{client}
 {
-    refreshTimer_.setInterval(5000);
-    refreshTimer_.setSingleShot(false);
-    connect(&refreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
-    connect(&Client::current(), SIGNAL(connectionStatusChanged(int)), this, SLOT(updateConnectionStatus(int)));
-    connect(&Client::current(), &Client::playerStopped, this, &PlayerService::stopPlayer_);
-    connect(&Client::current(), &Client::playerSpeedChanged, this, &PlayerService::updatePlayerSpeed);
-    connect(&Client::current(), &Client::playerSeekChanged, this, &PlayerService::updatePlayerSeek_);
-    connect(&playerRefreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
-    playerRefreshTimer_.setInterval(200);
-    playerRefreshTimer_.setSingleShot(true);
-    refreshPlayerInfo();
-}
+	refreshTimer_.setInterval(5000);
+	refreshTimer_.setSingleShot(false);
+	playerRefreshTimer_.setInterval(200);
+	playerRefreshTimer_.setSingleShot(true);
+	connect(&refreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
+	connect(&playerRefreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
+	connect(client_, &Client::connectionStatusChanged, this, &PlayerService::updateConnectionStatus);
+	connect(client_, &Client::playerStopped, this, &PlayerService::stopPlayer_);
+	connect(client_, &Client::playerSpeedChanged, this, &PlayerService::updatePlayerSpeed);
+	connect(client_, &Client::playerSeekChanged, this, &PlayerService::updatePlayerSeek_);
 
-PlayerService &PlayerService::instance()
-{
-    static PlayerService service;
-    return service;
+	refreshPlayerInfo();
 }
 
 void PlayerService::refreshPlayerInfo()
 {
-    if(!refreshPending_)
-    {
-        refreshPending_ = true;
-        QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.getActivePlayers");
-        QJsonRpcServiceReply* reply = Client::current().send(message);
-        if(reply)
-            connect(reply, &QJsonRpcServiceReply::finished, this, &PlayerService::refreshPlayerInfoCb_);
-        else
-            refreshPending_ = false;
-    }
+	if(!refreshPending_)
+	{
+		refreshPending_ = true;
+		QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.getActivePlayers");
+		QJsonRpcServiceReply* reply = client_->send(message);
+		if(reply)
+			connect(reply, &QJsonRpcServiceReply::finished, this, &PlayerService::refreshPlayerInfoCb_);
+		else
+			refreshPending_ = false;
+	}
 }
 
 void PlayerService::playPause(int playerId)
@@ -50,19 +43,19 @@ void PlayerService::playPause(int playerId)
     QJsonObject parameters;
     parameters["playerid"] = playerId;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.PlayPause", parameters);
-    QJsonRpcServiceReply* reply = Client::current().send(message);
+	QJsonRpcServiceReply* reply = client_->send(message);
     if(reply)
         connect(reply, &QJsonRpcServiceReply::finished, this, &PlayerService::updatePlayPause_);
 }
 
 const QList<Player *> &PlayerService::players()
 {
-    return currentPlayers_;
+	return currentPlayers_;
 }
 
 int PlayerService::getPlayerId(QString type)
 {
-    for(Player* player : currentPlayers_)
+	for(Player* player : currentPlayers_)
     {
         if(player->type() == type)
             return player->playerId();
@@ -82,7 +75,7 @@ Player *PlayerService::getPlayer(QString type)
 
 void PlayerService::refreshPlayerInfoCb_()
 {
-	std::vector<bool> playerStillExistings; // stores a list of players still existing. Deleting and recreating
+	QVector<bool> playerStillExistings; // stores a list of players still existing. Deleting and recreating
 	                                        // players cause a glitch, so we try to update them instead
 	for(int i = 0; i < currentPlayers_.size(); ++i)
 		playerStillExistings.push_back(false);
@@ -259,7 +252,7 @@ void PlayerService::refreshPlayerStatus(int playerId)
     properties.append(QString("currentaudiostream"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GetProperties", parameters);
-    auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
     if(reply)
         connect(reply, &QJsonRpcServiceReply::finished, this, [this, playerId]() { this->refreshPlayerInfo_(playerId); });
 }
@@ -377,7 +370,7 @@ void PlayerService::updateConnectionStatus(int newStatus)
     if(newStatus == 2)
     {
         refreshPlayerInfo();
-        if(Client::current().useHttpInterface())
+		if(client_->useHttpInterface())
             refreshTimer_.start();
         else
             refreshTimer_.stop();

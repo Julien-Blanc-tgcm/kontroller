@@ -122,11 +122,14 @@ Page {
 
     property alias itemId : service.movieId
     property string label
-    onItemIdChanged: { service.refresh(); }
+    Component.onCompleted: {
+        service.refresh();
+    }
 
     MovieInformationService
     {
         id : service
+        client: appClient
     }
     signal mediaInformationClicked(string filetype, string file, string label)
     function refresh() { service.refresh(); }

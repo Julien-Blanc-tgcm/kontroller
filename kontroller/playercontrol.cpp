@@ -1,6 +1,5 @@
 #include "client.h"
 #include "playercontrol.h"
-#include "settingsmanager.h"
 #include "playerservice.h"
 
 namespace eu
@@ -14,27 +13,25 @@ PlayerControl::PlayerControl(QObject *parent) :
     QObject(parent)
 {
     // forward event
-    connect(&PlayerService::instance(), &PlayerService::playersChanged, this, &PlayerControl::updatePlayers_);
-    updatePlayers_(); // update at object creation
 }
 
 void PlayerControl::refreshPlayerInfo()
 {
-    PlayerService::instance().refreshPlayerInfo();
+	client_->playerService()->refreshPlayerInfo();
 }
 
 void PlayerControl::playPause(int playerId)
 {
-    PlayerService::instance().playPause(playerId);
+	client_->playerService()->playPause(playerId);
 }
 
 void PlayerControl::next(int playerId)
 {
-    QJsonObject parameters;
-    parameters["playerid"] = playerId;
-    parameters["to"] = QLatin1String("next");
-    QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GoTo", parameters);
-    Client::current().send(message);
+	QJsonObject parameters;
+	parameters["playerid"] = playerId;
+	parameters["to"] = QLatin1String("next");
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GoTo", parameters);
+	client_->send(message);
 }
 
 void PlayerControl::previous(int playerId)
@@ -43,7 +40,7 @@ void PlayerControl::previous(int playerId)
     parameters["playerid"] = playerId;
     parameters["to"] = QLatin1String("previous");
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GoTo", parameters);
-    Client::current().send(message);
+	client_->send(message);
 }
 
 void PlayerControl::moveToFirst(int playerId)
@@ -52,7 +49,7 @@ void PlayerControl::moveToFirst(int playerId)
     parameters["playerid"] = playerId;
     parameters["to"] = 0;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.GoTo", parameters);
-    Client::current().send(message);
+	client_->send(message);
 }
 
 void PlayerControl::stop(int playerId)
@@ -60,7 +57,7 @@ void PlayerControl::stop(int playerId)
     QJsonObject parameters;
     parameters["playerid"] = playerId;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Stop", parameters);
-    Client::current().send(message);
+	client_->send(message);
 }
 
 void PlayerControl::seekBackward(int playerId)
@@ -69,7 +66,7 @@ void PlayerControl::seekBackward(int playerId)
     parameters.insert("playerid", playerId);
     parameters.insert("value", QLatin1String("smallbackward"));
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Seek", parameters);
-    Client::current().send(message);
+	client_->send(message);
 }
 
 void PlayerControl::seekForward(int playerId)
@@ -78,7 +75,7 @@ void PlayerControl::seekForward(int playerId)
     parameters.insert("playerid", playerId);
     parameters.insert("value", QLatin1String("smallforward"));
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Seek", parameters);
-    Client::current().send(message);
+	client_->send(message);
 }
 
 void PlayerControl::seekToPercentage(int playerId, int percentage)
@@ -87,7 +84,7 @@ void PlayerControl::seekToPercentage(int playerId, int percentage)
     parameters.insert("playerid", playerId);
     parameters.insert("value", percentage);
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Seek", parameters);
-    Client::current().send(message);
+	client_->send(message);
 }
 
 void PlayerControl::setShuffle(int playerId, bool shuffle)
@@ -96,13 +93,18 @@ void PlayerControl::setShuffle(int playerId, bool shuffle)
     parameters.insert("playerid", playerId);
     parameters.insert("shuffle", shuffle);
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.SetShuffle", parameters);
-    auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this,
             [this, playerId, shuffle]() {this->handleShuffleResult_(playerId, shuffle);});
 }
 
 void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
 {
+	if(client_ == nullptr)
+	{
+		qDebug() << "Missing client for player control, check qml file";
+		return;
+	}
     QJsonObject parameters;
     parameters.insert("playerid", playerId);
     if(subtitleIndex == -1)
@@ -116,10 +118,10 @@ void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
         parameters.insert("subtitle", subtitleIndex);
     }
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.SetSubtitle", parameters);
-    auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this,
             [this, playerId, subtitleIndex]() {
-        for(auto player : PlayerService::instance().players())
+		for(auto player : client_->playerService()->players())
         {
             if(player->playerId() == playerId)
             {
@@ -131,13 +133,18 @@ void PlayerControl::switchSubtitle(int playerId, int subtitleIndex)
 
 void PlayerControl::switchAudioStream(int playerId, int audioStreamIndex)
 {
+	if(client_ == nullptr)
+	{
+		qDebug() << "Missing client for PlayerControl, check qml file";
+		return;
+	}
     QJsonObject parameters;
     parameters.insert("playerid", playerId);
     parameters.insert("stream", audioStreamIndex);
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.SetAudioStream", parameters);
-    auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, [this, playerId, audioStreamIndex]() {
-        for(auto player : PlayerService::instance().players())
+		for(auto player : client_->playerService()->players())
         {
             if(player->playerId() == playerId)
                 player->setCurrentAudioStreamIndex(audioStreamIndex);
@@ -145,12 +152,26 @@ void PlayerControl::switchAudioStream(int playerId, int audioStreamIndex)
     });
 }
 
+void PlayerControl::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	if(client_ != nullptr)
+		disconnect(client_->playerService(), &PlayerService::playersChanged, this, &PlayerControl::updatePlayers_);
+
+	client_ = client;
+	connect(client_->playerService(), &PlayerService::playersChanged, this, &PlayerControl::updatePlayers_);
+	emit clientChanged(client_);
+	updatePlayers_(); // update when client is set
+}
+
 void PlayerControl::updatePlayers_()
 {
-    players_.clear();
-    for(Player* player : PlayerService::instance().players())
-        players_.push_back(player);
-    emit playersChanged();
+	players_.clear();
+	for(Player* player : client_->playerService()->players())
+		players_.push_back(player);
+	emit playersChanged();
 }
 
 void PlayerControl::handleShuffleResult_(int playerId, bool shuffle)
@@ -158,7 +179,7 @@ void PlayerControl::handleShuffleResult_(int playerId, bool shuffle)
     auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
     if(reply)
     {
-        for(auto player : PlayerService::instance().players())
+		for(auto player : client_->playerService()->players())
         {
             if(player->playerId() == playerId)
                 player->setShuffled(shuffle);
@@ -185,6 +206,11 @@ Player* playersPropAt(QQmlListProperty<Player>* list, int index)
 QQmlListProperty<Player> PlayerControl::players()
 {
     return QQmlListProperty<Player>(this, &players_, &playersPropCount, &playersPropAt);
+}
+
+Client* PlayerControl::client() const
+{
+	return client_;
 }
 
 }

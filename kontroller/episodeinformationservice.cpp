@@ -10,7 +10,9 @@ namespace tgcm
 {
 namespace kontroller
 {
-EpisodeInformationService::EpisodeInformationService(QObject *parent) : QObject(parent)
+EpisodeInformationService::EpisodeInformationService(QObject *parent) :
+    QObject(parent),
+    videoControl_(new VideoControl(this))
 {
 
 }
@@ -80,9 +82,14 @@ QString EpisodeInformationService::title() const
     return title_;
 }
 
+Client* EpisodeInformationService::client() const
+{
+	return client_;
+}
+
 void EpisodeInformationService::setPlot(QString plot)
 {
-    if (plot_ == plot)
+	if (plot_ == plot)
         return;
 
     plot_ = plot;
@@ -206,7 +213,7 @@ void EpisodeInformationService::refresh()
 
         parameters["properties"] = properties;
         QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetEpisodeDetails", parameters);
-        auto reply = Client::current().send(message);
+		auto reply = client_->send(message);
         connect(reply, &QJsonRpcServiceReply::finished, this, &EpisodeInformationService::handleRefresh_);
     }
 }
@@ -227,16 +234,25 @@ void EpisodeInformationService::playFile()
     file.setType("episode");
     file.setFile(QString::number(episodeId_));
     file.setLabel(title());
-    VideoControl ctrl;
-    ctrl.playFile(&file);
+	videoControl_->playFile(file);
+}
+
+void EpisodeInformationService::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	client_ = client;
+	videoControl_->setClient(client_);
+	emit clientChanged(client_);
 }
 
 void EpisodeInformationService::handleRefresh_()
 {
-    auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
-    {
-        auto response = reply->response().result().toObject();
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply)
+	{
+		auto response = reply->response().result().toObject();
         if(response.isEmpty())
             return;
         auto details = response.value("episodedetails").toObject();
@@ -251,8 +267,8 @@ void EpisodeInformationService::handleRefresh_()
         setEpisode(details.value("episode").toDouble());
         setShowTitle(details.value("showtitle").toString());
         setFile(details.value("file").toString());
-        setFanart(getImageUrl(details.value("fanart").toString()).toString());
-        setThumbnail(getImageUrl(details.value("thumbnail").toString()).toString());
+		setFanart(getImageUrl(client_, details.value("fanart").toString()).toString());
+		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
         setLastplayed(QDateTime::fromString(details.value("lastplayed").toString(), Qt::ISODate));
         setSeason(details.value("season").toDouble());
     }

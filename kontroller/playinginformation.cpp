@@ -1,7 +1,7 @@
 #include "playinginformation.h"
 
 #include "player.h"
-#include "playerservice.h"
+
 #include "client.h"
 #include "utils.h"
 
@@ -14,9 +14,6 @@ namespace kontroller
 
 PlayingInformation::PlayingInformation(QObject *parent) : QObject(parent)
 {
-	connect(&PlayerService::instance(), &PlayerService::playersChanged, this, &PlayingInformation::refreshCurrentPlayer_);
-	connect(&PlaylistService::instance(), &PlaylistService::itemsChanged, this, &PlayingInformation::refreshCurrentPlayer_);
-	connect(&PlaylistService::instance(), &PlaylistService::playlistPositionChanged, this, &PlayingInformation::refreshCurrentPlayer_);
 }
 
 QString PlayingInformation::playerType() const
@@ -41,34 +38,48 @@ int PlayingInformation::artistId() const
 
 PlaylistItem* PlayingInformation::currentItem()
 {
+	if(client_ == nullptr)
+		return nullptr;
 	Player* player = nullptr;
-	for(auto p : PlayerService::instance().players())
+	for(auto p : client_->playerService()->players())
 	{
 		player = p;
 	}
 	if(player == nullptr)
 		return nullptr;
 	int position = player->playlistPosition();
-	if(position >= 0 && PlaylistService::instance().currentItems().size() > position)
-		return PlaylistService::instance().currentItems().at(position);
+	if(position >= 0 && playlistService_->currentItems().size() > position)
+		return playlistService_->currentItems().at(position);
 	else
 		return item_;
 }
 
 PlaylistItem* PlayingInformation::nextItem()
 {
+	if(client_ == nullptr)
+		return nullptr;
 	Player* player = nullptr;
-	for(auto p : PlayerService::instance().players())
+	for(auto p : client_->playerService()->players())
 	{
 		player = p;
 	}
 	if(player == nullptr)
 		return nullptr;
 	int position = player->playlistPosition() + 1;
-	if(position >= 0 && PlaylistService::instance().currentItems().size() > position)
-		return PlaylistService::instance().currentItems().at(position);
+	if(position >= 0 && playlistService_->currentItems().size() > position)
+		return playlistService_->currentItems().at(position);
 	else
 		return nullptr;
+}
+
+PlaylistService* PlayingInformation::playlistService() const
+{
+	return playlistService_;
+}
+
+Client* PlayingInformation::client() const
+{
+	return client_;
 }
 
 void PlayingInformation::refreshCurrentlyPlaying_(int playerid)
@@ -87,7 +98,7 @@ void PlayingInformation::refreshCurrentlyPlaying_(int playerid)
 	properties.append("tvshowid");
 	parameters["properties"] = properties;
 	auto mess = QJsonRpcMessage::createRequest("Player.getItem", parameters);
-	auto reply = Client::current().send(mess);
+	auto reply = client_->send(mess);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &PlayingInformation::handleGetItemResponse_);
 }
 
@@ -127,10 +138,39 @@ void PlayingInformation::setArtistId(int artistId)
 	emit artistIdChanged(artistId);
 }
 
+void PlayingInformation::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	if(client_ != nullptr)
+	{
+		disconnect(client_->playerService(), &PlayerService::playersChanged, this, &PlayingInformation::refreshCurrentPlayer_);
+	}
+	if(playlistService_ != nullptr)
+	{
+		disconnect(playlistService_, &PlaylistService::itemsChanged, this, &PlayingInformation::refreshCurrentPlayer_);
+		disconnect(playlistService_, &PlaylistService::playlistPositionChanged, this,
+		        &PlayingInformation::refreshCurrentPlayer_);
+		playlistService_->deleteLater();
+		playlistService_ = nullptr;
+	}
+
+	client_ = client;
+	playlistService_ = new PlaylistService{this};
+	playlistService_->setClient(client_);
+	connect(client_->playerService(), &PlayerService::playersChanged, this, &PlayingInformation::refreshCurrentPlayer_);
+	connect(playlistService_, &PlaylistService::itemsChanged, this, &PlayingInformation::refreshCurrentPlayer_);
+	connect(playlistService_, &PlaylistService::playlistPositionChanged, this,
+	        &PlayingInformation::refreshCurrentPlayer_);
+
+	emit clientChanged(client_);
+}
+
 void PlayingInformation::refreshCurrentPlayer_()
 {
 	Player* player = nullptr;
-	for(auto p : PlayerService::instance().players())
+	for(auto p : client_->playerService()->players())
 	{
 		player = p;
 	}
@@ -138,7 +178,7 @@ void PlayingInformation::refreshCurrentPlayer_()
 	{
 		setPlayerType(player->type());
 		int position = player->playlistPosition();
-		auto list = PlaylistService::instance().currentItems();
+		auto list = playlistService_->currentItems();
 		if(list.size() > position && position >= 0)
 		{
 			auto item = list.at(position);
@@ -172,8 +212,8 @@ void PlayingInformation::handleGetItemResponse_()
 			auto item = itemTmp.toObject();
 			item_->setFile(item.value("file").toString());
 			item_->setType(item.value("type").toString());
-			item_->setThumbnail(getImageUrl(item.value("thumbnail").toString()).toString());
-			item_->setFanart(getImageUrl(item.value("fanart").toString()).toString());
+			item_->setThumbnail(getImageUrl(client_, item.value("thumbnail").toString()).toString());
+			item_->setFanart(getImageUrl(client_, item.value("fanart").toString()).toString());
 			item_->setLabel(item.value("title").toString());
 		}
 	}

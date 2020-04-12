@@ -4,9 +4,11 @@ import harbour.eu.tgcm 1.0
 
 Page {
     id:main
-    property alias browsingMode: musicService.browsingMode
-    property alias browsingValue: musicService.browsingValue
-    property alias label: musicService.label
+    property string browsingMode: ""
+    property string browsingValue: ""
+    property string label: ""
+
+
     signal mediaClicked(string filetype, string file, string label)
     signal mediaPlayClicked(string dir)
     signal mediaInformationClicked(string filetype, string file, string label)
@@ -16,17 +18,14 @@ Page {
 
     MusicService {
         id: musicService
+        client: appClient
+        browsingMode: main.browsingMode
+        browsingValue: main.browsingValue
     }
     MusicControl {
         id: musicControl
+        client: appClient
     }
-
-/*    SilicaFlickable {
-        anchors.fill: parent
-        PageHeader {
-            title:qsTr("Music")
-            id:header
-        } */
 
     PlayableItemPage {
         id:theList
@@ -39,7 +38,6 @@ Page {
             title:label
         }
     }
-//    }
 
 
     Component.onCompleted: refresh()

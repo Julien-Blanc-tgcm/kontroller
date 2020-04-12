@@ -9,16 +9,15 @@ namespace tgcm
 namespace kontroller
 {
 
-TvShowSeasonsRequest::TvShowSeasonsRequest(QObject *parent) : QObject(parent),
+TvShowSeasonsRequest::TvShowSeasonsRequest(Client* client, QObject *parent) :
+    QObject(parent),
+    client_{client},
     success(false)
 {
-
 }
 
 TvShowSeasonsRequest::~TvShowSeasonsRequest()
 {
-    for(File* file : seasons)
-        file->deleteLater();
     seasons.clear();
 }
 
@@ -34,7 +33,7 @@ void TvShowSeasonsRequest::start(int tvshowid)
     sort.insert("method", QLatin1String("season"));
     parameters.insert("sort", sort);
     auto message = QJsonRpcMessage::createRequest("VideoLibrary.GetSeasons", parameters);
-    QJsonRpcServiceReply* reply = Client::current().send(message);
+	QJsonRpcServiceReply* reply = client_->send(message);
     if(reply)
         connect(reply, &QJsonRpcServiceReply::finished, this,
                 [tvshowid, this]() { this->parseSeasonsResult_(tvshowid); });
@@ -44,8 +43,8 @@ void TvShowSeasonsRequest::start(int tvshowid)
 
 void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
+	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply)
     {
         QJsonRpcMessage response = reply->response();
         QJsonObject obj = response.toObject();
@@ -61,18 +60,18 @@ void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
                     QJsonArray res = files.toArray();
                     for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
                     {
-                        File* file = new File();
+						File file;
                         if((*it).type() == QJsonValue::Object)
                         {
                             QJsonObject obj = (*it).toObject();
                             QJsonValue val = obj.value("label");
                             if(val.type() == QJsonValue::String)
-                                file->setLabel(val.toString());
+								file.setLabel(val.toString());
                             val = obj.value("season");
                             if(val.type() == QJsonValue::Double)
-                                file->setFile(QString::number(tvshowid) + "|" + QString::number(val.toDouble()));
-                            file->setFiletype("season");
-                            file->setType("season");
+								file.setFile(QString::number(tvshowid) + "|" + QString::number(val.toDouble()));
+							file.setFiletype("season");
+							file.setType("season");
                             this->seasons.push_back(file);
                         }
                     }

@@ -6,6 +6,7 @@ import "."
 Item {
     Remote {
         id: remoteController
+        client: appClient
     }
 
     property int buttonWidth : 25 * touchScalingFactor;

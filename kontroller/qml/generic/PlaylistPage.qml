@@ -10,9 +10,10 @@ Rectangle{
 
     color:"#000"
 
-    PlaylistControl
+    PlaylistService
     {
-        id :service
+        id: service
+        client: appClient
     }
 
     Text {

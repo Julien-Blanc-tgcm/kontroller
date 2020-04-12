@@ -1,9 +1,12 @@
 #ifndef EU_TGCM_KONTROLLER_ARTISTINFORMATIONSERVICE_H
 #define EU_TGCM_KONTROLLER_ARTISTINFORMATIONSERVICE_H
 
-#include <QObject>
+#include "client.h"
 #include <file.h>
+
+#include <QObject>
 #include <QQmlListProperty>
+
 namespace eu
 {
 namespace tgcm
@@ -12,7 +15,7 @@ namespace kontroller
 {
 class ArtistInformationService : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 private:
     int artistId_;
@@ -22,9 +25,12 @@ private:
     QString thumbnail_;
     QList<QString> genres_;
     QList<QString> style_;
-    QList<File*> albums_;
+	QVector<File> albums_;
+	eu::tgcm::kontroller::Client* client_ = nullptr;
+
 public:
-    explicit ArtistInformationService(QObject *parent = 0);
+	explicit ArtistInformationService(QObject *parent = nullptr);
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
     Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged)
     Q_PROPERTY(QString artistName READ artistName WRITE setArtistName NOTIFY artistNameChanged)
     Q_PROPERTY(QString artistDescription READ artistDescription WRITE setArtistDescription NOTIFY artistDescriptionChanged)
@@ -32,7 +38,7 @@ public:
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
     Q_PROPERTY(QString genres READ genres NOTIFY genresChanged)
     Q_PROPERTY(QString style READ style NOTIFY styleChanged)
-    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> albums READ albums NOTIFY albumsChanged)
+	Q_PROPERTY(QVariantList albums READ albums NOTIFY albumsChanged)
 
     int artistId() const;
     void setArtistId(int artistId);
@@ -53,7 +59,9 @@ public:
 
     QString style() const;
 
-    QQmlListProperty<File> albums();
+	QVariantList albums();
+
+	eu::tgcm::kontroller::Client* client() const;
 
 signals:
     void artistIdChanged();
@@ -63,12 +71,16 @@ signals:
     void thumbnailChanged();
     void genresChanged();
     void styleChanged();
-    void albumsChanged();
+	void albumsChanged();
+	void clientChanged(eu::tgcm::kontroller::Client* client);
+
 public slots:
-    void refresh();
+	void refresh();
+	void setClient(eu::tgcm::kontroller::Client* client);
+
 private slots:
-    void handleRefresh_();
-    void handleAlbums_();
+	void handleRefresh_();
+	void handleAlbums_();
 };
 }
 }

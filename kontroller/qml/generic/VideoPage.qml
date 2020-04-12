@@ -14,9 +14,11 @@ Item {
 
     VideoService {
         id: videoService
+        client: appClient
     }
     VideoControl {
         id: videoControl
+        client: appClient
     }
 
     PlayableItemPage {

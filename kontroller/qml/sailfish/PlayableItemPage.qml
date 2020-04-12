@@ -92,8 +92,8 @@ Item {
             Image {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
-                visible:model.thumbnail.length > 0
-                source:model.thumbnail
+                visible:modelData.thumbnail.length > 0
+                source:modelData.thumbnail
                 height:parent.height - 2 * Theme.paddingSmall
                 width: height * sourceSize.width / sourceSize.height
                 anchors.verticalCenter: parent.verticalCenter
@@ -101,7 +101,7 @@ Item {
             }
 
             Label {
-                text : formatFile(filetype, label)
+                text : formatFile(modelData.filetype, modelData.label)
                 anchors.left: img.visible ? img.right :parent.left
                 anchors.leftMargin: img.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
                 anchors.right: btnplay.left
@@ -117,7 +117,7 @@ Item {
                 anchors.rightMargin: 5
                 visible: {
                     for (var i = 0; i < playableItems.length; i++) {
-                        if (playableItems[i] === filetype) {
+                        if (playableItems[i] === modelData.filetype) {
                             return true;
                         }
                     }

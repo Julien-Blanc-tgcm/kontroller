@@ -2,6 +2,7 @@
 #define EU_TGCM_KONTROLLER_REMOTE_H
 
 #include <QObject>
+
 namespace eu
 {
 namespace tgcm
@@ -9,13 +10,20 @@ namespace tgcm
 namespace kontroller
 {
 
+class Client;
+
 class Remote : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
+	eu::tgcm::kontroller::Client* client_;
+
 public:
-    explicit Remote(QObject *parent = 0);
+	explicit Remote(QObject *parent = 0);
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
+	eu::tgcm::kontroller::Client* client() const;
 
 signals:
+	void clientChanged(eu::tgcm::kontroller::Client* client);
 
 public slots:
 	void back();
@@ -32,6 +40,7 @@ public slots:
 	void up();
 	void volumeUp();
 	void volumeDown();
+	void setClient(eu::tgcm::kontroller::Client* client);
 };
 
 }

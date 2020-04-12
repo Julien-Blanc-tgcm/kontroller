@@ -17,9 +17,11 @@ Rectangle {
 
     MusicService {
         id: musicService
+        client: appClient
     }
     MusicControl {
         id: musicControl
+        client: appClient
     }
 
     PlayableItemPage {

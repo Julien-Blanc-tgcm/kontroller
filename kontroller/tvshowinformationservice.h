@@ -1,8 +1,12 @@
 #ifndef EU_TGCM_KONTROLLER_TVSHOWINFORMATIONSERVICE_H
 #define EU_TGCM_KONTROLLER_TVSHOWINFORMATIONSERVICE_H
 
+#include "client.h"
+
+#include "file.h"
+
 #include <QObject>
-#include <vector>
+#include <QVector>
 #include <QQmlListProperty>
 
 
@@ -12,8 +16,6 @@ namespace tgcm
 {
 namespace kontroller
 {
-
-class File;
 
 class TvShowInformationService : public QObject
 {
@@ -28,19 +30,22 @@ class TvShowInformationService : public QObject
     double rating_;
     int nbSeasons_;
     QString studio_;
-    std::vector<QString> cast_;
+	QVector<QString> cast_;
     int nbEpisodes_;
     int nbWatchedEpisodes_;
     QString fanart_;
     QString file_;
     QString originalTitle_;
     QString dateAdded_;
-    std::vector<QString> tags_;
+	QVector<QString> tags_;
     QString art_;
-    std::vector<File*> seasons_;
+	QVector<File> seasons_;
+
+	eu::tgcm::kontroller::Client* client_;
 
 public:
-    explicit TvShowInformationService(QObject *parent = 0);
+	explicit TvShowInformationService(QObject *parent = nullptr);
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
     Q_PROPERTY(int tvshowId READ tvshowId WRITE setTvshowId NOTIFY tvshowIdChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
@@ -56,7 +61,7 @@ public:
     Q_PROPERTY(QString originalTitle READ originalTitle WRITE setOriginalTitle NOTIFY originalTitleChanged)
     Q_PROPERTY(QString dateAdded READ dateAdded WRITE setDateAdded NOTIFY dateAddedChanged)
     Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
-    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> seasons READ seasons NOTIFY seasonsChanged)
+	Q_PROPERTY(QVector<eu::tgcm::kontroller::File> seasons READ seasons NOTIFY seasonsChanged)
     Q_PROPERTY(QStringList genres READ genres NOTIFY genresChanged)
 
     int tvshowId() const;
@@ -104,8 +109,10 @@ public:
     QString thumbnail() const;
     void setThumbnail(const QString &thumbnail);
 
-    QQmlListProperty<File> seasons();
+	QVector<File> seasons();
     QStringList genres();
+
+	eu::tgcm::kontroller::Client* client() const;
 
 signals:
     void thumbnailChanged();
@@ -124,14 +131,19 @@ signals:
     void dateAddedChanged();
     void artChanged();
     void seasonsChanged();
-    void genresChanged();
+	void genresChanged();
+	void clientChanged(eu::tgcm::kontroller::Client* client);
+
 public slots:
     void refresh();
+
+	void setClient(eu::tgcm::kontroller::Client* client);
 
 private slots:
     void refreshSeasons_();
     void handleRefresh_();
     void handleSeasons_();
+
 };
 
 }

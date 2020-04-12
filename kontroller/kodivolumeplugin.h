@@ -9,6 +9,9 @@ namespace tgcm
 {
 namespace kontroller
 {
+
+class Client;
+
 /**
  * @brief The VolumePlugin class is the base class for all volume plugins. Volume plugins shall provide a set of method to query
  * the current volume, the min/max volumes and the volume step (ie, what a button press should increment)
@@ -19,6 +22,7 @@ class KodiVolumePlugin : public VolumePlugin
 public:
 	explicit KodiVolumePlugin(QObject *parent = nullptr);
 
+	static QString static_name();
 protected:
 	QString realName_() const override;
 	int maxVolume_() const override;
@@ -31,7 +35,6 @@ protected:
 	void decreaseVolume_();
 private:
 	int currentVolumeStored_ = -1;
-
 private slots:
 	void volumeReply_();
 };

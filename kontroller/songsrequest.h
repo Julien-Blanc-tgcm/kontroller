@@ -1,7 +1,10 @@
 #ifndef EU_TGCM_KONTROLLER_SONGSREQUEST_H
 #define EU_TGCM_KONTROLLER_SONGSREQUEST_H
 
+#include "client.h"
+
 #include <QObject>
+
 namespace eu
 {
 namespace tgcm
@@ -12,18 +15,21 @@ class File;
 
 class SongsRequest : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit SongsRequest(QObject *parent = nullptr);
-    ~SongsRequest();
-    void start(int albumid);
+	explicit SongsRequest(Client* client, QObject *parent = nullptr);
+	~SongsRequest();
 
-    QList<File*> results;
-    bool success;
+	void start(int albumid);
+
+	QVector<File> results;
+	bool success;
 signals:
-    void finished();
+	void finished();
 private slots:
-    void parseSongsResult();
+	void parseSongsResult();
+private:
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 };
 
 }

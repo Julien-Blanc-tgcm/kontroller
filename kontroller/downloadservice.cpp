@@ -1,7 +1,7 @@
 #include "downloadservice.h"
 
+#include "applicationsettings.h"
 #include "client.h"
-#include "settingsmanager.h"
 
 #include <qjsonrpcservice.h>
 
@@ -15,19 +15,22 @@ namespace  tgcm
 namespace kontroller
 {
 
-DownloadService::DownloadService(QObject *parent) : QObject(parent)
+DownloadService::DownloadService(Client* client, ApplicationSettings* settings, QObject *parent) :
+    QObject(parent),
+    client_{client},
+    appSettings_{settings}
 {
 
 }
 
 void DownloadService::addFile(QString filePath)
 {
-    addFile_(filePath, SettingsManager::instance().downloadFolder());
+	addFile_(filePath, appSettings_->downloadFolder());
 }
 
 void DownloadService::addFile_(QString filePath, QString outputFolder)
 {
-    queue_.emplace_back(FileDownload{FileType::File, filePath, outputFolder, nullptr, nullptr});
+	queue_.push_back(FileDownload{FileType::File, filePath, outputFolder, nullptr, nullptr});
     if(queue_.size() == 1) // just added a file
     {
         startNextDownload_();
@@ -36,12 +39,12 @@ void DownloadService::addFile_(QString filePath, QString outputFolder)
 
 void DownloadService::addFolder(QString filePath)
 {
-    addFolder_(filePath, SettingsManager::instance().downloadFolder());
+	addFolder_(filePath, appSettings_->downloadFolder());
 }
 
 void DownloadService::addFolder_(QString filePath, QString outputFolder)
 {
-    queue_.emplace_back(FileDownload{FileType::Directory, filePath, outputFolder, nullptr, nullptr});
+	queue_.push_back(FileDownload{FileType::Directory, filePath, outputFolder, nullptr, nullptr});
     if(queue_.size() == 1) // just added a file
     {
         startNextDownload_();
@@ -123,13 +126,15 @@ void DownloadService::startNextDownload_()
         QJsonObject parameters;
         parameters.insert("path", file.sourceFile);
         auto message = QJsonRpcMessage::createRequest("Files.PrepareDownload", parameters);
-        auto reply = Client::current().send(message);
+		auto reply = client_->send(message);
         if(reply)
             connect(reply, &QJsonRpcServiceReply::finished, this, &DownloadService::filePathRequestComplete_);
         else
         {
             QFileInfo info(queue_.front().sourceFile);
             emit downloadError(info.fileName(), "Query failed");
+			if(queue_.front().output != nullptr)
+				queue_.front().output->deleteLater();
             queue_.erase(queue_.begin());
             if(queue_.size() != 0)
                 startNextDownload_();
@@ -150,7 +155,7 @@ void DownloadService::startNextDownload_()
         properties.push_back("file");
         parameters.insert("properties", properties);
         auto message = QJsonRpcMessage::createRequest("Files.GetDirectory", parameters);
-        QJsonRpcServiceReply* reply = Client::current().send(message);
+		QJsonRpcServiceReply* reply = client_->send(message);
         if(reply)
         {
             connect(reply, SIGNAL(finished()), this, SLOT(folderInfoRequestComplete_()));
@@ -158,6 +163,8 @@ void DownloadService::startNextDownload_()
         else
         {
             emit downloadError(info.fileName(), "Query failed");
+			if(queue_.front().output != nullptr)
+				queue_.front().output->deleteLater();
             queue_.erase(queue_.begin());
             if(queue_.size() != 0)
                 startNextDownload_();
@@ -216,6 +223,7 @@ void DownloadService::folderInfoRequestComplete_()
     }
     else
         emit downloadError("", "Invalid reply received");
+	queue_.front().output->deleteLater();
     queue_.erase(queue_.begin());
     if(queue_.size() > 0)
         startNextDownload_();
@@ -224,13 +232,13 @@ void DownloadService::folderInfoRequestComplete_()
 void DownloadService::startDownloadHttp_(QString httppath)
 {
     auto& file = queue_.front();
-    file.reply = Client::current().downloadFile(httppath);
+	file.reply = client_->downloadFile(httppath);
     QFileInfo source(file.sourceFile);
     QFileInfo dest(file.destinationPath + QDir::separator() + source.fileName());
     QDir dir(dest.absoluteDir());
     if(!dir.exists())
         QDir("/").mkpath(dir.absolutePath());
-    file.output.reset(new QFile(dest.absoluteFilePath()));
+	file.output = new QFile(dest.absoluteFilePath());
     file.output->open(QFile::WriteOnly);
     connect(file.reply, &QNetworkReply::finished, this, &DownloadService::downloadCompleted_);
     connect(file.reply, &QNetworkReply::downloadProgress, this, &DownloadService::bytesAvailable_);

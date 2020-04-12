@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include <QVector>
+
 namespace eu
 {
 namespace tgcm
@@ -10,47 +12,47 @@ namespace tgcm
 namespace kontroller
 {
 
-class File : public QObject
+class File
 {
-    Q_OBJECT
-
+	Q_GADGET
 private:
-    QString file_;
-    QString filetype_;
-    QString label_;
-    QString type_;
-    QString thumbnail_;
+	QString file_;
+	QString filetype_;
+	QString label_;
+	QString type_;
+	QString thumbnail_;
 public:
-    explicit File(QObject *parent = 0);
+	File() = default;
+
+	~File() = default;
+
+	File(File const&) = default;
+
+	File(File&&) = default;
+
+	File& operator=(File const&) = default;
+
+	File& operator=(File&&) = default;
 
 public:
-    Q_PROPERTY(QString file READ file WRITE setFile NOTIFY fileChanged)
-    Q_PROPERTY(QString filetype READ filetype WRITE setFiletype NOTIFY filetypeChanged)
-    Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
-    Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
+	Q_PROPERTY(QString file READ file WRITE setFile)
+	Q_PROPERTY(QString filetype READ filetype WRITE setFiletype)
+	Q_PROPERTY(QString label READ label WRITE setLabel)
+	Q_PROPERTY(QString type READ type WRITE setType)
+	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail)
 
 
-    QString file() const;
-    QString filetype() const;
-    QString label() const;
-    QString type() const;
-    QString thumbnail() const;
+	QString file() const;
+	QString filetype() const;
+	QString label() const;
+	QString type() const;
+	QString thumbnail() const;
 
-signals:
-
-    void fileChanged(QString file);
-    void filetypeChanged(QString filetype);
-    void labelChanged(QString label);
-    void typeChanged(QString type);
-    void thumbnailChanged();
-
-public slots:
-    void setFile(QString file);
-    void setFiletype(QString filetype);
-    void setLabel(QString label);
-    void setType(QString type);
-    void setThumbnail(const QString &thumbnail);
+	void setFile(QString file);
+	void setFiletype(QString filetype);
+	void setLabel(QString label);
+	void setType(QString type);
+	void setThumbnail(QString thumbnail);
 
 };
 
@@ -58,5 +60,10 @@ public slots:
 }
 }
 
+QDataStream& operator<<(QDataStream& stream, eu::tgcm::kontroller::File const& file);
+
+QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::File& file);
+
+Q_DECLARE_METATYPE(eu::tgcm::kontroller::File)
 
 #endif // EU_TGCM_KONTROLLER_FILE_H

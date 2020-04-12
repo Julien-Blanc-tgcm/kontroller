@@ -8,7 +8,7 @@
 #else
 #include <QApplication>
 #endif
-#include "settings.h"
+
 
 namespace eu
 {

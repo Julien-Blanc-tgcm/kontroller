@@ -1,6 +1,8 @@
 #ifndef EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
 #define EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
 
+#include "client.h"
+
 #include <QObject>
 
 namespace eu
@@ -15,17 +17,23 @@ class AlbumsRequest : public QObject
 {
 	Q_OBJECT
 public:
-	explicit AlbumsRequest(QObject *parent = 0);
+	explicit AlbumsRequest(Client* client, QObject *parent = 0);
 	~AlbumsRequest();
+	/**
+	 * @brief start starts the request.
+	 * @param artistid
+	 */
 	void start(int artistid);
 	void startWithGenre(int genreid);
 
-	QList<File*> results;
+	QVector<File> results;
+	Client* client_ = nullptr;
 	bool success;
 signals:
 	void finished();
 private slots:
 	void parseAlbumsResult();
+private:
 };
 
 }

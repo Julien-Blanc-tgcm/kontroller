@@ -1,6 +1,8 @@
 #ifndef EU_TGCM_KONTROLLER_EPISODEINFORMATIONSERVICE_H
 #define EU_TGCM_KONTROLLER_EPISODEINFORMATIONSERVICE_H
 
+#include "client.h"
+
 #include <QObject>
 #include <QDateTime>
 
@@ -10,6 +12,9 @@ namespace tgcm
 {
 namespace kontroller
 {
+
+class VideoControl;
+
 class EpisodeInformationService : public QObject
 {
     Q_OBJECT
@@ -29,9 +34,14 @@ class EpisodeInformationService : public QObject
 
     QString title_;
 
+	eu::tgcm::kontroller::Client* client_;
+
+	VideoControl* videoControl_;
+
 public:
     explicit EpisodeInformationService(QObject *parent = 0);
 
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
     Q_PROPERTY(int episodeId READ episodeId WRITE setEpisodeId NOTIFY episodeIdChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString plot READ plot WRITE setPlot NOTIFY plotChanged)
@@ -72,6 +82,8 @@ public:
 
     QString title() const;
 
+	eu::tgcm::kontroller::Client* client() const;
+
 signals:
 
     void plotChanged(QString plot);
@@ -100,6 +112,8 @@ signals:
 
     void titleChanged(QString title);
 
+	void clientChanged(eu::tgcm::kontroller::Client* client);
+
 public slots:
     void setPlot(QString plot);
     void setRating(double rating);
@@ -118,6 +132,8 @@ public slots:
     void setTitle(QString title);
 
     void playFile();
+
+	void setClient(eu::tgcm::kontroller::Client* client);
 
 private slots:
     void handleRefresh_();

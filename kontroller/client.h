@@ -1,7 +1,8 @@
 #ifndef EU_TGCM_KONTROLLER_CLIENT_H
 #define EU_TGCM_KONTROLLER_CLIENT_H
 
-#include <QObject>
+#include "downloadservice.h"
+
 #include <qjsonrpchttpclient.h>
 
 namespace eu
@@ -11,15 +12,15 @@ namespace tgcm
 namespace kontroller
 {
 
+class ApplicationSettings;
+class PlayerService;
 class Server;
 
 class Client : public QObject
 {
 	Q_OBJECT
 
-	QString serverAddress_;
-	int serverPort_;
-	int serverHttpPort_;
+	ApplicationSettings* settings_;
 	QString serverUuid_;
 	QJsonRpcHttpClient* client_;
 	QTcpSocket* clientSocket_;
@@ -29,15 +30,16 @@ class Client : public QObject
 	 */
 	int connectionStatus_;
 
-	QString serverLogin_;
-	QString serverPassword_;
+	Server* server_ = nullptr;
 
 	void freeConnections();
-public:
-	explicit Client(QObject *parent = 0);
-	~Client();
+	eu::tgcm::kontroller::DownloadService* downloadService_ = nullptr;
 
-	static Client& current();
+	eu::tgcm::kontroller::PlayerService* playerService_ = nullptr;
+
+public:
+	explicit Client(ApplicationSettings* settings, QObject *parent = 0);
+	~Client();
 
 	QString serverAddress() const;
 
@@ -56,13 +58,25 @@ public:
 	bool useHttpInterface() const;
 
 	Server* server();
-	void switchToServer(QString const& serverName);
+
+	Q_PROPERTY(eu::tgcm::kontroller::DownloadService* downloadService READ downloadService WRITE setDownloadService \
+	           NOTIFY downloadServiceChanged)
+	Q_PROPERTY(eu::tgcm::kontroller::Server* server READ server NOTIFY serverChanged)
+	eu::tgcm::kontroller::DownloadService* downloadService() const;
+	Q_PROPERTY(int connectionStatus READ connectionStatus WRITE setConnectionStatus NOTIFY connectionStatusChanged)
+
+	Q_PROPERTY(eu::tgcm::kontroller::PlayerService* playerService READ playerService WRITE setPlayerService \
+	           NOTIFY playerServiceChanged)
+
+	eu::tgcm::kontroller::PlayerService* playerService() const;
+
 signals:
 	void connectionStatusChanged(int connected);
 	void serverChanged();
 	void inputRequested(QString title, QString type, QString value);
 	void inputFinished();
 public slots:
+	void switchToServer(QString const& serverUuid);
 	void refresh();
 	void handleError(QJsonRpcMessage error);
 	/**
@@ -93,6 +107,11 @@ public slots:
 	 */
 	QNetworkReply* downloadFile(QString path);
 
+	void setDownloadService(eu::tgcm::kontroller::DownloadService* downloadService);
+
+	void retryConnect();
+	void setPlayerService(eu::tgcm::kontroller::PlayerService* playerService);
+
 private slots:
 	void handleReplyFinished();
 	void setConnectionStatus(int connectionStatus);
@@ -104,7 +123,7 @@ private slots:
 
 signals:
 	// these ones are the notifications the kodi api can send
-	// note that if using HTTP transport, no notifications will be available
+	// note that if using HTTP transport only, no notifications will be available
 	void playerSpeedChanged(int playerid, int speed);
 	void playlistCurrentItemChanged(int playerid, QString type, int id);
 	// a player stopped (any player, information not in notification)
@@ -114,6 +133,8 @@ signals:
 	void playlistElementRemoved(int playlistId, int position);
 	void playlistElementAdded(int playlistId);
 	void playerSeekChanged(int playerId, int hours, int minutes, int seconds, int milliseconds);
+	void downloadServiceChanged(eu::tgcm::kontroller::DownloadService* downloadService);
+	void playerServiceChanged(eu::tgcm::kontroller::PlayerService* playerService);
 };
 
 }

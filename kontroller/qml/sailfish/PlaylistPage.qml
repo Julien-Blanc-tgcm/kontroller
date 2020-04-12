@@ -14,9 +14,10 @@ Page{
             service.refresh()
     }
 
-    PlaylistControl
+    PlaylistService
     {
-        id :service
+        id: service
+        client: appClient
     }
 
     SilicaListView {

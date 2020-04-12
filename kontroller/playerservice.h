@@ -1,8 +1,10 @@
 #ifndef EU_TGCM_KONTROLLER_PLAYERSERVICE_H
 #define EU_TGCM_KONTROLLER_PLAYERSERVICE_H
 
-#include <QObject>
+#include "client.h"
 #include "player.h"
+
+#include <QObject>
 #include <QTimer>
 
 namespace eu
@@ -14,25 +16,29 @@ namespace kontroller
 
 class PlayerService : public QObject
 {
-    Q_OBJECT
-    explicit PlayerService(QObject *parent = 0);
+	Q_OBJECT
 public:
-    static PlayerService& instance();
+	explicit PlayerService(eu::tgcm::kontroller::Client* client, QObject *parent = 0);
+
 private:
-    QList<Player*> currentPlayers_;
-    QTimer refreshTimer_;
-    bool refreshPending_;
+	QList<Player*> currentPlayers_;
+	QTimer refreshTimer_;
+	bool refreshPending_ = false;
     // timer use to delay a refresh, because otherwise kodi information
     // is not accurate
-    QTimer playerRefreshTimer_;
+	QTimer playerRefreshTimer_;
+
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 
 signals:
-    void playersChanged();
+	void playersChanged();
+
 public slots:
-    void refreshPlayerInfo();
-    void playPause(int playerid);
+	void refreshPlayerInfo();
+	void playPause(int playerid);
+
 public:
-    QList<Player*> const& players();
+	QList<Player*> const& players();
     /**
      * @brief getPlayerId Returns the id of the first found player of given type, -1 otherwise
      * @param type type of the player ("audio", "video" or "photo")
@@ -44,7 +50,8 @@ public:
      * @param type
      * @return
      */
-    Player* getPlayer(QString type);
+	Player* getPlayer(QString type);
+
 private slots:
     void refreshPlayerInfoCb_();
 

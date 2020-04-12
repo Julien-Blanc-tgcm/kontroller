@@ -1,4 +1,5 @@
 #include "deviceinformation.h"
+#include "applicationsettings.h"
 
 #include <QScreen>
 #include <QDebug>
@@ -172,7 +173,7 @@ void DeviceInformation::setTouchScalingFactor(qreal scalingFactor)
 void DeviceInformation::update()
 {
     DeviceType device;
-    Settings settings;
+//    Settings settings;
 //    internal().dpi = settings.dpi();
 //    if(internal().dpi <= 25 || internal().dpi > 3000) // obviously wrong value
 //    {

@@ -1,9 +1,10 @@
 #ifndef EU_TGCM_KONTROLLER_UTILS_H
 #define EU_TGCM_KONTROLLER_UTILS_H
 
-#include <functional>
-#include <QQmlListProperty>
-#include <QList>
+#include "client.h"
+
+#include <QString>
+#include <QUrl>
 
 namespace eu
 {
@@ -12,7 +13,7 @@ namespace tgcm
 namespace kontroller
 {
 
-QUrl getImageUrl(QString kodiUrl);
+QUrl getImageUrl(Client* client, QString kodiUrl);
 
 }
 }

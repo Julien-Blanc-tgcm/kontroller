@@ -40,7 +40,7 @@ void KodiVolumePlugin::updateVolume_(int newVolume)
 	QJsonArray parameters;
 	parameters.append(newVolume);
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
-	auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 // todo : implement
 }
@@ -57,7 +57,7 @@ void KodiVolumePlugin::refreshVolume_()
 	properties.push_back(QString::fromUtf8("volume"));
 	parameters["properties"] = properties;
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.GetProperties", parameters);
-	auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 }
 
@@ -66,7 +66,7 @@ void KodiVolumePlugin::increaseVolume_()
 	QJsonArray parameters;
 	parameters.append(QString("increment"));
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
-	auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 }
 
@@ -75,7 +75,7 @@ void KodiVolumePlugin::decreaseVolume_()
 	QJsonArray parameters;
 	parameters.append(QString("decrement"));
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
-	auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 }
 

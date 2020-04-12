@@ -9,10 +9,12 @@ Page {
 
     PlayingInformation {
         id:playingInformation
+        client: appClient
     }
 
     PlayerControl {
         id:playerController
+        client: appClient
     }
 
     property int activePlayer : 0

@@ -101,6 +101,11 @@ void MovieInformationService::setRating(double rating)
 	emit ratingChanged();
 }
 
+Client* MovieInformationService::client() const
+{
+	return client_;
+}
+
 MovieInformationService::MovieInformationService(QObject *parent) : QObject(parent),
     year_(0),
     ctrl_{new VideoControl(this)}
@@ -122,18 +127,27 @@ void MovieInformationService::refresh()
 	properties.append(QString("file"));
 	parameters["properties"] = properties;
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetMovieDetails", parameters);
-	auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &MovieInformationService::handleRefresh_);
 }
 
 void MovieInformationService::playFile()
 {
-	auto file = new File(this);
-	file->setFiletype("movie");
-	file->setType("movie");
-	file->setFile(QString::number(movieId_));
-	file->setLabel(title());
+	File file;
+	file.setFiletype("movie");
+	file.setType("movie");
+	file.setFile(QString::number(movieId_));
+	file.setLabel(title());
 	ctrl_->playFile(file);
+}
+
+void MovieInformationService::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+	client_ = client;
+	ctrl_->setClient(client);
+	emit clientChanged(client_);
 }
 
 void MovieInformationService::handleRefresh_()
@@ -149,7 +163,7 @@ void MovieInformationService::handleRefresh_()
 			return;
 		auto details = detailsTmp.toObject();
 		setTitle(details.value("title").toString());
-		setThumbnail(getImageUrl(details.value("thumbnail").toString()).toString());
+		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
 		setYear(details.value("year").toInt());
 		setRuntime(details.value("runtime").toInt());
 		auto genres = details.value("genre").toArray();

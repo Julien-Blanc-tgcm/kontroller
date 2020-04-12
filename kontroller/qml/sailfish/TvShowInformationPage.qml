@@ -176,15 +176,19 @@ Page {
 
     TvShowInformationService {
         id:service
+        client: appClient
     }
 
     VideoControl {
         id:control
+        client: appClient
     }
 
     property alias itemId: service.tvshowId
     property string label
-    onItemIdChanged: { service.refresh(); }
+    Component.onCompleted: {
+        service.refresh();
+    }
     signal mediaInformationClicked(string filetype, string file, string label)
     function refresh() { service.refresh(); }
 }

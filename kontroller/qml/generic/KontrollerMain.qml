@@ -9,6 +9,7 @@ Rectangle {
 
     Remote {
         id:remote
+        client: appClient
     }
 
     Keys.onVolumeUpPressed: {
@@ -76,7 +77,7 @@ Rectangle {
                     anchors.top:theRect.top
                     anchors.topMargin: 20
                     icon.source: {
-                        if(!model.needConnect || statusService.connectionStatus === 2)
+                        if(!model.needConnect || appClient.connectionStatus === 2)
                             return model.icon;
                         else
                             return model.icon + "?" + theme.highlightDimmerColor;

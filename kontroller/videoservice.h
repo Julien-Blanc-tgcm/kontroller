@@ -1,6 +1,8 @@
 #ifndef EU_TGCM_KONTROLLER_VIDEOSERVICE_H
 #define EU_TGCM_KONTROLLER_VIDEOSERVICE_H
 
+#include "client.h"
+
 #include <QObject>
 #include <QtQml>
 #include "file.h"
@@ -15,13 +17,12 @@ namespace kontroller
 
 class VideoService : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 private:
-    std::vector<File*> files_;
+	QVector<File> files_;
 
     QString browsingMode_;
     QString browsingValue_;
-    QString label_;
     bool refreshing_;
 
     bool inputRequested_;
@@ -31,10 +32,11 @@ private:
     QString inputValue_;
 
 public:
-    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> filesAsList READ filesAsList NOTIFY filesAsListChanged)
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
+	//Q_PROPERTY(QVector<eu::tgcm::kontroller::File> files READ files NOTIFY filesChanged)
+	Q_PROPERTY(QVariantList filesAsList READ filesAsList NOTIFY filesChanged)
     Q_PROPERTY(QString browsingMode READ browsingMode WRITE setBrowsingMode NOTIFY browsingModeChanged)
     Q_PROPERTY(QString browsingValue READ browsingValue WRITE setBrowsingValue NOTIFY browsingValueChanged)
-    Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
     Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
 
     Q_PROPERTY(bool inputRequested READ inputRequested WRITE setInputRequested NOTIFY inputRequestedChanged)
@@ -43,13 +45,13 @@ public:
 
 public:
     VideoService(QObject * parent = NULL);
-    VideoService(QString browsingMode, QString browsingValue, QObject* parent = NULL);
     ~VideoService();
-    std::vector<File *> files() const;
-    QQmlListProperty<File> filesAsList();
+	QVector<File> files() const;
+
+	QVariantList filesAsList() const;
+
     QString browsingMode() const;
     QString browsingValue() const;
-    QString label() const;
     bool refreshing() const;
 
     bool inputRequested() const;
@@ -58,11 +60,12 @@ public:
 
     QString inputValue() const;
 
+	eu::tgcm::kontroller::Client* client() const;
+
 signals:
-    void filesAsListChanged();
+	void filesChanged();
     void browsingModeChanged();
     void browsingValueChanged();
-    void labelChanged();
     void refreshingChanged();
     void inputRequestedChanged(bool inputRequested);
 
@@ -70,12 +73,13 @@ signals:
 
     void inputValueChanged(QString inputValue);
 
+	void clientChanged(eu::tgcm::kontroller::Client* client);
+
 public slots:
     void refresh();
-    void setFiles(const std::vector<File *> &value);
+	void setFiles(const QVector<File>& value);
     void setBrowsingMode(QString browsingMode);
-    void setBrowsingValue(QString browsingValue);
-    void setLabel(QString label);
+	void setBrowsingValue(QString browsingValue);
     void setRefreshing(bool refreshing);
     void refreshCollection();
 
@@ -87,15 +91,18 @@ public slots:
 
     void setInputValue(QString inputValue);
 
+	void setClient(eu::tgcm::kontroller::Client* client);
+
 private:
     bool clearPlayList();
-    bool addFileToPlaylist(File* file);
     bool startPlaying();
 
     void clearFiles();
     void refresh_files();
     void refresh_collection();
 
+
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 
 private slots:
     void parseMoviesResults_();

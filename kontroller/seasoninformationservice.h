@@ -1,6 +1,10 @@
 #ifndef EU_TGCM_KONTROLLER_SEASONINFORMATIONSERVICE_H
 #define EU_TGCM_KONTROLLER_SEASONINFORMATIONSERVICE_H
 
+#include "client.h"
+
+#include "file.h"
+
 #include <QObject>
 #include <QQmlListProperty>
 
@@ -10,7 +14,6 @@ namespace tgcm
 {
 namespace kontroller
 {
-class File;
 
 class SeasonInformationService : public QObject
 {
@@ -25,10 +28,13 @@ class SeasonInformationService : public QObject
     QString fanart_;
     QString art_;
 
-    std::vector<File*> episodes_;
+	QVector<File> episodes_;
+
+	eu::tgcm::kontroller::Client* client_;
 
 public:
-    explicit SeasonInformationService(QObject *parent = 0);
+	explicit SeasonInformationService(QObject *parent = nullptr);
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
     Q_PROPERTY(QString seasonId READ seasonId WRITE setSeasonId NOTIFY seasonIdChanged)
     Q_PROPERTY(QString showTitle READ showTitle WRITE setShowTitle NOTIFY showTitleChanged)
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
@@ -36,7 +42,7 @@ public:
     Q_PROPERTY(int nbWatchedEpisodes READ nbWatchedEpisodes WRITE setNbWatchedEpisodes NOTIFY nbWatchedEpisodesChanged)
     Q_PROPERTY(QString fanart READ fanart WRITE setFanart NOTIFY fanartChanged)
     Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
-    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::File> episodes READ episodes NOTIFY episodesChanged)
+	Q_PROPERTY(QVector<eu::tgcm::kontroller::File> episodes READ episodes NOTIFY episodesChanged)
     Q_PROPERTY(QString season READ season NOTIFY seasonIdChanged)
 
     QString seasonId() const;
@@ -57,12 +63,14 @@ public:
     QString art() const;
     void setArt(const QString &art);
 
-    QQmlListProperty<File> episodes();
+	QVector<File> episodes();
 
     QString thumbnail() const;
     void setThumbnail(const QString& thumbnail);
 
     QString season() const;
+
+	eu::tgcm::kontroller::Client* client() const;
 
 signals:
     void seasonIdChanged();
@@ -74,8 +82,12 @@ signals:
     void artChanged();
     void episodesChanged();
 
+	void clientChanged(eu::tgcm::kontroller::Client* client);
+
 public slots:
     void refresh();
+
+	void setClient(eu::tgcm::kontroller::Client* client);
 
 private slots:
     void refreshEpisodes_();

@@ -7,6 +7,7 @@ Item {
     property var player
 
     PlayerControl {
+        client: appClient
         id:control
     }
     Column {

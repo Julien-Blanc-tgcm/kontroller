@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-
 Dialog {
     property string serverUuid: ""
 
@@ -23,7 +22,7 @@ Dialog {
 
             TextField {
                 id:serverName
-                text: settings.server(serverUuid).name
+                text: appSettings.server(serverUuid).name
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -34,7 +33,7 @@ Dialog {
 
             TextField {
                 id: serverAddress
-                text:settings.server(serverUuid).serverAddress
+                text: appSettings.server(serverUuid).serverAddress
                 anchors.left: parent.left;
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -46,7 +45,7 @@ Dialog {
 
             TextField {
                 id: serverLogin
-                text:settings.server(serverUuid).login
+                text: appSettings.server(serverUuid).login
                 anchors.left: parent.left;
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -69,7 +68,7 @@ will be stored unencrypted on the device")
 
             TextField {
                 id: serverPassword
-                text:settings.server(serverUuid).password
+                text: appSettings.server(serverUuid).password
                 anchors.left: parent.left;
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -93,7 +92,7 @@ will not function properly.")
 
             TextField {
                 id: serverPort
-                text:settings.server(serverUuid).serverPort
+                text: appSettings.server(serverUuid).serverPort
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -117,7 +116,7 @@ You need to enable HTTP remote access in kodi for this to work")
             }
             TextField {
                 id : serverHttpPort
-                text:settings.server(serverUuid).serverHttpPort
+                text: appSettings.server(serverUuid).serverHttpPort
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -154,12 +153,16 @@ You need to enable HTTP remote access in kodi for this to work")
     }
 
     onAccepted: {
-        settings.server(serverUuid).setName(serverName.text)
-        settings.server(serverUuid).setPassword(serverPassword.text);
-        settings.server(serverUuid).setServerAddress(serverAddress.text);
-        settings.server(serverUuid).setServerHttpPort(serverHttpPort.text);
-        settings.server(serverUuid).setServerPort(serverPort.text);
-        settings.server(serverUuid).setLogin(serverLogin.text);
-        settings.save()
+        appSettings.server(serverUuid).setName(serverName.text)
+        appSettings.server(serverUuid).setPassword(serverPassword.text);
+        appSettings.server(serverUuid).setServerAddress(serverAddress.text);
+        appSettings.server(serverUuid).setServerHttpPort(serverHttpPort.text);
+        appSettings.server(serverUuid).setServerPort(serverPort.text);
+        appSettings.server(serverUuid).setLogin(serverLogin.text);
+        if(serverVolumePlugin.currentIndex === 0)
+            appSettings.server(serverUuid).setKodiVolumePlugin();
+        else
+            appSettings.server(serverUuid).setMinidspVolumePlugin(miniDSPAddress.text);
+        appSettings.save();
     }
 }

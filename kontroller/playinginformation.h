@@ -2,6 +2,8 @@
 #define EU_TGCM_KONTROLLER_PLAYINGINFORMATION_H
 
 #include <QObject>
+
+#include "playerservice.h"
 #include "playlistservice.h"
 
 namespace eu
@@ -22,6 +24,7 @@ class PlayingInformation : public QObject
 
 public:
 	explicit PlayingInformation(QObject *parent = 0);
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	Q_PROPERTY(QString playerType READ playerType WRITE setPlayerType NOTIFY playerTypeChanged)
 	Q_PROPERTY(QString mediaTitle READ mediaTitle WRITE setMediaTitle NOTIFY MediaTitleChanged)
 	Q_PROPERTY(QString mediaId READ mediaId WRITE setMediaId NOTIFY mediaIdChanged)
@@ -40,8 +43,16 @@ public:
 	PlaylistItem* currentItem();
 	PlaylistItem* nextItem();
 
+	eu::tgcm::kontroller::PlaylistService* playlistService() const;
+
+	eu::tgcm::kontroller::Client* client() const;
+
 private:
 	void refreshCurrentlyPlaying_(int playerid);
+
+	eu::tgcm::kontroller::PlaylistService* playlistService_ = nullptr;
+
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 
 signals:
 
@@ -55,12 +66,15 @@ signals:
 
 	void currentItemChanged();
 
+	void clientChanged(eu::tgcm::kontroller::Client* client);
 
 public slots:
 	void setPlayerType(QString playerType);
 	void setMediaTitle(QString mediaTitle);
 	void setMediaId(QString mediaId);
 	void setArtistId(int artistId);
+
+	void setClient(eu::tgcm::kontroller::Client* client);
 
 private slots:
 	void refreshCurrentPlayer_();

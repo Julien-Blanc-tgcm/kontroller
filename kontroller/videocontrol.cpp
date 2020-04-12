@@ -14,17 +14,19 @@ VideoControl::VideoControl(QObject *parent) : QObject(parent)
 
 }
 
-void VideoControl::playFile(File *file)
+Client* VideoControl::client() const
 {
-	if(file)
-	{
-		auto reply = clearPlaylist();
-		currentFile_ = file;
-		connect(reply,
-		        &QJsonRpcServiceReply::finished,
-		        this,
-		        &VideoControl::addCurrentFileToPlaylist_);
-	}
+	return client_;
+}
+
+void VideoControl::playFile(File file)
+{
+	auto reply = clearPlaylist();
+	currentFile_ = file;
+	connect(reply,
+	        &QJsonRpcServiceReply::finished,
+	        this,
+	        &VideoControl::addCurrentFileToPlaylist_);
 }
 
 QJsonRpcServiceReply* VideoControl::clearPlaylist()
@@ -33,34 +35,30 @@ QJsonRpcServiceReply* VideoControl::clearPlaylist()
 	QJsonObject params;
 	params.insert("playlistid", videoPlaylistId_);
 	message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-	return Client::current().send(message);
+	return client_->send(message);
 }
 
-QJsonRpcServiceReply* VideoControl::addToPlaylist(File* file)
+QJsonRpcServiceReply* VideoControl::addToPlaylist(File file)
 {
-	if(file)
-	{
-		QJsonRpcMessage message;
-		QJsonObject params;
-		QJsonObject item;
-		if(file->filetype() == "directory")
-			item.insert("directory", file->file());
-		else if(file->filetype() == "file")
-			item.insert("file", file->file());
-		else if(file->filetype() == "movie")
-			item.insert("movieid", file->file().toInt());
-		else if(file->filetype() == "tvshow")
-			item.insert("tvshowid", file->file().toInt());
-		else if(file->filetype() == "episode")
-			item.insert("episodeid", file->file().toInt());
-		else if(file->filetype() == "musicvideo")
-			item.insert("musicvideoid", file->file().toInt());
-		params.insert("item", item);
-		params.insert("playlistid", videoPlaylistId_);
-		message = QJsonRpcMessage::createRequest("Playlist.Add", params);
-		return Client::current().send(message);
-	}
-	return nullptr;
+	QJsonRpcMessage message;
+	QJsonObject params;
+	QJsonObject item;
+	if(file.filetype() == "directory")
+		item.insert("directory", file.file());
+	else if(file.filetype() == "file")
+		item.insert("file", file.file());
+	else if(file.filetype() == "movie")
+		item.insert("movieid", file.file().toInt());
+	else if(file.filetype() == "tvshow")
+		item.insert("tvshowid", file.file().toInt());
+	else if(file.filetype() == "episode")
+		item.insert("episodeid", file.file().toInt());
+	else if(file.filetype() == "musicvideo")
+		item.insert("musicvideoid", file.file().toInt());
+	params.insert("item", item);
+	params.insert("playlistid", videoPlaylistId_);
+	message = QJsonRpcMessage::createRequest("Playlist.Add", params);
+	return client_->send(message);
 }
 
 void VideoControl::startPlaying()
@@ -71,7 +69,16 @@ void VideoControl::startPlaying()
 	item.insert("playlistid", videoPlaylistId_);
 	params.insert("item", item);
 	message = QJsonRpcMessage::createRequest("Player.Open", params);
-	Client::current().send(message);
+	client_->send(message);
+}
+
+void VideoControl::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	client_ = client;
+	emit clientChanged(client_);
 }
 
 void VideoControl::addCurrentFileToPlaylist_()

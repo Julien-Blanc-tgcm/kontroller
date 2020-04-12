@@ -4,9 +4,9 @@ import harbour.eu.tgcm 1.0
 
 Page {
     id:main
-    property alias browsingMode: videoService.browsingMode
-    property alias browsingValue: videoService.browsingValue
-    property alias label: videoService.label
+    property string browsingMode: ""
+    property string browsingValue: ""
+    property string label: ""
 
     signal mediaClicked(string filetype, string file, string label)
     signal mediaPlayClicked(string dir)
@@ -17,9 +17,13 @@ Page {
 
     VideoService {
         id: videoService
+        client: appClient
+        browsingMode: main.browsingMode
+        browsingValue: main.browsingValue
     }
     VideoControl {
         id: videoControl
+        client: appClient
     }
 
     PlayableItemPage {

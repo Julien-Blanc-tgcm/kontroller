@@ -8,6 +8,8 @@ Page {
     signal currentClicked()
     signal backToMenuClicked()
 
+    property var pageClient: appClient
+
     SilicaFlickable {
         anchors.fill:parent
         contentHeight:theCol.childrenRect.height
@@ -166,7 +168,6 @@ Page {
 
     property alias itemId : service.artistId
     property string label
-    onItemIdChanged: { service.refresh(); }
     ListContextMenu {
         visible:false
         id:theSubMenu
@@ -187,13 +188,18 @@ Page {
     }
     MusicControl {
         id:control
+        client: pageClient
     }
 
     ArtistInformationService
     {
         id : service
+        client: pageClient
     }
     signal mediaInformationClicked(string filetype, string file, string label)
     function refresh() { service.refresh(); }
+    Component.onCompleted: {
+        refresh()
+    }
 }
 

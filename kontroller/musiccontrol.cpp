@@ -14,67 +14,75 @@ MusicControl::MusicControl(QObject *parent) : QObject(parent)
 
 }
 
-void MusicControl::playFile(File *file)
+Client* MusicControl::client() const
 {
-    if(file)
-    {
-		QJsonObject params;
-		QJsonObject item;
-		if(file->filetype() == "directory")
-			item.insert("directory", file->file());
-		else if(file->filetype() == "file")
-			item.insert("file", file->file());
-		else if(file->filetype() == "album")
-			item.insert("albumid", file->file().toInt());
-		else if(file->filetype() == "song")
-			item.insert("songid", file->file().toInt());
-		params.insert("item", item);
-		params.insert("options", QJsonObject{});
-		auto message = QJsonRpcMessage::createRequest("Player.Open", params);
-		Client::current().send(message);
-	}
+	return client_;
 }
 
-void MusicControl::addToPlaylist(File *file)
+void MusicControl::playFile(File file)
 {
-    if(file)
-    {
-        QJsonRpcMessage message;
-        QJsonObject params;
-        QJsonObject item;
-        if(file->filetype() == "directory")
-            item.insert("directory", file->file());
-        else if(file->filetype() == "file")
-            item.insert("file", file->file());
-        else if(file->filetype() == "album")
-            item.insert("albumid", file->file().toInt());
-        else if(file->filetype() == "song")
-            item.insert("songid", file->file().toInt());
-        params.insert("item", item);
-        params.insert("playlistid", audioPlaylistId_);
-		message = QJsonRpcMessage::createRequest("Playlist.Add", params);
-        Client::current().send(message);
-    }
+	QJsonObject params;
+	QJsonObject item;
+	if(file.filetype() == "directory")
+		item.insert("directory", file.file());
+	else if(file.filetype() == "file")
+		item.insert("file", file.file());
+	else if(file.filetype() == "album")
+		item.insert("albumid", file.file().toInt());
+	else if(file.filetype() == "song")
+		item.insert("songid", file.file().toInt());
+	params.insert("item", item);
+	params.insert("options", QJsonObject{});
+	auto message = QJsonRpcMessage::createRequest("Player.Open", params);
+	client_->send(message);
+}
+
+void MusicControl::addToPlaylist(File file)
+{
+	QJsonRpcMessage message;
+	QJsonObject params;
+	QJsonObject item;
+	if(file.filetype() == "directory")
+		item.insert("directory", file.file());
+	else if(file.filetype() == "file")
+		item.insert("file", file.file());
+	else if(file.filetype() == "album")
+		item.insert("albumid", file.file().toInt());
+	else if(file.filetype() == "song")
+		item.insert("songid", file.file().toInt());
+	params.insert("item", item);
+	params.insert("playlistid", audioPlaylistId_);
+	message = QJsonRpcMessage::createRequest("Playlist.Add", params);
+	client_->send(message);
 }
 
 void MusicControl::startPlaying()
 {
-    QJsonRpcMessage message;
-    QJsonObject params;
-    QJsonObject item;
-    item.insert("playlistid", audioPlaylistId_);
-    params.insert("item", item);
-    message = QJsonRpcMessage::createRequest("Player.Open", params);
-    Client::current().send(message);
+	QJsonRpcMessage message;
+	QJsonObject params;
+	QJsonObject item;
+	item.insert("playlistid", audioPlaylistId_);
+	params.insert("item", item);
+	message = QJsonRpcMessage::createRequest("Player.Open", params);
+	client_->send(message);
 }
 
 void MusicControl::clearPlaylist()
 {
-    QJsonRpcMessage message;
-    QJsonObject params;
-    params.insert("playlistid", audioPlaylistId_);
-    message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
-    Client::current().send(message);
+	QJsonRpcMessage message;
+	QJsonObject params;
+	params.insert("playlistid", audioPlaylistId_);
+	message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
+	client_->send(message);
+}
+
+void MusicControl::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	client_ = client;
+	emit clientChanged(client_);
 }
 
 }

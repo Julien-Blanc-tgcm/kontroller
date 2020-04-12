@@ -1,6 +1,7 @@
-#include "settingsmanager.h"
+#include "applicationsettings.h"
 
 #include "kodivolumeplugin.h"
+#include "minidspvolumeplugin.h"
 
 #include <QSettings>
 #include <QDebug>
@@ -15,7 +16,8 @@ namespace tgcm
 namespace kontroller
 {
 
-SettingsManager::SettingsManager()
+ApplicationSettings::ApplicationSettings(QObject* parent) :
+    QObject{parent}
 {
 	QSettings settings("tgcm.eu", "kontroller");
 	auto nbServers = settings.beginReadArray("servers");
@@ -62,7 +64,19 @@ SettingsManager::SettingsManager()
 			server->setPassword(val.toString());
 		else
 			server->setPassword(QString{});
-		server->setVolumePlugin(new KodiVolumePlugin(server));
+		val = settings.value("volumePlugin");
+		if(val.isNull() || !val.canConvert(QVariant::String) || val.toString() == KodiVolumePlugin::static_name())
+			server->setKodiVolumePlugin();
+		else if(val.toString() == MinidspVolumePlugin::static_name())
+		{
+			settings.beginGroup(MinidspVolumePlugin::static_name());
+			val = settings.value("address");
+			if(val.canConvert(QVariant::String))
+				server->setMinidspVolumePlugin(val.toString());
+			settings.endGroup();
+		}
+		if(server->volumePlugin() == nullptr) // failsafe, in case volume plugin init failed for some reason
+			server->setVolumePlugin(new KodiVolumePlugin(server));
 		servers_.push_back(std::move(server));
 	}
 	settings.endArray();
@@ -97,33 +111,34 @@ SettingsManager::SettingsManager()
 	}
 }
 
-QString SettingsManager::downloadFolder() const
+QString ApplicationSettings::downloadFolder() const
 {
     return downloadFolder_;
 }
 
-void SettingsManager::setDownloadFolder(const QString &downloadFolder)
+void ApplicationSettings::setDownloadFolder(const QString &downloadFolder)
 {
 	downloadFolder_ = downloadFolder;
 }
 
-void SettingsManager::setDownloadLocation(DownloadLocation *downloadLocation)
+void ApplicationSettings::setDownloadLocation(DownloadLocation *downloadLocation)
 {
-	downloadFolder_ = downloadLocation->baseFolder();
+	if(downloadLocation != nullptr)
+		downloadFolder_ = downloadLocation->baseFolder();
 }
 
-void SettingsManager::setLastServer(QString lastServerUuid)
+void ApplicationSettings::setLastServer(QString lastServerUuid)
 {
 	lastServer_ = lastServerUuid;
 	save();
 }
 
-QString SettingsManager::lastServer() const
+QString ApplicationSettings::lastServer() const
 {
 	return lastServer_;
 }
 
-int SettingsManager::lastServerIndex() const
+int ApplicationSettings::lastServerIndex() const
 {
 	int i = 0;
 	for(auto& server : servers_)
@@ -135,54 +150,38 @@ int SettingsManager::lastServerIndex() const
 	return 0;
 }
 
-QVector<DownloadLocation*> SettingsManager::possibleDownloadLocations() const
-{
-	return possibleDownloadLocations_;
-}
-
-bool SettingsManager::ignoreWifiStatus() const
+bool ApplicationSettings::ignoreWifiStatus() const
 {
     return ignoreWifiStatus_;
 }
 
-void SettingsManager::setIgnoreWifiStatus(bool ignoreWifiStatus)
+void ApplicationSettings::setIgnoreWifiStatus(bool ignoreWifiStatus)
 {
     ignoreWifiStatus_ = ignoreWifiStatus;
 }
 
-/*DeviceType SettingsManager::deviceType() const
+/*DeviceType ApplicationSettings::deviceType() const
 {
     return deviceType_;
 }
 
-void SettingsManager::setDeviceType(DeviceType type)
+void ApplicationSettings::setDeviceType(DeviceType type)
 {
     deviceType_ = type;
 }*/
 #ifndef SAILFISH_TARGET
-int SettingsManager::dpi() const
+int ApplicationSettings::dpi() const
 {
     return dpi_;
 }
 
-void SettingsManager::setDpi(int dpi)
+void ApplicationSettings::setDpi(int dpi)
 {
     dpi_ = dpi;
 }
 #endif
 
-SettingsManager& SettingsManager::instance()
-{
-    static SettingsManager manager;
-    return manager;
-}
-
-QVector<Server*> SettingsManager::servers()
-{
-	return servers_;
-}
-
-void SettingsManager::save()
+void ApplicationSettings::save()
 {
 	QSettings settings("tgcm.eu", "kontroller");
 	settings.clear();
@@ -193,12 +192,20 @@ void SettingsManager::save()
 		settings.setArrayIndex(i);
 		settings.setValue("name", server->name());
 		settings.setValue("server", server->serverAddress());
+		settings.setValue("uuid", server->uuid());
 		settings.setValue("port", server->serverPort());
 		settings.setValue("serverHttpPort", server->serverHttpPort());
 		settings.setValue("hasZones", server->hasZones());
 		settings.setValue("zones", server->zones());
 		settings.setValue("login", server->login());
 		settings.setValue("password", server->password());
+		settings.setValue("volumePlugin", server->volumePlugin()->name());
+		if(server->volumePlugin()->name() == MinidspVolumePlugin::static_name())
+		{
+			settings.beginGroup(MinidspVolumePlugin::static_name());
+			settings.setValue("address", dynamic_cast<MinidspVolumePlugin*>(server->volumePlugin())->ipAddress());
+			settings.endGroup();
+		}
 		i += 1;
 	}
 	settings.endArray();
@@ -212,7 +219,7 @@ void SettingsManager::save()
 	settings.sync();
 }
 
-Server* SettingsManager::server(const QString &uuid)
+Server* ApplicationSettings::server(const QString &uuid)
 {
 	for(auto& server: servers_)
 	{
@@ -222,15 +229,16 @@ Server* SettingsManager::server(const QString &uuid)
 	return nullptr;
 }
 
-Server *SettingsManager::newServer()
+Server *ApplicationSettings::newServer()
 {
 	servers_.push_back(new Server{this});
 	auto ret = servers_.back();
 	ret->setVolumePlugin(new KodiVolumePlugin(ret));
+	emit serversChanged();
 	return ret;
 }
 
-bool SettingsManager::deleteServer(const QString &uuid)
+bool ApplicationSettings::deleteServer(const QString &uuid)
 {
 	using namespace std;
 	for(auto it = begin(servers_); it != end(servers_); ++it)
@@ -239,10 +247,45 @@ bool SettingsManager::deleteServer(const QString &uuid)
 		{
 			(*it)->deleteLater();
 			servers_.erase(it);
+			emit serversChanged();
+			save();
 			return true;
 		}
 	}
 	return false;
+}
+
+int ApplicationSettings::getServerCount_(QQmlListProperty<Server>* list)
+{
+	return static_cast<ApplicationSettings*>(list->data)->servers_.size();
+}
+
+Server* ApplicationSettings::getServerAt_(QQmlListProperty<Server>* list, int index)
+{
+	return static_cast<ApplicationSettings*>(list->data)->servers_.at(index);
+}
+
+
+QQmlListProperty<Server> ApplicationSettings::servers()
+{
+	return QQmlListProperty<Server>(this, this, &ApplicationSettings::getServerCount_,
+	                                &ApplicationSettings::getServerAt_);
+}
+
+int ApplicationSettings::getDownloadLocationCount_(QQmlListProperty<DownloadLocation>* list)
+{
+	return static_cast<ApplicationSettings*>(list->data)->possibleDownloadLocations_.size();
+}
+
+DownloadLocation* ApplicationSettings::getDownloadLocationAt_(QQmlListProperty<DownloadLocation>* list, int index)
+{
+	return static_cast<ApplicationSettings*>(list->data)->possibleDownloadLocations_.at(index);
+}
+
+QQmlListProperty<DownloadLocation> ApplicationSettings::possibleDownloadLocations()
+{
+	return QQmlListProperty<DownloadLocation>(this, this, &ApplicationSettings::getDownloadLocationCount_,
+	                                          &ApplicationSettings::getDownloadLocationAt_);
 }
 
 }

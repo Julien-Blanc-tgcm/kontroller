@@ -1,5 +1,7 @@
 #include "client.h"
-#include "settingsmanager.h"
+
+#include "applicationsettings.h"
+#include "playerservice.h"
 
 #include <QSettings>
 #include <QAuthenticator>
@@ -12,16 +14,20 @@ namespace tgcm
 namespace kontroller
 {
 
-Client::Client(QObject *parent) :
+Client::Client(ApplicationSettings* settings, QObject *parent) :
     QObject(parent),
-    serverPort_(9090),
-    serverHttpPort_(8080),
+    settings_{settings},
     serverUuid_(),
     client_(nullptr),
     clientSocket_(nullptr),
     tcpClient_(nullptr),
-    connectionStatus_(0)
+    connectionStatus_(0),
+    downloadService_{new DownloadService{this, settings}},
+    playerService_{new PlayerService{this, this}}
 {
+	// refresh the client if servers changes
+	// because the server may disappear
+	connect(settings, &ApplicationSettings::serversChanged, this, &Client::refresh);
 }
 
 Client::~Client()
@@ -42,52 +48,36 @@ void Client::freeConnections()
 	tcpClient_ = nullptr;
 }
 
-Client& Client::current()
-{
-	static Client instance_;
-	return instance_;
-}
-
 QString Client::serverAddress() const
 {
-	return serverAddress_;
+	return server_->serverAddress();
 }
 
 int Client::serverPort() const
 {
-	return serverPort_;
+	return server_->serverPort();
 }
 
 int Client::serverHttpPort() const
 {
-	return serverHttpPort_;
+	return server_->serverHttpPort();
 }
 
 void Client::refresh()
 {
 	freeConnections();
-	Server* server = nullptr;
+	server_ = nullptr;
 	if(serverUuid_.size() > 0)
-		server = SettingsManager::instance().server(serverUuid_);
-	else if(SettingsManager::instance().servers().size() >= 1)
+		server_ = settings_->server(serverUuid_);
+	else
+		server_ = settings_->server(settings_->lastServer());
+	if(server_)
 	{
-		server = SettingsManager::instance().server(SettingsManager::instance().lastServer());
-		if(server == nullptr)
-		{
-			server = SettingsManager::instance().servers().front();
-		}
-		serverUuid_ = server->uuid();
 		emit serverChanged();
-	}
-	if(server)
-	{
-		serverAddress_ = server->serverAddress();
-		serverPort_ = server->serverPort();
-		serverHttpPort_ = server->serverHttpPort();
-		qDebug() << "Connection to " << serverAddress_ << serverPort_;
-		serverLogin_ = server->login();
-		serverPassword_ = server->password();
-		if(serverAddress_.size() > 0 && serverPort_ > 0)
+		serverUuid_ = server_->uuid();
+		server_->volumePlugin()->setClient(this);
+		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
+		if(server_->serverAddress().size() > 0 && server_->serverPort() > 0)
 		{
 			setConnectionStatus(1);
 			{
@@ -95,7 +85,7 @@ void Client::refresh()
 				connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess()));
 				connect(clientSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
 				        this, SLOT(handleConnectionError(QAbstractSocket::SocketError)));
-				clientSocket_->connectToHost(serverAddress_, static_cast<quint16>(serverPort_));
+				clientSocket_->connectToHost(server_->serverAddress(), static_cast<quint16>(server_->serverPort()));
 			}
 		}
 	}
@@ -115,12 +105,7 @@ bool Client::useHttpInterface() const
 
 Server *Client::server()
 {
-	for(auto& server : SettingsManager::instance().servers())
-	{
-		if(server->uuid() == serverUuid_)
-			return server;
-	}
-	return nullptr;
+	return server_;
 }
 
 void Client::switchToServer(const QString &serverUuid)
@@ -131,6 +116,16 @@ void Client::switchToServer(const QString &serverUuid)
 		emit serverChanged();
 		refresh();
 	}
+}
+
+DownloadService* Client::downloadService() const
+{
+	return downloadService_;
+}
+
+PlayerService* Client::playerService() const
+{
+	return playerService_;
 }
 
 void Client::handleError(QJsonRpcMessage error)
@@ -192,6 +187,29 @@ QNetworkReply* Client::downloadFile(QString path)
 	request.setUrl(baseUrl() + path);
 	auto reply = client_->networkAccessManager()->get(request);
 	return reply;
+}
+
+void Client::setDownloadService(DownloadService* downloadService)
+{
+	if (downloadService_ == downloadService)
+		return;
+
+	downloadService_ = downloadService;
+	emit downloadServiceChanged(downloadService_);
+}
+
+void Client::retryConnect()
+{
+	refresh();
+}
+
+void Client::setPlayerService(PlayerService* playerService)
+{
+	if (playerService_ == playerService)
+		return;
+
+	playerService_ = playerService;
+	emit playerServiceChanged(playerService_);
 }
 
 void Client::handleReplyFinished()
@@ -337,8 +355,8 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
 
 void Client::provideCredentials_(QNetworkReply */*reply*/, QAuthenticator *authenticator)
 {
-	authenticator->setUser(serverLogin_);
-	authenticator->setPassword(serverPassword_);
+	authenticator->setUser(server_->login());
+	authenticator->setPassword(server_->password());
 }
 
 }

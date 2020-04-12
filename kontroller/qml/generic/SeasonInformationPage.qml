@@ -233,10 +233,12 @@ Item {
 
     SeasonInformationService {
         id:service
+        client: appClient
     }
 
     VideoControl {
         id:control
+        client: appClient
     }
 
     property alias itemId: service.seasonId

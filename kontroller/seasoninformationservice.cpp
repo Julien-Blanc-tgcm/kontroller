@@ -76,27 +76,9 @@ void SeasonInformationService::setArt(const QString &art)
     emit artChanged();
 }
 
-namespace {
-
-int episodesPropCount(QQmlListProperty<File>* list)
+QVector<File> SeasonInformationService::episodes()
 {
-    return static_cast<std::vector<File*>*>(list->data)->size();
-}
-
-File* episodesPropAt(QQmlListProperty<File>* list, int index)
-{
-    auto l = static_cast<std::vector<File*>*>(list->data);
-    if(index < (int)l->size())
-        return (*l)[index];
-    return nullptr;
-}
-
-}
-
-QQmlListProperty<File> SeasonInformationService::episodes()
-{
-    return QQmlListProperty<File>(this, &episodes_,
-                                       &episodesPropCount, &episodesPropAt);
+	return episodes_;
 }
 
 QString SeasonInformationService::thumbnail() const
@@ -132,19 +114,28 @@ void SeasonInformationService::refresh()
     properties.append(QString("art"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetSeasons", parameters);
-    auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, &SeasonInformationService::handleRefresh_);
     refreshEpisodes_();
 }
 
+void SeasonInformationService::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	client_ = client;
+	emit clientChanged(client_);
+}
+
 void SeasonInformationService::refreshEpisodes_()
 {
-    QStringList list = seasonId_.split(QChar('|'));
-    if(list.size() != 2)
-        return;
-    auto req = new TvShowEpisodesRequest();
+	QStringList list = seasonId_.split(QChar('|'));
+	if(list.size() != 2)
+		return;
+	auto req = new TvShowEpisodesRequest(client_);
     connect(req, &TvShowEpisodesRequest::finished, this, &SeasonInformationService::handleRefreshEpisodes_);
-    req->start(list[0].toInt(), list[1].toInt());
+	req->start(list[0].toInt(), list[1].toInt());
 }
 
 void SeasonInformationService::handleRefresh_()
@@ -170,11 +161,11 @@ void SeasonInformationService::handleRefresh_()
                 if(season.value("season").toDouble() == list[1].toDouble())
                 {
                     setShowTitle(season.value("showtitle").toString());
-                    setThumbnail(getImageUrl(season.value("thumbnail").toString()).toString());
+					setThumbnail(getImageUrl(client_, season.value("thumbnail").toString()).toString());
                     setNbEpisodes(season.value("episode").toInt());
                     setNbWatchedEpisodes(season.value("watchedepisodes").toInt());
-                    setFanart(getImageUrl(season.value("fanart").toString()).toString());
-                    setArt(getImageUrl(season.value("art").toString()).toString());
+					setFanart(getImageUrl(client_, season.value("fanart").toString()).toString());
+					setArt(getImageUrl(client_, season.value("art").toString()).toString());
                     // lastplayed
                     // tags
                 }
@@ -185,13 +176,14 @@ void SeasonInformationService::handleRefresh_()
 
 void SeasonInformationService::handleRefreshEpisodes_()
 {
-    auto req = dynamic_cast<TvShowEpisodesRequest*>(sender());
-    if(req)
-    {
-        episodes_ = std::move(req->episodes);
-        req->deleteLater();
-        emit episodesChanged();
-    }
+	auto req = dynamic_cast<TvShowEpisodesRequest*>(sender());
+	if(req)
+	{
+		episodes_ = req->episodes;
+		req->episodes.clear();
+		req->deleteLater();
+		emit episodesChanged();
+	}
 }
 
 QString SeasonInformationService::season() const
@@ -200,6 +192,11 @@ QString SeasonInformationService::season() const
     if(list.size() != 2)
         return "";
     return list[1];
+}
+
+Client* SeasonInformationService::client() const
+{
+	return client_;
 }
 
 }

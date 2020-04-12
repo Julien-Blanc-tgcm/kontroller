@@ -46,6 +46,12 @@ int VolumePlugin::status() const
 	return status_;
 }
 
+void VolumePlugin::setClient(Client* client)
+{
+	client_ = client;
+	clientUpdated_();
+}
+
 void VolumePlugin::refreshVolume()
 {
 	refreshVolume_();
@@ -82,6 +88,11 @@ void VolumePlugin::decreaseVolume_()
 	auto vol = std::max(currentVolume_() - volumeStep_(), minVolume_());
 	if(vol != currentVolume_())
 		updateVolume_(vol);
+}
+
+void VolumePlugin::clientUpdated_()
+{
+	// by default, do nothing
 }
 
 }

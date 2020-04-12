@@ -9,7 +9,8 @@ namespace tgcm
 {
 namespace kontroller
 {
-AlbumsRequest::AlbumsRequest(QObject *parent) : QObject(parent),
+AlbumsRequest::AlbumsRequest(Client* client, QObject *parent) : QObject(parent),
+    client_{client},
     success(false)
 {
 
@@ -28,7 +29,7 @@ void AlbumsRequest::start(int artistid)
 	properties.append(QLatin1String("thumbnail"));
 	parameters.insert("properties", properties);
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-	QJsonRpcServiceReply* reply = Client::current().send(message);
+	QJsonRpcServiceReply* reply = client_->send(message);
 	if(reply)
 		connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumsRequest::parseAlbumsResult);
 	else
@@ -45,7 +46,7 @@ void AlbumsRequest::startWithGenre(int genreid)
 	properties.append(QLatin1String("thumbnail"));
 	parameters.insert("properties", properties);
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-	QJsonRpcServiceReply* reply = Client::current().send(message);
+	QJsonRpcServiceReply* reply = client_->send(message);
 	if(reply)
 		connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumsRequest::parseAlbumsResult);
 	else
@@ -71,19 +72,19 @@ void AlbumsRequest::parseAlbumsResult()
 					QJsonArray res = files.toArray();
 					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
 					{
-						File* file = new File();
+						File file;
 						if((*it).type() == QJsonValue::Object)
 						{
 							QJsonObject obj = (*it).toObject();
 							QJsonValue val = obj.value("label");
 							if(val.type() == QJsonValue::String)
-								file->setLabel(val.toString());
+								file.setLabel(val.toString());
 							val = obj.value("albumid");
 							if(val.type() == QJsonValue::Double)
-								file->setFile(QString::number(val.toDouble()));
-							file->setFiletype("album");
-							file->setType("album");
-							file->setThumbnail(getImageUrl(obj.value("thumbnail").toString()).toString());
+								file.setFile(QString::number(val.toDouble()));
+							file.setFiletype("album");
+							file.setType("album");
+							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							results.push_back(file);
 						}
 					}
@@ -97,8 +98,6 @@ void AlbumsRequest::parseAlbumsResult()
 
 AlbumsRequest::~AlbumsRequest()
 {
-	for(auto res : results)
-		res->deleteLater();
 	results.clear();
 }
 

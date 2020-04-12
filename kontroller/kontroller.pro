@@ -31,7 +31,7 @@ SOURCES += main.cpp \
     tvshowepisodesrequest.cpp \
     utils.cpp \
     episodeinformationservice.cpp \
-    playlistcontrol.cpp \
+#    playlistcontrol.cpp \
     playlistitem.cpp \
     playercontrol.cpp \
     subtitle.cpp \
@@ -40,15 +40,17 @@ SOURCES += main.cpp \
     file.cpp \
     player.cpp \
     playerservice.cpp \
-    settingsmanager.cpp \
-    settings.cpp \
+    applicationsettings.cpp \
     remote.cpp \
     audiostream.cpp \
     server.cpp \
     themeinformation.cpp \
     downloadservice.cpp \
     volumeplugin.cpp \
-    kodivolumeplugin.cpp
+    kodivolumeplugin.cpp \
+    minidspvolumeplugin.cpp \
+    ../lib/minidsplib/query.cpp \
+    ../lib/minidsplib/reply.cpp
 
 RESOURCES += icons.qrc
 CONFIG(sailfish) {
@@ -63,9 +65,10 @@ CONFIG(sailfish) {
 #    message("Adding generic components to resources")
 }
 
-INCLUDEPATH += ../qjsonrpc/src
+INCLUDEPATH += ../qjsonrpc/src \
+    ../lib
 
-QMAKE_CXXFLAGS = -Wall
+QMAKE_CXXFLAGS = -Wall -Werror
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -124,7 +127,7 @@ HEADERS += \
     seasoninformationservice.h \
     tvshowepisodesrequest.h \
     episodeinformationservice.h \
-    playlistcontrol.h \
+#    playlistcontrol.h \
     playlistitem.h \
     playercontrol.h \
     subtitle.h \
@@ -133,15 +136,15 @@ HEADERS += \
     file.h \
     player.h \
     playerservice.h \
-    settingsmanager.h \
-    settings.h \
+    applicationsettings.h \
     remote.h \
     audiostream.h \
     server.h \
     themeinformation.h \
     downloadservice.h \
     volumeplugin.h \
-    kodivolumeplugin.h
+    kodivolumeplugin.h \
+    minidspvolumeplugin.h
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

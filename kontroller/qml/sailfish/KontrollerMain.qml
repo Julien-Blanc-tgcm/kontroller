@@ -10,6 +10,7 @@ Page {
 
     Remote {
         id:remote
+        client: appClient
     }
 
     MediaKey {
@@ -36,24 +37,17 @@ Page {
         }
     }
 
-
-    Connections {
-        target: settings
-        onCurrentServerIdxChanged: {
-            statusService.switchToServer(settings.currentServerUuid)
-        }
-    }
-
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {
-            visible: settings.servers.length > 1
+            visible: appSettings.servers.length > 1
             Repeater {
-                model:settings.servers
+                model:appSettings.servers
                 delegate: MenuItem {
                     text:modelData.name
                     onClicked: {
-                        statusService.switchToServer(modelData.uuid)
+                        appClient.switchToServer(modelData.uuid)
+                        appSettings.lastServer = modelData.uuid
                     }
                 }
             }
@@ -68,35 +62,35 @@ Page {
             Label {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Connected to %1").arg(statusService.serverName)
-                visible: statusService.connectionStatus === 2
+                text: qsTr("Connected to %1").arg(appClient.server?appClient.server.name:"")
+                visible: appClient.connectionStatus === 2
                 height:Theme.itemSizeSmall
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
             Row {
-                visible:statusService.connectionStatus === 0
+                visible:appClient.connectionStatus === 0
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
                 height:Theme.itemSizeSmall
                 Label {
                     height:Theme.itemSizeSmall
-                    text:qsTr("Unable to connect to %1").arg(statusService.serverName)
+                    text:qsTr("Unable to connect to %1").arg(appClient.server?appClient.server.name:"")
                     color: Theme.highlightColor;
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                 }
                 IconButton {
                     icon.source: "image://theme/icon-m-refresh"
-                    onClicked: statusService.retryConnect();
+                    onClicked: appClient.retryConnect();
                 }
             }
             Label {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text:qsTr("Trying to connect to %1").arg(statusService.serverName)
-                visible:statusService.connectionStatus === 1
+                text:qsTr("Trying to connect to %1").arg(appClient.server?appClient.server.name:"")
+                visible: appClient.connectionStatus === 1
                 height:Theme.itemSizeSmall
                 verticalAlignment: Text.AlignVCenter
                 color: Theme.highlightColor
@@ -105,8 +99,20 @@ Page {
             Label {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Connection status : %1").arg(statusService.connectionStatus)
-                visible: statusService.connectionStatus !== 0 && statusService.connectionStatus !== 1 && statusService.connectionStatus !== 2
+                text: qsTr("Connection status : %1").arg(appClient.connectionStatus)
+                visible: appSettings.servers.length !== 0 &&
+                    appClient.connectionStatus !== 0 && appClient.connectionStatus !== 1 &&
+                         appClient.connectionStatus !== 2
+                height: Theme.itemSizeSmall
+                verticalAlignment: Text.AlignVCenter
+                color:Theme.highlightColor
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text: qsTr("No server configured")
+                visible: appSettings.servers.length === 0
                 height: Theme.itemSizeSmall
                 verticalAlignment: Text.AlignVCenter
                 color:Theme.highlightColor
@@ -185,41 +191,40 @@ Page {
                         {
                             anchors.fill:parent
                             onClicked: {
-                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                if(!model.needConnect || appClient.connectionStatus === 2)
                                     pushRelevantPage(model.page);
                             }
                         }
                     }
-                    Rectangle
+                    Column
                     {
-                        anchors.horizontalCenter: theRect.horizontalCenter
                         anchors.verticalCenter: theRect.verticalCenter
-                        height: btn.height + lbl.height
+                        spacing: Theme.paddingLarge
+                        anchors.horizontalCenter: parent.horizontalCenter
                         IconButton {
-                            anchors.top:parent.top
                             anchors.horizontalCenter: parent.horizontalCenter
                             icon.source: {
-                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                if(!model.needConnect || appClient.connectionStatus === 2)
                                     return model.icon;
                                 else
                                     return model.icon + "?" + Theme.highlightDimmerColor;
                             }
                             onClicked: {
-                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                if(!model.needConnect || appClient.connectionStatus === 2)
                                     pushRelevantPage(model.page)
                             }
                             id:btn
+                            width:icon.width
+                            height:icon.height
                         }
                         Label {
                             id:lbl
-                            anchors.top:btn.bottom
-                            anchors.topMargin:20
-                            anchors.left: parent.left
+                            anchors.left:parent.left
                             anchors.right: parent.right
                             horizontalAlignment: Text.AlignHCenter
                             text: label
                             color:{
-                                if(!model.needConnect || statusService.connectionStatus === 2)
+                                if(!model.needConnect || appClient.connectionStatus === 2)
                                     return Theme.primaryColor;
                                 else
                                     return Theme.highlightDimmerColor
@@ -253,10 +258,10 @@ Page {
             }
             var musicList = musicPageComponent.createObject(pageStack,
                 {
-                    "visible": true,
-                    "browsingMode": filetype,
-                    "browsingValue":file,
-                    "label":label
+                    visible: true,
+                    browsingMode: filetype,
+                    browsingValue:file,
+                    label:label
                 });
             musicList.mediaClicked.connect(createMusicPage);
             musicList.mediaInformationClicked.connect(createInformationPage);
@@ -445,14 +450,14 @@ Page {
                 {"type":"tvshow", "component":"TvShowInformationPage"}];
         for(var i = 0; i < informationPageComponents.length; ++i)
         {
-            internal.informationPageComponents[informationPageComponents[i].type] =
-                    Qt.createComponent(informationPageComponents[i].component + '.qml');
+            var comp = Qt.createComponent(informationPageComponents[i].component + '.qml');
+            internal.informationPageComponents[informationPageComponents[i].type] = comp;
         }
     }
 
     Component.onCompleted:{
-        if(settings.currentServerUuid.length > 0)
-            statusService.switchToServer(settings.currentServerUuid)
+        if(appSettings.lastServer.length > 0)
+            appClient.switchToServer(appSettings.lastServer)
         createInfoComponents()
     }
 }

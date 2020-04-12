@@ -30,7 +30,7 @@ Page {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: contentHeight
-                model: settings.servers
+                model: appSettings.servers
                 delegate: ListItem {
                     id: listItem
                     DetailItem {
@@ -87,12 +87,12 @@ Page {
 the phone memory, but SD card memory can be used as well. The relevant folder will \
 be used, depending on the downoaded file type.")
                 onCurrentItemChanged: {
-                    settings.updateDownloadFolder(currentIndex)
+                    appSettings.setDownloadLocation(currentItem)
                 }
                 menu: ContextMenu
                 {
                     Repeater {
-                        model: settings.possibleDownloadFolders
+                        model: appSettings.possibleDownloadLocations
                         delegate: MenuItem {
                             text: (model.typeAsInt === DownloadLocation.Phone) ?
                                       qsTr("Phone memory") :
@@ -101,22 +101,25 @@ be used, depending on the downoaded file type.")
                     }
                 }
                 Component.onCompleted: {
-                    currentIndex = (settings.downloadFolder === StandardPaths.music) ? 0 : 1;
+                    currentIndex = (appSettings.downloadLocation === DownloadLocation.Phone) ? 0 : 1;
                 }
             }
 
             TextSwitch {
                 id:chkIgnoreWifi
-                checked: settings.ignoreWifiStatus
+                checked: appSettings.ignoreWifiStatus
                 text:qsTr("Ignore wi-fi status")
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
-                onTextChanged:
+                onCheckedChanged:
                 {
-                    settings.setIgnoreWifiStatus(chkIgnoreWifi.checked);
-                    settings.save();
+                    if(checked !== appSettings.ignoreWifiStatus)
+                    {
+                        appSettings.ignoreWifiStatus = chkIgnoreWifi.checked;
+                        appSettings.save();
+                    }
                 }
             }
         }
@@ -146,18 +149,20 @@ be used, depending on the downoaded file type.")
     function pushServerSettingsPage(serveruuid)
     {
         console.log("push server settings for server " + serveruuid);
+        if(serverSettingsComponent.status === Component.Error)
+        console.log(serverSettingsComponent.errorString())
         pageStack.push(serverSettingsComponent.createObject(pageStack,
                                                             {"serverUuid": serveruuid}))
     }
 
     function addNewServer()
     {
-        var newserveruuid = settings.newServer(); // will give a uuid
+        var newserveruuid = appSettings.newServer().uuid; // will give a uuid
         pushServerSettingsPage(newserveruuid); // go to settings page
     }
 
     function deleteServer(uuid)
     {
-        settings.deleteServer(uuid)
+        appSettings.deleteServer(uuid)
     }
 }

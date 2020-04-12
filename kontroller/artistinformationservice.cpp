@@ -9,20 +9,6 @@ namespace tgcm
 {
 namespace kontroller
 {
-namespace {
-int filesPropCount(QQmlListProperty<File>* list)
-{
-    return static_cast<QList<File*>*>(list->data)->count();
-}
-
-File* filesPropAt(QQmlListProperty<File>* list, int index)
-{
-    auto l = static_cast<QList<File*>*>(list->data);
-    if(index < l->size())
-        return (*l)[index];
-    return nullptr;
-}
-}
 
 int ArtistInformationService::artistId() const
 {
@@ -103,9 +89,17 @@ QString ArtistInformationService::style() const
     return ret;
 }
 
-QQmlListProperty<File> ArtistInformationService::albums()
+QVariantList ArtistInformationService::albums()
 {
-    return QQmlListProperty<File>(this, &albums_, &filesPropCount, &filesPropAt);
+	QVariantList l;
+	for(auto f : albums_)
+		l.push_back(QVariant::fromValue(f));
+	return l;
+}
+
+Client* ArtistInformationService::client() const
+{
+	return client_;
 }
 
 ArtistInformationService::ArtistInformationService(QObject *parent) : QObject(parent)
@@ -125,19 +119,28 @@ void ArtistInformationService::refresh()
     properties.append(QString("thumbnail"));
     parameters["properties"] = properties;
     QJsonRpcMessage message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtistDetails", parameters);
-    auto reply = Client::current().send(message);
+	auto reply = client_->send(message);
     connect(reply, &QJsonRpcServiceReply::finished, this, &ArtistInformationService::handleRefresh_);
-    auto albumsQuery = new AlbumsRequest();
+	auto albumsQuery = new AlbumsRequest(client_, this);
     connect(albumsQuery, &AlbumsRequest::finished, this, &ArtistInformationService::handleAlbums_);
-    albumsQuery->start(artistId_);
+	albumsQuery->start(artistId_);
+}
+
+void ArtistInformationService::setClient(Client* client)
+{
+	if (client_ == client)
+		return;
+
+	client_ = client;
+	emit clientChanged(client_);
 }
 
 void ArtistInformationService::handleRefresh_()
 {
-    auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
-    {
-        auto result = reply->response().result();
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply)
+	{
+		auto result = reply->response().result();
         if(!result.isObject())
             return;
         auto detailsTmp = result.toObject().value("artistdetails");
@@ -170,8 +173,8 @@ void ArtistInformationService::handleRefresh_()
             }
             emit styleChanged();
         }
-        setFanart(getImageUrl(details.value("fanart").toString()).toString());
-        setThumbnail(getImageUrl(details.value("thumbnail").toString()).toString());
+		setFanart(getImageUrl(client_, details.value("fanart").toString()).toString());
+		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
     }
 }
 
@@ -180,9 +183,8 @@ void ArtistInformationService::handleAlbums_()
     auto albumsQuery = dynamic_cast<AlbumsRequest*>(sender());
     if(albumsQuery)
     {
-        albums_ = std::move(albumsQuery->results);
+		albums_ = albumsQuery->results;
         emit albumsChanged();
-        albumsQuery->deleteLater();
     }
 }
 

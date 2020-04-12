@@ -1,8 +1,11 @@
 #ifndef EU_TGCM_KONTROLLER_MOVIEINFORMATIONSERVICE_H
 #define EU_TGCM_KONTROLLER_MOVIEINFORMATIONSERVICE_H
 
+#include "client.h"
+
 #include <QObject>
 #include <QStringList>
+
 namespace eu
 {
 namespace tgcm
@@ -25,9 +28,11 @@ private:
     QString plot_;
     double rating_;
 	VideoControl* ctrl_;
+	eu::tgcm::kontroller::Client* client_;
+
 public:
     explicit MovieInformationService(QObject *parent = 0);
-
+	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
     Q_PROPERTY(int movieId READ movieId WRITE setMovieId NOTIFY movieIdChanged)
     Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
@@ -60,6 +65,8 @@ public:
     double rating() const;
     void setRating(double rating);
 
+	eu::tgcm::kontroller::Client* client() const;
+
 signals:
     void movieIdChanged();
     void titleChanged();
@@ -68,10 +75,14 @@ signals:
     void runtimeChanged();
     void genresChanged();
     void plotChanged();
-    void ratingChanged();
+	void ratingChanged();
+	void clientChanged(eu::tgcm::kontroller::Client* client);
+
 public slots:
     void refresh();
-    void playFile();
+	void playFile();
+	void setClient(eu::tgcm::kontroller::Client* client);
+
 private slots:
     void handleRefresh_();
 };

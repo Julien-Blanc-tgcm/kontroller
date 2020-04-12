@@ -13,7 +13,7 @@ ApplicationWindow {
     allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
     cover: {
-        if(statusService.connectionStatus === 2)
+        if(appClient.connectionStatus === 2)
             return Qt.resolvedUrl("cover/CoverPage.qml")
         else
             return Qt.resolvedUrl("cover/UnconnectedCover.qml");
@@ -23,30 +23,11 @@ ApplicationWindow {
         }
     }
 
-    Settings {
-        id: settings
-    }
     StatusService {
         id:statusService
-        onConnectionStatusChanged: {
-            if(connectionStatus === 2)
-            {
-                //pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"))
-            }
-        }
-        onServerChanged: {
-            for(var i = 0; i < servers.length; ++i)
-            {
-                if(servers[i].uuid === statusService.server)
-                {
-                    settings.setCurrentServerIdx(i);
-                }
-            }
-        }
+        settings: appSettings
     }
-    DeviceInformation {
-        id:deviceInformation
-    }
+
     Notification {
         id: theNotif
         appName: "kontroller"
@@ -54,8 +35,8 @@ ApplicationWindow {
         category: "kontroller"
     }
 
-    DownloadService {
-        id:downloadService
+    Connections {
+        target: appClient.downloadService
         onDownloadStarted:
         {
             var theFile = file;
