@@ -5,12 +5,12 @@ import harbour.eu.tgcm 1.0
 CoverBackground {
     anchors.fill: parent
 
-    PlayingInformation {
-        id:playingInformation
-    }
+    property var player: appClient.playerService.players.length > 0? appClient.playerService.players[0]:null
+
     Label {
         id:lbl
-        text:playingInformation.currentItem?playingInformation.currentItem.label:""
+        text:player && player.playingInformation?
+                     player.playingInformation.currentItem.label:""
         anchors.top:parent.top
         anchors.left: parent.left
         anchors.right: parent.right
@@ -19,7 +19,7 @@ CoverBackground {
         horizontalAlignment: Text.AlignHCenter
     }
     Image {
-        source: playingInformation.currentItem?playingInformation.currentItem.thumbnail:""
+        source: player?player.playingInformation.currentItem.thumbnail:""
         anchors.top:lbl.bottom
         anchors.left: parent.left
         anchors.leftMargin: Theme.paddingSmall
@@ -35,34 +35,25 @@ CoverBackground {
         CoverAction {
             iconSource: "image://theme/icon-cover-next"
             onTriggered: {
-                if(playerController.players.length > 0)
+                if(player)
                 {
-                    var player = playerController.players[0];
-                    playerController.next(player.playerId);
+                    player.next();
                 }
             }
         }
         CoverAction {
             iconSource: {
-                if(playerController.players.length > 0)
-                {
-                    var player = playerController.players[0];
-                    if(player.speed > 0)
-                        return "image://theme/icon-cover-pause"
-                }
+                if(player && player.speed > 0)
+                    return "image://theme/icon-cover-pause"
                 return "image://theme/icon-cover-play"
             }
             onTriggered: {
-                if(playerController.players.length > 0)
+                if(player)
                 {
-                    var player = playerController.players[0];
-                    playerController.playPause(player.playerId);
+                    player.playPause();
                 }
             }
         }
     }
 
-    PlayerControl {
-        id:playerController
-    }
 }

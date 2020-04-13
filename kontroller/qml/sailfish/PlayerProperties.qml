@@ -6,10 +6,6 @@ import Sailfish.Silica 1.0
 Item {
     property var player
 
-    PlayerControl {
-        client: appClient
-        id:control
-    }
     Column {
         anchors.left: parent.left
         anchors.right: parent.right
@@ -26,7 +22,7 @@ Item {
                     model:player?player.subtitles:[]
                     delegate: MenuItem {
                         text: model.name
-                        onClicked: control.switchSubtitle(player.playerId, model.modelData.index)
+                        onClicked: if(player) { player.currentSubtitleIndex = model.modelData.index; }
                     }
                 }
             }
@@ -44,18 +40,11 @@ Item {
                     model:player?player.audioStreams:[]
                     delegate: MenuItem {
                         text:model.displayName
-                        onClicked: control.switchAudioStream(player.playerId, model.index)
+                        onClicked: if(player) { player.currentAudioStream = model.modelData.index; }
                     }
                 }
             }
             value:""
-        }
-    }
-    onPlayerChanged: {
-        if(player)
-        {
-            player.onCurrentSubtitleIndexChanged.connect(setSubsIndex);
-            player.onCurrentAudioStreamIndexChanged.connect(setAudioIndex);
         }
     }
 
@@ -147,6 +136,14 @@ Item {
                 control.switchAudioStream(player.playerId, item.index)
             }
         }
+    }
+
+    Component.onCompleted:
+    {
+        player.onCurrentSubtitleIndexChanged.connect(setSubsIndex);
+        player.onCurrentAudioStreamIndexChanged.connect(setAudioIndex);
+        setSubsIndex();
+        setAudioIndex();
     }
 
 }

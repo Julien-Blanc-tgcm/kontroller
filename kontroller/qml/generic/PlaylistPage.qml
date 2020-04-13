@@ -4,17 +4,9 @@ import "."
 Rectangle{
     id:main
 
-    property alias playlistId : service.playlistId
-    property alias playlistType: service.playlistType
-    property alias playlistPosition: service.playlistPosition
+    service: null
 
     color:"#000"
-
-    PlaylistService
-    {
-        id: service
-        client: appClient
-    }
 
     Text {
         color:Styling.textColor

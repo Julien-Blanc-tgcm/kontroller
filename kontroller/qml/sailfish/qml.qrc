@@ -24,6 +24,7 @@
         <file>PlayerProperties.qml</file>
         <file>ManageZones.qml</file>
         <file>ServerSettingsPage.qml</file>
+        <file>PlayerControl.qml</file>
     </qresource>
     <qresource prefix="/cover">
         <file alias="CoverPage.qml">cover/CoverPage.qml</file>

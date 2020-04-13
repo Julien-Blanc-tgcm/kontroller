@@ -101,13 +101,13 @@
     <name>CurrentlyPlaying</name>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="195"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="198"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="104"/>
         <source>Nothing playing</source>
         <translation>Aucune lecture en cours</translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="200"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="203"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="109"/>
         <source>Unknow artist</source>
         <translation>Artiste inconnu</translation>
     </message>

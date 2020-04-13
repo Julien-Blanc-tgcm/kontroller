@@ -1,11 +1,17 @@
 #ifndef EU_TGCM_KONTROLLER_PLAYER_H
 #define EU_TGCM_KONTROLLER_PLAYER_H
 
-#include <QObject>
-#include <QTimer>
-#include "subtitle.h"
-#include <QQmlListProperty>
 #include "audiostream.h"
+#include "subtitle.h"
+
+#include "playinginformation.h"
+
+#include <QObject>
+#include <QQmlListProperty>
+#include <QTimer>
+#include <QVector>
+
+class QJsonRpcServiceReply;
 
 namespace eu
 {
@@ -16,222 +22,230 @@ namespace kontroller
 
 class Player : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
-    int playerId_;
-    QString type_;
-    QString current_;
-    int speed_;
-    int playlistPosition_;
-    double percentage_;
-    int totalTime_;
-    int time_;
+	int playerId_;
+	QString type_;
+	QString current_;
+	int speed_;
+	int playlistPosition_;
+	double percentage_;
+	int totalTime_;
+	int time_;
 
-    QTimer timer_;
+	QTimer timer_;
 
-    bool shuffled_ = false;
-    bool canMove_ = false;
-    bool canRepeat_ = false;
-    bool canShuffle_ = false;
-    int repeat_ = 0;
-    bool live_ = false;
-    bool partyMode_ = false;
-    bool subtitlesEnabled_ = false;
-    bool canSeek_ = false;
-    int playlistId_ = -1;
-    std::vector<Subtitle*> subtitles_;
-    int currentSubtitleIndex_ = -1;
-    std::vector<AudioStream*> audioStreams_;
-    int currentAudioStreamIndex_ = -1;
+	bool shuffled_ = false;
+	bool canMove_ = false;
+	bool canRepeat_ = false;
+	bool canShuffle_ = false;
+	int repeat_ = 0;
+	bool live_ = false;
+	bool partyMode_ = false;
+	bool subtitlesEnabled_ = false;
+	bool canSeek_ = false;
+	int playlistId_ = -1;
+	QVector<Subtitle*> subtitles_;
+	int currentSubtitleIndex_ = -1;
+	QVector<AudioStream*> audioStreams_;
+	int currentAudioStreamIndex_ = -1;
 
+	Client* client_ = nullptr;
+	eu::tgcm::kontroller::PlayingInformation* playingInformation_ = nullptr;
+	PlaylistService* playlistService_ = nullptr;
 
 public:
-    explicit Player(QObject *parent = 0);
+	explicit Player(Client* client, QObject *parent = 0);
 
-    Q_PROPERTY(int playerId READ playerId WRITE setPlayerId NOTIFY playerIdChanged)
-    Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(QString current READ current WRITE setCurrent NOTIFY currentChanged)
-    Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(int playlistPosition READ playlistPosition WRITE setPlaylistPosition NOTIFY playlistPositionChanged)
-    Q_PROPERTY(double percentage READ percentage WRITE setPercentage NOTIFY percentageChanged)
-    Q_PROPERTY(int time READ time WRITE setTime NOTIFY timeChanged)
-    Q_PROPERTY(int totalTime READ totalTime WRITE setTotalTime NOTIFY totalTimeChanged)
-    Q_PROPERTY(bool shuffled READ shuffled WRITE setShuffled NOTIFY shuffledChanged)
-    Q_PROPERTY(bool canMove READ canMove WRITE setCanMove NOTIFY canMoveChanged)
-    Q_PROPERTY(bool canRepeat READ canRepeat WRITE setCanRepeat NOTIFY canRepeatChanged)
-    Q_PROPERTY(bool canShuffle READ canShuffle WRITE setCanShuffle NOTIFY canShuffleChanged)
-    Q_PROPERTY(int repeat READ repeat WRITE setRepeat NOTIFY repeatChanged)
-    Q_PROPERTY(bool live READ live WRITE setLive NOTIFY liveChanged)
-    Q_PROPERTY(bool partyMode READ partyMode WRITE setPartyMode NOTIFY partyModeChanged)
-    Q_PROPERTY(bool canSeek READ canSeek WRITE setCanSeek NOTIFY canSeekChanged)
-    Q_PROPERTY(int playlistId READ playlistId WRITE setPlaylistId NOTIFY playlistIdChanged)
-   // Q_PROPERTY(bool subtitlesEnabled READ subtitlesEnabled WRITE setSubtitlesEnabled NOTIFY subtitlesChanged)
-    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Subtitle> subtitles READ subtitles NOTIFY subtitlesChanged)
-    Q_PROPERTY(int currentSubtitleIndex READ currentSubtitleIndex WRITE setCurrentSubtitleIndex NOTIFY currentSubtitleIndexChanged)
-    Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::AudioStream> audioStreams READ audioStreams NOTIFY audioStreamsChanged)
-    Q_PROPERTY(int currentAudioStreamIndex READ currentAudioStreamIndex WRITE setCurrentAudioStreamIndex NOTIFY currentAudioStreamIndexChanged)
+	Q_PROPERTY(int playerId READ playerId WRITE setPlayerId NOTIFY playerIdChanged)
+	Q_PROPERTY(QString type READ type NOTIFY typeChanged)
+	Q_PROPERTY(QString current READ current NOTIFY currentChanged)
+	Q_PROPERTY(int speed READ speed WRITE setSpeed NOTIFY speedChanged)
+	Q_PROPERTY(int playlistPosition READ playlistPosition WRITE setPlaylistPosition NOTIFY playlistPositionChanged)
+	Q_PROPERTY(double percentage READ percentage WRITE setPercentage NOTIFY percentageChanged)
+	Q_PROPERTY(int time READ time NOTIFY timeChanged)
+	Q_PROPERTY(int totalTime READ totalTime NOTIFY totalTimeChanged)
+	Q_PROPERTY(bool shuffled READ shuffled WRITE setShuffled NOTIFY shuffledChanged)
+	Q_PROPERTY(bool canMove READ canMove NOTIFY canMoveChanged)
+	Q_PROPERTY(bool canRepeat READ canRepeat NOTIFY canRepeatChanged)
+	Q_PROPERTY(bool canShuffle READ canShuffle NOTIFY canShuffleChanged)
+	Q_PROPERTY(int repeat READ repeat WRITE setRepeat NOTIFY repeatChanged)
+	Q_PROPERTY(bool live READ live NOTIFY liveChanged)
+	Q_PROPERTY(bool partyMode READ partyMode NOTIFY partyModeChanged)
+	Q_PROPERTY(bool canSeek READ canSeek NOTIFY canSeekChanged)
+	Q_PROPERTY(int playlistId READ playlistId NOTIFY playlistIdChanged)
+	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Subtitle> subtitles READ subtitles NOTIFY subtitlesChanged)
+	Q_PROPERTY(int currentSubtitleIndex READ currentSubtitleIndex WRITE setCurrentSubtitleIndex \
+	           NOTIFY currentSubtitleIndexChanged)
+	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::AudioStream> audioStreams READ audioStreams NOTIFY audioStreamsChanged)
+	Q_PROPERTY(int currentAudioStreamIndex READ currentAudioStreamIndex WRITE setCurrentAudioStreamIndex NOTIFY currentAudioStreamIndexChanged)
 
-    /*!
-     * \brief playerId id of the player
-     * \return
-     */
-    int playerId() const;
-    Q_INVOKABLE void setPlayerId(int playerId);
+	Q_PROPERTY(eu::tgcm::kontroller::PlayingInformation* playingInformation READ playingInformation
+	           WRITE setPlayingInformation NOTIFY playingInformationChanged)
+	Q_PROPERTY(eu::tgcm::kontroller::PlaylistService* playlistService READ playlistService NOTIFY playlistServiceChanged)
 
-    QString type() const;
-    void setType(const QString &type);
+	/*!
+	 * \brief playerId id of the player
+	 * \return
+	 */
+	int playerId() const;
+	void setPlayerId(int playerId);
 
-    QString current() const;
-    void setCurrent(const QString &current);
+	QString type() const;
 
-    int speed() const;
-    void setSpeed(int speed);
+	// is used by playerservice
+	void setType(const QString &type);
 
-    int playlistPosition() const;
-    void setPlaylistPosition(int playlistPosition);
+	QString current() const;
+	void setCurrent(const QString &current);
 
-    double percentage() const;
+	int speed() const;
+	// is used by player service
+	void setSpeed(int speed);
 
-    int time() const;
+	int playlistPosition() const;
+	void setPlaylistPosition(int playlistPosition);
 
-    int totalTime() const;
+	double percentage() const;
 
-    bool shuffled() const;
+	int time() const;
+	// is used by player service to update the time when a notification is received
+	void setTime(int time);
 
-    bool canMove() const;
+	int totalTime() const;
 
-    bool canRepeat() const;
+	bool shuffled() const;
 
-    bool canShuffle() const;
+	bool canMove() const;
 
-    int repeat() const;
+	bool canRepeat() const;
 
-    bool live() const;
+	bool canShuffle() const;
 
-    bool partyMode() const;
+	int repeat() const;
 
-    bool subtitlesEnabled() const;
+	bool live() const;
 
-    bool canSeek() const
-    {
-        return canSeek_;
-    }
+	bool partyMode() const;
 
-    int playlistId() const
-    {
-        return playlistId_;
-    }
+	bool subtitlesEnabled() const;
 
-    int currentSubtitleIndex() const
-    {
-        return currentSubtitleIndex_;
-    }
+	bool canSeek() const;
 
-    QQmlListProperty<Subtitle> subtitles();
+	int playlistId() const;
 
-    void setSubtitles(std::vector<Subtitle*> && subtitles, int currentSubtitleIndex);
+	int currentSubtitleIndex() const;
 
-    QQmlListProperty<AudioStream> audioStreams();
+	QQmlListProperty<Subtitle> subtitles();
 
-    void setAudioStreams(std::vector<AudioStream*>&& audioStreams, int currentAudioStreamIndex);
+	QQmlListProperty<AudioStream> audioStreams();
 
-    int currentAudioStreamIndex() const
-    {
-        return currentAudioStreamIndex_;
-    }
+	void setAudioStreams(QVector<AudioStream*> audioStreams, int currentAudioStreamIndex);
+
+	int currentAudioStreamIndex() const;
+
+	eu::tgcm::kontroller::PlayingInformation* playingInformation();
+	eu::tgcm::kontroller::PlaylistService* playlistService();
+
+	Q_INVOKABLE void stop();
+	Q_INVOKABLE void seekBackward();
+	Q_INVOKABLE void seekForward();
+	Q_INVOKABLE void playPause();
+	Q_INVOKABLE void previous();
+	Q_INVOKABLE void next();
+	Q_INVOKABLE void moveToFirst();
 
 signals:
-    void playerIdChanged();
-    void typeChanged();
-    void currentChanged();
-    void speedChanged();
-    void playlistPositionChanged();
-    void percentageChanged(double percentage);
-    void totalTimeChanged(int totalTime);
-    void timeChanged(int time);
+	void playerIdChanged();
+	void typeChanged();
+	void currentChanged();
+	void speedChanged();
+	void playlistPositionChanged();
+	void percentageChanged(double percentage);
+	void totalTimeChanged(int totalTime);
+	void timeChanged(int time);
 
-    void shuffledChanged(bool shuffled);
+	void shuffledChanged(bool shuffled);
 
-    void canMoveChanged(bool canMove);
+	void canMoveChanged(bool canMove);
 
-    void canRepeatChanged(bool canRepeat);
+	void canRepeatChanged(bool canRepeat);
 
-    void canShuffleChanged(bool canShuffle);
+	void canShuffleChanged(bool canShuffle);
 
-    void repeatChanged(int repeat);
+	void repeatChanged(int repeat);
 
-    void liveChanged(bool live);
+	void liveChanged(bool live);
 
-    void partyModeChanged(bool partyMode);
+	void partyModeChanged(bool partyMode);
 
-    void canSeekChanged(bool canSeek);
+	void canSeekChanged(bool canSeek);
 
-    void playlistIdChanged(int playlistId);
+	void playlistIdChanged(int playlistId);
 
-    void currentSubtitleIndexChanged();
-    void subtitlesChanged();
+	void currentSubtitleIndexChanged();
+	void subtitlesChanged();
 
-    void audioStreamsChanged();
-    void currentAudioStreamIndexChanged();
+	void audioStreamsChanged();
+	void currentAudioStreamIndexChanged();
+
+	void playingInformationChanged(eu::tgcm::kontroller::PlayingInformation* playingInformation);
+	void playlistServiceChanged();
 
 public slots:
-    void setPercentage(double percentage);
-    void setTime(int time);
-    void setTotalTime(int totalTime);
-    void setShuffled(bool shuffled);
+	void setPercentage(double percentage);
 
-    void setCanMove(bool canMove);
+	void setShuffled(bool shuffled);
 
-    void setCanRepeat(bool canRepeat);
+	/**
+	 * @brief setRepeat set repeat. 0 is off, 1 is song, 2 is all
+	 * @param repeat
+	 */
+	void setRepeat(int repeat);
 
-    void setCanShuffle(bool canShuffle);
+	void setCurrentSubtitleIndex(int index);
 
-    void setRepeat(int repeat);
+	void setCurrentAudioStreamIndex(int index);
 
-    void setLive(bool live);
+	void setPlayingInformation(eu::tgcm::kontroller::PlayingInformation* playingInformation);
 
-    void setPartyMode(bool partyMode);
-
-//    void setSubtitlesEnabled(bool subtitlesEnabled);
-
-    void setCanSeek(bool canSeek)
-    {
-        if (canSeek_ == canSeek)
-            return;
-
-        canSeek_ = canSeek;
-        emit canSeekChanged(canSeek);
-    }
-
-    void setPlaylistId(int playlistId)
-    {
-        if (playlistId_ == playlistId)
-            return;
-
-        playlistId_ = playlistId;
-        emit playlistIdChanged(playlistId);
-    }
-
-    void setCurrentSubtitleIndex(int index)
-    {
-        if(currentSubtitleIndex_ != index)
-        {
-            currentSubtitleIndex_ = index;
-            emit currentSubtitleIndexChanged();
-        }
-    }
-
-    void setCurrentAudioStreamIndex(int index)
-    {
-        if(currentAudioStreamIndex_ != index)
-        {
-            currentAudioStreamIndex_ = index;
-            emit currentAudioStreamIndexChanged();
-        }
-    }
+	void refreshPlayerStatus();
 
 private slots:
-    void updateTimer_();
+	void updateTimer_();
+
+	void handlePlayerStatus_();
+
+private:
+	// these functions are the internal ones, used to alter the internal variables, received from the json rpc replies
+	void setType_(QString type);
+	void setPercentage_(double percentage);
+	void setTime_(int time);
+	void setTotalTime_(int totalTime);
+	void setShuffled_(bool shuffled);
+	void setCanMove_(bool canMove);
+	void setCanRepeat_(bool canRepeat);
+	void setCanShuffle_(bool canShuffle);
+	void setRepeat_(int repeat);
+	void setLive_(bool live);
+	void setPartyMode_(bool partyMode);
+	void setSpeed_(int speed);
+	void setCanSeek_(bool canSeek);
+	void setPlaylistId_(int playlistId);
+	void setPlaylistPosition_(int playlistPosition);
+	void setCurrentSubtitleIndex_(int index);
+
+	void setCurrentAudioStreamIndex_(int index);
+
+private slots:
+	void handleShuffleResult_(QJsonRpcServiceReply* reply, bool shuffle);
+	void handleSetAudioStreamResult_(QJsonRpcServiceReply* reply, int index);
+	void handleSetSubtitleResult_(QJsonRpcServiceReply* reply, int index);
+	void handlePlayPause_();
+	void handleSetRepeatResult_(QJsonRpcServiceReply* reply, QString repeat);
+	void handleGetItemResponse_();
+
+	void refreshCurrentlyPlaying_();
 };
 
 }

@@ -33,7 +33,6 @@ SOURCES += main.cpp \
     episodeinformationservice.cpp \
 #    playlistcontrol.cpp \
     playlistitem.cpp \
-    playercontrol.cpp \
     subtitle.cpp \
     client.cpp \
     playinginformation.cpp \
@@ -129,7 +128,6 @@ HEADERS += \
     episodeinformationservice.h \
 #    playlistcontrol.h \
     playlistitem.h \
-    playercontrol.h \
     subtitle.h \
     client.h \
     playinginformation.h \

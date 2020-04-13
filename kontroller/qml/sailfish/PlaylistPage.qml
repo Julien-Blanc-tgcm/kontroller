@@ -5,20 +5,7 @@ import "."
 Page{
     id:main
 
-    property alias playlistId : service.playlistId
-    property alias playlistType: service.playlistType
-    property alias playlistPosition: service.playlistPosition
-
-    onStatusChanged: {
-        if(status === PageStatus.Active)
-            service.refresh()
-    }
-
-    PlaylistService
-    {
-        id: service
-        client: appClient
-    }
+    property var service;
 
     SilicaListView {
         header:PageHeader {
@@ -27,10 +14,10 @@ Page{
 
         id:thelist
         anchors.fill:parent
-        model: service.items
+        model: service?service.items:[]
         clip:true
         spacing:1
-        currentIndex: service.playlistPosition
+        currentIndex: service?service.playlistPosition:-1
 
         delegate : ListItem {
             contentHeight: Theme.itemSizeMedium
@@ -45,7 +32,7 @@ Page{
 
             Label {
                 id : theText
-                text: model.label
+                text: model.modelData.label
                 elide: Text.ElideRight
                 clip:true
                 anchors.left: switchTo.right
@@ -75,6 +62,17 @@ Page{
         service.clearPlaylist()
     }
 
+    Connections {
+        target: appClient.playerService
+        onPlayersChanged: {
+            if(appClient.playerService.players.length > 0)
+            {
+                service = appClient.playerService.players[0].playlistService
+            }
+            else
+                service = nullptr
+        }
+    }
 
 }
 

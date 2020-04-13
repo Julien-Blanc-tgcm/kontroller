@@ -149,7 +149,7 @@ Page {
         id:mArea
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: controls.bottom
+        anchors.bottom: parent.bottom
         anchors.top:theRow.bottom
         property int mouseStartX;
         property int mouseStartY;

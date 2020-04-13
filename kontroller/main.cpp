@@ -13,10 +13,9 @@
 #include "downloadservice.h"
 #include "remote.h"
 #include "client.h"
-#include "playercontrol.h"
 #include "statusservice.h"
 #include "player.h"
-//#include "playlistcontrol.h"
+#include "playerservice.h"
 #include "playlistitem.h"
 #include "videoservice.h"
 #include "applicationsettings.h"
@@ -48,6 +47,8 @@ void registerTypes()
 #endif
 	qRegisterMetaType<File>("File");
 	qRegisterMetaTypeStreamOperators<File>("File");
+	qRegisterMetaType<PlaylistItem>();
+	qRegisterMetaTypeStreamOperators<PlaylistItem>("PlaylistItem");
     int ret = qmlRegisterType<File>();
     assert(ret);
 	qRegisterMetaType<QVector<File>>("QFileVector");
@@ -67,22 +68,20 @@ void registerTypes()
 	          qmlprefix, 1, 0, "ApplicationSettings",
 	          QString::fromUtf8("ApplicationSettings must be created in C++ and exposed as a property"));
 	assert(ret);
-    ret = qmlRegisterType<MusicService>(qmlprefix, 1, 0, "MusicService");
-    assert(ret);
-    ret = qmlRegisterType<Remote>(qmlprefix, 1, 0, "Remote");
-    assert(ret);
-	ret = qmlRegisterType<PlayerControl>(qmlprefix, 1, 0, "PlayerControl");
+	ret = qmlRegisterType<MusicService>(qmlprefix, 1, 0, "MusicService");
+	assert(ret);
+	ret = qmlRegisterType<Remote>(qmlprefix, 1, 0, "Remote");
 	assert(ret);
 	ret = qmlRegisterUncreatableType<PlayerService>(qmlprefix, 1, 0, "PlayerService",
-	                                                QString::fromUtf8("Player service not creatable"));
+	                                                QString::fromUtf8("PlayerService is not creatable from qml"));
 	assert(ret);
 	ret = qmlRegisterType<StatusService>(qmlprefix, 1, 0, "StatusService");
 	assert(ret);
-	ret = qmlRegisterType<Player>();
+	ret = qmlRegisterUncreatableType<Player>(qmlprefix, 1, 0, "Player",
+	                                         QString::fromUtf8("Player is not creatable from qml"));
 	assert(ret);
-	ret = qmlRegisterType<PlaylistService>(qmlprefix, 1, 0, "PlaylistService");
-    assert(ret);
-    ret = qmlRegisterType<PlaylistItem>();
+	ret = qmlRegisterUncreatableType<PlaylistService>(qmlprefix, 1, 0, "PlaylistService",
+	                                                  "PlaylistService is not creatable from qml");
     assert(ret);
     ret = qmlRegisterType<VideoService>(qmlprefix, 1, 0, "VideoService");
     assert(ret);
@@ -104,7 +103,8 @@ void registerTypes()
     assert(ret);
     ret = qmlRegisterType<EpisodeInformationService>(qmlprefix, 1, 0, "EpisodeInformationService");
     assert(ret);
-    ret = qmlRegisterType<PlayingInformation>(qmlprefix, 1, 0, "PlayingInformation");
+	ret = qmlRegisterUncreatableType<PlayingInformation>(qmlprefix, 1, 0, "PlayingInformation",
+	                                                     "PlayingInformation cannot be created form qml");
     assert(ret);
 	ret = qmlRegisterUncreatableType<DownloadService>(
 	          qmlprefix, 1, 0, "DownloadService",
