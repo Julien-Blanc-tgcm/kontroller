@@ -55,6 +55,8 @@ void MinidspVolumePlugin::setConnected(bool connected)
 
 	connected_ = connected;
 	emit connectedChanged(connected_);
+	if(pendingQueries_.size() > 0)
+		executeNextQuery_();
 }
 
 QString MinidspVolumePlugin::realName_() const
@@ -74,12 +76,13 @@ int MinidspVolumePlugin::minVolume_() const
 
 int MinidspVolumePlugin::currentVolume_() const
 {
-	return 255 + currentVolumeStored_;
+	return currentVolumeStored_ + 255;
 }
 
 void MinidspVolumePlugin::updateVolume_(int newVolume)
 {
-	auto q = minidsp::Query::changeVolumeQuery(newVolume-255);
+	auto q = minidsp::Query::changeVolumeQuery(newVolume - 255);
+	qDebug() << "Set volume " << (newVolume - 255);
 	if(minidsp::Query::isValid(q))
 	{
 		pushPendingQuery_(q);
@@ -96,7 +99,7 @@ int MinidspVolumePlugin::volumeStep_() const
 void MinidspVolumePlugin::refreshVolume_()
 {
 	auto q = minidsp::Query::deviceInformationQuery();
-	pendingQueries_.push_back(q);
+	pushPendingQuery_(q);
 	executeNextQuery_();
 }
 
@@ -131,6 +134,7 @@ void MinidspVolumePlugin::handleReply_()
 	if(rep.type() == minidsp::Reply::Type::VolumeReply)
 	{
 		currentVolumeStored_ = rep.volume();
+		qDebug() << "Received volume " << rep.volume();
 		emit currentVolumeChanged(currentVolume_());
 	}
 	else if(rep.type() == minidsp::Reply::Type::DeviceInformationReply)
@@ -143,6 +147,8 @@ void MinidspVolumePlugin::handleReply_()
 	{
 		muted_ = !muted_;
 	}
+	if(pendingQueries_.size() > 0)
+		executeNextQuery_();
 }
 
 void MinidspVolumePlugin::handleConnected_()
