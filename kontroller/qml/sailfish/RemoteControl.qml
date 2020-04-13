@@ -19,9 +19,13 @@ Page {
         duration: 100 // ms
     }
 
-    property int buttonWidth : page.width / 5;
+    property int buttonWidth : Theme.iconSizeLarge;
 
     property int runningCount:0
+
+    // gesture step is used by calculation for gestures, to be resolution independant. Otherwise gesture are
+    // unusable if resolution is too high (xperia xa2 for example)
+    property int gestureStep : Math.min(page.width, page.height) / 4
 
     Timer {
         id:timer;
@@ -37,30 +41,30 @@ Page {
             var diffY = mouseEndY - mArea.mouseStartY;
             if(Math.abs(diffX) > Math.abs(diffY))
             {
-                if(diffX > 100)
+                if(diffX > gestureStep)
                     curButton = "right";
-                else if(diffX < -100)
+                else if(diffX < -gestureStep)
                     curButton = "left";
 
-                if(Math.abs(diffX) > 300)
+                if(Math.abs(diffX) > 3 * gestureStep)
                     interval = 100;
-                else if(Math.abs(diffX) < 100)
+                else if(Math.abs(diffX) < gestureStep)
                     interval = 400;
                 else
-                    interval = 400 - (Math.abs(diffX) / 3 * 4);
+                    interval = 400 - (Math.abs(diffX * 100 / gestureStep) / 3 * 4);
             }
             else
             {
-                if(diffY > 100)
+                if(diffY > gestureStep)
                     curButton = "down";
-                else if(diffY < -100)
+                else if(diffY < -gestureStep)
                     curButton = "up";
-                if(Math.abs(diffY) > 300)
+                if(Math.abs(diffY) > 3 * gestureStep)
                     interval = 100;
-                else if(Math.abs(diffY) < 100)
+                else if(Math.abs(diffY) < gestureStep)
                     interval = 400;
                 else
-                    interval = 400 - (Math.abs(diffY) / 3 * 4);
+                    interval = 400 - (Math.abs(diffY * 100 / gestureStep) / 3 * 4);
             }
 //            console.log(diffX, diffY, curButton);
 
@@ -141,12 +145,11 @@ Page {
         }
     }
 
-
     MouseArea {
         id:mArea
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: controls.bottom
         anchors.top:theRow.bottom
         property int mouseStartX;
         property int mouseStartY;
@@ -172,14 +175,14 @@ Page {
             var diffY = mouseEndY - mouseStartY;
             timer.stop();
             timer.curButton = "";
-            if(diffX < -200 && diffY < -200) // back gesture
+            if(diffX < (-2 * gestureStep) && diffY < (-2 * gestureStep)) // back gesture
             {
                 remoteController.back();
                 commandFeedback.start();
                 return;
             }
 
-            if(Math.abs(diffX) < 100 && Math.abs(diffY) < 100)
+            if(Math.abs(diffX) < gestureStep && Math.abs(diffY) < gestureStep)
             {
                 if(eventTimeEnd - eventTimeStart < 200)
                 {
@@ -195,17 +198,17 @@ Page {
             {
                 if(diffX < 0)
                 {
-                    if(diffX < -300)
+                    if(diffX < (-3 * gestureStep))
                     {
                         remoteController.left();
                         commandFeedback.start();
                     }
-                    if(diffX < -200)
+                    if(diffX < (-2 * gestureStep))
                     {
                         remoteController.left();
                         commandFeedback.start();
                     }
-                    if(diffX < -100)
+                    if(diffX < -gestureStep)
                     {
                         commandFeedback.start();
                         remoteController.left();
@@ -213,17 +216,17 @@ Page {
                 }
                 else
                 {
-                    if(diffX > 300)
+                    if(diffX > (3 * gestureStep))
                     {
                         remoteController.left();
                         commandFeedback.start();
                     }
-                    if(diffX > 200)
+                    if(diffX > (2 * gestureStep))
                     {
                         remoteController.left();
                         commandFeedback.start();
                     }
-                    if(diffX > 100)
+                    if(diffX > (1 * gestureStep))
                     {
                         remoteController.left();
                         commandFeedback.start();
@@ -232,32 +235,32 @@ Page {
             }
             else
             {
-                if(diffY < -300)
+                if(diffY < (-3 * gestureStep))
                 {
                     remoteController.up();
                     commandFeedback.start();
                 }
-                if(diffY < -200)
+                if(diffY < (-2 * gestureStep))
                 {
                     remoteController.up();
                     commandFeedback.start();
                 }
-                if(diffY < -100)
+                if(diffY < -gestureStep)
                 {
                     remoteController.up();
                     commandFeedback.start();
                 }
-                if(diffY > 300)
+                if(diffY > (3 * gestureStep))
                 {
                     remoteController.down();
                     commandFeedback.start();
                 }
-                if(diffY > 200)
+                if(diffY > (2 * gestureStep))
                 {
                     remoteController.down();
                     commandFeedback.start();
                 }
-                if(diffY > 100)
+                if(diffY > gestureStep)
                 {
                     remoteController.down();
                     commandFeedback.start();
@@ -271,31 +274,31 @@ Page {
     Image {
         source: "image://theme/icon-m-page-up?" + (timer.curButton == "up"?Theme.highlightColor:Theme.primaryColor);
         anchors.horizontalCenter: mArea.horizontalCenter
-        y: theRow.height + mArea.height * 0.30
-        width:mArea.height * 0.15
-        height:mArea.height * 0.15
+        y: mArea.y + mArea.height / 2 - (4 * Theme.iconSizeExtraLarge / 3)
+        width:Theme.iconSizeExtraLarge
+        height:Theme.iconSizeExtraLarge
     }
     Image {
         source: "image://theme/icon-m-page-down?" + (timer.curButton == "down"?Theme.highlightColor:Theme.primaryColor)
         anchors.horizontalCenter: mArea.horizontalCenter
-        y: theRow.height + mArea.height * 0.55
-        width:mArea.height * 0.15
-        height:mArea.height * 0.15
+        y: mArea.y + mArea.height / 2 + (Theme.iconSizeExtraLarge / 3)
+        width: Theme.iconSizeExtraLarge
+        height: Theme.iconSizeExtraLarge
     }
     Image {
         source: "image://theme/icon-m-page-up?" + (timer.curButton == "right"?Theme.highlightColor:Theme.primaryColor)
         anchors.verticalCenter: mArea.verticalCenter
-        x:mArea.width / 2 - (width * 4 / 3)
-        width:mArea.height * 0.15
-        height:width
+        x: mArea.x + mArea.width / 2 - (4 * Theme.iconSizeExtraLarge / 3)
+        width:Theme.iconSizeExtraLarge
+        height:Theme.iconSizeExtraLarge
         rotation:270
     }
     Image {
         source: "image://theme/icon-m-page-up?" + (timer.curButton == "left"?Theme.highlightColor:Theme.primaryColor)
         anchors.verticalCenter: mArea.verticalCenter
-        x:mArea.width / 2 + (width / 3)
-        width:mArea.height * 0.15
-        height:width
+        x: mArea.x + mArea.width / 2 + (Theme.iconSizeExtraLarge / 3)
+        width:Theme.iconSizeExtraLarge
+        height:Theme.iconSizeExtraLarge
         rotation:90
     }
 

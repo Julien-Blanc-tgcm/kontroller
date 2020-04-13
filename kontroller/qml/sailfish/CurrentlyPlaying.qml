@@ -32,12 +32,8 @@ Page {
             anchors.bottom: parent.bottom
             source : playingInformation.currentItem?playingInformation.currentItem.fanart:""
             id:fanartImg
-            height: {
-                if(sourceSize.height != 0)
-                    return width * sourceSize.height / sourceSize.width
-                else
-                    return 200
-            }
+            fillMode: Image.PreserveAspectFit
+            visible: orientation === Orientation.Landscape || orientation === Orientation.LandscapeInverted
         }
 
         Image {
@@ -46,8 +42,8 @@ Page {
             anchors.topMargin: 10
             anchors.rightMargin: 10
             source: playingInformation.currentItem?playingInformation.currentItem.thumbnail:""
-            height:width
-            width:parent.width / 3
+            height:Theme.iconSizeExtraLarge
+            width:Theme.iconSizeExtraLarge
             id:thumbnailImg
             fillMode: Image.PreserveAspectFit
         }

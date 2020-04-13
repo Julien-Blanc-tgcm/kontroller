@@ -48,7 +48,6 @@ Item {
                     }
                 }
             }
-            currentIndex: -1
             value:""
         }
     }
@@ -89,7 +88,7 @@ Item {
 
     function setAudioIndex()
     {
-        var i = this.getCurrentAudioIndex();
+        var i = getCurrentAudioIndex();
         if(i !== -1)
         {
             cbxStreams.currentIndex = i;
