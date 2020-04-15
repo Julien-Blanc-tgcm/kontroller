@@ -45,25 +45,26 @@ private:
 #endif
 	/*    int serverHttpPort_; */
 	bool ignoreWifiStatus_;
-	QString downloadFolder_;
+	DownloadLocation downloadLocation_;
 	QString lastServer_;
 
-	QVector<DownloadLocation*> possibleDownloadLocations_;
+	QVector<DownloadLocation> possibleDownloadLocations_;
 
 	static int getServerCount_(QQmlListProperty<Server>* list);
 	static Server* getServerAt_(QQmlListProperty<Server>* list, int index);
 
-	static int getDownloadLocationCount_(QQmlListProperty<DownloadLocation>* list);
-	static DownloadLocation* getDownloadLocationAt_(QQmlListProperty<DownloadLocation>* list, int index);
 public:
 	explicit ApplicationSettings(QObject* parent = nullptr);
 
 	Q_PROPERTY(bool ignoreWifiStatus READ ignoreWifiStatus WRITE setIgnoreWifiStatus NOTIFY ignoreWifiStatusChanged)
-	Q_PROPERTY(QString downloadFolder READ downloadFolder WRITE setDownloadFolder NOTIFY downloadFolderChanged)
 	Q_PROPERTY(QString lastServer READ lastServer WRITE setLastServer NOTIFY lastServerChanged)
 	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Server> servers READ servers NOTIFY serversChanged)
-	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::DownloadLocation> possibleDownloadLocations READ \
+	Q_PROPERTY(eu::tgcm::kontroller::DownloadLocation downloadLocation READ downloadLocation WRITE setDownloadLocation \
+	           NOTIFY downloadLocationChanged)
+	Q_PROPERTY(QVariantList possibleDownloadLocations READ \
 	           possibleDownloadLocations NOTIFY possibleDownloadLocationsChanged)
+	Q_PROPERTY(int downloadLocationIndex READ downloadLocationIndex WRITE setDownloadLocationIndex \
+	           NOTIFY downloadLocationIndexChanged)
 
 	QQmlListProperty<Server> servers();
 
@@ -79,15 +80,26 @@ public:
 #endif
 	bool ignoreWifiStatus() const;
 	void setIgnoreWifiStatus(bool ignoreWifiStatus);
-	QString downloadFolder() const;
-	void setDownloadFolder(const QString &downloadFolder);
+	DownloadLocation downloadLocation() const;
+
+	void setDownloadLocation(const DownloadLocation &downloadLocation);
+
+	int downloadLocationIndex() const;
+
+	void setDownloadLocationIndex(int index);
+	/**
+	 * @brief setDownloadLocationFolder sets the download location using the folder property, which should
+	 * be unique. Used by the settings
+	 * @param folder
+	 */
+	void setDownloadLocationFolder(QString const& folder);
 
 	void setLastServer(QString lastServerUuid);
 
 	QString lastServer() const;
 
 	int lastServerIndex() const;
-	QQmlListProperty<DownloadLocation> possibleDownloadLocations();
+	QVariantList possibleDownloadLocations();
 signals:
 	void lastServerChanged();
 	void serversChanged();
@@ -97,15 +109,14 @@ signals:
 	void dpiChanged(int dpi);
 #endif
 
-	void downloadFolderChanged(QString downloadFolder);
+	void downloadLocationChanged();
 	void possibleDownloadLocationsChanged();
-
+	void downloadLocationIndexChanged();
 public slots:
 	void save();
 	eu::tgcm::kontroller::Server* server(QString const& uuid);
 	eu::tgcm::kontroller::Server* newServer();
 	bool deleteServer(QString const& uuid);
-	void setDownloadLocation(DownloadLocation* downloadLocation);
 };
 
 }

@@ -10,7 +10,9 @@ namespace tgcm
 {
 namespace kontroller
 {
-KodiVolumePlugin::KodiVolumePlugin(QObject *parent) : VolumePlugin(parent)
+KodiVolumePlugin::KodiVolumePlugin(Client *parent) :
+    VolumePlugin(parent),
+    client_{parent}
 {
 
 }

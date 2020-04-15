@@ -4,7 +4,6 @@
 #include "minidspvolumeplugin.h"
 
 #include <QSettings>
-#include <QDebug>
 #include <QDir>
 #include <QDirIterator>
 #include <QStandardPaths>
@@ -47,7 +46,6 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 			useHttpInterface_ = val.toBool();
 		else
 			useHttpInterface_ = serverPort_ == 8080; */
-
 		val = settings.value("serverHttpPort");
 		if(!val.isNull() && val.canConvert(QVariant::Int))
 			server->setServerHttpPort(val.toInt());
@@ -65,35 +63,32 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 		else
 			server->setPassword(QString{});
 		val = settings.value("volumePlugin");
-		if(val.isNull() || !val.canConvert(QVariant::String) || val.toString() == KodiVolumePlugin::static_name())
-			server->setKodiVolumePlugin();
-		else if(val.toString() == MinidspVolumePlugin::static_name())
+		if(!val.isNull() && val.canConvert(QVariant::String))
 		{
-			settings.beginGroup(MinidspVolumePlugin::static_name());
-			val = settings.value("address");
-			if(val.canConvert(QVariant::String))
-				server->setMinidspVolumePlugin(val.toString());
+			server->setVolumePluginName(val.toString());
+			settings.beginGroup(val.toString());
+			QVariantMap map;
+			for(auto const& k : settings.allKeys())
+			{
+				map[k] = settings.value(k);
+			}
+			server->setVolumePluginParameters(map);
 			settings.endGroup();
 		}
-		if(server->volumePlugin() == nullptr) // failsafe, in case volume plugin init failed for some reason
-			server->setVolumePlugin(new KodiVolumePlugin(server));
-		servers_.push_back(std::move(server));
+		else
+			server->setVolumePluginName(KodiVolumePlugin::static_name());
+		servers_.push_back(server);
 	}
 	settings.endArray();
 
-	auto val = settings.value("downloadFolder");
-	if(!val.isNull() && val.canConvert(QVariant::String))
-		setDownloadFolder(val.toString());
-	else
-		setDownloadFolder(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).front());
-	val = settings.value("lastServer");
+	auto val = settings.value("lastServer");
 	if(!val.isNull() && val.canConvert(QVariant::String))
 		lastServer_ = val.toString();
 
-	possibleDownloadLocations_.push_back(
-	            new DownloadLocation(this));
-	possibleDownloadLocations_.back()->setType(DownloadLocation::LocationType::Phone);
-	possibleDownloadLocations_.back()->setBaseFolder(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).front());
+	DownloadLocation phone;
+	phone.setType(DownloadLocation::LocationType::Phone);
+	phone.setBaseFolder(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).front());
+	possibleDownloadLocations_.push_back(phone);
 	QDir dir{"/media/sdcard"};
 	if(dir.exists() && dir.isReadable())
 	{
@@ -103,28 +98,67 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 			iterator.next();
 			if(!iterator.fileName().startsWith(".") && iterator.fileInfo().isDir())
 			{
-				possibleDownloadLocations_.push_back(new DownloadLocation(this));
-				possibleDownloadLocations_.back()->setType(DownloadLocation::LocationType::MemoryCard);
-				possibleDownloadLocations_.back()->setBaseFolder(iterator.filePath());
+				DownloadLocation d;
+				d.setType(DownloadLocation::LocationType::MemoryCard);
+				d.setBaseFolder(iterator.filePath());
+				possibleDownloadLocations_.push_back(d);
 			}
 		}
 	}
+	val = settings.value("downloadFolder");
+	if(!val.isNull() && val.canConvert(QVariant::String))
+		setDownloadLocationFolder(val.toString());
+	else
+		setDownloadLocation(possibleDownloadLocations_.front());
+
 }
 
-QString ApplicationSettings::downloadFolder() const
+DownloadLocation ApplicationSettings::downloadLocation() const
 {
-    return downloadFolder_;
+	return downloadLocation_;
 }
 
-void ApplicationSettings::setDownloadFolder(const QString &downloadFolder)
+void ApplicationSettings::setDownloadLocationFolder(const QString& folder)
 {
-	downloadFolder_ = downloadFolder;
+	for(auto& l : possibleDownloadLocations_)
+	{
+		if(l.baseFolder() == folder)
+		{
+			setDownloadLocation(l);
+			return;
+		}
+	}
+	if(possibleDownloadLocations_.size() > 0)
+		setDownloadLocation(possibleDownloadLocations_[0]);
 }
 
-void ApplicationSettings::setDownloadLocation(DownloadLocation *downloadLocation)
+void ApplicationSettings::setDownloadLocation(DownloadLocation const& downloadLocation)
 {
-	if(downloadLocation != nullptr)
-		downloadFolder_ = downloadLocation->baseFolder();
+	if(downloadLocation_ == downloadLocation)
+		return;
+	downloadLocation_ = downloadLocation;
+	emit downloadLocationChanged();
+	emit downloadLocationIndexChanged();
+}
+
+void ApplicationSettings::setDownloadLocationIndex(int index)
+{
+	if(index < possibleDownloadLocations_.size())
+	{
+		setDownloadLocation(possibleDownloadLocations_[index]);
+	}
+}
+
+int ApplicationSettings::downloadLocationIndex() const
+{
+	for(int i = 0; i <possibleDownloadLocations_.size(); ++i)
+	{
+		if(possibleDownloadLocations_[i] == downloadLocation_)
+		{
+			return i;
+		}
+	}
+	return -1;
 }
 
 void ApplicationSettings::setLastServer(QString lastServerUuid)
@@ -152,12 +186,15 @@ int ApplicationSettings::lastServerIndex() const
 
 bool ApplicationSettings::ignoreWifiStatus() const
 {
-    return ignoreWifiStatus_;
+	return ignoreWifiStatus_;
 }
 
 void ApplicationSettings::setIgnoreWifiStatus(bool ignoreWifiStatus)
 {
-    ignoreWifiStatus_ = ignoreWifiStatus;
+	if(ignoreWifiStatus == ignoreWifiStatus_)
+		return;
+	ignoreWifiStatus_ = ignoreWifiStatus;
+	emit ignoreWifiStatusChanged(ignoreWifiStatus_);
 }
 
 /*DeviceType ApplicationSettings::deviceType() const
@@ -199,20 +236,22 @@ void ApplicationSettings::save()
 		settings.setValue("zones", server->zones());
 		settings.setValue("login", server->login());
 		settings.setValue("password", server->password());
-		settings.setValue("volumePlugin", server->volumePlugin()->name());
-		if(server->volumePlugin()->name() == MinidspVolumePlugin::static_name())
+		settings.setValue("volumePlugin", server->volumePluginName());
+		settings.beginGroup(server->volumePluginName());
+		for(auto it = server->volumePluginParameters().begin(); it != server->volumePluginParameters().end(); ++it)
 		{
-			settings.beginGroup(MinidspVolumePlugin::static_name());
-			settings.setValue("address", dynamic_cast<MinidspVolumePlugin*>(server->volumePlugin())->ipAddress());
-			settings.endGroup();
+			QString key = it.key();
+			QVariant val = it.value();
+			settings.setValue(key, val);
 		}
+		settings.endGroup();
 		i += 1;
 	}
 	settings.endArray();
 #ifndef SAILFISH_TARGET
     settings.setValue("dpi", dpi_);
 #endif
-	settings.setValue("downloadFolder", downloadFolder());
+	settings.setValue("downloadFolder", downloadLocation().baseFolder());
 	settings.setValue("lastServer", lastServer());
 //    settings.setValue("deviceType", (int)deviceType_);
 //    settings.setValue("ignoreWifiStatus", ignoreWifiStatus_);
@@ -233,7 +272,7 @@ Server *ApplicationSettings::newServer()
 {
 	servers_.push_back(new Server{this});
 	auto ret = servers_.back();
-	ret->setVolumePlugin(new KodiVolumePlugin(ret));
+	ret->setVolumePluginName(KodiVolumePlugin::static_name());
 	emit serversChanged();
 	return ret;
 }
@@ -272,20 +311,12 @@ QQmlListProperty<Server> ApplicationSettings::servers()
 	                                &ApplicationSettings::getServerAt_);
 }
 
-int ApplicationSettings::getDownloadLocationCount_(QQmlListProperty<DownloadLocation>* list)
+QVariantList ApplicationSettings::possibleDownloadLocations()
 {
-	return static_cast<ApplicationSettings*>(list->data)->possibleDownloadLocations_.size();
-}
-
-DownloadLocation* ApplicationSettings::getDownloadLocationAt_(QQmlListProperty<DownloadLocation>* list, int index)
-{
-	return static_cast<ApplicationSettings*>(list->data)->possibleDownloadLocations_.at(index);
-}
-
-QQmlListProperty<DownloadLocation> ApplicationSettings::possibleDownloadLocations()
-{
-	return QQmlListProperty<DownloadLocation>(this, this, &ApplicationSettings::getDownloadLocationCount_,
-	                                          &ApplicationSettings::getDownloadLocationAt_);
+	QVariantList list;
+	for(auto d : possibleDownloadLocations_)
+		list.push_back(QVariant::fromValue(d));
+	return list;
 }
 
 }

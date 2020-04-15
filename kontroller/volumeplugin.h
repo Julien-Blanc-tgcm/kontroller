@@ -29,8 +29,6 @@ class VolumePlugin : public QObject
 	Q_PROPERTY(int status READ status WRITE setStatus NOTIFY statusChanged)
 
 	int status_ = 0;
-protected:
-	Client* client_ = nullptr;
 public:
 	explicit VolumePlugin(QObject *parent = nullptr);
 
@@ -41,13 +39,6 @@ public:
 	void updateVolume(int newVolume);
 	int volumeStep() const;
 	int status() const;
-
-	/**
-	 * @brief setClient sets the kodi client used by this volume plugin. Is needed by some plugins, and allows
-	 * customizing behaviour upon client events
-	 * @param client
-	 */
-	void setClient(Client* client);
 
 signals:
 	void nameChanged(QString);
@@ -75,10 +66,6 @@ protected:
 	virtual void increaseVolume_();
 	virtual void decreaseVolume_();
 
-	/**
-	 * @brief clientUpdated_ is called when the client was set. Override to add a custom behaviour
-	 */
-	virtual void clientUpdated_();
 };
 
 }

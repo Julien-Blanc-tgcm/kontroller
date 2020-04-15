@@ -87,12 +87,12 @@ void Remote::up()
 
 void Remote::volumeUp()
 {
-	client_->server()->volumePlugin()->increaseVolume();
+	client_->volumePlugin()->increaseVolume();
 }
 
 void Remote::volumeDown()
 {
-	client_->server()->volumePlugin()->decreaseVolume();
+	client_->volumePlugin()->decreaseVolume();
 }
 
 void Remote::setClient(Client* client)

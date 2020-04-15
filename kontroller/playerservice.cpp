@@ -20,8 +20,6 @@ PlayerService::PlayerService(eu::tgcm::kontroller::Client* client, QObject *pare
 	connect(client_, &Client::playerStopped, this, &PlayerService::stopPlayer_);
 	connect(client_, &Client::playerSpeedChanged, this, &PlayerService::updatePlayerSpeed);
 	connect(client_, &Client::playerSeekChanged, this, &PlayerService::updatePlayerSeek_);
-
-	refreshPlayerInfo();
 }
 
 void PlayerService::refreshPlayerInfo()

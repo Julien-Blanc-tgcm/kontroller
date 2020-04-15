@@ -14,7 +14,7 @@ namespace tgcm
 {
 namespace kontroller
 {
-MinidspVolumePlugin::MinidspVolumePlugin(QObject *parent) :
+MinidspVolumePlugin::MinidspVolumePlugin(Client *parent) :
     VolumePlugin(parent),
     timer_{new QTimer{this}},
     socket_{new QTcpSocket{this}}
@@ -82,7 +82,6 @@ int MinidspVolumePlugin::currentVolume_() const
 void MinidspVolumePlugin::updateVolume_(int newVolume)
 {
 	auto q = minidsp::Query::changeVolumeQuery(newVolume - 255);
-	qDebug() << "Set volume " << (newVolume - 255);
 	if(minidsp::Query::isValid(q))
 	{
 		pushPendingQuery_(q);
@@ -134,7 +133,6 @@ void MinidspVolumePlugin::handleReply_()
 	if(rep.type() == minidsp::Reply::Type::VolumeReply)
 	{
 		currentVolumeStored_ = rep.volume();
-		qDebug() << "Received volume " << rep.volume();
 		emit currentVolumeChanged(currentVolume_());
 	}
 	else if(rep.type() == minidsp::Reply::Type::DeviceInformationReply)

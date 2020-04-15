@@ -16,6 +16,7 @@ namespace tgcm
 {
 namespace kontroller
 {
+class Client;
 /**
  * @brief The VolumePlugin class is the base class for all volume plugins. Volume plugins shall provide a set of method to query
  * the current volume, the min/max volumes and the volume step (ie, what a button press should increment)
@@ -27,7 +28,7 @@ class MinidspVolumePlugin : public VolumePlugin
 {
 	Q_OBJECT
 public:
-	explicit MinidspVolumePlugin(QObject *parent = nullptr);
+	explicit MinidspVolumePlugin(Client *parent);
 
 	Q_PROPERTY(QString ipAddress READ ipAddress WRITE setIpAddress NOTIFY ipAddressChanged)
 	Q_PROPERTY(bool connected READ connected WRITE setConnected NOTIFY connectedChanged)

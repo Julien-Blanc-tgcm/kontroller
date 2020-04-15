@@ -221,7 +221,6 @@ void MusicService::refresh_collection()
 	if(browsingMode_.size() > 0)
 	{
 		QJsonObject parameters;
-		qDebug() << browsingMode_ << " " << browsingValue_;
 		if(browsingMode_ != "addon") // no sort in addon : addons do their own sorting, and it usually messes
 		{
 			QJsonObject obj;
@@ -457,7 +456,6 @@ void MusicService::parseGenresResults()
 void MusicService::parseDirectoryResults()
 {
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	qDebug() << reply;
 	if(reply)
 	{
 		QJsonObject obj = reply->response().toObject();

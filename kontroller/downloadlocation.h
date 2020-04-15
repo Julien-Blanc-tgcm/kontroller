@@ -10,11 +10,16 @@ namespace tgcm
 namespace kontroller
 {
 
-class DownloadLocation : public QObject
+class DownloadLocation
 {
-	Q_OBJECT
+	Q_GADGET
 public:
-	explicit DownloadLocation(QObject *parent = nullptr);
+	DownloadLocation() = default;
+	~DownloadLocation() = default;
+	DownloadLocation(DownloadLocation const&) = default;
+	DownloadLocation(DownloadLocation &&) = default;
+	DownloadLocation& operator=(DownloadLocation const&) = default;
+	DownloadLocation& operator=(DownloadLocation&&) = default;
 
 	enum LocationType {
 		Phone = 0,
@@ -23,9 +28,9 @@ public:
 
 	Q_ENUM(LocationType)
 
-	Q_PROPERTY(int typeAsInt READ typeAsInt WRITE setTypeAsInt NOTIFY typeAsIntChanged)
-	Q_PROPERTY(QString baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
-	Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+	Q_PROPERTY(int typeAsInt READ typeAsInt WRITE setTypeAsInt)
+	Q_PROPERTY(QString baseFolder READ baseFolder WRITE setBaseFolder)
+	Q_PROPERTY(QString name READ name)
 
 	LocationType type() const;
 
@@ -35,17 +40,6 @@ public:
 
 	QString name() const;
 
-signals:
-
-	void typeChanged(LocationType type);
-
-	void typeAsIntChanged(int type);
-
-	void baseFolderChanged(QString baseFolder);
-
-	void nameChanged(QString name);
-
-public slots:
 	void setType(LocationType type);
 	void setBaseFolder(QString baseFolder);
 	void setTypeAsInt(int type);
@@ -55,10 +49,21 @@ private:
 
 	QString folder_;
 	QString name_;
+	friend QDataStream& from_stream(QDataStream& stream, DownloadLocation& location);
 };
+
+bool operator==(DownloadLocation const& first, DownloadLocation const& second);
+bool operator!=(DownloadLocation const& first, DownloadLocation const& second);
+
+QDataStream& from_stream(QDataStream& stream, DownloadLocation& location);
 
 } // namespace kontroller
 } // namespace tgcm
 } // namespace eu
+
+QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::DownloadLocation& location);
+QDataStream& operator<<(QDataStream& stream, eu::tgcm::kontroller::DownloadLocation const& location);
+
+Q_DECLARE_METATYPE(eu::tgcm::kontroller::DownloadLocation)
 
 #endif // DOWNLOADLOCATION_H

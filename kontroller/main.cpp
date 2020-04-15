@@ -7,6 +7,7 @@
 #include <QApplication>
 #endif
 #include <QtQml>
+#include <QScopedPointer>
 
 #include "musicservice.h"
 #include <cassert>
@@ -49,8 +50,8 @@ void registerTypes()
 	qRegisterMetaTypeStreamOperators<File>("File");
 	qRegisterMetaType<PlaylistItem>();
 	qRegisterMetaTypeStreamOperators<PlaylistItem>("PlaylistItem");
-    int ret = qmlRegisterType<File>();
-    assert(ret);
+	int ret = qmlRegisterType<File>();
+	assert(ret);
 	qRegisterMetaType<QVector<File>>("QFileVector");
 //	ret = qmlRegisterType<QVector<File>>();
 	assert(ret);
@@ -110,7 +111,10 @@ void registerTypes()
 	          qmlprefix, 1, 0, "DownloadService",
 	          QString::fromUtf8("Download service cannot be created, must use client.downloadService property"));
 	assert(ret);
-	ret = qmlRegisterType<DownloadLocation>(qmlprefix, 1, 0, "DownloadLocation");
+	qRegisterMetaType<DownloadLocation>();
+	qRegisterMetaTypeStreamOperators<DownloadLocation>("DownloadLocation");
+	ret = qmlRegisterUncreatableType<DownloadLocation>(qmlprefix, 1, 0, "DownloadLocation",
+	                                                   "DownloadLocation cannot be created from qml");
 	assert(ret);
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");
@@ -122,18 +126,15 @@ void registerTypes()
 int main(int argc, char *argv[])
 {
 #ifdef SAILFISH_TARGET
-	QGuiApplication* app = SailfishApp::application(argc, argv);
-	auto view = SailfishApp::createView();
+	QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+	QScopedPointer<QQuickView> view(SailfishApp::createView());
 	registerTypes();
-	auto applicationSettings = new eu::tgcm::kontroller::ApplicationSettings{app};
-	auto client = new eu::tgcm::kontroller::Client{applicationSettings, app};
-	view->rootContext()->setContextProperty(QString::fromUtf8("appSettings"), applicationSettings);
+	eu::tgcm::kontroller::ApplicationSettings applicationSettings;
+	auto client = new eu::tgcm::kontroller::Client(&applicationSettings, app.data());
+	view->rootContext()->setContextProperty(QString::fromUtf8("appSettings"), &applicationSettings);
 	view->rootContext()->setContextProperty(QString::fromUtf8("appClient"), client);
 	view->setSource(SailfishApp::pathTo("qml/sailfish/kontroller.qml"));
-	view->showFullScreen();
-	auto engine = QtQml::qmlEngine(view->rootObject());
-
-	QObject::connect(engine, &QQmlEngine::quit, app, &QGuiApplication::quit);
+	view->show();
 #else
 	QApplication* app = new QApplication(argc, argv);
 	QQmlApplicationEngine engine;

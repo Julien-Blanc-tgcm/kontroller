@@ -214,4 +214,16 @@ to make the remote control the amplifier volume.")
             appSettings.server(serverUuid).setMinidspVolumePlugin(miniDSPAddress.text);
         appSettings.save();
     }
+
+    function pushOrPullZonePage()
+    {
+        console.log("pushhere");
+//        if(chkIgnoreWifi.checked)
+//        {
+//            console.log("pushAttached");
+//            zones = pageStack.pushAttached(Qt.resolvedUrl("ManageZones.qml"));
+//        }
+//        else if(zones)
+//            pageStack.popAttached(zones);
+    }
 }

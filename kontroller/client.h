@@ -15,6 +15,7 @@ namespace kontroller
 class ApplicationSettings;
 class PlayerService;
 class Server;
+class VolumePlugin;
 
 class Client : public QObject
 {
@@ -36,6 +37,8 @@ class Client : public QObject
 	eu::tgcm::kontroller::DownloadService* downloadService_ = nullptr;
 
 	eu::tgcm::kontroller::PlayerService* playerService_ = nullptr;
+
+	VolumePlugin* volumePlugin_ = nullptr;
 
 public:
 	explicit Client(ApplicationSettings* settings, QObject *parent = 0);
@@ -68,13 +71,18 @@ public:
 	Q_PROPERTY(eu::tgcm::kontroller::PlayerService* playerService READ playerService WRITE setPlayerService \
 	           NOTIFY playerServiceChanged)
 
+	Q_PROPERTY(eu::tgcm::kontroller::VolumePlugin* volumePlugin READ volumePlugin NOTIFY volumePluginChanged)
+
 	eu::tgcm::kontroller::PlayerService* playerService() const;
+
+	VolumePlugin* volumePlugin();
 
 signals:
 	void connectionStatusChanged(int connected);
 	void serverChanged();
 	void inputRequested(QString title, QString type, QString value);
 	void inputFinished();
+	void volumePluginChanged();
 public slots:
 	void switchToServer(QString const& serverUuid);
 	void refresh();

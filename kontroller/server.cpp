@@ -67,6 +67,16 @@ QString Server::password() const
 	return password_;
 }
 
+QString Server::volumePluginName() const
+{
+	return volumePluginName_;
+}
+
+QVariantMap const& Server::volumePluginParameters() const
+{
+	return volumePluginParameters_;
+}
+
 void Server::setServerAddress(QString serverAddress)
 {
 	if (serverAddress_ == serverAddress)
@@ -146,30 +156,18 @@ void Server::setPassword(QString password)
 	emit passwordChanged(password_);
 }
 
-void Server::setVolumePlugin(VolumePlugin* volumePlugin)
+void Server::setVolumePluginName(QString volumePluginName)
 {
-	volumePlugin_ = volumePlugin;
+	if(volumePluginName_ == volumePluginName)
+		return;
+	volumePluginName_ = volumePluginName;
+	emit volumePluginNameChanged(volumePluginName_);
 }
 
-VolumePlugin* Server::volumePlugin()
+void Server::setVolumePluginParameters(QVariantMap parameters)
 {
-	return volumePlugin_;
-}
-
-void Server::setKodiVolumePlugin()
-{
-	if(volumePlugin_ != nullptr)
-		volumePlugin_->deleteLater();
-	volumePlugin_ = new KodiVolumePlugin(this);
-}
-
-void Server::setMinidspVolumePlugin(QString address)
-{
-	if(volumePlugin_ != nullptr)
-		volumePlugin_->deleteLater();
-	auto plugin = new MinidspVolumePlugin(this);
-	plugin->setIpAddress(address);
-	volumePlugin_ = plugin;
+	volumePluginParameters_ = parameters;
+	emit volumePluginParametersChanged();
 }
 
 }

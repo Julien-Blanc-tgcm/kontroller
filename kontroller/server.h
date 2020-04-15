@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QVariantMap>
 
 #include "volumeplugin.h"
 
@@ -28,7 +29,9 @@ class Server : public QObject
 
 	QString password_;
 
-	VolumePlugin* volumePlugin_;
+	QString volumePluginName_;
+
+	QVariantMap volumePluginParameters_;
 
 public:
 	explicit Server(QObject *parent = 0);
@@ -41,6 +44,10 @@ public:
 	Q_PROPERTY(QString uuid READ uuid WRITE setUuid NOTIFY uuidChanged)
 	Q_PROPERTY(QString login READ login WRITE setLogin NOTIFY loginChanged)
 	Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
+	Q_PROPERTY(QString volumePluginName READ volumePluginName WRITE setVolumePluginName \
+	           NOTIFY volumePluginNameChanged)
+	Q_PROPERTY(QVariantMap volumePluginParameters READ volumePluginParameters WRITE setVolumePluginParameters \
+	           NOTIFY volumePluginParametersChanged)
 	QString serverAddress() const;
 
 	int serverPort() const;
@@ -59,8 +66,9 @@ public:
 
 	QString password() const;
 
-	VolumePlugin* volumePlugin();
+	QString volumePluginName() const;
 
+	const QVariantMap& volumePluginParameters() const;
 signals:
 
 	void serverAddressChanged(QString serverAddress);
@@ -82,6 +90,10 @@ signals:
 
 	void passwordChanged(QString password);
 
+	void volumePluginNameChanged(QString volumePluginName);
+
+	void volumePluginParametersChanged();
+
 public slots:
 	void setServerAddress(QString serverAddress);
 	void setServerPort(int serverPort);
@@ -95,16 +107,8 @@ public slots:
 	void setUuid(QString uuid);
 	void setLogin(QString login);
 	void setPassword(QString password);
-	void setVolumePlugin(VolumePlugin* volumePlugin);
-
-	/**
-	 * For use by qml, set kodi plugin as the volume one
-	 */
-	void setKodiVolumePlugin();
-	/**
-	 * For use by qml, set minidps plugin as the volume one. Takes the ip address
-	 */
-	void setMinidspVolumePlugin(QString address);
+	void setVolumePluginName(QString volumePluginName);
+	void setVolumePluginParameters(QVariantMap parameters);
 };
 
 }

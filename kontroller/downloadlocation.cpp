@@ -1,5 +1,6 @@
 #include "downloadlocation.h"
 
+#include <QDataStream>
 #include <QFileInfo>
 
 namespace eu
@@ -9,11 +10,6 @@ namespace tgcm
 
 namespace kontroller
 {
-
-DownloadLocation::DownloadLocation(QObject *parent) : QObject(parent)
-{
-
-}
 
 DownloadLocation::LocationType DownloadLocation::type() const
 {
@@ -41,8 +37,6 @@ void DownloadLocation::setType(DownloadLocation::LocationType type)
 		return;
 
 	type_ = type;
-	emit typeChanged(type_);
-	emit typeAsIntChanged(typeAsInt());
 }
 
 void DownloadLocation::setBaseFolder(QString folder)
@@ -53,8 +47,6 @@ void DownloadLocation::setBaseFolder(QString folder)
 	folder_ = folder;
 	QFileInfo f{folder};
 	name_ = f.baseName();
-	emit baseFolderChanged(folder_);
-	emit nameChanged(name_);
 }
 
 void DownloadLocation::setTypeAsInt(int type)
@@ -62,6 +54,36 @@ void DownloadLocation::setTypeAsInt(int type)
 	setType(static_cast<LocationType>(type));
 }
 
+QDataStream& from_stream(QDataStream& stream, DownloadLocation& location)
+{
+	int val;
+	stream >> val;
+	location.setTypeAsInt(val);
+	return stream >> location.name_ >> location.folder_;
+}
+
+bool operator==(const DownloadLocation& first, const DownloadLocation& second)
+{
+	return first.type() == second.type() && first.baseFolder() == second.baseFolder();
+}
+
+bool operator!=(const DownloadLocation& first, const DownloadLocation& second)
+{
+	return !(first == second);
+}
+
 }
 }
+}
+
+QDataStream& operator<<(QDataStream& stream, const eu::tgcm::kontroller::DownloadLocation& location)
+{
+	return stream << location.typeAsInt() << location.name() << location.baseFolder();
+}
+
+
+
+QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::DownloadLocation& location)
+{
+	return eu::tgcm::kontroller::from_stream(stream, location);
 }

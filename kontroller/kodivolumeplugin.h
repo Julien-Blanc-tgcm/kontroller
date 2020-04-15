@@ -19,8 +19,10 @@ class Client;
 class KodiVolumePlugin : public VolumePlugin
 {
 	Q_OBJECT
+
+	Client* client_;
 public:
-	explicit KodiVolumePlugin(QObject *parent = nullptr);
+	explicit KodiVolumePlugin(Client *parent = nullptr);
 
 	static QString static_name();
 protected:

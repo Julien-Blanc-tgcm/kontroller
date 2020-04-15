@@ -4,6 +4,8 @@
 #include "playerservice.h"
 #include "utils.h"
 
+#include <QDebug>
+
 namespace eu
 {
 namespace tgcm
@@ -174,7 +176,9 @@ void PlaylistService::refreshPlaylistCb_()
 			setPlaylistPosition(player_->playlistPosition());
 		}
 		else
+		{
 			qDebug() << response;
+		}
 	}
 	emit itemsChanged();
 	if(restartAfterRefreshing_)

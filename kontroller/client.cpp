@@ -3,6 +3,9 @@
 #include "applicationsettings.h"
 #include "playerservice.h"
 
+#include "kodivolumeplugin.h"
+#include "minidspvolumeplugin.h"
+
 #include <QSettings>
 #include <QAuthenticator>
 #include <QNetworkReply>
@@ -13,6 +16,28 @@ namespace tgcm
 {
 namespace kontroller
 {
+
+namespace
+{
+
+VolumePlugin* getVolumePlugin_(Client* owner, Server* server)
+{
+	if(server == nullptr)
+		return nullptr;
+	QString pluginName = server->volumePluginName();
+	if(pluginName == KodiVolumePlugin::static_name())
+		return new KodiVolumePlugin(owner);
+	else if(pluginName == MinidspVolumePlugin::static_name())
+	{
+		QString address = server->volumePluginParameters().value("address").toString();
+		auto plugin = new MinidspVolumePlugin(owner);
+		plugin->setIpAddress(address);
+		return plugin;
+	}
+	return new KodiVolumePlugin(owner); // by default, return a kodi volume plugin. This, at least, is safe
+}
+
+}
 
 Client::Client(ApplicationSettings* settings, QObject *parent) :
     QObject(parent),
@@ -73,9 +98,9 @@ void Client::refresh()
 		server_ = settings_->server(settings_->lastServer());
 	if(server_)
 	{
+		volumePlugin_ = getVolumePlugin_(this, server_);
 		emit serverChanged();
 		serverUuid_ = server_->uuid();
-		server_->volumePlugin()->setClient(this);
 		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
 		if(server_->serverAddress().size() > 0 && server_->serverPort() > 0)
 		{
@@ -241,7 +266,8 @@ void Client::handleConnectionSuccess()
 	connect(tcpClient_, SIGNAL(messageReceived(QJsonRpcMessage)), this,
 	        SLOT(handleMessageReceived(QJsonRpcMessage)));
 	setConnectionStatus(2);
-	server()->volumePlugin()->refreshVolume();
+	playerService_->refreshPlayerInfo();
+	volumePlugin()->refreshVolume();
 	emit serverChanged();
 }
 
@@ -353,10 +379,15 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
 	}
 }
 
-void Client::provideCredentials_(QNetworkReply */*reply*/, QAuthenticator *authenticator)
+void Client::provideCredentials_(QNetworkReply * /*reply*/, QAuthenticator *authenticator)
 {
 	authenticator->setUser(server_->login());
 	authenticator->setPassword(server_->password());
+}
+
+VolumePlugin* Client::volumePlugin() 
+{
+	return volumePlugin_;
 }
 
 }

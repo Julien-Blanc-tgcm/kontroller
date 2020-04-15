@@ -87,27 +87,26 @@ Page {
 the phone memory, but SD card memory can be used as well. The relevant folder will \
 be used, depending on the downoaded file type.")
                 onCurrentItemChanged: {
-                    appSettings.setDownloadLocation(currentItem)
+                    appSettings.downloadLocationIndex = currentIndex
                 }
                 menu: ContextMenu
                 {
                     Repeater {
                         model: appSettings.possibleDownloadLocations
                         delegate: MenuItem {
-                            text: (model.typeAsInt === DownloadLocation.Phone) ?
+                            text: (model.modelData.typeAsInt === DownloadLocation.Phone) ?
                                       qsTr("Phone memory") :
-                                      qsTr("SD Card %1").arg(model.name);
+                                      qsTr("SD Card %1").arg(model.modelData.name);
                         }
                     }
                 }
                 Component.onCompleted: {
-                    currentIndex = (appSettings.downloadLocation === DownloadLocation.Phone) ? 0 : 1;
+                    currentIndex = appSettings.downloadLocationIndex;
                 }
             }
 
             TextSwitch {
                 id:chkIgnoreWifi
-                checked: appSettings.ignoreWifiStatus
                 text:qsTr("Ignore wi-fi status")
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -115,35 +114,19 @@ be used, depending on the downoaded file type.")
                 anchors.rightMargin: Theme.horizontalPageMargin
                 onCheckedChanged:
                 {
-                    if(checked !== appSettings.ignoreWifiStatus)
-                    {
-                        appSettings.ignoreWifiStatus = chkIgnoreWifi.checked;
-                        appSettings.save();
-                    }
+                    appSettings.ignoreWifiStatus = checked;
+                }
+                Component.onCompleted: {
+                    checked = appSettings.ignoreWifiStatus
                 }
             }
         }
     }
 
-    property var zones;
-
     property var serverSettingsComponent
 
     Component.onCompleted: {
-        pushOrPullZonePage();
         serverSettingsComponent = Qt.createComponent(Qt.resolvedUrl("ServerSettingsPage.qml"))
-    }
-
-    function pushOrPullZonePage()
-    {
-        console.log("pushhere");
-        if(chkIgnoreWifi.checked)
-        {
-            console.log("pushAttached");
-            zones = pageStack.pushAttached(Qt.resolvedUrl("ManageZones.qml"));
-        }
-        else if(zones)
-            pageStack.popAttached(zones);
     }
 
     function pushServerSettingsPage(serveruuid)
@@ -164,5 +147,12 @@ be used, depending on the downoaded file type.")
     function deleteServer(uuid)
     {
         appSettings.deleteServer(uuid)
+    }
+
+    onStatusChanged: {
+        if(status === PageStatus.Deactivating)
+        {
+            appSettings.save(); // always save on deactivating the page
+        }
     }
 }
