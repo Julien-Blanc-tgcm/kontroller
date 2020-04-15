@@ -28,6 +28,7 @@ Item {
         anchors.fill: parent
         directPlay: ['directory', 'media', 'tvshow', 'season', 'movie']
         playableItems : ['movie', 'file', 'episode', 'musicvideo']
+        mediaType: "video"
     }
 
     function refresh()

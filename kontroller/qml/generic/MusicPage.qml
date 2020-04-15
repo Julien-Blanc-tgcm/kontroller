@@ -31,6 +31,7 @@ Rectangle {
         anchors.fill: parent
         directPlay: ['album', 'directory', 'artist', 'media']
         playableItems :['directory', 'album', 'song', 'file']
+        mediaType: "music"
     }
 
     Component.onCompleted: refresh()

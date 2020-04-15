@@ -7,6 +7,7 @@ Item {
     property var control
     property var directPlay : []
     property var playableItems:[]
+    property string mediaType:""
 
     property alias header : thelist.header
 
@@ -203,11 +204,11 @@ Item {
         {
             if(item.filetype === "file" )
             {
-                downloadService.addFile(item.file)
+                appClient.downloadService.addFile(item.file, mediaType)
             }
             else if(item.filetype === "directory")
             {
-                downloadService.addFolder(item.file)
+                appClient.downloadService.addFolder(item.file, mediaType)
             }
             else
             {

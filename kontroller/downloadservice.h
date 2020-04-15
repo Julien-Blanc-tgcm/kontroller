@@ -44,27 +44,30 @@ public:
 	explicit DownloadService(Client* client, ApplicationSettings* settings, QObject *parent = nullptr);
 
 signals:
-    void downloadCompleted(QString file);
-    void downloadError(QString file, QString message);
-    void downloadStarted(QString file);
+	void downloadCompleted(QString file);
+	void downloadError(QString file, QString message);
+	void downloadStarted(QString file);
+	void allDownloadsCompleted();
 public slots:
-    void addFile(QString filePath);
-    void addFolder(QString folderPath);
+	void addFile(QString filePath, QString mediaType);
+	void addFolder(QString folderPath, QString mediaType);
 private slots:
-    void filePathRequestComplete_();
-    void downloadCompleted_();
-    void startNextDownload_();
-    void bytesAvailable_();
-    void folderInfoRequestComplete_();
+	void filePathRequestComplete_();
+	void downloadCompleted_();
+	void startNextDownload_();
+	void bytesAvailable_();
+	void folderInfoRequestComplete_();
 private:
-    void startDownloadHttp_(QString httppath);
-    void addFile_(QString filePath, QString outputFolder);
-    void addFolder_(QString folderPath, QString outputFolder);
+	void startDownloadHttp_(QString httppath);
+	void addFile_(QString filePath, QString outputFolder);
+	void addFolder_(QString folderPath, QString outputFolder);
 	QVector<FileDownload> queue_;
-    QString downloadFolder_;
+	QString downloadFolder_;
 
 	Client* client_;
 	ApplicationSettings* appSettings_;
+
+	QString getRelevantFolder_(QString mediaType);
 };
 
 }

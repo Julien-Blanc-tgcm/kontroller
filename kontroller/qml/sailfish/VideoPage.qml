@@ -33,6 +33,7 @@ Page {
         anchors.fill: parent
         directPlay: ['directory', 'media', 'tvshow', 'season', 'movie']
         playableItems : ['movie', 'file', 'episode', 'musicvideo']
+        mediaType: "video"
         header: PageHeader {
             title:label
         }

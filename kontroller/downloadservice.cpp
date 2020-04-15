@@ -5,8 +5,9 @@
 
 #include <qjsonrpcservice.h>
 
-#include <QFileInfo>
 #include <QDir>
+#include <QFileInfo>
+#include <QStandardPaths>
 
 namespace eu
 {
@@ -23,9 +24,9 @@ DownloadService::DownloadService(Client* client, ApplicationSettings* settings, 
 
 }
 
-void DownloadService::addFile(QString filePath)
+void DownloadService::addFile(QString filePath, QString mediaType)
 {
-	addFile_(filePath, appSettings_->downloadFolder());
+	addFile_(filePath, getRelevantFolder_(mediaType));
 }
 
 void DownloadService::addFile_(QString filePath, QString outputFolder)
@@ -37,9 +38,9 @@ void DownloadService::addFile_(QString filePath, QString outputFolder)
     }
 }
 
-void DownloadService::addFolder(QString filePath)
+void DownloadService::addFolder(QString filePath, QString mediaType)
 {
-	addFolder_(filePath, appSettings_->downloadFolder());
+	addFolder_(filePath, getRelevantFolder_(mediaType));
 }
 
 void DownloadService::addFolder_(QString filePath, QString outputFolder)
@@ -48,74 +49,93 @@ void DownloadService::addFolder_(QString filePath, QString outputFolder)
     if(queue_.size() == 1) // just added a file
     {
         startNextDownload_();
-    }
+	}
+}
+
+QString DownloadService::getRelevantFolder_(QString mediaType)
+{
+	if(mediaType == "video")
+	{
+		auto list = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
+		if(list.size() > 0)
+			return appSettings_->downloadLocation().baseFolder() + "/" + QFileInfo(list.first()).fileName();
+		return appSettings_->downloadLocation().baseFolder();
+	}
+	else if(mediaType == "music")
+	{
+		auto list = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+		if(list.size() > 0)
+			return appSettings_->downloadLocation().baseFolder() + "/" + QFileInfo(list.first()).fileName();
+		return appSettings_->downloadLocation().baseFolder();
+	}
+	return appSettings_->downloadLocation().baseFolder();
 }
 
 void DownloadService::filePathRequestComplete_()
 {
-    QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-    if(reply)
-    {
-        reply->deleteLater();
-        auto response = reply->response();
-        auto obj = response.toObject();
-        if(obj.find("result") != obj.end())
-        {
-            auto result = obj.take("result");
-            if(result.type() == QJsonValue::Object)
-            {
-                QString finalPath;
-                auto details = result.toObject().take("details");
-                if(details.type() == QJsonValue::Object)
-                {
-                    auto path = details.toObject().take("path");
-                    if(path.type() != QJsonValue::String)
-                    {
-                        emit downloadError("", "Invalid path value");
-                        return;
-                    }
-                    finalPath = path.toString();
-                }
-                auto protocol = result.toObject().take("protocol");
-                if(protocol.type() != QJsonValue::String ||
-                        protocol.toString() != "http")
-                {
-                    emit downloadError("", "Protocol not supported or invalid");
-                    return;
-                }
-                auto mode = result.toObject().take("mode");
-                if(mode.type() != QJsonValue::String ||
-                        mode.toString() != "redirect")
-                {
-                    emit downloadError("", "Mode not supported or invalid");
-                    return;
-                }
-                startDownloadHttp_(finalPath);
-            }
-            else
-                emit downloadError("", "Invalid reply received");
-        }
-    }
-    else
-        emit downloadError("", "Invalid reply received");
+	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if(reply)
+	{
+		reply->deleteLater();
+		auto response = reply->response();
+		auto obj = response.toObject();
+		if(obj.find("result") != obj.end())
+		{
+			auto result = obj.take("result");
+			if(result.type() == QJsonValue::Object)
+			{
+				QString finalPath;
+				auto details = result.toObject().take("details");
+				if(details.type() == QJsonValue::Object)
+				{
+					auto path = details.toObject().take("path");
+					if(path.type() != QJsonValue::String)
+					{
+						emit downloadError("", "Invalid path value");
+						return;
+					}
+					finalPath = path.toString();
+				}
+				auto protocol = result.toObject().take("protocol");
+				if(protocol.type() != QJsonValue::String ||
+				        protocol.toString() != "http")
+				{
+					emit downloadError("", "Protocol not supported or invalid");
+					return;
+				}
+				auto mode = result.toObject().take("mode");
+				if(mode.type() != QJsonValue::String ||
+				        mode.toString() != "redirect")
+				{
+					emit downloadError("", "Mode not supported or invalid");
+					return;
+				}
+				startDownloadHttp_(finalPath);
+			}
+			else
+				emit downloadError("", "Invalid reply received");
+		}
+	}
+	else
+		emit downloadError("", "Invalid reply received");
 }
 
 void DownloadService::downloadCompleted_()
 {
-    auto reply = dynamic_cast<QNetworkReply*>(sender());
-    if(reply)
-    {
-        reply->deleteLater();
-        emit downloadCompleted("");
-    }
-    QString file = queue_.front().sourceFile;
-    QFileInfo info(file);
-    emit downloadCompleted(info.fileName());
-    queue_.erase(queue_.begin());
-    if(queue_.size() > 0)
-    {
-        startNextDownload_();
-    }
+	auto reply = dynamic_cast<QNetworkReply*>(sender());
+	if(reply)
+	{
+		reply->deleteLater();
+		emit downloadCompleted("");
+	}
+	QString file = queue_.front().sourceFile;
+	QFileInfo info(file);
+	emit downloadCompleted(info.fileName());
+	queue_.erase(queue_.begin());
+	if(queue_.size() > 0)
+	{
+		startNextDownload_();
+	}
 }
 
 void DownloadService::startNextDownload_()
@@ -231,18 +251,18 @@ void DownloadService::folderInfoRequestComplete_()
 
 void DownloadService::startDownloadHttp_(QString httppath)
 {
-    auto& file = queue_.front();
+	auto& file = queue_.front();
 	file.reply = client_->downloadFile(httppath);
-    QFileInfo source(file.sourceFile);
-    QFileInfo dest(file.destinationPath + QDir::separator() + source.fileName());
-    QDir dir(dest.absoluteDir());
-    if(!dir.exists())
-        QDir("/").mkpath(dir.absolutePath());
+	QFileInfo source(file.sourceFile);
+	QFileInfo dest(file.destinationPath + QDir::separator() + source.fileName());
+	QDir dir(dest.absoluteDir());
+	if(!dir.exists())
+		QDir("/").mkpath(dir.absolutePath());
 	file.output = new QFile(dest.absoluteFilePath());
-    file.output->open(QFile::WriteOnly);
-    connect(file.reply, &QNetworkReply::finished, this, &DownloadService::downloadCompleted_);
-    connect(file.reply, &QNetworkReply::downloadProgress, this, &DownloadService::bytesAvailable_);
-    emit downloadStarted(source.fileName());
+	file.output->open(QFile::WriteOnly);
+	connect(file.reply, &QNetworkReply::finished, this, &DownloadService::downloadCompleted_);
+	connect(file.reply, &QNetworkReply::downloadProgress, this, &DownloadService::bytesAvailable_);
+	emit downloadStarted(source.fileName());
 }
 
 
