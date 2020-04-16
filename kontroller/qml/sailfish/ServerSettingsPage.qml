@@ -149,7 +149,12 @@ to make the remote control the amplifier volume.")
                         text: qsTr("Minidsp")
                     }
                 }
-                currentIndex: settings.server(serverUuid).volumePlugin.name === "Minidsp"?1:0
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid).volumePluginName === "Minidsp")
+                        currentIndex = 1;
+                    else
+                        currentIndex = 0;
+                }
             }
             Label {
                 anchors.left: parent.left
@@ -163,8 +168,8 @@ to make the remote control the amplifier volume.")
             }
             TextField {
                 id : miniDSPAddress
-                text: appSettings.server(serverUuid).volumePlugin && appSettings.server(serverUuid).volumePlugin.name === "Minidsp"?
-                    appSettings.server(serverUuid).volumePlugin.ipAddress:""
+                text: appSettings.server(serverUuid) && appSettings.server(serverUuid).volumePluginName === "Minidsp"?
+                    appSettings.server(serverUuid).volumePluginParameters.address:""
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -209,9 +214,12 @@ to make the remote control the amplifier volume.")
         appSettings.server(serverUuid).setServerPort(serverPort.text);
         appSettings.server(serverUuid).setLogin(serverLogin.text);
         if(serverVolumePlugin.currentIndex === 0)
-            appSettings.server(serverUuid).setKodiVolumePlugin();
+            appSettings.server(serverUuid).setVolumePluginName("Kodi");
         else
-            appSettings.server(serverUuid).setMinidspVolumePlugin(miniDSPAddress.text);
+        {
+            appSettings.server(serverUuid).setVolumePluginName("Minidsp");
+            appSettings.server(serverUuid).setVolumePluginParameters({"address": miniDSPAddress.text});
+        }
         appSettings.save();
     }
 
