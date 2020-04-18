@@ -25,7 +25,10 @@ Page {
 
     // gesture step is used by calculation for gestures, to be resolution independant. Otherwise gesture are
     // unusable if resolution is too high (xperia xa2 for example)
-    property int gestureStep : Math.min(page.width, page.height) / 4
+    property int gestureStep : Theme.iconSizeLarge
+        //Math.min(page.width, page.height) / 4
+
+    property var currentPlayer : appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
 
     Timer {
         id:timer;
@@ -46,12 +49,12 @@ Page {
                 else if(diffX < -gestureStep)
                     curButton = "left";
 
-                if(Math.abs(diffX) > 3 * gestureStep)
+                if(Math.abs(diffX) > 6 * gestureStep)
                     interval = 100;
-                else if(Math.abs(diffX) < gestureStep)
+                else if(Math.abs(diffX) < gestureStep / 2)
                     interval = 400;
                 else
-                    interval = 400 - (Math.abs(diffX * 100 / gestureStep) / 3 * 4);
+                    interval = 400 - ((Math.abs(diffX / gestureStep) - 1) * 150);
             }
             else
             {
@@ -64,7 +67,7 @@ Page {
                 else if(Math.abs(diffY) < gestureStep)
                     interval = 400;
                 else
-                    interval = 400 - (Math.abs(diffY * 100 / gestureStep) / 3 * 4);
+                    interval = 400 - ((Math.abs(diffY / gestureStep) - 1) * 150);
             }
 //            console.log(diffX, diffY, curButton);
 
@@ -95,10 +98,10 @@ Page {
         height:buttonWidth
         id:theRow
         anchors.top:parent.top
-        anchors.left: parent.left
-        anchors.leftMargin: 20
-        anchors.right: parent.right
-        spacing: 25
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: Theme.paddingMedium
+        anchors.topMargin: Theme.paddingSmall
+
         IconButton {
             width: buttonWidth
             height: buttonWidth
@@ -149,7 +152,7 @@ Page {
         id:mArea
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: playerControl.visible ? playerControl.top : parent.bottom
         anchors.top:theRow.bottom
         property int mouseStartX;
         property int mouseStartY;
@@ -163,7 +166,7 @@ Page {
             //                console.log(eventTimeStart)
             mouse.accepted = true;
             runningCount = 0;
-            timer.interval = 400;
+            timer.interval = 300;
             timer.start()
 
         }
@@ -196,71 +199,25 @@ Page {
                 return;
             if(Math.abs(diffX) > Math.abs(diffY))
             {
-                if(diffX < 0)
+                if(diffX < -gestureStep)
                 {
-                    if(diffX < (-3 * gestureStep))
-                    {
-                        remoteController.left();
-                        commandFeedback.start();
-                    }
-                    if(diffX < (-2 * gestureStep))
-                    {
-                        remoteController.left();
-                        commandFeedback.start();
-                    }
-                    if(diffX < -gestureStep)
-                    {
-                        commandFeedback.start();
-                        remoteController.left();
-                    }
+                    commandFeedback.start();
+                    remoteController.left();
                 }
-                else
+                else if(diffX > (1 * gestureStep))
                 {
-                    if(diffX > (3 * gestureStep))
-                    {
-                        remoteController.left();
-                        commandFeedback.start();
-                    }
-                    if(diffX > (2 * gestureStep))
-                    {
-                        remoteController.left();
-                        commandFeedback.start();
-                    }
-                    if(diffX > (1 * gestureStep))
-                    {
-                        remoteController.left();
-                        commandFeedback.start();
-                    }
+                    remoteController.left();
+                    commandFeedback.start();
                 }
             }
             else
             {
-                if(diffY < (-3 * gestureStep))
-                {
-                    remoteController.up();
-                    commandFeedback.start();
-                }
-                if(diffY < (-2 * gestureStep))
-                {
-                    remoteController.up();
-                    commandFeedback.start();
-                }
                 if(diffY < -gestureStep)
                 {
                     remoteController.up();
                     commandFeedback.start();
                 }
-                if(diffY > (3 * gestureStep))
-                {
-                    remoteController.down();
-                    commandFeedback.start();
-                }
-                if(diffY > (2 * gestureStep))
-                {
-                    remoteController.down();
-                    commandFeedback.start();
-                }
-                if(diffY > gestureStep)
+                else if(diffY > gestureStep)
                 {
                     remoteController.down();
                     commandFeedback.start();
@@ -300,6 +257,23 @@ Page {
         width:Theme.iconSizeExtraLarge
         height:Theme.iconSizeExtraLarge
         rotation:90
+    }
+
+    PlayerControl {
+        anchors.bottom: playerProperties.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        player: currentPlayer
+        id:playerControl
+        visible: currentPlayer !== null
+    }
+
+    PlayerProperties {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        player: currentPlayer
+        id: playerProperties
     }
 
     function computeEvent(mouseArea, clickX, clickY)

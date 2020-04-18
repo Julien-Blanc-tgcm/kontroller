@@ -5,7 +5,7 @@ import Sailfish.Silica 1.0
 
 Item {
     property var player
-
+    height: childrenRect.height
     Column {
         anchors.left: parent.left
         anchors.right: parent.right
