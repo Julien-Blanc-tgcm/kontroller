@@ -219,7 +219,7 @@
     <message>
         <location filename="../qml/sailfish/KontrollerMain.qml" line="114"/>
         <source>No server configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen server konfigurerad</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/KontrollerMain.qml" line="140"/>
@@ -553,33 +553,33 @@
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="132"/>
         <source>Select here the volume plugin to use. Default (Kodi) is to use kodi integrated volume. If using an amplifier to control the volume, select the corresponding plugin and configure it to make the remote control the amplifier volume.</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj här vilket volyminstick som skall användas. Standard (Kodi), för att använda kodi-integrerad volym. Om du använder en förstärkare för att styra volymen väljer du motsvarande insticksmodul och konfigurerar den så att fjärrkontrollen blir förstärkarens volymkontroll.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="144"/>
         <source>Volume plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Volyminstick</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="147"/>
         <source>Kodi</source>
-        <translation type="unfinished"></translation>
+        <translation>Kodi</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="150"/>
         <source>Minidsp</source>
-        <translation type="unfinished"></translation>
+        <translation>Minidsp</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="167"/>
         <source>IP address of the minidsp device</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-adress till minidsp-enheten</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="179"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="180"/>
         <source>Minidsp ip address</source>
-        <translation type="unfinished"></translation>
+        <translation>Minidsp IP-adress</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="77"/>
