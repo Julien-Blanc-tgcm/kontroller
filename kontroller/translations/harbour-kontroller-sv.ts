@@ -28,14 +28,6 @@
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <source>Songs :</source>
-        <translation type="obsolete">Låtar :</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">Beskrivning</translation>
-    </message>
-    <message>
         <location filename="../qml/sailfish/AlbumInformationPage.qml" line="38"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
@@ -549,10 +541,6 @@
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
-        <translation type="vanished">Lösenord för att autentisera inloggning till Kodi. Lämnas tomt om inget lösenord används. Notera att lösenordet kommer att lagras okrypterat på enheten.</translation>
-    </message>
-    <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="88"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation>TCP-port för att ansluta till servern. Om du inte har ändrat det i Kodi skall standardvärdet fungera. Du måste aktivera fjärråtkomst i Kodi, annars kommer inte aviseringar att fungera korrekt.</translation>
@@ -568,28 +556,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="143"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="144"/>
         <source>Volume plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="146"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="147"/>
         <source>Kodi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="149"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="150"/>
         <source>Minidsp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="166"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="167"/>
         <source>IP address of the minidsp device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="178"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="179"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="180"/>
         <source>Minidsp ip address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -609,10 +597,6 @@
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="103"/>
         <source>Server port</source>
         <translation>Serverport</translation>
-    </message>
-    <message>
-        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
-        <translation type="vanished">HTTP-port för att ansluta till servern. Om du inte har ändrat det i Kodi skall standardvärdet (8080) fungera. Du måste aktivera HTTP fjärråtkomst i Kodi, för att detta skall fungera.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="126"/>

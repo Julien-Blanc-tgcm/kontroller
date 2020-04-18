@@ -556,28 +556,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="143"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="144"/>
         <source>Volume plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="146"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="147"/>
         <source>Kodi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="149"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="150"/>
         <source>Minidsp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="166"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="167"/>
         <source>IP address of the minidsp device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="178"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="179"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="180"/>
         <source>Minidsp ip address</source>
         <translation type="unfinished"></translation>
     </message>

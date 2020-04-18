@@ -28,14 +28,6 @@
         <translation>&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <source>Songs :</source>
-        <translation type="obsolete">Titres :</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">Description :</translation>
-    </message>
-    <message>
         <location filename="../qml/sailfish/AlbumInformationPage.qml" line="38"/>
         <source>Remote control</source>
         <translation>Télécommande</translation>
@@ -549,10 +541,6 @@
         <translation>Identifiant</translation>
     </message>
     <message>
-        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
-        <translation type="vanished">Mot de passe utilisé pour l’authentification à Kodi. Laisser vide si aucun mot de passe n’est nécessaire. Attention, ce mot de passe est enregistré en clair sur le périphérique.</translation>
-    </message>
-    <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="88"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation>Port TCP utilisé pour les notifications. Sauf changement dans kodi, laisser la valeur par défaut (9090). Il faut activer l’accès à distance dans les paramètres de Kodi.</translation>
@@ -568,28 +556,28 @@
         <translation>Sélectionner le plugin à utiliser pour le contrôle du volume. Par défaut, le volume intégré de kodi est utilisé. Si vous utilizez un amplificateur externe ou un autre dispositif, choisissez le plugin correspondant et configurez le. Le contrôle du volume agira sur le dispositif sélectionné.</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="143"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="144"/>
         <source>Volume plugin</source>
         <translation>Plugin pour le volume</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="146"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="147"/>
         <source>Kodi</source>
         <translation>Kodi</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="149"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="150"/>
         <source>Minidsp</source>
         <translation>Minidsp</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="166"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="167"/>
         <source>IP address of the minidsp device</source>
         <translation>Adresse IP du périphérique minidsp</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="178"/>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="179"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="180"/>
         <source>Minidsp ip address</source>
         <translation>Adresse ip</translation>
     </message>
@@ -609,10 +597,6 @@
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="103"/>
         <source>Server port</source>
         <translation>Port</translation>
-    </message>
-    <message>
-        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
-        <translation type="vanished">Port HTTP utilisé. Sauf changement dans kodi, laisser la valeur par défaut (8080). Vous devez autoriser l’accès à distance HTTP dans Kodi pour utiliser l’application.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="126"/>

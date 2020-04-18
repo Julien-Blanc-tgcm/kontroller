@@ -135,6 +135,7 @@ to make the remote control the amplifier volume.")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 color: Theme.highlightColor
+                wrapMode: Text.WordWrap
             }
             ComboBox {
                 id: serverVolumePlugin
