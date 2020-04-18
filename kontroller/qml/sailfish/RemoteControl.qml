@@ -26,7 +26,6 @@ Page {
     // gesture step is used by calculation for gestures, to be resolution independant. Otherwise gesture are
     // unusable if resolution is too high (xperia xa2 for example)
     property int gestureStep : Theme.iconSizeLarge
-        //Math.min(page.width, page.height) / 4
 
     property var currentPlayer : appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
 

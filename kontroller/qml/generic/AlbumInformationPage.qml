@@ -88,7 +88,7 @@ Rectangle
             }
             Text {
                 id : songslbl
-                text: qsTr("Songs :")
+                text: qsTr("Songs:")
                 font.bold: true
                 x:theme.horizontalPageMargin
                 color:theme.highlightColor
@@ -157,7 +157,7 @@ Rectangle
                 anchors.right: parent.right
                 anchors.rightMargin: theme.horizontalPageMargin
                 font.bold: true
-                text:qsTr("Description")
+                text:qsTr("Description:")
                 font.pixelSize: theme.fontSizeSmall
             }
             Text {

@@ -5,7 +5,7 @@
     <name>AlbumInformationPage</name>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="55"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="74"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="73"/>
         <source>&lt;b&gt;Artists:&lt;/b&gt; %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17,26 +17,14 @@
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="74"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="90"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="91"/>
         <source>&lt;b&gt;Label:&lt;/b&gt; %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="83"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="98"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="100"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/generic/AlbumInformationPage.qml" line="91"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="106"/>
-        <source>Songs :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/generic/AlbumInformationPage.qml" line="160"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="165"/>
-        <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -52,6 +40,23 @@
     <message>
         <location filename="../qml/sailfish/AlbumInformationPage.qml" line="46"/>
         <source>Back to menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="120"/>
+        <source>Play album</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/generic/AlbumInformationPage.qml" line="91"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="127"/>
+        <source>Songs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/generic/AlbumInformationPage.qml" line="160"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="186"/>
+        <source>Description:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -101,30 +106,28 @@
     <name>CurrentlyPlaying</name>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="195"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="198"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="104"/>
         <source>Nothing playing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="200"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="203"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="109"/>
         <source>Unknow artist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="308"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="311"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="310"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="313"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="25"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="17"/>
         <source>Currently playing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -385,56 +388,69 @@
 <context>
     <name>PlayableItemPage</name>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="41"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="42"/>
         <source>Input text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="50"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="51"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="54"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="55"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="75"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="76"/>
         <source>Remote control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="79"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="80"/>
         <source>Currently playing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="83"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="84"/>
         <source>Back to menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="165"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="174"/>
-        <source>Add to playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/sailfish/PlayableItemPage.qml" line="166"/>
         <location filename="../qml/sailfish/PlayableItemPage.qml" line="175"/>
-        <source>Play immediately</source>
+        <source>Add to playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/sailfish/PlayableItemPage.qml" line="167"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="180"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="176"/>
+        <source>Play immediately</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="168"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="181"/>
         <source>View information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="176"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="177"/>
         <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PlayerControl</name>
+    <message>
+        <location filename="../qml/sailfish/PlayerControl.qml" line="146"/>
+        <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/PlayerControl.qml" line="148"/>
+        <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -442,13 +458,13 @@
     <name>PlayerProperties</name>
     <message>
         <location filename="../qml/generic/PlayerProperties.qml" line="16"/>
-        <location filename="../qml/sailfish/PlayerProperties.qml" line="21"/>
+        <location filename="../qml/sailfish/PlayerProperties.qml" line="17"/>
         <source>Subtitles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/generic/PlayerProperties.qml" line="41"/>
-        <location filename="../qml/sailfish/PlayerProperties.qml" line="39"/>
+        <location filename="../qml/sailfish/PlayerProperties.qml" line="35"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
@@ -456,13 +472,13 @@
 <context>
     <name>PlaylistPage</name>
     <message>
-        <location filename="../qml/generic/PlaylistPage.qml" line="22"/>
-        <location filename="../qml/sailfish/PlaylistPage.qml" line="25"/>
+        <location filename="../qml/generic/PlaylistPage.qml" line="14"/>
+        <location filename="../qml/sailfish/PlaylistPage.qml" line="12"/>
         <source>Current playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/generic/PlaylistPage.qml" line="32"/>
+        <location filename="../qml/generic/PlaylistPage.qml" line="24"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -525,13 +541,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="65"/>
-        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="88"/>
+        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="88"/>
-        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="113"/>
+        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -555,13 +571,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="161"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="166"/>
         <source>IP address of the minidsp device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="173"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="174"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="178"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="179"/>
         <source>Minidsp ip address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -572,14 +588,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="102"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="103"/>
-        <source>Server port</source>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="65"/>
+        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="113"/>
-        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="102"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="103"/>
+        <source>Server port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -668,7 +684,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="111"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="110"/>
         <source>Ignore wi-fi status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -744,35 +760,35 @@
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="289"/>
+        <location filename="../musicservice.cpp" line="288"/>
         <source>Artists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="296"/>
+        <location filename="../musicservice.cpp" line="295"/>
         <source>Albums</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="301"/>
+        <location filename="../musicservice.cpp" line="300"/>
         <source>Songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="307"/>
+        <location filename="../musicservice.cpp" line="306"/>
         <source>Genres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="313"/>
+        <location filename="../musicservice.cpp" line="312"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>eu::tgcm::kontroller::PlayerService</name>
+    <name>eu::tgcm::kontroller::Player</name>
     <message>
-        <location filename="../playerservice.cpp" line="306"/>
+        <location filename="../player.cpp" line="520"/>
         <source>No subtitle</source>
         <translation type="unfinished"></translation>
     </message>

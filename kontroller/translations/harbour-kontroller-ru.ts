@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="ru">
 <context>
     <name>AlbumInformationPage</name>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="55"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="74"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="73"/>
         <source>&lt;b&gt;Artists:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Исполнители:&lt;/b&gt; %1</translation>
     </message>
@@ -17,27 +17,23 @@
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="74"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="90"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="91"/>
         <source>&lt;b&gt;Label:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Студия:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/generic/AlbumInformationPage.qml" line="83"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="98"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="100"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/generic/AlbumInformationPage.qml" line="91"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="106"/>
         <source>Songs :</source>
-        <translation>Песни :</translation>
+        <translation type="obsolete">Песни :</translation>
     </message>
     <message>
-        <location filename="../qml/generic/AlbumInformationPage.qml" line="160"/>
-        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="165"/>
         <source>Description</source>
-        <translation>Описание</translation>
+        <translation type="obsolete">Описание</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/AlbumInformationPage.qml" line="38"/>
@@ -53,6 +49,24 @@
         <location filename="../qml/sailfish/AlbumInformationPage.qml" line="46"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="120"/>
+        <source>Play album</source>
+        <translatorcomment>(google translate for &quot;listen&quot;)</translatorcomment>
+        <translation>Слушать</translation>
+    </message>
+    <message>
+        <location filename="../qml/generic/AlbumInformationPage.qml" line="91"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="127"/>
+        <source>Songs:</source>
+        <translation>Песни:</translation>
+    </message>
+    <message>
+        <location filename="../qml/generic/AlbumInformationPage.qml" line="160"/>
+        <location filename="../qml/sailfish/AlbumInformationPage.qml" line="186"/>
+        <source>Description:</source>
+        <translation>Описание:</translation>
     </message>
 </context>
 <context>
@@ -101,30 +115,28 @@
     <name>CurrentlyPlaying</name>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="195"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="198"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="104"/>
         <source>Nothing playing</source>
         <translation>Остановлено</translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="200"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="203"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="109"/>
         <source>Unknow artist</source>
         <translation>Неизвестный исполнитель</translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="308"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="311"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>Далее: &lt;i&gt;%1&lt;/i&gt; из &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="../qml/generic/CurrentlyPlaying.qml" line="310"/>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="313"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Далее: &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="25"/>
+        <location filename="../qml/sailfish/CurrentlyPlaying.qml" line="17"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
@@ -385,70 +397,83 @@
 <context>
     <name>PlayableItemPage</name>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="41"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="42"/>
         <source>Input text</source>
         <translation>Введите текст</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="50"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="51"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="54"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="55"/>
         <source>OK</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="75"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="76"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="79"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="80"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="83"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="84"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="165"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="174"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="166"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="175"/>
         <source>Add to playlist</source>
         <translation>Добавить в список</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="166"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="175"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="167"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="176"/>
         <source>Play immediately</source>
         <translation>Играть сейчас</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="167"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="180"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="168"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="181"/>
         <source>View information</source>
         <translation>Показать сведения</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="176"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="177"/>
         <source>Download</source>
         <translation>Загрузить</translation>
+    </message>
+</context>
+<context>
+    <name>PlayerControl</name>
+    <message>
+        <location filename="../qml/sailfish/PlayerControl.qml" line="146"/>
+        <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
+        <translation>Далее: &lt;i&gt;%1&lt;/i&gt; из &lt;i&gt;%2&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/PlayerControl.qml" line="148"/>
+        <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
+        <translation>Далее: &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
 </context>
 <context>
     <name>PlayerProperties</name>
     <message>
         <location filename="../qml/generic/PlayerProperties.qml" line="16"/>
-        <location filename="../qml/sailfish/PlayerProperties.qml" line="21"/>
+        <location filename="../qml/sailfish/PlayerProperties.qml" line="17"/>
         <source>Subtitles</source>
         <translation>Субтитры</translation>
     </message>
     <message>
         <location filename="../qml/generic/PlayerProperties.qml" line="41"/>
-        <location filename="../qml/sailfish/PlayerProperties.qml" line="39"/>
+        <location filename="../qml/sailfish/PlayerProperties.qml" line="35"/>
         <source>Audio</source>
         <translation>Звук</translation>
     </message>
@@ -456,13 +481,13 @@
 <context>
     <name>PlaylistPage</name>
     <message>
-        <location filename="../qml/generic/PlaylistPage.qml" line="22"/>
-        <location filename="../qml/sailfish/PlaylistPage.qml" line="25"/>
+        <location filename="../qml/generic/PlaylistPage.qml" line="14"/>
+        <location filename="../qml/sailfish/PlaylistPage.qml" line="12"/>
         <source>Current playlist</source>
         <translation>Список воспроизведения</translation>
     </message>
     <message>
-        <location filename="../qml/generic/PlaylistPage.qml" line="32"/>
+        <location filename="../qml/generic/PlaylistPage.qml" line="24"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
@@ -525,9 +550,8 @@
         <translation>Имя пользователя</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="65"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device</source>
-        <translation>Пароль для подключения к Kodi. Если вы не используете пароли, оставьте это поле пустым. Учтите, что пароль хранится на устройстве незашифрованным.</translation>
+        <translation type="vanished">Пароль для подключения к Kodi. Если вы не используете пароли, оставьте это поле пустым. Учтите, что пароль хранится на устройстве незашифрованным.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/ServerSettingsPage.qml" line="77"/>
@@ -547,8 +571,17 @@
         <translation>Порт сервера</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="113"/>
         <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work</source>
+        <translation type="vanished">HTTP порт для подключения к серверу. Стандартное значение (8080) должно подойти, если вы не меняли порт в настройках Kodi. Для работы приложения в Kodi необходимо разрешить удаленное упавление по HTTP.</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="65"/>
+        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
+        <translation>Пароль для подключения к Kodi. Если вы не используете пароли, оставьте это поле пустым. Учтите, что пароль хранится на устройстве незашифрованным.</translation>
+    </message>
+    <message>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="113"/>
+        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work.</source>
         <translation>HTTP порт для подключения к серверу. Стандартное значение (8080) должно подойти, если вы не меняли порт в настройках Kodi. Для работы приложения в Kodi необходимо разрешить удаленное упавление по HTTP.</translation>
     </message>
     <message>
@@ -578,13 +611,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="161"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="166"/>
         <source>IP address of the minidsp device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="173"/>
-        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="174"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="178"/>
+        <location filename="../qml/sailfish/ServerSettingsPage.qml" line="179"/>
         <source>Minidsp ip address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -668,7 +701,7 @@
         <translation>SD карта %1</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/SettingsPage.qml" line="111"/>
+        <location filename="../qml/sailfish/SettingsPage.qml" line="110"/>
         <source>Ignore wi-fi status</source>
         <translation>Игнорировать состояние WiFi</translation>
     </message>
@@ -744,35 +777,35 @@
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="289"/>
+        <location filename="../musicservice.cpp" line="288"/>
         <source>Artists</source>
         <translation>Исполнители</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="296"/>
+        <location filename="../musicservice.cpp" line="295"/>
         <source>Albums</source>
         <translation>Альбомы</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="301"/>
+        <location filename="../musicservice.cpp" line="300"/>
         <source>Songs</source>
         <translation>Песни</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="307"/>
+        <location filename="../musicservice.cpp" line="306"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="313"/>
+        <location filename="../musicservice.cpp" line="312"/>
         <source>Files</source>
         <translation>Файлы</translation>
     </message>
 </context>
 <context>
-    <name>eu::tgcm::kontroller::PlayerService</name>
+    <name>eu::tgcm::kontroller::Player</name>
     <message>
-        <location filename="../playerservice.cpp" line="306"/>
+        <location filename="../player.cpp" line="520"/>
         <source>No subtitle</source>
         <translation>Нет субтитров</translation>
     </message>

@@ -63,7 +63,7 @@ Dialog {
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
                 text: qsTr("Password used to authenticate to kodi. Leave blank if no password is used. Note that it \
-will be stored unencrypted on the device")
+will be stored unencrypted on the device.")
             }
 
             TextField {
@@ -112,7 +112,7 @@ will not function properly.")
                 color: Theme.highlightColor
                 text: qsTr("HTTP port used to connect to the server. Unless you changed it in kodi, \
 the default value (8080) should be fine. \
-You need to enable HTTP remote access in kodi for this to work")
+You need to enable HTTP remote access in kodi for this to work.")
             }
             TextField {
                 id : serverHttpPort

@@ -124,7 +124,7 @@ Page {
 
             Label {
                 id : songslbl
-                text: qsTr("Songs :")
+                text: qsTr("Songs:")
                 font.bold: true
                 x:Theme.horizontalPageMargin
                 color:Theme.highlightColor
@@ -183,7 +183,7 @@ Page {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
                 font.bold: true
-                text:qsTr("Description")
+                text:qsTr("Description:")
             }
             Label {
                 color:Theme.highlightColor
