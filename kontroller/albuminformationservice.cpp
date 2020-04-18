@@ -2,6 +2,7 @@
 #include "client.h"
 #include "songsrequest.h"
 #include "utils.h"
+#include "musiccontrol.h"
 
 namespace eu
 {
@@ -12,35 +13,35 @@ namespace kontroller
 
 QString AlbumInformationService::name() const
 {
-    return name_;
+	return name_;
 }
 
 void AlbumInformationService::setName(const QString &name)
 {
-    name_ = name;
-    emit nameChanged();
+	name_ = name;
+	emit nameChanged();
 }
 
 QString AlbumInformationService::description() const
 {
-    return description_;
+	return description_;
 }
 
 void AlbumInformationService::setDescription(const QString &description)
 {
-    description_ = description;
-    emit descriptionChanged();
+	description_ = description;
+	emit descriptionChanged();
 }
 
 QString AlbumInformationService::thumbnail() const
 {
-    return thumbnail_;
+	return thumbnail_;
 }
 
 void AlbumInformationService::setThumbnail(const QString &value)
 {
-    thumbnail_ = value;
-    emit thumbnailChanged();
+	thumbnail_ = value;
+	emit thumbnailChanged();
 }
 
 QVariantList AlbumInformationService::songs()
@@ -58,52 +59,52 @@ int AlbumInformationService::albumId() const
 
 void AlbumInformationService::setAlbumId(int albumId)
 {
-    albumId_ = albumId;
-    emit albumIdChanged();
+	albumId_ = albumId;
+	emit albumIdChanged();
 }
 
 QStringList AlbumInformationService::genres() const
 {
-    return genres_;
+	return genres_;
 }
 
 void AlbumInformationService::setGenres(const QStringList &genre)
 {
-    genres_ = genre;
-    emit genresChanged();
+	genres_ = genre;
+	emit genresChanged();
 }
 
 int AlbumInformationService::year() const
 {
-    return year_;
+	return year_;
 }
 
 void AlbumInformationService::setYear(const int &year)
 {
-    year_ = year;
-    emit yearChanged();
+	year_ = year;
+	emit yearChanged();
 }
 
 QString AlbumInformationService::label() const
 {
-    return label_;
+	return label_;
 }
 
 void AlbumInformationService::setLabel(const QString &label)
 {
-    label_ = label;
-    emit labelChanged();
+	label_ = label;
+	emit labelChanged();
 }
 
 QStringList AlbumInformationService::artists() const
 {
-    return artists_;
+	return artists_;
 }
 
 void AlbumInformationService::setArtists(const QStringList &artists)
 {
-    artists_ = artists;
-    emit artistsChanged();
+	artists_ = artists;
+	emit artistsChanged();
 }
 
 Client* AlbumInformationService::client() const
@@ -111,34 +112,45 @@ Client* AlbumInformationService::client() const
 	return client_;
 }
 
+void AlbumInformationService::playFile()
+{
+	File file;
+	file.setFiletype("album");
+	file.setType("album");
+	file.setFile(QString::number(albumId_));
+	file.setLabel(name());
+	ctrl_->playFile(file);
+}
+
 AlbumInformationService::AlbumInformationService(QObject* parent) : QObject(parent),
-    year_(0)
+    year_(0),
+    ctrl_(new MusicControl(this))
 {
 
 }
 
 void AlbumInformationService::refresh()
 {
-    QJsonObject parameters;
-    parameters["albumid"] = albumId_;
-    QJsonArray properties;
-    properties.append(QString("title"));
-    properties.append(QString("description"));
-    properties.append(QString("artist"));
-    properties.append(QString("artistid"));
-    properties.append(QString("genre"));
-//    properties.append(QString("genreid"));
-    properties.append(QString("fanart"));
-    properties.append(QString("albumlabel"));
-    properties.append(QString("year"));
-    properties.append(QString("thumbnail"));
-    properties.append(QString("rating"));
-    parameters["properties"] = properties;
-    QJsonRpcMessage message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbumDetails", parameters);
+	QJsonObject parameters;
+	parameters["albumid"] = albumId_;
+	QJsonArray properties;
+	properties.append(QString("title"));
+	properties.append(QString("description"));
+	properties.append(QString("artist"));
+	properties.append(QString("artistid"));
+	properties.append(QString("genre"));
+	//    properties.append(QString("genreid"));
+	properties.append(QString("fanart"));
+	properties.append(QString("albumlabel"));
+	properties.append(QString("year"));
+	properties.append(QString("thumbnail"));
+	properties.append(QString("rating"));
+	parameters["properties"] = properties;
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbumDetails", parameters);
 	auto reply = client_->send(message);
-    connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumInformationService::handleRefresh_);
+	connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumInformationService::handleRefresh_);
 	auto songsQuery = new SongsRequest(client_);
-    connect(songsQuery, &SongsRequest::finished, this, &AlbumInformationService::handleSongs_);
+	connect(songsQuery, &SongsRequest::finished, this, &AlbumInformationService::handleSongs_);
 	songsQuery->start(albumId_);
 }
 
@@ -148,6 +160,7 @@ void AlbumInformationService::setClient(Client* client)
 		return;
 
 	client_ = client;
+	ctrl_->setClient(client);
 	emit clientChanged(client_);
 }
 
@@ -157,53 +170,53 @@ void AlbumInformationService::handleRefresh_()
 	if(reply)
 	{
 		auto result = reply->response().result();
-        if(!result.isObject())
-            return;
-        auto detailsTmp = result.toObject().value("albumdetails");
-        if(!detailsTmp.isObject())
-            return;
-        auto details = detailsTmp.toObject();
-        setName(details.value("title").toString());
-        setDescription(details.value("description").toString());
-        auto genres = details.value("genre");
-        QStringList genresTmp;
-        if(genres.isArray())
-        {
-            auto arr = genres.toArray();
-            for(auto const& genre : arr)
-            {
-                if(genre.isString())
-                    genresTmp.push_back(genre.toString());
-            }
+		if(!result.isObject())
+			return;
+		auto detailsTmp = result.toObject().value("albumdetails");
+		if(!detailsTmp.isObject())
+			return;
+		auto details = detailsTmp.toObject();
+		setName(details.value("title").toString());
+		setDescription(details.value("description").toString());
+		auto genres = details.value("genre");
+		QStringList genresTmp;
+		if(genres.isArray())
+		{
+			auto arr = genres.toArray();
+			for(auto const& genre : arr)
+			{
+				if(genre.isString())
+					genresTmp.push_back(genre.toString());
+			}
 
-        }
-        setGenres(genresTmp);
-        setYear(details.value("year").toInt());
-        auto artists = details.value("artist");
-        if(artists.isArray())
-        {
-            auto artistsArray = artists.toArray();
-            for(auto const& val : artistsArray)
-            {
-                if(val.isString())
-                    artists_.push_back(val.toString());
-            }
-        }
-        emit artistsChanged();
-        setLabel(details.value("albumlabel").toString());
+		}
+		setGenres(genresTmp);
+		setYear(details.value("year").toInt());
+		auto artists = details.value("artist");
+		if(artists.isArray())
+		{
+			auto artistsArray = artists.toArray();
+			for(auto const& val : artistsArray)
+			{
+				if(val.isString())
+					artists_.push_back(val.toString());
+			}
+		}
+		emit artistsChanged();
+		setLabel(details.value("albumlabel").toString());
 		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
-    }
+	}
 }
 
 void AlbumInformationService::handleSongs_()
 {
-    auto songsQuery = dynamic_cast<SongsRequest*>(sender());
-    if(songsQuery)
-    {
+	auto songsQuery = dynamic_cast<SongsRequest*>(sender());
+	if(songsQuery)
+	{
 		songs_ = songsQuery->results;
-        emit songsChanged();
-        songsQuery->deleteLater();
-    }
+		emit songsChanged();
+		songsQuery->deleteLater();
+	}
 }
 
 }

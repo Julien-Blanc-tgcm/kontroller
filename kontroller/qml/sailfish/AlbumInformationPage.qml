@@ -50,16 +50,6 @@ Page {
 
         VerticalScrollDecorator {}
 
-        Image {
-            id: fanart
-            source: service.thumbnail
-            height:parent.width / 3
-            width:parent.width / 3
-            fillMode: Image.PreserveAspectFit
-            anchors.right: parent.right
-            anchors.top:txtTitle.bottom
-        }
-
         Column {
             id:col
             anchors.top:txtTitle.bottom
@@ -67,38 +57,69 @@ Page {
             anchors.right: parent.right
             spacing:Theme.paddingSmall
 
-            Label {
+            Item {
+                height:childrenRect.height
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Artists:</b> %1").arg(service.artists[0])
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
+                anchors.right: parent.right
+                Column {
+                    anchors.right: parent.right
+                    anchors.rightMargin: width / 3
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    Label {
+                        anchors.left: parent.left
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                        text:qsTr("<b>Artists:</b> %1").arg(service.artists[0])
+                        color:Theme.highlightColor
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                    }
+                    Label {
+                        anchors.left: parent.left
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                        text:qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:"")
+                        color:Theme.highlightColor
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                    }
+                    Label {
+                        anchors.left: parent.left
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                        text:qsTr("<b>Label:</b> %1").arg(service.label)
+                        color:Theme.highlightColor
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                    }
+                    Label {
+                        anchors.left: parent.left
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
+                        text:qsTr("<b>Genre:</b> %1").arg(formatArray(service.genres))
+                        color:Theme.highlightColor
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                    }
+                }
+
+                Image {
+                    id: fanart
+                    source: service.thumbnail
+                    width:(parent.width - 2 * Theme.horizontalPageMargin) / 3
+                    height:width
+                    fillMode: Image.PreserveAspectFit
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    anchors.top:parent.top
+                }
             }
-            Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:"")
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-            }
-            Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Label:</b> %1").arg(service.label)
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-            }
-            Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Genre:</b> %1").arg(formatArray(service.genres))
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.WordWrap
+
+            Button {
+                text:qsTr("Play album")
+                onClicked: service.playFile()
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Label {
