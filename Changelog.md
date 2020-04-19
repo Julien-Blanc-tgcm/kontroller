@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 0.7
+
+* lots of internal changes, fixes some app crashes
+* correctly keep last connected server
+* added a volume plugin for minidsp products
+* download files to music / videos folder, respectively
+* reworked the remote control page, which is much more usable now
+* small ui/layout improvements
+
+## Version 0.6
+
+* fixes for landscape mode
+* fixed some bugs related to genre for music
+* reviewed settings page, use of a dialog page
+* introduced preliminary support for volume plugins
+
+## Version 0.5
+
+* includes russian translation from dikonov
+* added support for volume keys
+* fixes for landscape mode
+
 ## Version 0.4
 
 *Beware that starting for version 0.4, the name of the application changed.
