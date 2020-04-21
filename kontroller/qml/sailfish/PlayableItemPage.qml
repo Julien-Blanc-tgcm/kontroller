@@ -43,10 +43,9 @@ Item {
         }
         Row {
             anchors.top : textInput.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: Theme.paddingMedium
-            anchors.rightMargin: Theme.paddingMedium
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: childrenRect.width
+            spacing: Theme.paddingSmall
             Button {
                 text: qsTr("Cancel")
                 onClicked: { service.inputBack(); }
@@ -142,13 +141,12 @@ Item {
             }
         }
     }
-    Text {
-        anchors.top: header.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        text: "Please wait..."
-        visible:service.refreshing
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing && !service.inputRequested
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     function getMenuItems(playableItem)

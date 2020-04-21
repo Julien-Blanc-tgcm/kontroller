@@ -422,50 +422,50 @@
         <translation>Введите текст</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="51"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="50"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="55"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="54"/>
         <source>OK</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="76"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="75"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="80"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="79"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="84"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="83"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="166"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="175"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="164"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="173"/>
         <source>Add to playlist</source>
         <translation>Добавить в список</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="167"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="176"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="165"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="174"/>
         <source>Play immediately</source>
         <translation>Играть сейчас</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="168"/>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="181"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="166"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="179"/>
         <source>View information</source>
         <translation>Показать сведения</translation>
     </message>
     <message>
-        <location filename="../qml/sailfish/PlayableItemPage.qml" line="177"/>
+        <location filename="../qml/sailfish/PlayableItemPage.qml" line="175"/>
         <source>Download</source>
         <translation>Загрузить</translation>
     </message>
