@@ -28,6 +28,11 @@ void AlbumsRequest::start(int artistid)
 	QJsonArray properties;
 	properties.append(QLatin1String("thumbnail"));
 	parameters.insert("properties", properties);
+	QJsonObject sort;
+	sort["order"] = QLatin1String("ascending");
+	sort["method"] = QLatin1String("label");
+	sort["ignorearticle"] = true;
+	parameters.insert("sort", sort);
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
 	QJsonRpcServiceReply* reply = client_->send(message);
 	if(reply)
