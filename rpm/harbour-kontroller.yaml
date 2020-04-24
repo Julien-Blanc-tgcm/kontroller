@@ -1,6 +1,6 @@
 Name: harbour-kontroller
 Summary: A remote control for xbmc/kodi
-Version: 0.7
+Version: 0.8
 Release: 1
 Group: Applications/Multimedia
 URL: https://github.com/Julien-Blanc-tgcm/kontroller/
@@ -12,12 +12,12 @@ Description: |
 Configure: none
 Builder: qtc5
 PkgConfigBR:
-- sailfishapp >= 0.0.10
+- sailfishapp >= 1.0.2
 - Qt5Core
 - Qt5Qml
 - Qt5Quick
 Requires:
-- sailfishsilica-qt5 >= 0.10.0
+- sailfishsilica-qt5 >= 1.0.2
 Files:
 - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'

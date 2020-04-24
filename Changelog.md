@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 0.8
+
+* added about page
+* fixed centering of text input
+* fixed albums list not alphabetically sorted
+* added busy indicator on some lists
+
 ## Version 0.7
 
 * lots of internal changes, fixes some app crashes
