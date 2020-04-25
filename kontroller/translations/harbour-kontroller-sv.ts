@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/sailfish/About.qml" line="14"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Om</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/About.qml" line="20"/>
         <source>&lt;b&gt;Kontroller&lt;/b&gt; is released under GNU General Public License version 3, in the hope that it will be usefull. The following persons contributed to Kontroller, either via code or translations:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kontroller&lt;/b&gt; är släppt under GNU General Public License version 3, i hopp om att den skall vara användbar. Följande personer bidrog till Kontroller, antingen via kodbidrag eller översättning:</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/About.qml" line="48"/>
         <source>Kontroller uses QJsonRPC. Many thanks to all the people who contributed to this project.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroller använder QJsonRPC. Stort tack till alla som bidragit till detta projekt.</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/About.qml" line="63"/>
         <source>Kontroller home page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollers hemsida:</translation>
     </message>
 </context>
 <context>
@@ -222,7 +222,7 @@
     <message>
         <location filename="../qml/sailfish/KontrollerMain.qml" line="59"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Om</translation>
     </message>
     <message>
         <location filename="../qml/sailfish/KontrollerMain.qml" line="75"/>
