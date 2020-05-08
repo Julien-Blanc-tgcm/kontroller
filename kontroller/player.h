@@ -55,7 +55,7 @@ class Player : public QObject
 	PlaylistService* playlistService_ = nullptr;
 
 public:
-	explicit Player(Client* client, QObject *parent = 0);
+	explicit Player(Client* client, QObject *parent = nullptr);
 
 	Q_PROPERTY(int playerId READ playerId WRITE setPlayerId NOTIFY playerIdChanged)
 	Q_PROPERTY(QString type READ type NOTIFY typeChanged)

@@ -42,8 +42,7 @@ PlaylistItem PlayingInformation::currentItem()
 	int position = player_->playlistPosition();
 	if(position >= 0 && player_->playlistService()->currentItems().size() > position)
 		return player_->playlistService()->currentItems().at(position);
-	else
-		return item_;
+	return item_;
 }
 
 PlaylistItem PlayingInformation::nextItem()
@@ -51,8 +50,7 @@ PlaylistItem PlayingInformation::nextItem()
 	int position = player_->playlistPosition() + 1;
 	if(position >= 0 && player_->playlistService()->currentItems().size() > position)
 		return player_->playlistService()->currentItems().at(position);
-	else
-		return PlaylistItem();
+	return PlaylistItem();
 }
 
 void PlayingInformation::setPlayerType(QString playerType)
@@ -97,6 +95,6 @@ void PlayingInformation::setItem(PlaylistItem item)
 	emit currentItemChanged();
 }
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

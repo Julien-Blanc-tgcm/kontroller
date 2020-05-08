@@ -55,7 +55,7 @@ void MinidspVolumePlugin::setConnected(bool connected)
 
 	connected_ = connected;
 	emit connectedChanged(connected_);
-	if(pendingQueries_.size() > 0)
+	if (!pendingQueries_.empty())
 		executeNextQuery_();
 }
 
@@ -145,7 +145,7 @@ void MinidspVolumePlugin::handleReply_()
 	{
 		muted_ = !muted_;
 	}
-	if(pendingQueries_.size() > 0)
+	if(!pendingQueries_.empty())
 		executeNextQuery_();
 }
 

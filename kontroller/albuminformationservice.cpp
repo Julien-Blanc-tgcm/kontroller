@@ -47,7 +47,7 @@ void AlbumInformationService::setThumbnail(const QString &value)
 QVariantList AlbumInformationService::songs()
 {
 	QVariantList l;
-	for(auto f : songs_)
+	for(auto const& f : songs_)
 		l.push_back(QVariant::fromValue(f));
 	return l;
 }
@@ -123,7 +123,6 @@ void AlbumInformationService::playFile()
 }
 
 AlbumInformationService::AlbumInformationService(QObject* parent) : QObject(parent),
-    year_(0),
     ctrl_(new MusicControl(this))
 {
 
@@ -182,7 +181,7 @@ void AlbumInformationService::handleRefresh_()
 		QStringList genresTmp;
 		if(genres.isArray())
 		{
-			auto arr = genres.toArray();
+			auto const arr = genres.toArray();
 			for(auto const& genre : arr)
 			{
 				if(genre.isString())
@@ -195,7 +194,7 @@ void AlbumInformationService::handleRefresh_()
 		auto artists = details.value("artist");
 		if(artists.isArray())
 		{
-			auto artistsArray = artists.toArray();
+			auto const artistsArray = artists.toArray();
 			for(auto const& val : artistsArray)
 			{
 				if(val.isString())

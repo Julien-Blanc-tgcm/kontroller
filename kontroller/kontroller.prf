@@ -2,13 +2,6 @@ QT += quick qml
 
 target.path = /usr/bin
 
-!sailfishapp_no_deploy_qml {
-    qml.files = qml
-    qml.path = /usr/share/$${TARGET}
-
-    INSTALLS += qml
-}
-
 desktop.files = $${TARGET}.desktop
 desktop.path = /usr/share/applications
 

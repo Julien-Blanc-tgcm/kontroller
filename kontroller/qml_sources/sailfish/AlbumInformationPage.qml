@@ -130,46 +130,42 @@ Page {
                 color:Theme.highlightColor
             }
 
-            Item {
+            SilicaListView {
                 width:parent.width
-                height: service.songs.length * Theme.itemSizeSmall
-                Repeater {
-                    id:songs
-                    model:service.songs
-                    delegate: Item {
+                height: childrenRect.height //service.songs.length * Theme.itemSizeSmall
+                model:service.songs
+                delegate: ListItem {
+                    height:Theme.itemSizeSmall
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    IconButton {
+                        icon.source:"image://theme/icon-m-add"
+                        id:btnaddtopl
+                        x:Theme.horizontalPageMargin
+                        height: Theme.itemSizeSmall
+                        width:height
+                        onClicked: control.addToPlaylist(model.modelData)
+                    }
+                    IconButton {
+                        icon.source:"image://theme/icon-m-play"
+                        id:btnplay
+                        x:btnaddtopl.width + Theme.horizontalPageMargin
                         height:Theme.itemSizeSmall
-                        anchors.left: parent.left
+                        width:height
+                        onClicked: control.playFile(model.modelData)
+                    }
+                    Label {
+                        height:Theme.itemSizeSmall
+                        verticalAlignment: Text.AlignVCenter
+                        x:btnplay.x + btnplay.width + Theme.paddingSmall
+                        text:model.modelData.label
+                        clip:true
+                        elide: Text.ElideMiddle
+                        anchors.left: btnplay.right
+                        anchors.leftMargin: Theme.horizontalPageMargin
                         anchors.right: parent.right
-                        y:index * Theme.itemSizeSmall
-                        IconButton {
-                            icon.source:"image://theme/icon-m-add"
-                            id:btnaddtopl
-                            x:Theme.horizontalPageMargin
-                            height: Theme.itemSizeSmall
-                            width:height
-                            onClicked: control.addToPlaylist(model.modelData)
-                        }
-                        IconButton {
-                            icon.source:"image://theme/icon-m-play"
-                            id:btnplay
-                            x:btnaddtopl.width + Theme.horizontalPageMargin
-                            height:Theme.itemSizeSmall
-                            width:height
-                            onClicked: control.playFile(model.modelData)
-                        }
-                        Label {
-                            height:Theme.itemSizeSmall
-                            verticalAlignment: Text.AlignVCenter
-                            x:btnplay.x + btnplay.width + Theme.paddingSmall
-                            text:model.modelData.label
-                            clip:true
-                            elide: Text.ElideMiddle
-                            anchors.left: btnplay.right
-                            anchors.leftMargin: Theme.horizontalPageMargin
-                            anchors.right: parent.right
-                            anchors.rightMargin: Theme.horizontalPageMargin
-                            color:Theme.highlightColor
-                        }
+                        anchors.rightMargin: Theme.horizontalPageMargin
+                        color:Theme.highlightColor
                     }
                 }
             }

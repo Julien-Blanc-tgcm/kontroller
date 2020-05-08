@@ -40,9 +40,15 @@ class Client : public QObject
 
 	VolumePlugin* volumePlugin_ = nullptr;
 
+	bool sortIgnoreArticle_ = false;
+
 public:
-	explicit Client(ApplicationSettings* settings, QObject *parent = 0);
-	~Client();
+	explicit Client(ApplicationSettings* settings, QObject *parent = nullptr);
+	~Client() noexcept override;
+	Client(Client&&) = delete;
+	Client(Client const&) = delete;
+	Client& operator=(Client&&) = delete;
+	Client& operator=(Client const&) = delete;
 
 	QString serverAddress() const;
 
@@ -73,9 +79,13 @@ public:
 
 	Q_PROPERTY(eu::tgcm::kontroller::VolumePlugin* volumePlugin READ volumePlugin NOTIFY volumePluginChanged)
 
+	Q_PROPERTY(bool sortIgnoreArticle READ sortIgnoreArticle NOTIFY sortIgnoreArticleChanged)
+
 	eu::tgcm::kontroller::PlayerService* playerService() const;
 
 	VolumePlugin* volumePlugin();
+
+	bool sortIgnoreArticle() const;
 
 signals:
 	void connectionStatusChanged(int connected);
@@ -143,6 +153,7 @@ signals:
 	void playerSeekChanged(int playerId, int hours, int minutes, int seconds, int milliseconds);
 	void downloadServiceChanged(eu::tgcm::kontroller::DownloadService* downloadService);
 	void playerServiceChanged(eu::tgcm::kontroller::PlayerService* playerService);
+	void sortIgnoreArticleChanged(bool sortIgnoreArticle);
 };
 
 }

@@ -20,15 +20,28 @@ void SongsRequest::start(int albumid)
 {
 	QJsonObject filter;
 	QJsonObject parameters;
-	if(albumid != 0)
-	{
-		filter["albumid"] = albumid;
-		parameters.insert("filter", filter);
-	}
 	QJsonArray properties;
 	properties.push_back("title");
 	properties.push_back("file");
 	parameters["properties"] = properties;
+	if(albumid != 0)
+	{
+		filter["albumid"] = albumid;
+		parameters.insert("filter", filter);
+		QJsonObject obj;
+		obj.insert("order",  QString::fromUtf8("ascending"));
+		obj.insert("method", QString::fromUtf8("track"));
+		obj.insert("ignorearticle", client_->sortIgnoreArticle());
+		parameters.insert("sort", obj);
+	}
+	else
+	{
+		QJsonObject obj;
+		obj.insert("order",  QString::fromUtf8("ascending"));
+		obj.insert("method", QString::fromUtf8("title"));
+		obj.insert("ignorearticle", client_->sortIgnoreArticle());
+		parameters.insert("sort", obj);
+	}
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
 	QJsonRpcServiceReply* reply = client_->send(message);
 	if(reply)
@@ -39,7 +52,7 @@ void SongsRequest::start(int albumid)
 
 void SongsRequest::parseSongsResult()
 {
-	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
 	{
 		results.clear();
@@ -54,13 +67,13 @@ void SongsRequest::parseSongsResult()
 				files = result.toObject().take("songs");
 				if(files.type() == QJsonValue::Array)
 				{
-					QJsonArray res = files.toArray();
-					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
+					QJsonArray const res = files.toArray();
+					for(auto const & f : res)
 					{
 						File file;
-						if((*it).type() == QJsonValue::Object)
+						if(f.type() == QJsonValue::Object)
 						{
-							QJsonObject obj = (*it).toObject();
+							QJsonObject obj = f.toObject();
 							QJsonValue val = obj.value("label");
 							if(val.type() == QJsonValue::String)
 								file.setLabel(val.toString());

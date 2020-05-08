@@ -68,7 +68,7 @@ void MovieInformationService::setRuntime(int runtime)
 
 QString MovieInformationService::genres() const
 {
-	if(genres_.size() == 0)
+	if(genres_.empty())
 		return QString();
 	QString ret = genres_[0];
 	for(int i = 1; i < genres_.size(); ++i)

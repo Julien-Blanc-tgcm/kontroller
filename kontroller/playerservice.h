@@ -18,7 +18,7 @@ class PlayerService : public QObject
 {
 	Q_OBJECT
 public:
-	explicit PlayerService(eu::tgcm::kontroller::Client* client, QObject *parent = 0);
+	explicit PlayerService(eu::tgcm::kontroller::Client* client, QObject *parent = nullptr);
 
 	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Player> players READ players NOTIFY playersChanged)
 
@@ -71,7 +71,7 @@ private slots:
 	void stopPlayer_();
 
 	void updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds);
-
+  private:
 	static int playerCount_(QQmlListProperty<Player>* list);
 	static Player* playerAt_(QQmlListProperty<Player>* list, int index);
 };

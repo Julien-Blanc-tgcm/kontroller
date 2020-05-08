@@ -128,7 +128,7 @@ void ApplicationSettings::setDownloadLocationFolder(const QString& folder)
 			return;
 		}
 	}
-	if(possibleDownloadLocations_.size() > 0)
+	if(!possibleDownloadLocations_.empty())
 		setDownloadLocation(possibleDownloadLocations_[0]);
 }
 
@@ -240,16 +240,14 @@ void ApplicationSettings::save()
 		settings.beginGroup(server->volumePluginName());
 		for(auto it = server->volumePluginParameters().begin(); it != server->volumePluginParameters().end(); ++it)
 		{
-			QString key = it.key();
-			QVariant val = it.value();
-			settings.setValue(key, val);
+			settings.setValue(it.key(), it.value());
 		}
 		settings.endGroup();
 		i += 1;
 	}
 	settings.endArray();
 #ifndef SAILFISH_TARGET
-    settings.setValue("dpi", dpi_);
+	settings.setValue("dpi", dpi_);
 #endif
 	settings.setValue("downloadFolder", downloadLocation().baseFolder());
 	settings.setValue("lastServer", lastServer());
@@ -307,8 +305,8 @@ Server* ApplicationSettings::getServerAt_(QQmlListProperty<Server>* list, int in
 
 QQmlListProperty<Server> ApplicationSettings::servers()
 {
-	return QQmlListProperty<Server>(this, this, &ApplicationSettings::getServerCount_,
-	                                &ApplicationSettings::getServerAt_);
+	return QQmlListProperty<Server>(
+	    this, this, &ApplicationSettings::getServerCount_, &ApplicationSettings::getServerAt_);
 }
 
 QVariantList ApplicationSettings::possibleDownloadLocations()

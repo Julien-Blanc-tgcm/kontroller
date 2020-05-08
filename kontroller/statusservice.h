@@ -19,7 +19,7 @@ class StatusService : public QObject
 {
 	Q_OBJECT
 	QNetworkConfigurationManager manager_;
-	bool wifiEnabled_;
+	bool wifiEnabled_ = false;
 public:
 	StatusService(QObject* parent = nullptr);
 

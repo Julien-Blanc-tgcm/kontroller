@@ -13,10 +13,6 @@ namespace kontroller
 {
 
 Server::Server(QObject *parent) : QObject(parent),
-    serverAddress_(""),
-    serverPort_(9090),
-    serverHttpPort_(8080),
-    hasZones_(false),
     uuid_(QUuid::createUuid().toString())
 {
 

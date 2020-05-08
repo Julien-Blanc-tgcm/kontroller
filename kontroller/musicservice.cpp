@@ -113,7 +113,7 @@ MusicService::MusicService(QString browsingMode, QString browsingValue, QObject*
 {
 }
 
-MusicService::~MusicService()
+MusicService::~MusicService() noexcept
 {
 	clearFiles();
 }
@@ -221,14 +221,6 @@ void MusicService::refresh_collection()
 	if(browsingMode_.size() > 0)
 	{
 		QJsonObject parameters;
-		if(browsingMode_ != "addon") // no sort in addon : addons do their own sorting, and it usually messes
-		{
-			QJsonObject obj;
-			obj["order"] = QLatin1String("ascending");
-			obj["method"] = QLatin1String("label");
-			obj["ignorearticle"] = true;
-			parameters.insert("sort", obj);
-		}
 		QJsonArray properties;
 		properties.append(QLatin1String("thumbnail"));
 		parameters.insert("properties", properties);
@@ -236,6 +228,11 @@ void MusicService::refresh_collection()
 		{
 			if(browsingValue_ == "artists")
 			{
+				QJsonObject obj;
+				obj["order"] = QLatin1String("ascending");
+				obj["method"] = QLatin1String("label");
+				obj["ignorearticle"] = true;
+				parameters.insert("sort", obj);
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtists", parameters);
 				QJsonRpcServiceReply* reply = client_->send(message);
 				if(reply)
@@ -255,6 +252,11 @@ void MusicService::refresh_collection()
 			}
 			else if(browsingValue_ == "genres")
 			{
+				QJsonObject obj;
+				obj["order"] = QLatin1String("ascending");
+				obj["method"] = QLatin1String("label");
+				obj["ignorearticle"] = true;
+				parameters.insert("sort", obj);
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetGenres", parameters);
 				QJsonRpcServiceReply* reply = client_->send(message);
 				if(reply)
@@ -357,7 +359,7 @@ void MusicService::parseArtistsResults()
 				files = result.toObject().take("artists");
 				if(files.type() == QJsonValue::Array)
 				{
-					QJsonArray res = files.toArray();
+					QJsonArray const res = files.toArray();
 					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
 					{
 						File file;
@@ -425,7 +427,7 @@ void MusicService::parseGenresResults()
 				files = result.toObject().take("genres");
 				if(files.type() == QJsonValue::Array)
 				{
-					QJsonArray res = files.toArray();
+					QJsonArray const res = files.toArray();
 					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
 					{
 						File file;
@@ -471,7 +473,7 @@ void MusicService::parseDirectoryResults()
 					files = result.toObject().take("sources");
 				if(files.type() == QJsonValue::Array)
 				{
-					QJsonArray res = files.toArray();
+					QJsonArray const res = files.toArray();
 					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
 					{
 						File file;
@@ -516,11 +518,12 @@ void MusicService::parseRefreshAddonsResult_()
 			QJsonValue result = obj.take("result");
 			if(result.type() == QJsonValue::Object)
 			{
-				auto resobj = result.toObject();
-				auto addonsIt = resobj.find("addons");
+				auto const resobj = result.toObject();
+				auto const addonsIt = resobj.find("addons");
 				if(addonsIt != resobj.end() && addonsIt->isArray())
 				{
-					for(auto const& addon : addonsIt->toArray())
+					auto const addonsArray = addonsIt->toArray();
+					for(auto const& addon : addonsArray)
 					{
 						if(addon.isObject())
 						{
@@ -554,6 +557,6 @@ void MusicService::requestInputFinished_()
 	setInputRequested(false);
 }
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

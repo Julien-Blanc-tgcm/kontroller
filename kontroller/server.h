@@ -18,10 +18,10 @@ class Server : public QObject
 {
 	Q_OBJECT
 	QString serverAddress_;
-	int serverPort_;
-	int serverHttpPort_;
+	int serverPort_ = 9090;
+	int serverHttpPort_ = 8080;
 	QString name_;
-	bool hasZones_;
+	bool hasZones_ = false;
 	QStringList zones_;
 	QString uuid_;
 
@@ -34,7 +34,7 @@ class Server : public QObject
 	QVariantMap volumePluginParameters_;
 
 public:
-	explicit Server(QObject *parent = 0);
+	explicit Server(QObject *parent = nullptr);
 	Q_PROPERTY(QString serverAddress READ serverAddress WRITE setServerAddress NOTIFY serverAddressChanged)
 	Q_PROPERTY(int serverPort READ serverPort WRITE setServerPort NOTIFY serverPortChanged)
 	Q_PROPERTY(int serverHttpPort READ serverHttpPort WRITE setServerHttpPort NOTIFY serverHttpPortChanged)

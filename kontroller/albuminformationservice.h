@@ -18,13 +18,13 @@ class AlbumInformationService : public QObject
 {
 	Q_OBJECT
 private:
-	int albumId_;
+	int albumId_ = 0;
 	QString name_;
 	QString description_;
 	QString thumbnail_;
 	QVector<File> songs_;
 	QStringList genres_;
-	int year_;
+	int year_ = 0;
 	QString label_;
 	QStringList artists_;
 	eu::tgcm::kontroller::Client* client_ = nullptr;

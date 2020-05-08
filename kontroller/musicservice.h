@@ -5,8 +5,8 @@
 #include "file.h"
 
 #include <QObject>
-#include <QtQml>
 #include <QQmlListProperty>
+#include <QtQml>
 
 namespace eu
 {
@@ -17,102 +17,104 @@ namespace kontroller
 
 class MusicService : public QObject
 {
-    Q_OBJECT
-private:
+	Q_OBJECT
+  private:
 	QVector<File> files_;
 
-    QString browsingMode_;
-    QString browsingValue_;
-    bool refreshing_;
-    int audioPlaylistId_;
+	QString browsingMode_;
+	QString browsingValue_;
+	bool refreshing_;
+	int audioPlaylistId_;
 
-public:
+  public:
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	Q_PROPERTY(QVariantList filesAsList READ filesAsList NOTIFY filesAsListChanged)
-    Q_PROPERTY(QString browsingMode READ browsingMode WRITE setBrowsingMode NOTIFY browsingModeChanged)
+	Q_PROPERTY(QString browsingMode READ browsingMode WRITE setBrowsingMode NOTIFY browsingModeChanged)
 	Q_PROPERTY(QString browsingValue READ browsingValue WRITE setBrowsingValue NOTIFY browsingValueChanged)
-    Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
 
-    Q_PROPERTY(bool inputRequested READ inputRequested WRITE setInputRequested NOTIFY inputRequestedChanged)
-    Q_PROPERTY(QString inputTitle READ inputTitle WRITE setInputTitle NOTIFY inputTitleChanged)
-    Q_PROPERTY(QString inputValue READ inputValue WRITE setInputValue NOTIFY inputValueChanged)
-public:
-    MusicService(QObject * parent = NULL);
-    MusicService(QString browsingMode, QString browsingValue, QObject* parent = NULL);
-    ~MusicService();
+	Q_PROPERTY(bool inputRequested READ inputRequested WRITE setInputRequested NOTIFY inputRequestedChanged)
+	Q_PROPERTY(QString inputTitle READ inputTitle WRITE setInputTitle NOTIFY inputTitleChanged)
+	Q_PROPERTY(QString inputValue READ inputValue WRITE setInputValue NOTIFY inputValueChanged)
+  public:
+	MusicService(QObject* parent = nullptr);
+	MusicService(QString browsingMode, QString browsingValue, QObject* parent = nullptr);
+	~MusicService() noexcept override;
+	MusicService(MusicService&&) = delete;
+	MusicService(MusicService const &) = delete;
+	MusicService& operator=(MusicService&&) = delete;
+	MusicService& operator=(MusicService const &) = delete;
+
 	QVector<File> files() const;
 	QVariantList filesAsList();
-    QString browsingMode() const;
-    QString browsingValue() const;
-    bool refreshing() const;
+	QString browsingMode() const;
+	QString browsingValue() const;
+	bool refreshing() const;
 
-    bool inputRequested() const;
+	bool inputRequested() const;
 
-    QString inputTitle() const;
+	QString inputTitle() const;
 
-    QString inputValue() const;
+	QString inputValue() const;
 
 	eu::tgcm::kontroller::Client* client() const;
 
-signals:
-    void filesAsListChanged();
-    void browsingModeChanged();
-    void browsingValueChanged();
-    void refreshingChanged();
-    void inputRequestedChanged(bool inputRequested);
+  signals:
+	void filesAsListChanged();
+	void browsingModeChanged();
+	void browsingValueChanged();
+	void refreshingChanged();
+	void inputRequestedChanged(bool inputRequested);
 
-    void inputTitleChanged(QString inputTitle);
+	void inputTitleChanged(QString inputTitle);
 
-    void inputValueChanged(QString inputValue);
+	void inputValueChanged(QString inputValue);
 
 	void clientChanged(eu::tgcm::kontroller::Client* client);
 
-public slots:
-    void refresh();
+  public slots:
+	void refresh();
 	void setFiles(const QVector<File>& value);
-    void setBrowsingMode(QString browsingMode);
-    void setBrowsingValue(QString browsingValue);
-    void setRefreshing(bool refreshing);
-    void setInputRequested(bool inputRequested);
+	void setBrowsingMode(QString browsingMode);
+	void setBrowsingValue(QString browsingValue);
+	void setRefreshing(bool refreshing);
+	void setInputRequested(bool inputRequested);
 
-    void setInputTitle(QString inputTitle);
+	void setInputTitle(QString inputTitle);
 
-    void setInputValue(QString inputValue);
+	void setInputValue(QString inputValue);
 
-    void inputBack();
+	void inputBack();
 
-    void inputText(QString inputValue);
+	void inputText(QString inputValue);
 
 	void setClient(eu::tgcm::kontroller::Client* client);
 
-private:
+  private:
+	void clearFiles();
+	void refresh_files();
+	void refresh_collection();
+	void refreshAddons_();
 
-    void clearFiles();
-    void refresh_files();
-    void refresh_collection();
-    void refreshAddons_();
+	bool inputRequested_ = false;
 
-    bool inputRequested_ = false;
+	QString inputTitle_;
 
-    QString inputTitle_;
-
-    QString inputValue_;
+	QString inputValue_;
 
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 
-private slots:
-    void parseArtistsResults();
-    void parseAlbumsResults();
-    void parseSongsResults();
-    void parseGenresResults();
-    void parseDirectoryResults();
-    void parseRefreshAddonsResult_();
-    void requestInput_(QString title, QString type, QString value);
-    void requestInputFinished_();
-
+  private slots:
+	void parseArtistsResults();
+	void parseAlbumsResults();
+	void parseSongsResults();
+	void parseGenresResults();
+	void parseDirectoryResults();
+	void parseRefreshAddonsResult_();
+	void requestInput_(QString title, QString type, QString value);
+	void requestInputFinished_();
 };
-
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 #endif // EU_TGCM_KONTROLLER_	MUSICSERVICE_H

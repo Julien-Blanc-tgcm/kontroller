@@ -21,7 +21,7 @@ class TvShowSeasonsRequest : public QObject
 public:
 	explicit TvShowSeasonsRequest(Client* client, QObject *parent = nullptr);
 
-	~TvShowSeasonsRequest();
+	~TvShowSeasonsRequest() noexcept override;
 
 	void start(int tvshowid);
 

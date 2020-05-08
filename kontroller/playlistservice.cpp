@@ -13,12 +13,8 @@ namespace tgcm
 namespace kontroller
 {
 
-PlaylistService::PlaylistService(Client* client, Player* player, QObject *parent) : QObject(parent),
-    client_{client},
-    player_{player},
-    playlistId_(-1),
-    refreshing_(false),
-    restartAfterRefreshing_(false)
+PlaylistService::PlaylistService(Client* client, Player* player, QObject* parent) :
+    QObject(parent), client_{client}, player_{player}, playlistId_(-1)
 {
 	connect(client_, &Client::playlistCleared, this, &PlaylistService::handlePlaylistCleared_);
 	connect(client_, &Client::playlistElementRemoved, this, &PlaylistService::handlePlaylistElementRemoved);
@@ -34,7 +30,7 @@ int PlaylistService::playlistId() const
 
 void PlaylistService::setPlaylistId(int playlistId)
 {
-	if(playlistId != playlistId_)
+	if (playlistId != playlistId_)
 	{
 		playlistId_ = playlistId;
 		emit playlistIdChanged();
@@ -45,7 +41,7 @@ void PlaylistService::setPlaylistId(int playlistId)
 QVariantList PlaylistService::items()
 {
 	QVariantList l;
-	for(auto item : currentItems())
+	for (auto const& item : currentItems())
 	{
 		l.push_back(QVariant::fromValue(item));
 	}
@@ -57,9 +53,9 @@ QString PlaylistService::playlistType() const
 	return playlistType_;
 }
 
-void PlaylistService::setPlaylistType(const QString &playlistType)
+void PlaylistService::setPlaylistType(const QString& playlistType)
 {
-	if(playlistType != playlistType_)
+	if (playlistType != playlistType_)
 	{
 		playlistType_ = playlistType;
 		//    playlistId_ = -1;
@@ -70,7 +66,7 @@ void PlaylistService::setPlaylistType(const QString &playlistType)
 
 int PlaylistService::playlistPosition() const
 {
-    return playlistPosition_;
+	return playlistPosition_;
 }
 
 void PlaylistService::setPlaylistPosition(int playlistPosition)
@@ -90,7 +86,7 @@ void PlaylistService::switchToItem(int position)
 {
 	QJsonObject parameters;
 	int playerId = client_->playerService()->getPlayerId(playlistType_);
-	if(playerId < 0)
+	if (playerId < 0)
 		return;
 	parameters["playerid"] = playerId;
 	parameters["to"] = position;
@@ -102,7 +98,7 @@ void PlaylistService::switchToItem(int position)
 
 void PlaylistService::refreshPlaylist_()
 {
-	if(!refreshing_ && playlistId_ >= 0)
+	if (!refreshing_ && playlistId_ >= 0)
 	{
 		QJsonObject parameters;
 		QJsonArray properties;
@@ -133,19 +129,19 @@ void PlaylistService::refreshPlaylistCb_()
 {
 	refreshing_ = false;
 	currentItems_.clear();
-	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if(reply)
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if (reply)
 	{
 		QJsonRpcMessage response = reply->response();
-		if(response.errorCode() == 0)
+		if (response.errorCode() == 0)
 		{
 			QJsonValue items_ = response.result().toObject().value("items");
-			if(items_.isArray())
+			if (items_.isArray())
 			{
 				QJsonArray items = items_.toArray();
-				for(QJsonValue val_ : items)
+				for (QJsonValue val_ : items)
 				{
-					if(val_.isObject())
+					if (val_.isObject())
 					{
 						QJsonObject val = val_.toObject();
 						PlaylistItem item;
@@ -153,13 +149,13 @@ void PlaylistService::refreshPlaylistCb_()
 						item.setArtistId(val.value("artistid").toInt());
 						QString type = val.value("type").toString();
 						int id = val.value("id").toInt();
-						if(type == "song")
+						if (type == "song")
 							item.setSongId(id);
-						else if(type == "movie")
+						else if (type == "movie")
 							item.setMovieId(id);
-						else if(type == "episode")
+						else if (type == "episode")
 							item.setEpisodeId(id);
-						else if(type == "musicvideo")
+						else if (type == "musicvideo")
 							item.setMusicvideoId(id);
 						item.setFile(val.value("file").toString());
 						item.setLabel(val.value("label").toString());
@@ -181,7 +177,7 @@ void PlaylistService::refreshPlaylistCb_()
 		}
 	}
 	emit itemsChanged();
-	if(restartAfterRefreshing_)
+	if (restartAfterRefreshing_)
 	{
 		restartAfterRefreshing_ = false;
 		refreshPlaylist_();
@@ -198,25 +194,25 @@ void PlaylistService::findMatchingPlaylist_()
 void PlaylistService::findMatchingPlaylistCb_()
 {
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if(reply)
+	if (reply)
 	{
 		QJsonRpcMessage response = reply->response();
-		if(response.errorCode() == 0)
+		if (response.errorCode() == 0)
 		{
 			QJsonValue items_ = response.result().toArray();
-			if(items_.isArray())
+			if (items_.isArray())
 			{
 				QJsonArray items = items_.toArray();
-				for(QJsonValue val_ : items)
+				for (QJsonValue val_ : items)
 				{
-					if(val_.isObject())
+					if (val_.isObject())
 					{
 						QJsonObject val = val_.toObject();
 						QString type = val.value("type").toString();
-						if(type == playlistType_)
+						if (type == playlistType_)
 						{
 							QJsonValue pid = val.value("playlistid");
-							if(pid.isDouble())
+							if (pid.isDouble())
 							{
 								setPlaylistId((int)pid.toDouble());
 							}
@@ -230,30 +226,30 @@ void PlaylistService::findMatchingPlaylistCb_()
 
 void PlaylistService::handlePlaylistCleared_(int playlist)
 {
-    if(playlist == playlistId_)
-    {
-        currentItems_.clear();
-        emit itemsChanged();
-    }
+	if (playlist == playlistId_)
+	{
+		currentItems_.clear();
+		emit itemsChanged();
+	}
 }
 
 void PlaylistService::handlePlaylistElementRemoved(int playlist, int position)
 {
-    if(playlist == playlistId_)
-    {
-        if(position < currentItems_.size())
-        {
-            if(position < playlistPosition_)
-                playlistPosition_ -= 1;
-            currentItems_.removeAt(position);
-            emit itemsChanged();
-        }
-    }
+	if (playlist == playlistId_)
+	{
+		if (position < currentItems_.size())
+		{
+			if (position < playlistPosition_)
+				playlistPosition_ -= 1;
+			currentItems_.removeAt(position);
+			emit itemsChanged();
+		}
+	}
 }
 
 void PlaylistService::handlePlaylistElementAdded(int playlistId)
 {
-	if(playlistId == playlistId_)
+	if (playlistId == playlistId_)
 		refreshPlaylist_();
 }
 
@@ -283,50 +279,50 @@ void PlaylistService::refresh()
 
 void PlaylistService::setCurrentlyPlayedItem_(int playerId, QString type, int id)
 {
-	if(player_->playerId() != playerId)
+	if (player_->playerId() != playerId)
 		return; // not for us
 	bool found = false;
-	for(int i = 0; i < currentItems_.size(); ++i)
+	for (int i = 0; i < currentItems_.size(); ++i)
 	{
 		auto item = currentItems_[i];
-		if(type == "song")
+		if (type == "song")
 		{
-			if(item.songId() == id)
+			if (item.songId() == id)
 			{
 				setPlaylistPosition(i);
 				found = true;
 			}
 		}
-		else if(type == "movie")
+		else if (type == "movie")
 		{
-			if(item.movieId() == id)
+			if (item.movieId() == id)
 			{
 				found = true;
 				setPlaylistPosition(i);
 			}
 		}
-		else if(type == "episode")
+		else if (type == "episode")
 		{
-			if(item.episodeId() == id)
+			if (item.episodeId() == id)
 			{
 				found = true;
 				setPlaylistPosition(i);
 			}
 		}
-		else if(type == "musicvideo")
-			if(item.musicvideoId() == id)
+		else if (type == "musicvideo")
+			if (item.musicvideoId() == id)
 			{
 				found = true;
 				setPlaylistPosition(i);
 			}
 	}
-	if(!found)
+	if (!found)
 		refreshPlaylist_();
 }
 
 void PlaylistService::handlePlayerChanged_()
 {
-	if(client_->playerService()->playersList().size() > 0)
+	if (!client_->playerService()->playersList().empty())
 	{
 		setPlaylistType(client_->playerService()->playersList().at(0)->type());
 	}
@@ -339,12 +335,12 @@ void PlaylistService::handlePlayerChanged_()
 void PlaylistService::handleGotoReply_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if(reply != nullptr)
+	if (reply != nullptr)
 	{
 		auto response = reply->response();
-		if(response.result().isString() && response.result().toString() == QString::fromUtf8("OK"))
+		if (response.result().isString() && response.result().toString() == QString::fromUtf8("OK"))
 		{
-			if(pendingPosition_ != -1)
+			if (pendingPosition_ != -1)
 			{
 				setPlaylistPosition(pendingPosition_);
 				pendingPosition_ = -1;
@@ -353,7 +349,6 @@ void PlaylistService::handleGotoReply_()
 	}
 }
 
-
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

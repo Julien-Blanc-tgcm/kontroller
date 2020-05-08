@@ -27,7 +27,7 @@ VolumePlugin* getVolumePlugin_(Client* owner, Server* server)
 	QString pluginName = server->volumePluginName();
 	if(pluginName == KodiVolumePlugin::static_name())
 		return new KodiVolumePlugin(owner);
-	else if(pluginName == MinidspVolumePlugin::static_name())
+	if(pluginName == MinidspVolumePlugin::static_name())
 	{
 		QString address = server->volumePluginParameters().value("address").toString();
 		auto plugin = new MinidspVolumePlugin(owner);
@@ -239,7 +239,7 @@ void Client::setPlayerService(PlayerService* playerService)
 
 void Client::handleReplyFinished()
 {
-	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
 	{
 		auto response = reply->response();
@@ -385,9 +385,14 @@ void Client::provideCredentials_(QNetworkReply * /*reply*/, QAuthenticator *auth
 	authenticator->setPassword(server_->password());
 }
 
-VolumePlugin* Client::volumePlugin() 
+VolumePlugin* Client::volumePlugin()
 {
 	return volumePlugin_;
+}
+
+bool Client::sortIgnoreArticle() const
+{
+	return sortIgnoreArticle_;
 }
 
 }

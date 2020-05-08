@@ -17,10 +17,14 @@ class File;
 
 class TvShowEpisodesRequest : public QObject
 {
-    Q_OBJECT
-public:
-	explicit TvShowEpisodesRequest(Client* client, QObject *parent = 0);
-    ~TvShowEpisodesRequest();
+	Q_OBJECT
+  public:
+	explicit TvShowEpisodesRequest(Client* client, QObject* parent = nullptr);
+	~TvShowEpisodesRequest() noexcept override;
+	TvShowEpisodesRequest(TvShowEpisodesRequest&&) = delete;
+	TvShowEpisodesRequest(TvShowEpisodesRequest const&) = delete;
+	TvShowEpisodesRequest& operator=(TvShowEpisodesRequest&&) = delete;
+	TvShowEpisodesRequest& operator=(TvShowEpisodesRequest const&) = delete;
 
 	QVector<File> episodes;
 	bool success;
@@ -31,16 +35,17 @@ public:
 	 * @param season Season, not the season Id !!! (1 for first season, 2 for second, etc)
 	 */
 	void start(int tvshowId, int season);
-signals:
+  signals:
 	void finished();
-private slots:
+  private slots:
 	void parseEpisodesResult_();
-private:
+
+  private:
 	Client* client_ = nullptr;
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 
 #endif // EU_TGCM_KONTROLLER_EPISODESREQUEST_H

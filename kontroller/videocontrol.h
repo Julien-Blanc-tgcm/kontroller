@@ -23,7 +23,7 @@ private:
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 	File currentFile_;
 public:
-	explicit VideoControl(QObject *parent = 0);
+	explicit VideoControl(QObject *parent = nullptr);
 
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	eu::tgcm::kontroller::Client* client() const;

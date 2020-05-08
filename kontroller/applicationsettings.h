@@ -44,7 +44,7 @@ private:
 	int dpi_;
 #endif
 	/*    int serverHttpPort_; */
-	bool ignoreWifiStatus_;
+	bool ignoreWifiStatus_ = false;
 	DownloadLocation downloadLocation_;
 	QString lastServer_;
 

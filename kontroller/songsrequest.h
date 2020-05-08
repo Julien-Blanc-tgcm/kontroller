@@ -18,7 +18,11 @@ class SongsRequest : public QObject
 	Q_OBJECT
 public:
 	explicit SongsRequest(Client* client, QObject *parent = nullptr);
-	~SongsRequest();
+	~SongsRequest() override;
+	SongsRequest(SongsRequest&&) = delete;
+	SongsRequest(SongsRequest const&) = delete;
+	SongsRequest& operator=(SongsRequest&&) = delete;
+	SongsRequest& operator=(SongsRequest const&) = delete;
 
 	void start(int albumid);
 

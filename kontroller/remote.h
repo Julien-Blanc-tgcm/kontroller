@@ -15,10 +15,10 @@ class Client;
 class Remote : public QObject
 {
 	Q_OBJECT
-	eu::tgcm::kontroller::Client* client_;
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 
 public:
-	explicit Remote(QObject *parent = 0);
+	explicit Remote(QObject *parent = nullptr);
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	eu::tgcm::kontroller::Client* client() const;
 

@@ -13,7 +13,6 @@ AlbumsRequest::AlbumsRequest(Client* client, QObject *parent) : QObject(parent),
     client_{client},
     success(false)
 {
-
 }
 
 void AlbumsRequest::start(int artistid)
@@ -60,7 +59,7 @@ void AlbumsRequest::startWithGenre(int genreid)
 
 void AlbumsRequest::parseAlbumsResult()
 {
-	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
 	{
 		QJsonRpcMessage response = reply->response();
@@ -74,7 +73,7 @@ void AlbumsRequest::parseAlbumsResult()
 				files = result.toObject().take("albums");
 				if(files.type() == QJsonValue::Array)
 				{
-					QJsonArray res = files.toArray();
+					QJsonArray const res = files.toArray();
 					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
 					{
 						File file;

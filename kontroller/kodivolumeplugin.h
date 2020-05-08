@@ -30,11 +30,11 @@ protected:
 	int maxVolume_() const override;
 	int minVolume_() const override;
 	int currentVolume_() const override;
-	void updateVolume_(int value) override;
+	void updateVolume_(int newVolume) override;
 	int volumeStep_() const override;
 	void refreshVolume_() override;
-	void increaseVolume_();
-	void decreaseVolume_();
+	void increaseVolume_() override;
+	void decreaseVolume_() override;
 private:
 	int currentVolumeStored_ = -1;
 private slots:

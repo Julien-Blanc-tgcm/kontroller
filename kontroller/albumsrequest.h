@@ -17,8 +17,12 @@ class AlbumsRequest : public QObject
 {
 	Q_OBJECT
 public:
-	explicit AlbumsRequest(Client* client, QObject *parent = 0);
-	~AlbumsRequest();
+	explicit AlbumsRequest(Client* client, QObject *parent = nullptr);
+	~AlbumsRequest() noexcept override;
+	AlbumsRequest(AlbumsRequest&&) = delete;
+	AlbumsRequest(AlbumsRequest const&) = delete;
+	AlbumsRequest& operator=(AlbumsRequest&&) = delete;
+	AlbumsRequest& operator=(AlbumsRequest const&) = delete;
 	/**
 	 * @brief start starts the request.
 	 * @param artistid

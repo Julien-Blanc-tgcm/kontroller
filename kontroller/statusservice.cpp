@@ -44,7 +44,7 @@ void StatusService::setSettings(ApplicationSettings* settings)
 bool StatusService::atLeastOneWifiConnected()
 {
 	auto confs = manager_.allConfigurations();
-	for(auto conf : confs)
+	for(auto const& conf : confs)
 	{
 		if(conf.bearerType() == QNetworkConfiguration::BearerWLAN)
 		{

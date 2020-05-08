@@ -87,12 +87,11 @@ void PlayerService::refreshPlayerInfoCb_()
 			QJsonValue val = response.result();
 			if(val.isArray())
 			{
-				QJsonArray arr = val.toArray();
-				if(arr.size() != 0)
+				QJsonArray const arr = val.toArray();
+				if(!arr.empty())
 				{
-					for(int i = 0; i < arr.size(); ++i)
+					for(auto const& val2 : arr)
 					{
-						QJsonValue val2 = arr[i];
 						if(val2.isObject())
 						{
 							// find wether this player already existed :

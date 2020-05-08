@@ -53,15 +53,15 @@ SOURCES += main.cpp \
 
 RESOURCES += icons.qrc
 CONFIG(sailfish) {
-    RESOURCES += qml/sailfish/qml.qrc
+    RESOURCES += qml_sources/sailfish/qml.qrc
 #    OTHER_FILES += qml/sailfish/kontroller.qml \
 #        qml/sailfish/cover/CoverPage.qml \
 #        qml/sailfish/KontrollerMain.qml \
 #        qml/sailfish/AlbumInformationPage.qml
 
 } else {
-#    RESOURCES += qml/generic/qml.qrc
-#    message("Adding generic components to resources")
+    RESOURCES += qml_sources/generic/qml.qrc
+    message("Adding generic components to resources")
 }
 
 INCLUDEPATH += ../qjsonrpc/src \
@@ -101,7 +101,8 @@ TRANSLATIONS += \
         translations/harbour-kontroller-ru.ts \
         translations/harbour-kontroller-sv.ts
 
-TRANSLATION_SOURCES += $$PWD/*.cpp
+TRANSLATION_SOURCES += $$PWD/*.cpp \
+    $$PWD/qml_sources/sailfish/*.qml
 
 #LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
 LIBS += -lqjsonrpc
@@ -165,6 +166,12 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 CONFIG(sailfishapp) {
 DISTFILES += kontroller.prf \
     harbour-kontroller.desktop
+
+
+qml_sources.files = qml_sources/sailfish
+qml_sources.path = /usr/share/$${TARGET}/qml
+
+INSTALLS += qml_sources
 
 #lib.path = /usr/share/harbour-kontroller/lib/
 #lib.files += ../qjsonrpc/src/libqjsonrpc.so.1

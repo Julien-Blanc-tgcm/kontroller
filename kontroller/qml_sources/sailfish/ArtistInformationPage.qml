@@ -93,54 +93,80 @@ Page {
                 color:Theme.highlightColor
             }
 
-            Item {
-                height:service.albums.length * Theme.itemSizeSmall
-                width:parent.width
-                Repeater {
-                    id:albums
-                    model:service.albums
-                    delegate: Item {
+            SilicaListView {
+                height:childrenRect.height
+                id:albums
+                model:service.albums
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: Theme.paddingSmall
+                delegate: ListItem {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    contentHeight: Math.max(img.height, albumtext.height)
+                   // height: Theme.itemSizeSmall
+//                        IconButton {
+//                            width: height
+//                            height: Theme.itemSizeSmall
+//                            icon.source:"image://theme/icon-m-add"
+//                            id:btnaddtopl
+//                            x:0
+//                            onClicked: control.addToPlaylist(model.modelData)
+//                        }
+                    Image {
                         anchors.left: parent.left
-                        anchors.right: parent.right
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        visible:model.modelData.thumbnail.length > 0
+                        source:model.modelData.thumbnail
                         height: Theme.itemSizeSmall
-                        y:index * Theme.itemSizeSmall
-                        IconButton {
-                            width: height
-                            height: Theme.itemSizeSmall
-                            icon.source:"image://theme/icon-m-add"
-                            id:btnaddtopl
-                            x:0
+                        width: height
+                        anchors.verticalCenter: parent.verticalCenter
+                        id:img
+                    }
+
+                    Label {
+                        id:albumtext
+                        //height: Theme.itemSizeSmall
+                        verticalAlignment: Text.AlignVCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        text:model.modelData.label
+                        wrapMode: Text.Wrap
+                        //elide: Text.ElideMiddle
+                        anchors.left: img.visible?img.right:parent.left
+                        anchors.leftMargin: img.visible?Theme.paddingSmall:Theme.horizontalPageMargin
+                        anchors.right: btnplay.left
+                        anchors.rightMargin: Theme.paddingSmall
+                    }
+                    IconButton {
+                        width: height
+                        icon.source:"image://theme/icon-m-play"
+                        id:btnplay
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.horizontalPageMargin
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked: control.playFile(model.modelData)
+                    }
+                    menu: ContextMenu {
+                        MenuItem {
+                            text: qsTr("View information")
+                            onClicked: mediaInformationClicked(model.modelData.filetype,
+                                                               model.modelData.file,
+                                                               model.modelData.label)
+                        }
+
+                        MenuItem {
+                            text: qsTr("Add to playlist")
                             onClicked: control.addToPlaylist(model.modelData)
                         }
-                        IconButton {
-                            width: height
-                            height: Theme.itemSizeSmall
-                            icon.source:"image://theme/icon-m-play"
-                            id:btnplay
-                            x:width + 5
+                        MenuItem {
+                            text: qsTr("Play immediately")
                             onClicked: control.playFile(model.modelData)
                         }
-                        Label {
-                            id:albumtext
-                            height: Theme.itemSizeSmall
-                            verticalAlignment: Text.AlignVCenter
-                            x:btnplay.x + btnplay.width+ 5
-                            text:model.modelData.label
-                            clip:true
-                            elide: Text.ElideMiddle
-                            width:parent.width - btnplay.width  - btnaddtopl.width - 10
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                                   model.modelData.file,
-                                                                   model.modelData.label)
-                                onPressAndHold: {
-                                }
-                            }
-                        }
                     }
+                    onClicked: mediaInformationClicked(model.modelData.filetype,
+                                                       model.modelData.file,
+                                                       model.modelData.label)
                 }
-
             }
             Label {
                 id:lblDesc

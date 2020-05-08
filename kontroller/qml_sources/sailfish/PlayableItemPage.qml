@@ -65,7 +65,7 @@ Item {
         anchors.bottom: parent.bottom
         model: service.filesAsList
         clip:true
-        spacing:1
+        spacing:Theme.paddingSmall
         currentIndex: -1
         visible: !service.refreshing
 
@@ -86,35 +86,39 @@ Item {
         }
 
         delegate: ListItem {
-            width: ListView.view.width
-            contentHeight:Theme.itemSizeSmall
+            anchors.left: parent.left
+            anchors.right: parent.right
             id:currentItem
+            contentHeight: Math.max(img.height, lbl.height)
+
             Image {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
                 visible:modelData.thumbnail.length > 0
                 source:modelData.thumbnail
-                height:parent.height - 2 * Theme.paddingSmall
-                width: height * sourceSize.width / sourceSize.height
+                height: Theme.itemSizeSmall
+                width: height
                 anchors.verticalCenter: parent.verticalCenter
                 id:img
+                fillMode: Image.PreserveAspectFit
             }
 
             Label {
+                id: lbl
                 text : formatFile(modelData.filetype, modelData.label)
                 anchors.left: img.visible ? img.right :parent.left
                 anchors.leftMargin: img.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
-                anchors.right: btnplay.left
+                anchors.right: btnplay.visible ? btnplay.left : parent.left
+                anchors.rightMargin: btnplay.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
-                clip:true
-                elide: Text.ElideRight
+                wrapMode: Text.Wrap
             }
             IconButton {
                 id:btnplay
                 icon.source: "image://theme/icon-m-play"
                 anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.rightMargin: 5
                 visible: {
                     for (var i = 0; i < playableItems.length; i++) {
                         if (playableItems[i] === modelData.filetype) {
