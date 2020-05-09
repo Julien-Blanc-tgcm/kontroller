@@ -54,7 +54,7 @@ Page {
             verticalAlignment: Text.AlignVCenter
             text:player?getThumbDisplay(player.playingInformation.currentItem):""
             z: 1
-
+            visible: thumbnailImg.sourceSize.width === 0
         }
 
         Label {
