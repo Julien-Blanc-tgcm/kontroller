@@ -39,55 +39,22 @@ Page {
             title:service.title
         }
 
-        Image {
-            id: fanart
-            source: service.thumbnail
-            height:parent.width / 3
-            width:parent.width / 3
-            fillMode: Image.PreserveAspectFit
-            anchors.right: parent.right
-            anchors.top:header.bottom
-        }
-
         Column {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top:header.bottom
             id:col
-            Repeater {
-                id:properties
-                model:[
-                    {text:qsTr("Year:"), value:(service.year !== 0)?service.year:""},
-                    {text:qsTr("Genre:"), value:Utils.join(service.genres, ',')},
-                    {text:qsTr("Rating:"), value:Utils.formatRating(service.rating)},
-                    {text:qsTr("Seasons:"), value:service.nbSeasons},
-                    {text:qsTr("Episodes:"), value:service.nbEpisodes}
+            PropertiesWithImage {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                properties: [
+                    qsTr("<b>Year:</b> %1").arg((service.year !== 0)?service.year:""),
+                    qsTr("<b>Genre:</b> %1").arg(Utils.join(service.genres, ',')),
+                    qsTr("<b>Rating:</b> %1").arg(Utils.formatRating(service.rating)),
+                    qsTr("<b>Seasons:</b> %1").arg(service.nbSeasons),
+                    qsTr("<b>Episodes:</b> %1").arg(service.nbEpisodes)
                 ]
-                delegate: Item {
-                    height:Theme.itemSizeSmall
-                    anchors.left: col.left
-                    anchors.leftMargin: Theme.horizontalPageMargin
-                    width:col.width - fanart.width
-                    Label {
-                        id:txt
-                        text: model.modelData.text
-                        font.bold: true
-                        x:0
-                        verticalAlignment: Text.AlignVCenter
-                        height:parent.height
-                        color:Theme.highlightColor
-                    }
-                    Label {
-                        anchors.left: txt.right
-                        anchors.leftMargin: Theme.paddingSmall
-                        text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
-                        verticalAlignment: Text.AlignVCenter
-                        height:parent.height
-                        width: parent.width - x
-                        wrapMode: Text.WordWrap
-                        color:Theme.highlightColor
-                    }
-                }
+                imageSource: service.thumbnail
             }
 
             Label {
@@ -100,32 +67,42 @@ Page {
                 anchors.leftMargin: Theme.horizontalPageMargin
             }
 
-            Repeater {
-                id:songs
+            SilicaListView {
+                id:seasons
                 model:service.seasons
-                delegate: Item {
-                    height:Theme.itemSizeSmall
-                    anchors.left: col.left
-                    anchors.right: col.right
-                    anchors.leftMargin: Theme.horizontalPageMargin
+                height: childrenRect.height
+                anchors.left:parent.left
+                anchors.right: parent.right
+                spacing: Theme.paddingSmall
+                delegate: ListItem {
+                    contentHeight:Math.max(seasonLabel.height, seasonImg.height)
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    Image {
+                        anchors.left: parent.left
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        visible:model.modelData.thumbnail.length > 0
+                        source:model.modelData.thumbnail
+                        height: Theme.itemSizeSmall
+                        width: height
+                        anchors.verticalCenter: parent.verticalCenter
+                        id:seasonImg
+                        fillMode: Image.PreserveAspectFit
+                    }
                     Label {
+                        id:seasonLabel
                         height: Theme.itemSizeSmall
                         verticalAlignment: Text.AlignVCenter
-                        x: Theme.paddingMedium
+                        anchors.left: seasonImg.visible?seasonImg.right:parent.left
+                        anchors.leftMargin: seasonImg.visible?Theme.paddingSmall:Theme.horizontalPageMargin
+                        anchors.verticalCenter: parent.verticalCenter
                         text:model.modelData.label
                         clip:true
-                        elide: Text.ElideMiddle
-                        width:main.width - 15
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                                   model.modelData.file,
-                                                                   model.modelData.label)
-                            onPressAndHold: {
-                             //   theSubMenu.showSubMenu(parent, model.modelData, mouseX, mouseY)
-                            }
-                        }
+                        wrapMode: Text.Wrap
                     }
+                    onClicked: mediaInformationClicked(model.modelData.filetype,
+                                                           model.modelData.file,
+                                                           model.modelData.label)
                 }
             }
 

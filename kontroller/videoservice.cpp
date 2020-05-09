@@ -164,7 +164,7 @@ void VideoService::refresh_files()
 		QJsonObject obj;
 		obj["order"] = QLatin1String("ascending");
 		obj["method"] = QLatin1String("label");
-		obj["ignorearticle"] = true;
+		obj["ignorearticle"] = client_->sortIgnoreArticle();
 		parameters.insert("media", QLatin1String("video"));
 		parameters.insert("sort", obj);
 		message = QJsonRpcMessage::createRequest("Files.GetDirectory", parameters);
@@ -189,7 +189,7 @@ void VideoService::refresh_collection()
 		QJsonObject obj;
 		obj["order"] = QLatin1String("ascending");
 		obj["method"] = QLatin1String("label");
-		obj["ignorearticle"] = true;
+		obj["ignorearticle"] = client_->sortIgnoreArticle();
 		QJsonObject parameters;
 		parameters.insert("sort", obj);
 		QJsonArray properties;

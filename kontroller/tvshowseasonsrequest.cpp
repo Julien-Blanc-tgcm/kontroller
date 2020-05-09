@@ -1,6 +1,8 @@
 #include "tvshowseasonsrequest.h"
+
 #include "client.h"
 #include "file.h"
+#include "utils.h"
 
 namespace eu
 {
@@ -25,6 +27,7 @@ void TvShowSeasonsRequest::start(int tvshowid)
 	parameters.insert("tvshowid", tvshowid);
 	QJsonArray properties;
 	properties.push_back(QString("season"));
+	properties.push_back(QString::fromUtf8("thumbnail"));
 	parameters.insert("properties", properties);
 	QJsonObject sort;
 	sort.insert("order", QLatin1String("ascending"));
@@ -56,11 +59,11 @@ void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
 				if (files.type() == QJsonValue::Array)
 				{
 					QJsonArray const res = files.toArray();
-					for (auto f : res)
+					for (auto const& f : res)
 					{
-						File file;
 						if (f.type() == QJsonValue::Object)
 						{
+							File file;
 							QJsonObject obj = f.toObject();
 							QJsonValue val = obj.value("label");
 							if (val.type() == QJsonValue::String)
@@ -70,6 +73,9 @@ void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
 								file.setFile(QString::number(tvshowid) + "|" + QString::number(val.toDouble()));
 							file.setFiletype("season");
 							file.setType("season");
+							auto const thumbnail = obj.value("thumbnail").toString();
+							if(thumbnail.size() > 0)
+								file.setThumbnail(getImageUrl(client_, thumbnail).toString());
 							this->seasons.push_back(file);
 						}
 					}

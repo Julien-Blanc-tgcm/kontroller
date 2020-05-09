@@ -97,17 +97,17 @@
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="151"/>
         <source>View information</source>
-        <translation type="unfinished">Informations</translation>
+        <translation>Informations</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="158"/>
         <source>Add to playlist</source>
-        <translation type="unfinished">Ajouter à la liste de lecture</translation>
+        <translation>Ajouter à la liste de lecture</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="162"/>
         <source>Play immediately</source>
-        <translation type="unfinished">Lire</translation>
+        <translation>Lire</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="176"/>
@@ -197,8 +197,8 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="354"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="358"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="362"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="366"/>
         <source>Sources</source>
         <translation>Sources</translation>
     </message>
@@ -223,42 +223,42 @@
         <translation>Connexion en cours à %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="112"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="117"/>
         <source>Connection status : %1</source>
         <translation>État de la connexion : %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="124"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="132"/>
         <source>No server configured</source>
         <translation>Aucun serveur configuré</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="150"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="158"/>
         <source>music</source>
         <translation>Musique</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="156"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="164"/>
         <source>videos</source>
         <translation>Vidéos</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="162"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="170"/>
         <source>current</source>
         <translation>Lecture en cours</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="168"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="176"/>
         <source>remote</source>
         <translation>Télécommande</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="175"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="183"/>
         <source>playlist</source>
         <translation>Liste de lecture</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="182"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="190"/>
         <source>settings</source>
         <translation>Paramètres</translation>
     </message>
@@ -447,15 +447,9 @@
 <context>
     <name>SeasonInformationPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="54"/>
-        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="83"/>
+        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="57"/>
         <source>Episodes:</source>
         <translation>Épisodes :</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="55"/>
-        <source>Watched:</source>
-        <translation>Vus :</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="20"/>
@@ -471,6 +465,16 @@
         <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="28"/>
         <source>Back to menu</source>
         <translation>Retour au menu</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="48"/>
+        <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Épisodes :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="49"/>
+        <source>&lt;b&gt;Watched:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Vus :&lt;/b&gt; %1</translation>
     </message>
 </context>
 <context>
@@ -624,30 +628,9 @@
 <context>
     <name>TvShowInformationPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="60"/>
-        <source>Year:</source>
-        <translation>Année :</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="61"/>
-        <source>Genre:</source>
-        <translation>Genre :</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="62"/>
-        <source>Rating:</source>
-        <translation>Note :</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="63"/>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="97"/>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="64"/>
         <source>Seasons:</source>
         <translation>Saisons :</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="64"/>
-        <source>Episodes:</source>
-        <translation>Épisodes :</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="23"/>
@@ -665,7 +648,32 @@
         <translation>Retour au menu</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="137"/>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="51"/>
+        <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Année :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="52"/>
+        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="53"/>
+        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Note :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="54"/>
+        <source>&lt;b&gt;Seasons:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Saisons :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="55"/>
+        <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Épisodes:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="114"/>
         <source>Plot</source>
         <translation>Intrigue</translation>
     </message>

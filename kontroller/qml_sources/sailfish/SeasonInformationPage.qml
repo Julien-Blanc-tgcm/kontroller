@@ -12,7 +12,7 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: theCol.childrenRect.height + header.height
+        contentHeight: theCol.childrenRect.height + theCol.y
         VerticalScrollDecorator {}
 
         PullDownMenu {
@@ -34,46 +34,20 @@ Page {
             id:header
             title:service.showTitle
         }
-        Image {
-            id: fanart
-            source: service.thumbnail //(service.thumbnail.length > 0)?("image://kodi/" + service.thumbnail):""
-            height:parent.width / 3
-            width:parent.width / 3
-            fillMode: Image.PreserveAspectFit
-            anchors.right: parent.right
-            anchors.top:header.bottom
-        }
         Column {
-            id:theCol
+            id: theCol
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top:header.bottom
-            Repeater {
-                id:properties
-                model:[
-                    {text:qsTr("Episodes:"), value:service.nbEpisodes},
-                    {text:qsTr("Watched:"), value:service.nbWatchedEpisodes}
+            anchors.top: header.bottom
+            spacing: Theme.paddingSmall
+            PropertiesWithImage {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                imageSource: service.thumbnail
+                properties: [
+                    qsTr("<b>Episodes:</b> %1").arg(service.nbEpisodes),
+                    qsTr("<b>Watched:</b> %1").arg(service.nbWatchedEpisodes)
                 ]
-            delegate: Item {
-                    height:Theme.itemSizeSmall
-                    anchors.left: theCol.left
-                    anchors.right: theCol.right
-                    anchors.leftMargin: Theme.horizontalPageMargin
-                    Label {
-                        id:txt
-                        text: model.modelData.text
-                        x:0
-                        verticalAlignment: Text.AlignVCenter
-                        color:Theme.highlightColor
-                        font.bold: true
-                    }
-                    Label {
-                        anchors.left: txt.right
-                        anchors.leftMargin: Theme.paddingSmall
-                        text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
-                        color:Theme.highlightColor
-                    }
-                }
             }
 
             Label {
@@ -86,42 +60,51 @@ Page {
                 anchors.leftMargin: Theme.horizontalPageMargin
             }
 
-            Repeater {
-                id:songs
+            SilicaListView {
+                id:episodes
                 model:service.episodes
-                delegate: Item {
-                    height:Theme.itemSizeSmall
-                    width:theCol.width
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: Theme.paddingSmall
+                height:childrenRect.height
+                delegate: ListItem {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.leftMargin: Theme.horizontalPageMargin
-                    anchors.rightMargin: Theme.horizontalPageMargin
-                    IconButton {
-                        icon.source: "image://theme/icon-m-play"
-                        width:height
-                        height:parent.height
+                    contentHeight: Math.max(lbl.height, img.height)
+                    Image {
                         anchors.left: parent.left
-                        onClicked: control.playFile(model.modelData)
+                        anchors.leftMargin: Theme.horizontalPageMargin
+                        source: model.modelData.thumbnail
+                        id:img
+                        fillMode: Image.PreserveAspectFit
+                        width: Theme.itemSizeSmall
+                        height: width
+                        visible: model.modelData.thumbnail.length > 0
+                        anchors.verticalCenter: parent.verticalCenter
                     }
 
                     Label {
-                        height: parent.height
                         verticalAlignment: Text.AlignVCenter
-                        x: height + Theme.paddingSmall
                         text:model.modelData.label
-                        clip:true
-                        elide: Text.ElideMiddle
-                        width:parent.width - height - Theme.paddingSmall
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                                   model.modelData.file,
-                                                                   model.modelData.label)
-                            onPressAndHold: {
-                                theSubMenu.showSubMenu(parent, model.modelData, mouseX, mouseY)
-                            }
-                        }
+                        wrapMode: Text.Wrap
+                        anchors.left: img.visible? img.right : parent.left
+                        anchors.right: btnPlay.left
+                        anchors.rightMargin: Theme.paddingSmall
+                        anchors.leftMargin: img.visible ? Theme.paddingSmall: Theme.horizontalPageMargin
+                        anchors.verticalCenter: parent.verticalCenter
+                        id: lbl
                     }
+                    IconButton {
+                        id: btnPlay
+                        icon.source: "image://theme/icon-m-play"
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.horizontalPageMargin
+                        onClicked: control.playFile(model.modelData)
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    onClicked: mediaInformationClicked(model.modelData.filetype,
+                                                           model.modelData.file,
+                                                           model.modelData.label)
                 }
             }
         }

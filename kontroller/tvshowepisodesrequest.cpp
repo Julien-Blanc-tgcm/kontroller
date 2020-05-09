@@ -1,6 +1,8 @@
 #include "tvshowepisodesrequest.h"
+
 #include "client.h"
 #include "file.h"
+#include "utils.h"
 
 namespace eu
 {
@@ -13,7 +15,7 @@ TvShowEpisodesRequest::TvShowEpisodesRequest(Client* client, QObject* parent) : 
 {
 }
 
-TvShowEpisodesRequest::~TvShowEpisodesRequest()
+TvShowEpisodesRequest::~TvShowEpisodesRequest() noexcept
 {
 	episodes.clear();
 }
@@ -27,6 +29,9 @@ void TvShowEpisodesRequest::start(int tvshowId, int season)
 	sort.insert("order", QLatin1String("ascending"));
 	sort.insert("method", QLatin1String("episode"));
 	parameters.insert("sort", sort);
+	QJsonArray properties;
+	properties.push_back(QString::fromUtf8("thumbnail"));
+	parameters.insert("properties", properties);
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetEpisodes", parameters);
 	QJsonRpcServiceReply* reply = client_->send(message);
 	if (reply)
@@ -64,6 +69,9 @@ void TvShowEpisodesRequest::parseEpisodesResult_()
 								file.setFile(QString::number(val.toDouble()));
 							file.setFiletype("episode");
 							file.setType("episode");
+							auto thumbnail = obj.value("thumbnail").toString();
+							if (thumbnail.size() > 0)
+								file.setThumbnail(getImageUrl(client_, thumbnail).toString());
 							episodes.push_back(file);
 						}
 					}

@@ -198,8 +198,8 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="354"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="358"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="362"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="366"/>
         <source>Sources</source>
         <translation>Источники</translation>
     </message>
@@ -224,42 +224,42 @@
         <translation>Подключение к %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="112"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="117"/>
         <source>Connection status : %1</source>
         <translation>Состояние : %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="124"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="132"/>
         <source>No server configured</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="150"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="158"/>
         <source>music</source>
         <translation>Музыка</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="156"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="164"/>
         <source>videos</source>
         <translation>Видео</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="162"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="170"/>
         <source>current</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="168"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="176"/>
         <source>remote</source>
         <translation>Пульт</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="175"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="183"/>
         <source>playlist</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="182"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="190"/>
         <source>settings</source>
         <translation>Настройка</translation>
     </message>
@@ -448,15 +448,9 @@
 <context>
     <name>SeasonInformationPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="54"/>
-        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="83"/>
+        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="57"/>
         <source>Episodes:</source>
         <translation>Серии:</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="55"/>
-        <source>Watched:</source>
-        <translation>Просмотрено:</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="20"/>
@@ -472,6 +466,16 @@
         <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="28"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="48"/>
+        <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="49"/>
+        <source>&lt;b&gt;Watched:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Просмотрено:&lt;/b&gt; %1</translation>
     </message>
 </context>
 <context>
@@ -625,30 +629,9 @@
 <context>
     <name>TvShowInformationPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="60"/>
-        <source>Year:</source>
-        <translation>Год:</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="61"/>
-        <source>Genre:</source>
-        <translation>Жанр:</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="62"/>
-        <source>Rating:</source>
-        <translation>Рейтинг:</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="63"/>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="97"/>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="64"/>
         <source>Seasons:</source>
         <translation>Сезоны:</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="64"/>
-        <source>Episodes:</source>
-        <translation>Серии:</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="23"/>
@@ -666,7 +649,32 @@
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="137"/>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="51"/>
+        <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Год:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="52"/>
+        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="53"/>
+        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Рейтинг:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="54"/>
+        <source>&lt;b&gt;Seasons:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Сезоны:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="55"/>
+        <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
+        <translation type="unfinished">&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="114"/>
         <source>Plot</source>
         <translation>Сюжет</translation>
     </message>

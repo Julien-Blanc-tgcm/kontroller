@@ -18,7 +18,7 @@ class ArtistInformationService : public QObject
 	Q_OBJECT
 
   private:
-	int artistId_;
+	int artistId_ = 0;
 	QString artistName_;
 	QString artistDescription_;
 	QString fanart_;

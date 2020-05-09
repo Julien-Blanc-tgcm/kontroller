@@ -52,7 +52,7 @@ Page {
             }
 
             Row {
-                spacing:10
+                spacing: Theme.paddingMedium
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
                 Label {
@@ -67,7 +67,7 @@ Page {
                 }
             }
             Row {
-                spacing:10
+                spacing: Theme.paddingMedium
                 anchors.left: parent.left
                 anchors.leftMargin:Theme.horizontalPageMargin
                 Label {

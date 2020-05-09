@@ -80,7 +80,7 @@ QString ArtistInformationService::genres() const
 
 QString ArtistInformationService::style() const
 {
-	if (style_.size() == 0)
+	if (style_.empty())
 		return QString("");
 	QString ret = style_[0];
 	for (int i = 1; i < style_.size(); ++i)
