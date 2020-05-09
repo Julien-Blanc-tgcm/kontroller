@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.9
+
+* Fixed an issue which could prevent connection if using only one server
+* Fixed TV Shows pages which were broken
+* Few internal improvements
+* Honor the "ignorearticle" setting of the server
+* fix playlist page was sometimes not displaying anything (or slow to display)
+
 ## Version 0.8
 
 * added about page
