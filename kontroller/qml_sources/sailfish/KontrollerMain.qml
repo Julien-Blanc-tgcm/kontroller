@@ -106,18 +106,26 @@ Page {
                 color: Theme.highlightColor
                 horizontalAlignment: Text.AlignHCenter
             }
-            Label {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                text: qsTr("Connection status : %1").arg(appClient.connectionStatus)
+            Row {
                 visible: appSettings.servers.length !== 0 &&
                     appClient.connectionStatus !== 0 && appClient.connectionStatus !== 1 &&
                          appClient.connectionStatus !== 2
-                height: Theme.itemSizeSmall
-                verticalAlignment: Text.AlignVCenter
-                color:Theme.highlightColor
-                horizontalAlignment: Text.AlignHCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                Label {
+                    text: qsTr("Connection status : %1").arg(appClient.connectionStatus)
+                    height: Theme.itemSizeSmall
+                    verticalAlignment: Text.AlignVCenter
+                    color:Theme.highlightColor
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                IconButton {
+                    icon.source: "image://theme/icon-m-refresh"
+                    onClicked: appClient.retryConnect();
+                }
             }
+
             Label {
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -469,5 +477,26 @@ Page {
         if(appSettings.lastServer.length > 0)
             appClient.switchToServer(appSettings.lastServer)
         createInfoComponents()
+    }
+
+    Connections {
+        target: appSettings
+        onServersChanged: {
+            if(appSettings.servers.length === 1)
+            {
+                var server = appSettings.servers[0];
+                appClient.switchToServer(server.uuid);
+                appSettings.lastServer = server.uuid
+            }
+        }
+    }
+
+    onStatusChanged: {
+        if(status == PageStatus.Activating &&
+                appClient.connectionStatus !== 1 &&
+                appClient.connectionStatus !== 2)
+        {
+            appClient.retryConnect();
+        }
     }
 }

@@ -85,6 +85,9 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 	if(!val.isNull() && val.canConvert(QVariant::String))
 		lastServer_ = val.toString();
 
+	if (servers_.size() == 1) // if only one server, force it to be last server
+		lastServer_ = servers_[0]->uuid();
+
 	DownloadLocation phone;
 	phone.setType(DownloadLocation::LocationType::Phone);
 	phone.setBaseFolder(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).front());
@@ -312,7 +315,7 @@ QQmlListProperty<Server> ApplicationSettings::servers()
 QVariantList ApplicationSettings::possibleDownloadLocations()
 {
 	QVariantList list;
-	for(auto d : possibleDownloadLocations_)
+	for(auto const& d : possibleDownloadLocations_)
 		list.push_back(QVariant::fromValue(d));
 	return list;
 }
