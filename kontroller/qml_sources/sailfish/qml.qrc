@@ -13,7 +13,6 @@
         <file>PlayableItemPage.qml</file>
         <file>ArtistInformationPage.qml</file>
         <file>AlbumInformationPage.qml</file>
-        <file>GenericList.qml</file>
         <file>MovieInformationPage.qml</file>
         <file>utils.js</file>
         <file>TvShowInformationPage.qml</file>
