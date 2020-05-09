@@ -1,4 +1,5 @@
 TEMPLATE = app
+
 CONFIG += sailfish
 QT += qml quick core
 CONFIG(sailfish) {
@@ -99,7 +100,8 @@ TRANSLATIONS += \
         translations/harbour-kontroller-en.ts \
         translations/harbour-kontroller-fr.ts \
         translations/harbour-kontroller-ru.ts \
-        translations/harbour-kontroller-sv.ts
+        translations/harbour-kontroller-sv.ts \
+        translations/harbour-kontroller-de.ts
 
 TRANSLATION_SOURCES += $$PWD/*.cpp \
     $$PWD/qml_sources/sailfish/*.qml

@@ -40,7 +40,7 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {
-            visible: appSettings.servers.length > 1
+            visible: appSettings.servers.length >= 1
             Repeater {
                 model:appSettings.servers
                 delegate: MenuItem {
