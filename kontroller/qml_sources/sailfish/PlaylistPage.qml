@@ -9,7 +9,7 @@ Page{
 
     SilicaListView {
         header:PageHeader {
-            title:qsTr("Current playlist");
+            title:qsTr("Current playlist")
         }
 
         id:thelist
@@ -72,6 +72,10 @@ Page{
             else
                 service = nullptr
         }
+    }
+    Component.onCompleted: {
+        if(appClient.playerService.players.length > 0)
+            service = appClient.playerService.players[0].playlistService
     }
 
 }
