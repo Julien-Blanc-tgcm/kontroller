@@ -268,6 +268,7 @@ void Client::handleConnectionSuccess()
 	setConnectionStatus(2);
 	playerService_->refreshPlayerInfo();
 	volumePlugin()->refreshVolume();
+	refreshServerParameters_();
 	emit serverChanged();
 }
 
@@ -383,6 +384,56 @@ void Client::provideCredentials_(QNetworkReply * /*reply*/, QAuthenticator *auth
 {
 	authenticator->setUser(server_->login());
 	authenticator->setPassword(server_->password());
+}
+
+void Client::refreshServerParameters_()
+{
+	QJsonObject parameters;
+	parameters.insert("level", "standard");
+	QJsonObject filter;
+	filter.insert("section", "media");
+	filter.insert("category", "filelists");
+	parameters.insert("filter", filter);
+	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Settings.GetSettings", parameters);
+	auto reply = send(message);
+	if (reply)
+	{
+		connect(reply, &QJsonRpcServiceReply::finished, this, &Client::handleRefreshServerParameters_);
+	}
+}
+
+void Client::handleRefreshServerParameters_()
+{
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if (reply != nullptr)
+	{
+		auto const response = reply->response().toObject();
+		auto result = response.find("result");
+		if (result != response.end() && result->type() == QJsonValue::Object)
+		{
+			auto const r = result->toObject();
+			auto settings = r.find("settings");
+			if (settings != r.end() && settings->type() == QJsonValue::Array)
+			{
+				auto const arr = settings->toArray();
+				for (auto const& setting : arr)
+				{
+					if (!(setting.type() == QJsonValue::Object))
+						continue; // ignore non objects
+					auto const s = setting.toObject();
+					QString id = s["id"].toString();
+					if (id == "filelists.ignorethewhensorting")
+					{
+						auto const value = s["value"];
+						if (value.type() == QJsonValue::Bool)
+						{
+							sortIgnoreArticle_ = value.toBool();
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 VolumePlugin* Client::volumePlugin()

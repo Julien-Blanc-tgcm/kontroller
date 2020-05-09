@@ -30,7 +30,7 @@ void AlbumsRequest::start(int artistid)
 	QJsonObject sort;
 	sort["order"] = QLatin1String("ascending");
 	sort["method"] = QLatin1String("label");
-	sort["ignorearticle"] = true;
+	sort["ignorearticle"] = client_->sortIgnoreArticle();
 	parameters.insert("sort", sort);
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
 	QJsonRpcServiceReply* reply = client_->send(message);
@@ -74,12 +74,12 @@ void AlbumsRequest::parseAlbumsResult()
 				if(files.type() == QJsonValue::Array)
 				{
 					QJsonArray const res = files.toArray();
-					for(QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
+					for (auto&& f : res)
 					{
 						File file;
-						if((*it).type() == QJsonValue::Object)
+						if (f.type() == QJsonValue::Object)
 						{
-							QJsonObject obj = (*it).toObject();
+							QJsonObject const obj = f.toObject();
 							QJsonValue val = obj.value("label");
 							if(val.type() == QJsonValue::String)
 								file.setLabel(val.toString());

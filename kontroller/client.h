@@ -138,6 +138,8 @@ private slots:
 	void handleConnectionError(QAbstractSocket::SocketError);
 	void handleMessageReceived(QJsonRpcMessage message);
 	void provideCredentials_(QNetworkReply *reply, QAuthenticator *authenticator);
+	void refreshServerParameters_();
+	void handleRefreshServerParameters_();
 
 signals:
 	// these ones are the notifications the kodi api can send

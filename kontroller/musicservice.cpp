@@ -190,7 +190,7 @@ void MusicService::refresh_files()
 			QJsonObject obj;
 			obj["order"] = QLatin1String("ascending");
 			obj["method"] = QLatin1String("label");
-			obj["ignorearticle"] = true;
+			obj["ignorearticle"] = client_->sortIgnoreArticle();
 			parameters.insert("sort", obj);
 		}
 		parameters.insert("media", QString("music"));
@@ -231,7 +231,7 @@ void MusicService::refresh_collection()
 				QJsonObject obj;
 				obj["order"] = QLatin1String("ascending");
 				obj["method"] = QLatin1String("label");
-				obj["ignorearticle"] = true;
+				obj["ignorearticle"] = client_->sortIgnoreArticle();
 				parameters.insert("sort", obj);
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtists", parameters);
 				QJsonRpcServiceReply* reply = client_->send(message);
@@ -255,7 +255,7 @@ void MusicService::refresh_collection()
 				QJsonObject obj;
 				obj["order"] = QLatin1String("ascending");
 				obj["method"] = QLatin1String("label");
-				obj["ignorearticle"] = true;
+				obj["ignorearticle"] = client_->sortIgnoreArticle();
 				parameters.insert("sort", obj);
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetGenres", parameters);
 				QJsonRpcServiceReply* reply = client_->send(message);
