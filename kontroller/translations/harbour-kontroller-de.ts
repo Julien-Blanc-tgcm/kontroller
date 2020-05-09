@@ -244,7 +244,7 @@
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="176"/>
         <source>remote</source>
-        <translation type="unfinished">entfernt</translation>
+        <translation type="unfinished">Fernbedienung</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="183"/>
