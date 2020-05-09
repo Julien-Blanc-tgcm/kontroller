@@ -36,6 +36,7 @@ Page {
                     DetailItem {
                         label: model.name
                         value: model.serverAddress
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                     RemorseItem {
                         id: remorse
