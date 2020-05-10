@@ -231,7 +231,7 @@
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="170"/>
         <source>current</source>
-        <translation>aktuell</translation>
+        <translation>Aktuell</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="176"/>
