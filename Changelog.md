@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.10
+
+* added german translation (thanks popanz)
+* fix #6 (images not displayed if using http auth)
+* added icon to identify file type (ref #1)
+* may fix #18 (to be checked)
+* small cleanup in some files
+
 ## Version 0.9
 
 * Fixed an issue which could prevent connection if using only one server
