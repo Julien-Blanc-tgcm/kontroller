@@ -187,14 +187,6 @@
     </message>
 </context>
 <context>
-    <name>GenericList</name>
-    <message>
-        <location filename="../qml_sources/sailfish/GenericList.qml" line="25"/>
-        <source>Sources</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>KontrollerMain</name>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="59"/>
@@ -387,25 +379,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="168"/>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="177"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="192"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="201"/>
         <source>Add to playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="169"/>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="178"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="193"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="202"/>
         <source>Play immediately</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="170"/>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="183"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="194"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="207"/>
         <source>View information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="179"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="203"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -580,47 +572,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="47"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="48"/>
         <source>Deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="53"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="54"/>
         <source>Delete server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="70"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="71"/>
         <source>Add server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="81"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="82"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="85"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="86"/>
         <source>Download location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="86"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="87"/>
         <source>Where to put downloaded files. By default, use the phone memory, but SD card memory can be used as well. The relevant folder will be used, depending on the downoaded file type.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="98"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="99"/>
         <source>Phone memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="99"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="100"/>
         <source>SD Card %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="110"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="111"/>
         <source>Ignore wi-fi status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -686,22 +678,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="297"/>
+        <location filename="../musicservice.cpp" line="298"/>
         <source>Albums</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="302"/>
+        <location filename="../musicservice.cpp" line="304"/>
         <source>Songs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="308"/>
+        <location filename="../musicservice.cpp" line="311"/>
         <source>Genres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="314"/>
+        <location filename="../musicservice.cpp" line="318"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
@@ -717,22 +709,22 @@
 <context>
     <name>eu::tgcm::kontroller::VideoService</name>
     <message>
-        <location filename="../videoservice.cpp" line="273"/>
+        <location filename="../videoservice.cpp" line="276"/>
         <source>Movies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="279"/>
+        <location filename="../videoservice.cpp" line="283"/>
         <source>TV Shows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="285"/>
+        <location filename="../videoservice.cpp" line="290"/>
         <source>Clips</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="297"/>
+        <location filename="../videoservice.cpp" line="303"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
