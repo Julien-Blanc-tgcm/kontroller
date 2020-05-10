@@ -98,17 +98,17 @@
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="151"/>
         <source>View information</source>
-        <translation type="unfinished">Показать сведения</translation>
+        <translation>Показать сведения</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="158"/>
         <source>Add to playlist</source>
-        <translation type="unfinished">Добавить в список</translation>
+        <translation>Добавить в список</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="162"/>
         <source>Play immediately</source>
-        <translation type="unfinished">Играть сейчас</translation>
+        <translation>Играть сейчас</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="176"/>
@@ -671,7 +671,7 @@
     <message>
         <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
-        <translation type="unfinished">&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
+        <translation>&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="114"/>

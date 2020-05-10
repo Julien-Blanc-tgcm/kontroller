@@ -97,17 +97,17 @@
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="151"/>
         <source>View information</source>
-        <translation type="unfinished">Visa information</translation>
+        <translation>Visa information</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="158"/>
         <source>Add to playlist</source>
-        <translation type="unfinished">Lägg till i spellista</translation>
+        <translation>Lägg till i spellista</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="162"/>
         <source>Play immediately</source>
-        <translation type="unfinished">Spela upp nu</translation>
+        <translation>Spela upp nu</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="176"/>
