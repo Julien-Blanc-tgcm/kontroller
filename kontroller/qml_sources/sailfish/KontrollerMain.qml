@@ -53,16 +53,6 @@ Page {
             }
         }
 
-        PushUpMenu {
-            visible: true
-            MenuItem {
-                text: qsTr("About")
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("About.qml"))
-                }
-            }
-        }
-
         Item {
             id:titleBar
             anchors.left: parent.left

@@ -11,6 +11,16 @@ Page {
         anchors.fill: parent
         contentHeight: theCol.height
 
+        PullDownMenu {
+            visible: true
+            MenuItem {
+                text: qsTr("About")
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("About.qml"))
+                }
+            }
+        }
+
         Column {
             id:theCol
             spacing:10
