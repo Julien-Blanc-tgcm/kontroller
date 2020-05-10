@@ -189,7 +189,7 @@ void MusicService::refresh_files()
 		{
 			QJsonObject obj;
 			obj["order"] = QLatin1String("ascending");
-			obj["method"] = QLatin1String("label");
+			obj["method"] = QLatin1String("file");
 			obj["ignorearticle"] = client_->sortIgnoreArticle();
 			parameters.insert("sort", obj);
 		}
@@ -230,7 +230,7 @@ void MusicService::refresh_collection()
 			{
 				QJsonObject obj;
 				obj["order"] = QLatin1String("ascending");
-				obj["method"] = QLatin1String("label");
+				obj["method"] = QLatin1String("artist");
 				obj["ignorearticle"] = client_->sortIgnoreArticle();
 				parameters.insert("sort", obj);
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtists", parameters);
