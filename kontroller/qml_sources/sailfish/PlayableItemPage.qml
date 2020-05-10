@@ -13,7 +13,6 @@ Item {
 
     Rectangle {
         id: inputMain
-        z: 10
         anchors.top:parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -191,7 +190,8 @@ Item {
             return [
                         {text: qsTr("Add to playlist"), type: "addtoplaylist", item: playableItem},
                         {text: qsTr("Play immediately"), type: "play", item: playableItem},
-                        {text: qsTr("View information"), type: "information", item: playableItem}
+                        {text: qsTr("View information"), type: "information", item: playableItem},
+                        { text:qsTr("Download"), type: "download", item: playableItem}
                     ];
         case "audiodirectory":
         case "directory":
@@ -215,8 +215,7 @@ Item {
     {
         if(action === "information")
         {
-            var modelItem = service.filesA
-            mediaInformationClicked(item.filetype, item.file, item.label)
+            mediaInformationClicked(item)
         }
         else if(action === "play")
         {
@@ -236,7 +235,12 @@ Item {
             {
                 appClient.downloadService.addFolder(item.file, mediaType)
             }
-            else
+            else if(item.filetype === "album")
+            {
+                appClient.downloadService.addAlbum(item.label, item.id)
+            }
+
+
             {
                 console.log("Download action on " + item.filetype + " not implemented yet");
             }
@@ -261,7 +265,7 @@ Item {
         else if(modelItem.filetype === "musicvideo")
             control.playFile(modelItem);
         else
-            mediaClicked(modelItem.filetype, modelItem.file, modelItem.label)
+            mediaClicked(modelItem)
     }
 
     function formatFile(filetype, label)

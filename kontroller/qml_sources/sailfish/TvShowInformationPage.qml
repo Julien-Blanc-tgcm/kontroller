@@ -100,9 +100,7 @@ Page {
                         clip:true
                         wrapMode: Text.Wrap
                     }
-                    onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                           model.modelData.file,
-                                                           model.modelData.label)
+                    onClicked: mediaInformationClicked(model.modelData)
                 }
             }
 
@@ -130,27 +128,6 @@ Page {
         }
     }
 
-   /* ListContextMenu {
-        visible:false
-        color:"black"
-        border.width: 2 * scalingFactor
-        id:theSubMenu
-        onInformationPressed:
-        {
-            visible = false
-            if(currentModel)
-                mediaInformationClicked(currentModel.filetype, currentModel.file, currentModel.label)
-        }
-        onAddToPlaylistPressed:  {
-            visible = false
-            control.addToPlaylist(currentModel)
-        }
-        onPlayPressed: {
-            visible = false
-            control.playFile(currentModel)
-        }
-    } */
-
     TvShowInformationService {
         id:service
         client: appClient
@@ -166,7 +143,7 @@ Page {
     Component.onCompleted: {
         service.refresh();
     }
-    signal mediaInformationClicked(string filetype, string file, string label)
+    signal mediaInformationClicked(var file)
     function refresh() { service.refresh(); }
 }
 

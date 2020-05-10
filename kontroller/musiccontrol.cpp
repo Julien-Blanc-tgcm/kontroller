@@ -28,9 +28,9 @@ void MusicControl::playFile(File file)
 	else if(file.filetype() == "file")
 		item.insert("file", file.file());
 	else if(file.filetype() == "album")
-		item.insert("albumid", file.file().toInt());
+		item.insert("albumid", file.id());
 	else if(file.filetype() == "song")
-		item.insert("songid", file.file().toInt());
+		item.insert("songid", file.id());
 	params.insert("item", item);
 	params.insert("options", QJsonObject{});
 	auto message = QJsonRpcMessage::createRequest("Player.Open", params);

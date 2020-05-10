@@ -209,7 +209,7 @@ Page {
     }
     Component.onCompleted: service.refresh()
 
-    signal mediaInformationClicked(string filetype, string file, string label)
+    signal mediaInformationClicked(var file)
     function refresh() { service.refresh(); }
 }
 

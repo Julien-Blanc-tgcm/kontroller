@@ -22,9 +22,19 @@ QString File::icon() const
 	return icon_;
 }
 
+void File::setId(int id)
+{
+	id_ = id;
+}
+
 void File::setIcon(QString icon)
 {
 	icon_ = icon;
+}
+
+int File::id() const
+{
+	return id_;
 }
 
 QString File::file() const

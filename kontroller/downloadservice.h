@@ -20,8 +20,10 @@ class ApplicationSettings;
 
 enum class FileType
 {
-    File,
-    Directory
+	File,
+	Directory,
+	Album,
+	TVShow
 };
 
 struct FileDownload
@@ -29,6 +31,7 @@ struct FileDownload
 	FileType type;
 	QString sourceFile;
 	QString destinationPath;
+	int id;
 	QFile* output;
 	QNetworkReply* reply;
 };
@@ -51,12 +54,15 @@ signals:
 public slots:
 	void addFile(QString filePath, QString mediaType);
 	void addFolder(QString folderPath, QString mediaType);
+	void addAlbum(QString albumName, int albumId);
+	void addTvShow(QString tvShowName, int tvShowId);
 private slots:
 	void filePathRequestComplete_();
 	void downloadCompleted_();
 	void startNextDownload_();
 	void bytesAvailable_();
 	void folderInfoRequestComplete_();
+	void albumInfoReceived_();
 private:
 	void startDownloadHttp_(QString httppath);
 	void addFile_(QString filePath, QString outputFolder);

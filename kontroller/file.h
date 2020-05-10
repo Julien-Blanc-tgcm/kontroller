@@ -15,7 +15,8 @@ namespace kontroller
 class File
 {
 	Q_GADGET
-private:
+  private:
+	int id_;
 	QString file_;
 	QString filetype_;
 	QString label_;
@@ -23,7 +24,7 @@ private:
 	QString thumbnail_;
 	QString icon_;
 
-public:
+  public:
 	File() = default;
 
 	~File() = default;
@@ -36,7 +37,8 @@ public:
 
 	File& operator=(File&&) = default;
 
-public:
+  public:
+	Q_PROPERTY(int id READ id WRITE setId)
 	Q_PROPERTY(QString file READ file WRITE setFile)
 	Q_PROPERTY(QString filetype READ filetype WRITE setFiletype)
 	Q_PROPERTY(QString label READ label WRITE setLabel)
@@ -44,6 +46,7 @@ public:
 	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail)
 	Q_PROPERTY(QString icon READ icon WRITE setIcon)
 
+	int id() const;
 	QString file() const;
 	QString filetype() const;
 	QString label() const;
@@ -51,6 +54,7 @@ public:
 	QString thumbnail() const;
 	QString icon() const;
 
+	void setId(int id);
 	void setFile(QString file);
 	void setFiletype(QString filetype);
 	void setLabel(QString label);

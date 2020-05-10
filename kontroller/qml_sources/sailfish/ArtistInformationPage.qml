@@ -149,11 +149,8 @@ Page {
                     menu: ContextMenu {
                         MenuItem {
                             text: qsTr("View information")
-                            onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                               model.modelData.file,
-                                                               model.modelData.label)
+                            onClicked: mediaInformationClicked(model.modelData)
                         }
-
                         MenuItem {
                             text: qsTr("Add to playlist")
                             onClicked: control.addToPlaylist(model.modelData)
@@ -162,10 +159,12 @@ Page {
                             text: qsTr("Play immediately")
                             onClicked: control.playFile(model.modelData)
                         }
+                        MenuItem {
+                            text: qsTr("Download")
+                            onClicked: pageClient.downloadService.addAlbum(model.modelData.label, model.modelData.id)
+                        }
                     }
-                    onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                       model.modelData.file,
-                                                       model.modelData.label)
+                    onClicked: mediaInformationClicked(model.modelData)
                 }
             }
             Label {
@@ -201,7 +200,7 @@ Page {
         {
             visible = false
             if(currentModel)
-                mediaInformationClicked(currentModel.filetype, currentModel.file, currentModel.label)
+                mediaInformationClicked(currentModel)
         }
         onAddToPlaylistPressed:  {
             visible = false
@@ -222,7 +221,8 @@ Page {
         id : service
         client: pageClient
     }
-    signal mediaInformationClicked(string filetype, string file, string label)
+
+    signal mediaInformationClicked(var file)
     function refresh() { service.refresh(); }
     Component.onCompleted: {
         refresh()

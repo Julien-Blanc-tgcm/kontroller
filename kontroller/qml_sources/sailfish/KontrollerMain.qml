@@ -260,10 +260,10 @@ Page {
         property var videoPageComponent:null
         property var informationPageComponents
 
-        function createMusicPage(filetype, file, label) {
-            if(!!informationPageComponents[filetype])
+        function createMusicPage(file) {
+            if(!!informationPageComponents[file.filetype])
             {
-                createInformationPage(filetype, file, label);
+                createInformationPage(file);
                 return;
             }
             if(!musicPageComponent)
@@ -277,9 +277,9 @@ Page {
             var musicList = musicPageComponent.createObject(pageStack,
                 {
                     visible: true,
-                    browsingMode: filetype,
-                    browsingValue:file,
-                    label:label
+                    browsingMode: file.filetype,
+                    browsingValue:file.file,
+                    label:file.label
                 });
             musicList.mediaClicked.connect(createMusicPage);
             musicList.mediaInformationClicked.connect(createInformationPage);
@@ -289,13 +289,13 @@ Page {
             pageStack.push(musicList);
         }
 
-        function createInformationPage(filetype, file, label)
+        function createInformationPage(file)
         {
             var newView;
-            var component = internal.informationPageComponents[filetype];
+            var component = internal.informationPageComponents[file.filetype];
             if(component && component.status === Component.Ready)
             {
-                newView = component.createObject(pageStack, {"itemId":file});
+                newView = component.createObject(pageStack, {"itemId":file.file});
                 if(newView)
                 {
                     if(typeof(newView.mediaInformationClicked) !== "undefined")
@@ -307,27 +307,27 @@ Page {
                     if(typeof(newView.backToMenuClicked) !== "undefined")
                         newView.backToMenuClicked.connect(toMenu);
                     //newView.label = pageStack.currentItem.label + "/" + label;
-                    newView.label = label;
+                    newView.label = file.label;
                 }
                 else
                     console.log("Error at view creation : " + component.errorString())
             }
             else if(component)
             {
-                console.log(filetype + " " + component.errorString());
+                console.log(file.filetype + " " + component.errorString());
             }
             else
             {
-                console.log("no component defined for " + filetype);
+                console.log("no component defined for " + file.filetype);
             }
             if(newView)
                 pageStack.push(newView);
         }
 
-        function createVideoPage(filetype, file, label) {
-            if(!!informationPageComponents[filetype])
+        function createVideoPage(file) {
+            if(!!informationPageComponents[file.filetype])
             {
-                createInformationPage(filetype, file, label);
+                createInformationPage(file);
                 return;
             }
             if(!videoPageComponent)
@@ -341,9 +341,9 @@ Page {
             var videoList = videoPageComponent.createObject(pageStack,
                 {
                     "visible":true,
-                    "browsingMode":filetype,
-                    "browsingValue":file,
-                    "label":label
+                    "browsingMode":file.filetype,
+                    "browsingValue":file.file,
+                    "label":file.label
                 });
             videoList.mediaClicked.connect(createVideoPage);
             videoList.mediaInformationClicked.connect(createInformationPage);
@@ -359,11 +359,11 @@ Page {
     {
         if(page === "music")
         {
-            internal.createMusicPage("", "", qsTr("Sources"));
+            internal.createMusicPage({"file": "", "filetype": "", "label": qsTr("Sources")});
         }
         else if(page === "videos")
         {
-            internal.createVideoPage("","",qsTr("Sources"));
+            internal.createVideoPage({"file": "", "filetype": "", "label": qsTr("Sources")});
         }
         else if(page === "current")
         {

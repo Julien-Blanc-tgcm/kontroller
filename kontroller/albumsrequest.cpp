@@ -85,7 +85,8 @@ void AlbumsRequest::parseAlbumsResult()
 								file.setLabel(val.toString());
 							val = obj.value("albumid");
 							if(val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("album");
 							file.setType("album");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());

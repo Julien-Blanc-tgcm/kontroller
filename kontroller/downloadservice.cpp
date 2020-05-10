@@ -2,6 +2,8 @@
 
 #include "applicationsettings.h"
 #include "client.h"
+#include "file.h"
+#include "songsrequest.h"
 
 #include <qjsonrpcservice.h>
 
@@ -28,7 +30,7 @@ void DownloadService::addFile(QString filePath, QString mediaType)
 
 void DownloadService::addFile_(QString filePath, QString outputFolder)
 {
-	queue_.push_back(FileDownload{FileType::File, filePath, outputFolder, nullptr, nullptr});
+	queue_.push_back(FileDownload{FileType::File, filePath, outputFolder, 0, nullptr, nullptr});
 	if (queue_.size() == 1) // just added a file
 	{
 		startNextDownload_();
@@ -40,9 +42,26 @@ void DownloadService::addFolder(QString filePath, QString mediaType)
 	addFolder_(filePath, getRelevantFolder_(mediaType));
 }
 
+void DownloadService::addAlbum(QString albumName, int albumId)
+{
+	queue_.push_back(
+	    FileDownload{FileType::Album, albumName, getRelevantFolder_("music"), albumId, nullptr, nullptr});
+	if (queue_.size() == 1)
+		startNextDownload_();
+}
+
+void DownloadService::addTvShow(QString tvShowName, int tvShowId)
+{
+	queue_.push_back(
+	    FileDownload{FileType::Album, tvShowName, getRelevantFolder_("video"), tvShowId, nullptr, nullptr});
+	if (queue_.size() == 1)
+		startNextDownload_();
+}
+
+
 void DownloadService::addFolder_(QString filePath, QString outputFolder)
 {
-	queue_.push_back(FileDownload{FileType::Directory, filePath, outputFolder, nullptr, nullptr});
+	queue_.push_back(FileDownload{FileType::Directory, filePath, outputFolder, 0, nullptr, nullptr});
 	if (queue_.size() == 1) // just added a file
 	{
 		startNextDownload_();
@@ -185,6 +204,18 @@ void DownloadService::startNextDownload_()
 				startNextDownload_();
 		}
 	}
+	else if (file.type == FileType::Album)
+	{ // query album for its files
+		auto req = new SongsRequest(client_, this);
+		connect(req, &SongsRequest::finished, this, &DownloadService::albumInfoReceived_);
+		req->start(file.id);
+	}
+	else
+	{
+		queue_.erase(queue_.begin());
+		if (queue_.size() != 0)
+			startNextDownload_();
+	}
 }
 
 void DownloadService::bytesAvailable_()
@@ -240,6 +271,29 @@ void DownloadService::folderInfoRequestComplete_()
 	else
 		emit downloadError("", "Invalid reply received");
 	queue_.front().output->deleteLater();
+	queue_.erase(queue_.begin());
+	if (queue_.size() > 0)
+		startNextDownload_();
+}
+
+void DownloadService::albumInfoReceived_()
+{
+	auto req = dynamic_cast<SongsRequest*>(sender());
+	if (req != nullptr)
+	{
+		if (!req->success)
+		{
+			emit downloadError("Album", "Failed");
+		}
+		else
+		{
+			auto const songs = req->results;
+			for (auto const& song : songs)
+			{
+				addFile_(song.file(), queue_.front().destinationPath + QDir::separator() + queue_.front().sourceFile);
+			}
+		}
+	}
 	queue_.erase(queue_.begin());
 	if (queue_.size() > 0)
 		startNextDownload_();

@@ -102,35 +102,11 @@ Page {
                         onClicked: control.playFile(model.modelData)
                         anchors.verticalCenter: parent.verticalCenter
                     }
-                    onClicked: mediaInformationClicked(model.modelData.filetype,
-                                                           model.modelData.file,
-                                                           model.modelData.label)
+                    onClicked: mediaInformationClicked(model.modelData)
                 }
             }
         }
     }
-
-/*    ListContextMenu {
-        visible:false
-        color:"black"
-        border.color: Styling.borderColor
-        border.width: 2 * scalingFactor
-        id:theSubMenu
-        onInformationPressed:
-        {
-            visible = false
-            if(currentModel)
-                mediaInformationClicked(currentModel.filetype, currentModel.file, currentModel.label)
-        }
-        onAddToPlaylistPressed:  {
-            visible = false
-            control.addToPlaylist(currentModel)
-        }
-        onPlayPressed: {
-            visible = false
-            control.playFile(currentModel)
-        }
-    } */
 
     SeasonInformationService {
         id:service
@@ -145,7 +121,7 @@ Page {
     property alias itemId: service.seasonId
     property string label
     Component.onCompleted: { service.refresh(); }
-    signal mediaInformationClicked(string filetype, string file, string label)
+    signal mediaInformationClicked(var file)
     function refresh() { service.refresh(); }
 }
 

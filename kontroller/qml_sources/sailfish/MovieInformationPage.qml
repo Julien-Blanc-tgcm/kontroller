@@ -131,7 +131,7 @@ Page {
         id : service
         client: appClient
     }
-    signal mediaInformationClicked(string filetype, string file, string label)
+    signal mediaInformationClicked(var file)
     function refresh() { service.refresh(); }
 
 }

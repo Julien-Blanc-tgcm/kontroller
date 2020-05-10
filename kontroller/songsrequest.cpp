@@ -79,7 +79,8 @@ void SongsRequest::parseSongsResult()
 								file.setLabel(val.toString());
 							val = obj.value("songid");
 							if(val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("song");
 							file.setType("song");
 							results.push_back(file);

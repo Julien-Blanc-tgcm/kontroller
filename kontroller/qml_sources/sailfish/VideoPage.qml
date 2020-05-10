@@ -8,9 +8,9 @@ Page {
     property string browsingValue: ""
     property string label: ""
 
-    signal mediaClicked(string filetype, string file, string label)
+    signal mediaClicked(var file)
     signal mediaPlayClicked(string dir)
-    signal mediaInformationClicked(string filetype, string file, string label)
+    signal mediaInformationClicked(var file)
     signal remoteClicked()
     signal currentClicked()
     signal backToMenuClicked()
