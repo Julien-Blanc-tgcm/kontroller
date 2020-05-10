@@ -242,7 +242,7 @@ Page {
         height: Theme.iconSizeExtraLarge
     }
     Image {
-        source: "image://theme/icon-m-page-up?" + (timer.curButton == "right"?Theme.highlightColor:Theme.primaryColor)
+        source: "image://theme/icon-m-page-up?" + (timer.curButton == "left"?Theme.highlightColor:Theme.primaryColor)
         anchors.verticalCenter: mArea.verticalCenter
         x: mArea.x + mArea.width / 2 - (4 * Theme.iconSizeExtraLarge / 3)
         width:Theme.iconSizeExtraLarge
@@ -250,7 +250,7 @@ Page {
         rotation:270
     }
     Image {
-        source: "image://theme/icon-m-page-up?" + (timer.curButton == "left"?Theme.highlightColor:Theme.primaryColor)
+        source: "image://theme/icon-m-page-up?" + (timer.curButton == "right"?Theme.highlightColor:Theme.primaryColor)
         anchors.verticalCenter: mArea.verticalCenter
         x: mArea.x + mArea.width / 2 + (Theme.iconSizeExtraLarge / 3)
         width:Theme.iconSizeExtraLarge
