@@ -17,6 +17,16 @@ void File::setThumbnail(QString thumbnail)
 	thumbnail_ = thumbnail;
 }
 
+QString File::icon() const
+{
+	return icon_;
+}
+
+void File::setIcon(QString icon)
+{
+	icon_ = icon;
+}
+
 QString File::file() const
 {
 	return file_;

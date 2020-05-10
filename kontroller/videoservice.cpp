@@ -277,18 +277,21 @@ void VideoService::refresh_collection()
 		file.setFile("movies");
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("movies");
 		files_.push_back(file);
 		file = File();
 		file.setLabel(tr("TV Shows"));
 		file.setFile("tvshows");
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("tvshows");
 		files_.push_back(file);
 		file = File();
 		file.setLabel(tr("Clips"));
 		file.setFile("musicvideos");
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("clips");
 		files_.push_back(file);
 		/*        file = File();
 		        file.setLabel(tr("Genres"));
@@ -301,6 +304,7 @@ void VideoService::refresh_collection()
 		file.setFile("");
 		file.setType("directory");
 		file.setFiletype("directory");
+		file.setIcon("folder");
 		files_.push_back(file);
 		emit filesChanged();
 		setRefreshing(false);
@@ -546,6 +550,10 @@ void VideoService::parseDirectoryResults()
 							val = obj.value("type");
 							if (val.type() == QJsonValue::String)
 								file.setType(val.toString());
+							if (file.filetype() == "directory")
+								file.setIcon("folder");
+							else
+								file.setIcon("video");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							files_.push_back(file);
 						}

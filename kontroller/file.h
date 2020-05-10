@@ -21,6 +21,8 @@ private:
 	QString label_;
 	QString type_;
 	QString thumbnail_;
+	QString icon_;
+
 public:
 	File() = default;
 
@@ -40,19 +42,21 @@ public:
 	Q_PROPERTY(QString label READ label WRITE setLabel)
 	Q_PROPERTY(QString type READ type WRITE setType)
 	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail)
-
+	Q_PROPERTY(QString icon READ icon WRITE setIcon)
 
 	QString file() const;
 	QString filetype() const;
 	QString label() const;
 	QString type() const;
 	QString thumbnail() const;
+	QString icon() const;
 
 	void setFile(QString file);
 	void setFiletype(QString filetype);
 	void setLabel(QString label);
 	void setType(QString type);
 	void setThumbnail(QString thumbnail);
+	void setIcon(QString icon);
 
 };
 

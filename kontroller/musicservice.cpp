@@ -291,30 +291,35 @@ void MusicService::refresh_collection()
 		file.setFile("artists");
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("artists");
 		files_.push_back(file);
 		file = File();
 		file.setFile("albums");
 		file.setLabel(tr("Albums"));
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("albums");
 		files_.push_back(file);
 		file = File();
 		file.setLabel(tr("Songs"));
 		file.setFile("songs");
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("songs");
 		files_.push_back(file);
 		file = File();
 		file.setLabel(tr("Genres"));
 		file.setFile("genres");
 		file.setType("media");
 		file.setFiletype("media");
+		file.setIcon("genres");
 		files_.push_back(file);
 		file = File();
 		file.setLabel(tr("Files"));
 		file.setFile("");
 		file.setType("directory");
 		file.setFiletype("directory");
+		file.setIcon("folder");
 		files_.push_back(file);
 		refreshAddons_();
 		emit filesAsListChanged();
@@ -495,6 +500,10 @@ void MusicService::parseDirectoryResults()
 							if(val.type() == QJsonValue::String)
 								file.setType(val.toString());
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
+							if (file.filetype() == "directory")
+								file.setIcon("folder");
+							else if (file.filetype() == "file")
+								file.setIcon("music");
 							files_.push_back(file);
 						}
 					}

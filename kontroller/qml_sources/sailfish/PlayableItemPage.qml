@@ -102,12 +102,36 @@ Item {
                 id:img
                 fillMode: Image.PreserveAspectFit
             }
+            IconButton {
+                id:theIcon
+                visible: getSourceIcon(modelData.icon).length > 0
+                icon.source: getSourceIcon(modelData.icon)
+                height:icon.height
+                width:height
+                clip:true
+                icon.fillMode: Image.PreserveAspectFit
+                Component.onCompleted: {
+                    if(img.visible)
+                    {
+                        anchors.bottom = img.bottom;
+                        anchors.left = img.left
+                        icon.height = Theme.iconSizeExtraSmall;
+                        icon.width = Theme.iconSizeExtraSmall;
+                    }
+                    else
+                    {
+                        anchors.leftMargin = Theme.horizontalPageMargin
+                        anchors.verticalCenter = parent.verticalCenter;
+                        anchors.left = parent.left;
+                    }
+                }
+            }
 
             Label {
                 id: lbl
                 text : formatFile(modelData.filetype, modelData.label)
-                anchors.left: img.visible ? img.right :parent.left
-                anchors.leftMargin: img.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
+                anchors.left: img.visible ? img.right: (theIcon.visible?theIcon.right:parent.left)
+                anchors.leftMargin: (img.visible || theIcon.visible) ? Theme.paddingSmall : Theme.horizontalPageMargin
                 anchors.right: btnplay.visible ? btnplay.left : parent.left
                 anchors.rightMargin: btnplay.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
@@ -242,11 +266,32 @@ Item {
 
     function formatFile(filetype, label)
     {
-         if(filetype === "file")
-             return label;
-         if(filetype === "directory")
-             return "[" + label + "]";
-         return label;
+        return label;
+    }
+
+    function getSourceIcon(icon)
+    {
+        if(icon === "music")
+            return "image://theme/icon-m-music";
+        if(icon === "folder")
+            return "image://theme/icon-m-folder";
+        if(icon === "video")
+            return "image://theme/icon-m-file-video";
+        if(icon === "artists")
+            return "image://theme/icon-m-media-artists";
+        if(icon === "albums")
+            return "image://theme/icon-m-media-albums";
+        if(icon === "genres")
+            return "image://theme/icon-m-media-radio"
+        if(icon === "songs")
+            return "image://theme/icon-m-media-songs";
+        if(icon === "movies")
+            return "image://theme/icon-m-media";
+        if(icon === "tvshows")
+            return "image://theme/icon-m-media-playlists";
+        if(icon === "clips")
+            return "image://theme/icon-m-media-songs";
+        return "";
     }
 }
 
