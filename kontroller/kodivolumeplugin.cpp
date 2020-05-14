@@ -86,6 +86,25 @@ void KodiVolumePlugin::decreaseVolume_()
 	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
 }
 
+bool KodiVolumePlugin::valueValid_() const
+{
+	return currentVolumeStored_ != -1;
+}
+
+QString KodiVolumePlugin::displayValue_() const
+{
+	if (valueValid_())
+	{
+		return QString::number(currentVolumeStored_) + " %";
+	}
+	return "";
+}
+
+QString KodiVolumePlugin::formatVolume_(int value) const
+{
+	return QString::number(value) + "%";
+}
+
 void KodiVolumePlugin::volumeReply_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
@@ -102,12 +121,14 @@ void KodiVolumePlugin::volumeReply_()
 				{
 					currentVolumeStored_ = volume.toInt();
 					emit currentVolumeChanged(currentVolumeStored_);
+					emit valueValidChanged(true);
 				}
 			}
 			else if(result.isDouble())
 			{
 				currentVolumeStored_ = result.toInt();
 				emit currentVolumeChanged(currentVolumeStored_);
+				emit valueValidChanged(true);
 			}
 		}
 	}

@@ -35,10 +35,14 @@ protected:
 	void refreshVolume_() override;
 	void increaseVolume_() override;
 	void decreaseVolume_() override;
+	bool valueValid_() const override;
+	QString displayValue_() const override;
+	QString formatVolume_(int value) const override;
 private:
 	int currentVolumeStored_ = -1;
 private slots:
 	void volumeReply_();
+
 };
 
 }

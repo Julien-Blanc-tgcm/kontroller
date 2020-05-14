@@ -28,7 +28,16 @@ class VolumePlugin : public QObject
 	 */
 	Q_PROPERTY(int status READ status WRITE setStatus NOTIFY statusChanged)
 
+	Q_PROPERTY(QString displayValue READ displayValue NOTIFY currentVolumeChanged)
+
+	/**
+	 * Tells whether the current value is valid. Can be used to prevent ui from setting stupid values until
+	 * the real value is read
+	 */
+	Q_PROPERTY(bool valueValid READ valueValid NOTIFY valueValidChanged)
+
 	int status_ = 0;
+
 public:
 	explicit VolumePlugin(QObject *parent = nullptr);
 
@@ -36,9 +45,18 @@ public:
 	int maxVolume() const;
 	int minVolume() const;
 	int currentVolume() const;
-	void updateVolume(int newVolume);
 	int volumeStep() const;
 	int status() const;
+
+	QString displayValue() const;
+
+	bool valueValid() const;
+
+	/**
+	 * Returns a displayable value, as with displayValue, but with the given volume. Is used by the slider
+	 * to preview the value that will be set
+	 */
+	Q_INVOKABLE QString formatVolume(int volume) const;
 
 signals:
 	void nameChanged(QString);
@@ -48,11 +66,14 @@ signals:
 	void volumeStepChanged(int);
 	void statusChanged(int status);
 
-public slots:
+	void valueValidChanged(bool valueValid);
+
+  public slots:
 	void refreshVolume();
 	void increaseVolume();
 	void decreaseVolume();
-protected slots:
+	void updateVolume(int newVolume);
+  protected slots:
 	void setStatus(int status);
 
 protected:
@@ -65,6 +86,9 @@ protected:
 	virtual void refreshVolume_() = 0;
 	virtual void increaseVolume_();
 	virtual void decreaseVolume_();
+	virtual bool valueValid_() const = 0;
+	virtual QString displayValue_() const = 0;
+	virtual QString formatVolume_(int volume) const = 0;
 
 };
 

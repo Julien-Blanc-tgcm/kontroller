@@ -46,6 +46,21 @@ int VolumePlugin::status() const
 	return status_;
 }
 
+QString VolumePlugin::displayValue() const
+{
+	return displayValue_();
+}
+
+bool VolumePlugin::valueValid() const
+{
+	return valueValid_();
+}
+
+QString VolumePlugin::formatVolume(int volume) const
+{
+	return formatVolume_(volume);
+}
+
 void VolumePlugin::refreshVolume()
 {
 	refreshVolume_();

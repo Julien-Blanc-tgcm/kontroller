@@ -102,6 +102,25 @@ void MinidspVolumePlugin::refreshVolume_()
 	executeNextQuery_();
 }
 
+bool MinidspVolumePlugin::valueValid_() const
+{
+	return connected_ && currentVolumeStored_ != 1;
+}
+
+QString MinidspVolumePlugin::displayValue_() const
+{
+	if (valueValid_())
+	{
+		return QString::number(static_cast<double>(currentVolumeStored_) / 2) + " dB";
+	}
+	return "";
+}
+
+QString MinidspVolumePlugin::formatVolume_(int value) const
+{
+	return QString::number(static_cast<double>(value - 255) / 2) + " dB";
+}
+
 void MinidspVolumePlugin::pushPendingQuery_(const minidsp::Query::Message& query)
 {
 	pendingQueries_.push_back(query);
@@ -134,12 +153,14 @@ void MinidspVolumePlugin::handleReply_()
 	{
 		currentVolumeStored_ = rep.volume();
 		emit currentVolumeChanged(currentVolume_());
+		emit valueValidChanged(true);
 	}
 	else if(rep.type() == minidsp::Reply::Type::DeviceInformationReply)
 	{
 		currentVolumeStored_ = rep.volume();
 		muted_ = rep.muted();
 		emit currentVolumeChanged(currentVolume_());
+		emit valueValidChanged(true);
 	}
 	else if(rep.type() == minidsp::Reply::Type::MuteReply)
 	{

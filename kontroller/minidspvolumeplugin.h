@@ -57,9 +57,11 @@ protected:
 	void updateVolume_(int newVolume) override;
 	int volumeStep_() const override;
 	void refreshVolume_() override;
-
+	bool valueValid_() const override;
+	QString displayValue_() const override;
+	QString formatVolume_(int value) const override;
 private:
-	int currentVolumeStored_ = -1;
+	int currentVolumeStored_ = 1;
 
 	QString ipAddress_;
 
