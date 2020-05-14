@@ -504,8 +504,8 @@ void Player::handlePlayerStatus_()
 					setCanRepeat_(obj.value("canrepeat").toBool());
 				if(obj.value("live").isBool())
 					setLive_(obj.value("live").toBool());
-				else if(obj.value("repeat").isString())
-					setRepeat(repeatToInt_(obj.value("repeat").toString()));
+				if(obj.value("repeat").isString())
+					setRepeat_(repeatToInt_(obj.value("repeat").toString()));
 				if(obj.value("shuffled").isBool())
 					setShuffled_(obj.value("shuffled").toBool());
 				if(obj.value("canmove").isBool())
@@ -581,6 +581,7 @@ void Player::handlePlayerStatus_()
 				//setBoolValue(obj.value("canchangespeed"), *player, &Player::setCanChangeSpeed);
 			}
 		}
+		refreshCurrentlyPlaying_();
 	}
 }
 
@@ -677,6 +678,27 @@ void Player::moveToFirst()
 	// no manage of reply, will be handled by a notification and/or polling
 }
 
+void Player::updateProperty(QJsonObject const property)
+{
+	for (auto it = property.begin(); it != property.end(); ++it)
+	{
+		auto prop = it.key();
+		auto v = it.value();
+		if (prop == "shuffled")
+		{
+			setShuffled_(v.toBool());
+		}
+		else if (prop == "repeat")
+		{
+			setRepeat_(repeatToInt_(v.toString()));
+		}
+		else
+		{
+			qDebug() << "Unhandled property : " << property;
+		}
+	}
+}
+
 void Player::refreshCurrentlyPlaying_()
 {
 	QJsonObject parameters;
@@ -692,7 +714,7 @@ void Player::refreshCurrentlyPlaying_()
 	properties.append("album");
 	properties.append("tvshowid");
 	parameters["properties"] = properties;
-	auto mess = QJsonRpcMessage::createRequest("Player.getItem", parameters);
+	auto mess = QJsonRpcMessage::createRequest("Player.GetItem", parameters);
 	auto reply = client_->send(mess);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &Player::handleGetItemResponse_);
 }

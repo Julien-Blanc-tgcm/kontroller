@@ -155,6 +155,13 @@ public:
 	Q_INVOKABLE void next();
 	Q_INVOKABLE void moveToFirst();
 
+	/**
+	 * @brief updateProperty updates a single property, as received by a OnPropertyChanged
+	 * event from kodi
+	 * @param property the property object
+	 */
+	void updateProperty(QJsonObject const property);
+
 signals:
 	void playerIdChanged();
 	void typeChanged();

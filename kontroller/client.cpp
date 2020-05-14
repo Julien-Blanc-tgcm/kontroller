@@ -364,6 +364,25 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
 				}
 			}
 		}
+		else if (method == "Player.OnPropertyChanged")
+		{
+			QJsonObject data = message.params().toObject().value("data").toObject();
+			if (!data.isEmpty())
+			{
+				QJsonObject player = data.value("player").toObject();
+				if (!player.isEmpty())
+				{
+					int playerId = static_cast<int>(player.value("playerId").toDouble());
+					for (auto& player : playerService_->playersList())
+					{
+						if (player->playerId() == playerId)
+						{
+							player->updateProperty(data.value("property").toObject());
+						}
+					}
+				}
+			}
+		}
 		else if(method == "Input.OnInputRequested")
 		{
 			auto data = message.params().toObject().take("data").toObject();
