@@ -151,7 +151,7 @@ Page {
         id:mArea
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: playerControl.visible ? playerControl.top : parent.bottom
+        anchors.bottom: parent.bottom
         anchors.top:theRow.bottom
         property int mouseStartX;
         property int mouseStartY;
@@ -256,23 +256,6 @@ Page {
         width:Theme.iconSizeExtraLarge
         height:Theme.iconSizeExtraLarge
         rotation:90
-    }
-
-    PlayerControl {
-        anchors.bottom: playerProperties.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        player: currentPlayer
-        id:playerControl
-        visible: currentPlayer !== null
-    }
-
-    PlayerProperties {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        player: currentPlayer
-        id: playerProperties
     }
 
     function computeEvent(mouseArea, clickX, clickY)
