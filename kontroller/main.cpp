@@ -9,30 +9,34 @@
 #include <QtQml>
 #include <QScopedPointer>
 
-#include "musicservice.h"
-#include <cassert>
-#include "downloadservice.h"
-#include "remote.h"
+#include "albuminformationservice.h"
+#include "applicationsettings.h"
+#include "artistinformationservice.h"
 #include "client.h"
-#include "statusservice.h"
+#include "deviceinformation.h"
+#include "downloadlocation.h"
+#include "downloadservice.h"
+#include "episodeinformationservice.h"
+#include "movieinformationservice.h"
+#include "musiccontrol.h"
+#include "musicservice.h"
 #include "player.h"
 #include "playerservice.h"
-#include "playlistitem.h"
-#include "videoservice.h"
-#include "applicationsettings.h"
-#include "deviceinformation.h"
-#include "artistinformationservice.h"
-#include "albuminformationservice.h"
-#include "musiccontrol.h"
-#include "videocontrol.h"
-#include "movieinformationservice.h"
-#include "tvshowinformationservice.h"
-#include "seasoninformationservice.h"
-#include "episodeinformationservice.h"
 #include "playinginformation.h"
+#include "playlistitem.h"
+#include "remote.h"
+#include "seasoninformationservice.h"
 #include "server.h"
-#include "downloadlocation.h"
+#include "statusservice.h"
+#include "tvshowinformationservice.h"
+#include "videocontrol.h"
+#include "videoservice.h"
 
+#include "volumeplugin.h"
+#include "kodivolumeplugin.h"
+#include "minidspvolumeplugin.h"
+
+#include <cassert>
 #include <QScreen>
 #ifndef SAILFISH_TARGET
 #include "themeinformation.h"
@@ -115,6 +119,14 @@ void registerTypes()
 	qRegisterMetaTypeStreamOperators<DownloadLocation>("DownloadLocation");
 	ret = qmlRegisterUncreatableType<DownloadLocation>(qmlprefix, 1, 0, "DownloadLocation",
 	                                                   "DownloadLocation cannot be created from qml");
+	assert(ret);
+	ret = qmlRegisterUncreatableType<VolumePlugin>(
+	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml");
+	ret = qmlRegisterUncreatableType<KodiVolumePlugin>(
+	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml") && ret;
+	ret = qmlRegisterUncreatableType<MinidspVolumePlugin>(
+	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml") && ret;
+
 	assert(ret);
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");

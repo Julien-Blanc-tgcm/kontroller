@@ -5,14 +5,15 @@ import Sailfish.Silica 1.0
 
 Item {
     property var player
-    height: childrenRect.height
+    implicitHeight: theCol.height
     Column {
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.leftMargin: 10
-        spacing: 10
-        visible: player && player.type === "video"
+        spacing: Theme.paddingSmall
+        id:theCol
         ComboBox {
+            visible: player && player.type === "video"
             id:cbxSubs
             label:qsTr("Subtitles")
             clip:true
@@ -28,12 +29,14 @@ Item {
             }
             currentIndex: -1
             value: ""
+            Component.onCompleted: { console.log("height is " + height); }
         }
 
         ComboBox {
             id:cbxStreams
             label:qsTr("Audio")
             clip:true
+            visible: player && player.type === "video"
             menu:ContextMenu {
                 Repeater {
                     id:streamsRptr
@@ -46,6 +49,81 @@ Item {
             }
             value:""
         }
+        Row {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height:repeatSwitch.height
+            Switch {
+                id: repeatSwitch
+                checked: false
+                automaticCheck: false
+                icon.source: "image://theme/icon-m-repeat"
+                visible: player?player.canRepeat:false
+                onClicked: player.repeat = (player.repeat + 1) % 3
+            }
+            Switch {
+                id: shuffleSwitch
+                checked: false
+                automaticCheck: false
+                icon.source: "image://theme/icon-m-shuffle"
+                visible: player?player.canShuffle:false
+                onClicked: player.shuffled = !player.shuffled
+            }
+        }
+
+    }
+
+    onPlayerChanged: {
+        if(player)
+        {
+            connectPlayerEvents();
+            updatePlayerProperties();
+        }
+    }
+
+    function connectPlayerEvents()
+    {
+        player.onCurrentSubtitleIndexChanged.connect(setSubsIndex);
+        player.onCurrentAudioStreamIndexChanged.connect(setAudioIndex);
+        player.onShuffledChanged.connect(setPlayerShuffled);
+        player.onRepeatChanged.connect(setPlayerRepeat);
+    }
+
+    function setPlayerShuffled()
+    {
+        if(player)
+            shuffleSwitch.checked = player.shuffled;
+        else
+            shuffleSwitch.checked = false;
+    }
+
+    function setPlayerRepeat()
+    {
+        if(player)
+        {
+            repeatSwitch.checked = player.repeat > 0;
+            repeatSwitch.icon.source = (player.repeat === 1) ?
+                        "image://theme/icon-m-repeat-single" :
+                        "image://theme/icon-m-repeat";
+        }
+        else
+        {
+            repeatSwitch.checked = false;
+            repeatSwitch.icon.source = "image://theme/icon-m-repeat";
+        }
+    }
+
+    function getCurrentSubsIndex() {
+        if(player)
+        {
+            var idx = player.currentSubtitleIndex;
+            for(var i = 0; i < player.subtitles.length; ++i)
+            {
+                if(player.subtitles[i].index === idx)
+                    return i;
+            }
+        }
+        return -1;
     }
 
     function setSubsIndex() {
@@ -101,19 +179,6 @@ Item {
         checked: player && player.shuffled
     }
 
-    function getCurrentSubsIndex() {
-        if(player)
-        {
-            var idx = player.currentSubtitleIndex;
-            for(var i = 0; i < player.subtitles.length; ++i)
-            {
-                if(player.subtitles[i].index === idx)
-                    return i;
-            }
-        }
-        return -1;
-    }
-
     function switchSubtitleIfNeeded()
     {
         if(player && cbxSubs.currentIndex != -1)
@@ -140,10 +205,19 @@ Item {
 
     Component.onCompleted:
     {
-        player.onCurrentSubtitleIndexChanged.connect(setSubsIndex);
-        player.onCurrentAudioStreamIndexChanged.connect(setAudioIndex);
+        if(player)
+        {
+            connectPlayerEvents();
+        }
+        updatePlayerProperties();
+    }
+
+    function updatePlayerProperties()
+    {
         setSubsIndex();
         setAudioIndex();
+        setPlayerShuffled();
+        setPlayerRepeat();
     }
 
 }

@@ -18,8 +18,74 @@ ApplicationWindow {
         else
             return Qt.resolvedUrl("cover/UnconnectedCover.qml");
     }
+    id: appWindow
     initialPage: Component {
         KontrollerMain {
+        }
+    }
+    bottomMargin: controllerPanel.visibleSize
+    DockedPanel {
+        id: controllerPanel
+        width: parent.width
+        dock: Dock.Bottom
+        visible: true
+        height: col.height
+        contentHeight: height
+        flickableDirection: Flickable.VerticalFlick
+        z:1
+        open: playerControl.player || volumeControl.updated || volumeControl.updating
+
+        Column {
+            id:col
+            anchors.left:parent.left
+            anchors.right:parent.right
+            anchors.top:parent.top
+            spacing: Theme.paddingSmall
+            Row {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                visible: playerControl.player
+                Image {
+                    source: playerControl.player?playerControl.player.playingInformation.currentItem.thumbnail:""
+                    height:Theme.iconSizeLarge
+                    width:Theme.iconSizeLarge
+                    id:thumbnailImg
+                    fillMode: Image.PreserveAspectFit
+                    z: 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                PlayerControl {
+                    anchors.verticalCenter: parent.verticalCenter
+                    width:parent.width - thumbnailImg.width
+                    player: appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
+                    id:playerControl
+                }
+            }
+            VolumeControl {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                volumePlugin: appClient?appClient.volumePlugin:null
+                visible: true
+                id: volumeControl
+            }
+        }
+        PushUpMenu {
+            bottomMargin: Theme.paddingSmall
+            id: pushUpMenu
+            parent: controllerPanel
+            visible: true
+            Column {
+                //visible: playerControl.player && playerControl.player.type === "video"
+                anchors.left: parent.left
+                anchors.right: parent.right
+                id:theColumn
+                PlayerProperties {
+                    player: playerControl.player
+                    id: playerProperties
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                }
+            }
         }
     }
 
