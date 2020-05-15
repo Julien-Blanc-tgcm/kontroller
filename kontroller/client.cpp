@@ -55,7 +55,7 @@ Client::Client(ApplicationSettings* settings, QObject *parent) :
 	connect(settings, &ApplicationSettings::serversChanged, this, &Client::refresh);
 }
 
-Client::~Client()
+Client::~Client() noexcept
 {
 	freeConnections();
 }
@@ -100,6 +100,7 @@ void Client::refresh()
 	{
 		volumePlugin_ = getVolumePlugin_(this, server_);
 		emit serverChanged();
+		emit volumePluginChanged();
 		serverUuid_ = server_->uuid();
 		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
 		if(server_->serverAddress().size() > 0 && server_->serverPort() > 0)
