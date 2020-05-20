@@ -691,12 +691,12 @@
     <message>
         <location filename="../qml_sources/sailfish/VolumeControl.qml" line="22"/>
         <source>Volume: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Volym: %1</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/VolumeControl.qml" line="22"/>
         <source>No volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen volym</translation>
     </message>
 </context>
 <context>
