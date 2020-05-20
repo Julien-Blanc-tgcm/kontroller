@@ -4,7 +4,7 @@ import Sailfish.Silica 1.0
 Item {
     property var volumePlugin
     property bool updated: false
-    property bool updating: false
+    property bool updating: volumeSlider.down
     implicitHeight: volumeSlider.height
     Slider {
         value: volumePlugin?volumePlugin.currentVolume:0
@@ -21,7 +21,6 @@ Item {
         width: parent.width
         valueText: volumePlugin?qsTr("Volume: %1").arg(volumePlugin.formatVolume(value)):qsTr("No volume");
         id: volumeSlider
-        onPressed: updating = true
     }
     Timer {
         repeat: false

@@ -83,7 +83,7 @@ ApplicationWindow {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     volumePlugin: appClient?appClient.volumePlugin:null
-                    visible: true
+                    visible: !volumeControl.visible
                 }
                 PlayerProperties {
                     player: playerControl.player
