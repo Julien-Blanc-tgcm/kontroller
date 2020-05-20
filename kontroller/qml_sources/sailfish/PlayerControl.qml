@@ -51,7 +51,7 @@ Item {
         anchors.bottom:progressSlider.bottom
         font.pixelSize: Theme.fontSizeExtraSmall
         horizontalAlignment: Text.AlignHCenter
-        text: player?getNextDisplay(player.playingInformation.nextItem):""
+        text: player?getCurrentDisplay(player.playingInformation.currentItem):""
         elide: Text.ElideMiddle
         clip:true
         color:Theme.highlightColor
@@ -136,6 +136,18 @@ Item {
             player.seekBackward();
         if(command === "forward")
             player.seekForward();
+    }
+
+    function getCurrentDisplay(item)
+    {
+        if(!item)
+            return ""
+        else if(item.type === "song")
+            return qsTr("<i>%1</i> by <i>%2</i>").arg(item.label).arg(item.artist)
+        else if(item.type === "unknown")
+            return qsTr("<i>%1</i>").arg(item.label)
+        else
+            return item.type;
     }
 
     function getNextDisplay(item)
