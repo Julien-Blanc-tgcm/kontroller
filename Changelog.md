@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.11
+
+* new gui for currently playing item, feedback for volume
+* integration of repeat one/all and shuffle mode
+* improvements on volume management
+* fixed wrong indication on touchpad
+* add download options for albums, not only using file browsing but
+also in artist view or in list view
+
 ## Version 0.10
 
 * added german translation (thanks popanz)

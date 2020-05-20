@@ -115,17 +115,22 @@
         <translation>Zeige Informationen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="158"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="155"/>
         <source>Add to playlist</source>
         <translation>Zur Playlist hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="162"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="159"/>
         <source>Play immediately</source>
         <translation>Sofort abspielen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="176"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="163"/>
+        <source>Download</source>
+        <translation>Herunterladen</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="175"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
@@ -189,68 +194,63 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="59"/>
-        <source>About</source>
-        <translation>Über</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="75"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="65"/>
         <source>Connected to %1</source>
         <translation>Verbunden mit %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="89"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="79"/>
         <source>Unable to connect to %1</source>
         <translation>Kann keine Verbindung zu %1 hestellen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="102"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="92"/>
         <source>Trying to connect to %1</source>
         <translation>Versuche mit %1 zu verbinden</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="117"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="107"/>
         <source>Connection status : %1</source>
         <translation>Verbindungsstatus : %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="132"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="122"/>
         <source>No server configured</source>
         <translation>Kein Server konfiguriert</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="158"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="148"/>
         <source>music</source>
         <translation>Musik</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="164"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="154"/>
         <source>videos</source>
         <translation>Videos</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="170"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="160"/>
         <source>current</source>
         <translation>Aktuell</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="176"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="166"/>
         <source>remote</source>
         <translation>Fernbedienung</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="183"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="173"/>
         <source>playlist</source>
         <translation>Playlist</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="190"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="180"/>
         <source>settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="362"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="366"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="352"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="356"/>
         <source>Sources</source>
         <translation>Quellen</translation>
     </message>
@@ -349,54 +349,55 @@
 <context>
     <name>PlayableItemPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="42"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="41"/>
         <source>Input text</source>
         <translation>Texteinagbe</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="50"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="49"/>
         <source>Cancel</source>
         <translation>Abbruch</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="54"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="53"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="75"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="74"/>
         <source>Remote control</source>
         <translation>Fernbedienung</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="79"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="78"/>
         <source>Currently playing</source>
         <translation>Aktuell abgespielt</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="83"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="82"/>
         <source>Back to menu</source>
         <translation>Zurück zum Menü</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="192"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="191"/>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="201"/>
         <source>Add to playlist</source>
         <translation>Zur Playlist hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="193"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="192"/>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="202"/>
         <source>Play immediately</source>
         <translation>Sofort abspielen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="194"/>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="193"/>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="207"/>
         <source>View information</source>
         <translation>Zeige Informationen</translation>
     </message>
     <message>
+        <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="194"/>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="203"/>
         <source>Download</source>
         <translation>Herunterladen</translation>
@@ -406,11 +407,21 @@
     <name>PlayerControl</name>
     <message>
         <location filename="../qml_sources/sailfish/PlayerControl.qml" line="146"/>
+        <source>&lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
+        <translation>&lt;i&gt;%1&lt;/i&gt; bei &lt;i&gt;%2&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/PlayerControl.qml" line="148"/>
+        <source>&lt;i&gt;%1&lt;/i&gt;</source>
+        <translation>&lt;i&gt;%1&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/PlayerControl.qml" line="158"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>Es folgt: &lt;i&gt;%1&lt;/i&gt; bei &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayerControl.qml" line="148"/>
+        <location filename="../qml_sources/sailfish/PlayerControl.qml" line="160"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Es folgt: &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
@@ -418,12 +429,12 @@
 <context>
     <name>PlayerProperties</name>
     <message>
-        <location filename="../qml_sources/sailfish/PlayerProperties.qml" line="17"/>
+        <location filename="../qml_sources/sailfish/PlayerProperties.qml" line="18"/>
         <source>Subtitles</source>
         <translation>Untertitel</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/PlayerProperties.qml" line="35"/>
+        <location filename="../qml_sources/sailfish/PlayerProperties.qml" line="37"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
@@ -562,57 +573,62 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="22"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="17"/>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="32"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="25"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="35"/>
         <source>Servers</source>
         <translation>Servers</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="48"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="58"/>
         <source>Deleted</source>
         <translation>Gelöscht</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="54"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="64"/>
         <source>Delete server</source>
         <translation>Lösche Server</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="71"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="81"/>
         <source>Add server</source>
         <translation>Füge Server hinzu</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="82"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="92"/>
         <source>Common</source>
         <translation>Allgemeines</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="86"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="96"/>
         <source>Download location</source>
         <translation>Downloadort</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="87"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="97"/>
         <source>Where to put downloaded files. By default, use the phone memory, but SD card memory can be used as well. The relevant folder will be used, depending on the downoaded file type.</source>
         <translation>Wo sollen die heruntergeladenen Dateien gespeichert werden. Verwendet wird standardmäßig der Telefonspeicher, aber der Speicher der SD-Karte kann ebenfalls verwendet werden. Abhängig vom heruntergeladenen Dateityp wird der entsprechende Ordner verwendet.</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="99"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="109"/>
         <source>Phone memory</source>
         <translation>Telefonspeicher</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="100"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="110"/>
         <source>SD Card %1</source>
         <translation>SD Karte %1</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="111"/>
+        <location filename="../qml_sources/sailfish/SettingsPage.qml" line="121"/>
         <source>Ignore wi-fi status</source>
         <translation>Ignoriere Wi-Fi Status</translation>
     </message>
@@ -665,9 +681,22 @@
         <translation>Staffeln:</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="114"/>
+        <location filename="../qml_sources/sailfish/TvShowInformationPage.qml" line="112"/>
         <source>Plot</source>
         <translation>Handlung</translation>
+    </message>
+</context>
+<context>
+    <name>VolumeControl</name>
+    <message>
+        <location filename="../qml_sources/sailfish/VolumeControl.qml" line="22"/>
+        <source>Volume: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/VolumeControl.qml" line="22"/>
+        <source>No volume</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -732,35 +761,35 @@
 <context>
     <name>kontroller</name>
     <message>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="43"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="115"/>
         <source>Download of %1 started</source>
         <translation>Herunterladen von %1 gestartet</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="46"/>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="47"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="118"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="119"/>
         <source>Download started</source>
         <translation>Herunterladen gestartet</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="52"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="124"/>
         <source>Download of %1 complete</source>
         <translation>Herunterladen von %1 fertiggestellt</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="55"/>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="56"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="127"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="128"/>
         <source>Download complete</source>
         <translation>Download fertiggestellt</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="61"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="133"/>
         <source>Download of %1 failed with error %2</source>
         <translation>Herunterladen von %1 mit Fehler %2 gescheitert</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="64"/>
-        <location filename="../qml_sources/sailfish/kontroller.qml" line="65"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="136"/>
+        <location filename="../qml_sources/sailfish/kontroller.qml" line="137"/>
         <source>Download error</source>
         <translation>Download Fehler</translation>
     </message>
