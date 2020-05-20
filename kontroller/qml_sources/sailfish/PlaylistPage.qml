@@ -70,7 +70,7 @@ Page{
                 service = appClient.playerService.players[0].playlistService
             }
             else
-                service = nullptr
+                service = null
         }
     }
     Component.onCompleted: {

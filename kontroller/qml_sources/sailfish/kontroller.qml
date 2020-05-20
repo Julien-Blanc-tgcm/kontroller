@@ -33,7 +33,7 @@ ApplicationWindow {
         contentHeight: height
         flickableDirection: Flickable.VerticalFlick
         z:1
-        open: playerControl.player || volumeControl.updated || volumeControl.updating
+        open: false
 
         Column {
             id:col
@@ -65,7 +65,7 @@ ApplicationWindow {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 volumePlugin: appClient?appClient.volumePlugin:null
-                visible: true
+                visible: (!playerControl.player) || (updating && !pushUpMenu.active)
                 id: volumeControl
             }
         }
@@ -79,6 +79,12 @@ ApplicationWindow {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 id:theColumn
+                VolumeControl {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    volumePlugin: appClient?appClient.volumePlugin:null
+                    visible: true
+                }
                 PlayerProperties {
                     player: playerControl.player
                     id: playerProperties
@@ -131,6 +137,22 @@ ApplicationWindow {
             theNotif.previewSummary = qsTr("Download error");
             theNotif.publish()
         }
+    }
+
+    function recomputeDockVisible()
+    {
+        controllerPanel.open = playerControl.player || volumeControl.updated || volumeControl.updating
+    }
+
+    Connections {
+        target: playerControl
+        onPlayerChanged: recomputeDockVisible()
+    }
+
+    Connections {
+        target: volumeControl
+        onUpdatedChanged: recomputeDockVisible()
+        onUpdatingChanged: recomputeDockVisible()
     }
 
 }
