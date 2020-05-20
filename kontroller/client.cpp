@@ -384,6 +384,19 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
 				}
 			}
 		}
+		else if (method == "Application.OnVolumeChanged")
+		{
+			QJsonObject data = message.params().toObject().value("data").toObject();
+			if (!data.isEmpty())
+			{
+				// try to cast into kodivolumeplugin. Will succeed if the volume plugin handles this event
+				auto kodiPlugin = dynamic_cast<KodiVolumePlugin*>(volumePlugin_);
+				if(kodiPlugin != nullptr)
+				{
+					kodiPlugin->interpretOnVolumeChanged(data);
+				}
+			}
+		}
 		else if(method == "Input.OnInputRequested")
 		{
 			auto data = message.params().toObject().take("data").toObject();
