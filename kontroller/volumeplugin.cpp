@@ -36,6 +36,11 @@ void VolumePlugin::updateVolume(int newVolume)
 	updateVolume_(newVolume);
 }
 
+void VolumePlugin::setMuted(bool muted)
+{
+	setMuted_(muted);
+}
+
 int VolumePlugin::volumeStep() const
 {
 	return volumeStep_();
@@ -59,6 +64,11 @@ bool VolumePlugin::valueValid() const
 QString VolumePlugin::formatVolume(int volume) const
 {
 	return formatVolume_(volume);
+}
+
+bool VolumePlugin::muted() const
+{
+	return muted_();
 }
 
 void VolumePlugin::refreshVolume()

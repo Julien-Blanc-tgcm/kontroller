@@ -121,6 +121,19 @@ QString MinidspVolumePlugin::formatVolume_(int value) const
 	return QString::number(static_cast<double>(value - 255) / 2) + " dB";
 }
 
+void MinidspVolumePlugin::setMuted_(bool muted)
+{
+	auto q = minidsp::Query::muteQuery(muted);
+	pushPendingQuery_(q);
+	executeNextQuery_();
+	Q_UNUSED(muted);
+}
+
+bool MinidspVolumePlugin::muted_() const
+{
+	return mutedStored_;
+}
+
 void MinidspVolumePlugin::pushPendingQuery_(const minidsp::Query::Message& query)
 {
 	pendingQueries_.push_back(query);
@@ -158,13 +171,15 @@ void MinidspVolumePlugin::handleReply_()
 	else if(rep.type() == minidsp::Reply::Type::DeviceInformationReply)
 	{
 		currentVolumeStored_ = rep.volume();
-		muted_ = rep.muted();
+		mutedStored_ = rep.muted();
 		emit currentVolumeChanged(currentVolume_());
 		emit valueValidChanged(true);
+		emit mutedChanged(mutedStored_);
 	}
 	else if(rep.type() == minidsp::Reply::Type::MuteReply)
 	{
-		muted_ = !muted_;
+		mutedStored_ = !mutedStored_;
+		emit mutedChanged(mutedStored_);
 	}
 	if(!pendingQueries_.empty())
 		executeNextQuery_();

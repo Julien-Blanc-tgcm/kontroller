@@ -60,6 +60,8 @@ protected:
 	bool valueValid_() const override;
 	QString displayValue_() const override;
 	QString formatVolume_(int value) const override;
+	void setMuted_(bool muted) override;
+	bool muted_() const override;
 private:
 	int currentVolumeStored_ = 1;
 
@@ -67,8 +69,7 @@ private:
 
 	bool connected_ = false;
 
-	bool muted_ = false;
-
+	bool mutedStored_ = false;
 	/**
 	 * @brief timer_ connection timer, used to not hold the connection for too long. Since the device responds only
 	 * to one connection at a time, we don't want to hold it.

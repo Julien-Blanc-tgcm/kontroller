@@ -10,16 +10,29 @@ namespace tgcm
 {
 namespace kontroller
 {
-KodiVolumePlugin::KodiVolumePlugin(Client *parent) :
-    VolumePlugin(parent),
-    client_{parent}
+KodiVolumePlugin::KodiVolumePlugin(Client* parent) : VolumePlugin(parent), client_{parent}
 {
-
 }
 
 QString KodiVolumePlugin::static_name()
 {
 	return QString::fromUtf8("Kodi");
+}
+
+void KodiVolumePlugin::interpretOnVolumeChanged(QJsonObject data)
+{
+	auto volume = data["volume"];
+	if (volume.isDouble())
+	{
+		currentVolumeStored_ = static_cast<int>(volume.toDouble());
+		emit currentVolumeChanged(currentVolumeStored_);
+	}
+	auto muted = data["muted"];
+	if (muted.isBool())
+	{
+		currentMuteStored_ = muted.toBool();
+		emit mutedChanged(currentMuteStored_);
+	}
 }
 
 QString KodiVolumePlugin::realName_() const
@@ -49,7 +62,6 @@ void KodiVolumePlugin::updateVolume_(int newVolume)
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Application.SetVolume", parameters);
 	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &KodiVolumePlugin::volumeReply_);
-// todo : implement
 }
 
 int KodiVolumePlugin::volumeStep_() const
@@ -105,26 +117,43 @@ QString KodiVolumePlugin::formatVolume_(int value) const
 	return QString::number(value) + "%";
 }
 
+bool KodiVolumePlugin::muted_() const
+{
+	return currentMuteStored_;
+}
+
+void KodiVolumePlugin::setMuted_(bool muted)
+{
+	// todo : implement request
+	Q_UNUSED(muted);
+}
+
 void KodiVolumePlugin::volumeReply_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if(reply != nullptr)
+	if (reply != nullptr)
 	{
 		auto obj = reply->response().toObject();
-		if(obj.contains("result"))
+		if (obj.contains("result"))
 		{
 			auto result = obj["result"];
-			if(result.isObject() && result.toObject().contains("volume"))
+			if (result.isObject() && result.toObject().contains("volume"))
 			{
 				auto volume = result.toObject()["volume"];
-				if(volume.isDouble())
+				if (volume.isDouble())
 				{
 					currentVolumeStored_ = volume.toInt();
 					emit currentVolumeChanged(currentVolumeStored_);
 					emit valueValidChanged(true);
 				}
+				auto muted = result.toObject()["muted"];
+				if (muted.isBool())
+				{
+					currentMuteStored_ = muted.toBool();
+					emit mutedChanged(currentMuteStored_);
+				}
 			}
-			else if(result.isDouble())
+			else if (result.isDouble())
 			{
 				currentVolumeStored_ = result.toInt();
 				emit currentVolumeChanged(currentVolumeStored_);
@@ -134,7 +163,6 @@ void KodiVolumePlugin::volumeReply_()
 	}
 }
 
-}
-}
-}
-
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

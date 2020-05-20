@@ -36,6 +36,8 @@ class VolumePlugin : public QObject
 	 */
 	Q_PROPERTY(bool valueValid READ valueValid NOTIFY valueValidChanged)
 
+	Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged)
+
 	int status_ = 0;
 
 public:
@@ -58,6 +60,8 @@ public:
 	 */
 	Q_INVOKABLE QString formatVolume(int volume) const;
 
+	bool muted() const;
+
 signals:
 	void nameChanged(QString);
 	void minVolumeChanged(int);
@@ -68,12 +72,16 @@ signals:
 
 	void valueValidChanged(bool valueValid);
 
-  public slots:
+	void mutedChanged(bool muted);
+
+public slots:
 	void refreshVolume();
 	void increaseVolume();
 	void decreaseVolume();
 	void updateVolume(int newVolume);
-  protected slots:
+	void setMuted(bool muted);
+
+protected slots:
 	void setStatus(int status);
 
 protected:
@@ -89,6 +97,8 @@ protected:
 	virtual bool valueValid_() const = 0;
 	virtual QString displayValue_() const = 0;
 	virtual QString formatVolume_(int volume) const = 0;
+	virtual bool muted_() const = 0;
+	virtual void setMuted_(bool muted) = 0;
 
 };
 

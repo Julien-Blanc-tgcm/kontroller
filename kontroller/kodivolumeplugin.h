@@ -25,6 +25,8 @@ public:
 	explicit KodiVolumePlugin(Client *parent = nullptr);
 
 	static QString static_name();
+
+	void interpretOnVolumeChanged(QJsonObject data);
 protected:
 	QString realName_() const override;
 	int maxVolume_() const override;
@@ -38,8 +40,11 @@ protected:
 	bool valueValid_() const override;
 	QString displayValue_() const override;
 	QString formatVolume_(int value) const override;
+	bool muted_() const override;
+	void setMuted_(bool muted) override;
 private:
 	int currentVolumeStored_ = -1;
+	bool currentMuteStored_ = false;
 private slots:
 	void volumeReply_();
 
