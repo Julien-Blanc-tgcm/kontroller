@@ -36,6 +36,8 @@
 #include "kodivolumeplugin.h"
 #include "minidspvolumeplugin.h"
 
+#include "sbiconimageprovider.h"
+
 #include <cassert>
 #include <QScreen>
 #ifndef SAILFISH_TARGET
@@ -141,6 +143,7 @@ int main(int argc, char *argv[])
 	QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
 	QScopedPointer<QQuickView> view(SailfishApp::createView());
 	registerTypes();
+	view->engine()->addImageProvider("assets", new SBIconImageProvider());
 	eu::tgcm::kontroller::ApplicationSettings applicationSettings;
 	auto client = new eu::tgcm::kontroller::Client(&applicationSettings, app.data());
 	view->rootContext()->setContextProperty(QString::fromUtf8("appSettings"), &applicationSettings);

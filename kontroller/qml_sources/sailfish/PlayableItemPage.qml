@@ -290,7 +290,7 @@ Item {
         if(icon === "songs")
             return "image://theme/icon-m-media-songs";
         if(icon === "movies")
-            return "image://theme/icon-m-media";
+            return "image://assets/icons/icon-m-movie";
         if(icon === "tvshows")
             return "image://theme/icon-m-media-playlists";
         if(icon === "clips")

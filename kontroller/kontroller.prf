@@ -5,10 +5,10 @@ target.path = /usr/bin
 desktop.files = $${TARGET}.desktop
 desktop.path = /usr/share/applications
 
-icon.files = $${TARGET}.png
-icon.path = /usr/share/icons/hicolor/86x86/apps
+appicon.files = $${TARGET}.png
+appicon.path = /usr/share/icons/hicolor/86x86/apps
 
-INSTALLS += target desktop icon
+INSTALLS += target desktop appicon
 
 CONFIG += link_pkgconfig
 PKGCONFIG += sailfishapp

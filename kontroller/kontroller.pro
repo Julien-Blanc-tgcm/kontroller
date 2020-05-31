@@ -10,11 +10,14 @@ CONFIG(sailfish) {
   QT += widgets
 }
 
+PKGCONFIG += sailfishsilica
+
 CONFIG+=c++11
 
 SOURCES += main.cpp \
     downloadlocation.cpp \
     musicservice.cpp \
+    sbiconimageprovider.cpp \
     statusservice.cpp \
     playlistservice.cpp \
     videoservice.cpp \
@@ -52,7 +55,6 @@ SOURCES += main.cpp \
     ../lib/minidsplib/query.cpp \
     ../lib/minidsplib/reply.cpp
 
-RESOURCES += icons.qrc
 CONFIG(sailfish) {
     RESOURCES += qml_sources/sailfish/qml.qrc
 #    OTHER_FILES += qml/sailfish/kontroller.qml \
@@ -112,6 +114,7 @@ LIBS += -lqjsonrpc
 HEADERS += \
     downloadlocation.h \
     musicservice.h \
+    sbiconimageprovider.h \
     statusservice.h \
     playlistservice.h \
     videoservice.h \
@@ -173,7 +176,12 @@ DISTFILES += kontroller.prf \
 qml_sources.files = qml_sources/sailfish
 qml_sources.path = /usr/share/$${TARGET}/qml
 
-INSTALLS += qml_sources
+disticons.files = icons/sailfish/*
+disticons.path = /usr/share/$${TARGET}/assets
+
+#OTHER_FILES += icons/sailfish/*
+
+INSTALLS += qml_sources disticons
 
 #lib.path = /usr/share/harbour-kontroller/lib/
 #lib.files += ../qjsonrpc/src/libqjsonrpc.so.1

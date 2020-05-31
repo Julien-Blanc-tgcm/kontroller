@@ -16,6 +16,7 @@ PkgConfigBR:
 - Qt5Core
 - Qt5Qml
 - Qt5Quick
+- sailfishsilica
 Requires:
 - sailfishsilica-qt5 >= 1.0.2
 Files:
@@ -24,4 +25,5 @@ Files:
 - '%{_datadir}/%{name}/qml/sailfish'
 - '%{_bindir}'
 - '%{_datadir}/%{name}/translations'
+- '%{_datadir}/%{name}/assets'
 
