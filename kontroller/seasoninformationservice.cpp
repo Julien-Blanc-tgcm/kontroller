@@ -10,13 +10,15 @@ namespace tgcm
 {
 namespace kontroller
 {
-QString SeasonInformationService::seasonId() const
+int SeasonInformationService::seasonId() const
 {
 	return seasonId_;
 }
 
-void SeasonInformationService::setSeasonId(const QString& seasonId)
+void SeasonInformationService::setSeasonId(int seasonId)
 {
+	if (seasonId == seasonId_)
+		return;
 	seasonId_ = seasonId;
 	emit seasonIdChanged();
 }
@@ -28,6 +30,8 @@ QString SeasonInformationService::showTitle() const
 
 void SeasonInformationService::setShowTitle(const QString& showTitle)
 {
+	if (showTitle == showTitle_)
+		return;
 	showTitle_ = showTitle;
 	emit showTitleChanged();
 }
@@ -39,6 +43,8 @@ int SeasonInformationService::nbEpisodes() const
 
 void SeasonInformationService::setNbEpisodes(int nbEpisodes)
 {
+	if (nbEpisodes == nbEpisodes_)
+		return;
 	nbEpisodes_ = nbEpisodes;
 	emit nbEpisodesChanged();
 }
@@ -50,6 +56,8 @@ int SeasonInformationService::nbWatchedEpisodes() const
 
 void SeasonInformationService::setNbWatchedEpisodes(int nbWatchedEpisodes)
 {
+	if (nbWatchedEpisodes == nbWatchedEpisodes_)
+		return;
 	nbWatchedEpisodes_ = nbWatchedEpisodes;
 	emit nbWatchedEpisodesChanged();
 }
@@ -61,6 +69,8 @@ QString SeasonInformationService::fanart() const
 
 void SeasonInformationService::setFanart(const QString& fanart)
 {
+	if (fanart_ == fanart)
+		return;
 	fanart_ = fanart;
 	emit fanartChanged();
 }
@@ -72,6 +82,8 @@ QString SeasonInformationService::art() const
 
 void SeasonInformationService::setArt(const QString& art)
 {
+	if (art_ == art)
+		return;
 	art_ = art;
 	emit artChanged();
 }
@@ -98,6 +110,8 @@ QString SeasonInformationService::thumbnail() const
 
 void SeasonInformationService::setThumbnail(const QString& thumbnail)
 {
+	if (thumbnail_ == thumbnail)
+		return;
 	thumbnail_ = thumbnail;
 	emit thumbnailChanged();
 }
@@ -109,10 +123,7 @@ SeasonInformationService::SeasonInformationService(QObject* parent) : QObject(pa
 void SeasonInformationService::refresh()
 {
 	QJsonObject parameters;
-	QStringList list = seasonId_.split(QChar('|'));
-	if (list.size() != 2)
-		return;
-	parameters["tvshowid"] = list[0].toInt();
+	parameters["tvshowid"] = tvShowId_;
 	QJsonArray properties;
 	properties.append(QString("season"));
 	properties.append(QString("showtitle"));
@@ -137,21 +148,24 @@ void SeasonInformationService::setClient(Client* client)
 	emit clientChanged(client_);
 }
 
+void SeasonInformationService::setTvShowId(int tvshowId)
+{
+	if (tvShowId_ == tvshowId)
+		return;
+
+	tvShowId_ = tvshowId;
+	emit tvShowIdChanged(tvShowId_);
+}
+
 void SeasonInformationService::refreshEpisodes_()
 {
-	QStringList list = seasonId_.split(QChar('|'));
-	if (list.size() != 2)
-		return;
 	auto req = new TvShowEpisodesRequest(client_);
 	connect(req, &TvShowEpisodesRequest::finished, this, &SeasonInformationService::handleRefreshEpisodes_);
-	req->start(list[0].toInt(), list[1].toInt());
+	req->start(tvShowId_, seasonId_);
 }
 
 void SeasonInformationService::handleRefresh_()
 {
-	QStringList list = seasonId_.split(QChar('|'));
-	if (list.size() != 2)
-		return;
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if (reply)
 	{
@@ -167,7 +181,7 @@ void SeasonInformationService::handleRefresh_()
 			if (seasonTmp.isObject())
 			{
 				auto season = seasonTmp.toObject();
-				if (season.value("season").toDouble() == list[1].toDouble())
+				if (static_cast<int>(season.value("season").toDouble()) == seasonId())
 				{
 					setShowTitle(season.value("showtitle").toString());
 					setThumbnail(getImageUrl(client_, season.value("thumbnail").toString()).toString());
@@ -195,17 +209,14 @@ void SeasonInformationService::handleRefreshEpisodes_()
 	}
 }
 
-QString SeasonInformationService::season() const
-{
-	QStringList list = seasonId_.split(QChar('|'));
-	if (list.size() != 2)
-		return "";
-	return list[1];
-}
-
 Client* SeasonInformationService::client() const
 {
 	return client_;
+}
+
+int SeasonInformationService::tvShowId() const
+{
+	return tvShowId_;
 }
 
 } // namespace kontroller

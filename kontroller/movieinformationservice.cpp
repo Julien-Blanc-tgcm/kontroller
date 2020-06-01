@@ -136,7 +136,7 @@ void MovieInformationService::playFile()
 	File file;
 	file.setFiletype("movie");
 	file.setType("movie");
-	file.setFile(QString::number(movieId_));
+	file.setId(movieId_);
 	file.setLabel(title());
 	ctrl_->playFile(file);
 }

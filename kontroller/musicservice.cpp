@@ -376,7 +376,7 @@ void MusicService::parseArtistsResults()
 								file.setLabel(val.toString());
 							val = obj.value("artistid");
 							if(val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
 							file.setFiletype("artist");
 							file.setType("artist");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());

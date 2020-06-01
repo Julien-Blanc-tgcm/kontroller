@@ -18,7 +18,8 @@ namespace kontroller
 class SeasonInformationService : public QObject
 {
 	Q_OBJECT
-	QString seasonId_; // contains both tvshowid and season, separated by |
+	int tvShowId_;
+	int seasonId_;
 
 	QString showTitle_;
 	QString thumbnail_;
@@ -32,10 +33,11 @@ class SeasonInformationService : public QObject
 
 	eu::tgcm::kontroller::Client* client_;
 
-  public:
+public:
 	explicit SeasonInformationService(QObject* parent = nullptr);
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
-	Q_PROPERTY(QString seasonId READ seasonId WRITE setSeasonId NOTIFY seasonIdChanged)
+	Q_PROPERTY(int seasonId READ seasonId WRITE setSeasonId NOTIFY seasonIdChanged)
+	Q_PROPERTY(int tvShowId READ tvShowId WRITE setTvShowId NOTIFY tvShowIdChanged)
 	Q_PROPERTY(QString showTitle READ showTitle WRITE setShowTitle NOTIFY showTitleChanged)
 	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
 	Q_PROPERTY(int nbEpisodes READ nbEpisodes WRITE setNbEpisodes NOTIFY nbEpisodesChanged)
@@ -43,10 +45,9 @@ class SeasonInformationService : public QObject
 	Q_PROPERTY(QString fanart READ fanart WRITE setFanart NOTIFY fanartChanged)
 	Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
 	Q_PROPERTY(QVariantList episodes READ episodesList NOTIFY episodesChanged)
-	Q_PROPERTY(QString season READ season NOTIFY seasonIdChanged)
 
-	QString seasonId() const;
-	void setSeasonId(const QString& seasonId);
+	int seasonId() const;
+	void setSeasonId(int seasonId);
 
 	QString showTitle() const;
 	void setShowTitle(const QString& title);
@@ -69,11 +70,11 @@ class SeasonInformationService : public QObject
 	QString thumbnail() const;
 	void setThumbnail(const QString& thumbnail);
 
-	QString season() const;
-
 	eu::tgcm::kontroller::Client* client() const;
 
-  signals:
+	int tvShowId() const;
+
+signals:
 	void seasonIdChanged();
 	void showTitleChanged();
 	void thumbnailChanged();
@@ -85,12 +86,16 @@ class SeasonInformationService : public QObject
 
 	void clientChanged(eu::tgcm::kontroller::Client* client);
 
-  public slots:
+	void tvShowIdChanged(int tvShowId);
+
+public slots:
 	void refresh();
 
 	void setClient(eu::tgcm::kontroller::Client* client);
 
-  private slots:
+	void setTvShowId(int tvShowId);
+
+private slots:
 	void refreshEpisodes_();
 	void handleRefresh_();
 	void handleRefreshEpisodes_();

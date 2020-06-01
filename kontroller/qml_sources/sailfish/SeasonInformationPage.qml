@@ -118,6 +118,7 @@ Page {
         client: appClient
     }
 
+    property alias tvShowId: service.tvShowId
     property alias itemId: service.seasonId
     property string label
     Component.onCompleted: { service.refresh(); }

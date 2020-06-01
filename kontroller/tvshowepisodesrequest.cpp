@@ -66,7 +66,8 @@ void TvShowEpisodesRequest::parseEpisodesResult_()
 								file.setLabel(val.toString());
 							val = obj.value("episodeid");
 							if (val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("episode");
 							file.setType("episode");
 							auto thumbnail = obj.value("thumbnail").toString();

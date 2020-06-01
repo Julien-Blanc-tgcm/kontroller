@@ -16,7 +16,7 @@ TvShowSeasonsRequest::TvShowSeasonsRequest(Client* client, QObject* parent) :
 {
 }
 
-TvShowSeasonsRequest::~TvShowSeasonsRequest()
+TvShowSeasonsRequest::~TvShowSeasonsRequest() noexcept
 {
 	seasons.clear();
 }
@@ -37,12 +37,12 @@ void TvShowSeasonsRequest::start(int tvshowid)
 	QJsonRpcServiceReply* reply = client_->send(message);
 	if (reply)
 		connect(
-		    reply, &QJsonRpcServiceReply::finished, this, [tvshowid, this]() { this->parseSeasonsResult_(tvshowid); });
+		    reply, &QJsonRpcServiceReply::finished, this, &TvShowSeasonsRequest::parseSeasonsResult_);
 	else
 		emit finished();
 }
 
-void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
+void TvShowSeasonsRequest::parseSeasonsResult_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if (reply)
@@ -70,7 +70,8 @@ void TvShowSeasonsRequest::parseSeasonsResult_(int tvshowid)
 								file.setLabel(val.toString());
 							val = obj.value("season");
 							if (val.type() == QJsonValue::Double)
-								file.setFile(QString::number(tvshowid) + "|" + QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("season");
 							file.setType("season");
 							auto const thumbnail = obj.value("thumbnail").toString();

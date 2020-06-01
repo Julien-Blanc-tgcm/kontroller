@@ -32,7 +32,7 @@ signals:
 	void finished();
 
 private slots:
-	void parseSeasonsResult_(int tvshowid);
+	void parseSeasonsResult_();
 
 };
 

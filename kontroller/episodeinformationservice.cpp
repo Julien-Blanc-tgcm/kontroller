@@ -230,7 +230,7 @@ void EpisodeInformationService::playFile()
 	File file;
 	file.setFiletype("episode");
 	file.setType("episode");
-	file.setFile(QString::number(episodeId_));
+	file.setId(episodeId_);
 	file.setLabel(title());
 	videoControl_->playFile(file);
 }

@@ -47,9 +47,9 @@ void MusicControl::addToPlaylist(File file)
 	else if(file.filetype() == "file")
 		item.insert("file", file.file());
 	else if(file.filetype() == "album")
-		item.insert("albumid", file.file().toInt());
+		item.insert("albumid", file.id());
 	else if(file.filetype() == "song")
-		item.insert("songid", file.file().toInt());
+		item.insert("songid", file.id());
 	params.insert("item", item);
 	params.insert("playlistid", audioPlaylistId_);
 	message = QJsonRpcMessage::createRequest("Playlist.Add", params);

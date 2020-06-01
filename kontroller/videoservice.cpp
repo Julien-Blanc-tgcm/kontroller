@@ -339,7 +339,8 @@ void VideoService::parseMoviesResults_()
 								file.setLabel(val.toString());
 							val = obj.value("movieid");
 							if (val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("movie");
 							file.setType("movie");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
@@ -383,7 +384,8 @@ void VideoService::parseTVShowsResults_()
 								file.setLabel(val.toString());
 							val = obj.value("tvshowid");
 							if (val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("tvshow");
 							file.setType("tvshow");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
@@ -427,7 +429,8 @@ void VideoService::parseMusicVideosResults_()
 								file.setLabel(val.toString());
 							val = obj.value("musicvideoid");
 							if (val.type() == QJsonValue::Double)
-								file.setFile(QString::number(val.toDouble()));
+								file.setId(static_cast<int>(val.toDouble()));
+							file.setFile(obj.value("file").toString());
 							file.setFiletype("musicvideo");
 							file.setType("musicvideo");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());

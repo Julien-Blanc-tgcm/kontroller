@@ -98,11 +98,12 @@ Page {
 
     EpisodeInformationService {
         id:service
+        client: appClient
     }
 
     property alias itemId: service.episodeId
     property string label
-    onItemIdChanged: { service.refresh(); }
+    Component.onCompleted: { refresh(); }
     function refresh() { service.refresh(); }
 }
 

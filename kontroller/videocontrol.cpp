@@ -48,13 +48,13 @@ QJsonRpcServiceReply* VideoControl::addToPlaylist(File file)
 	else if(file.filetype() == "file")
 		item.insert("file", file.file());
 	else if(file.filetype() == "movie")
-		item.insert("movieid", file.file().toInt());
+		item.insert("movieid", file.id());
 	else if(file.filetype() == "tvshow")
-		item.insert("tvshowid", file.file().toInt());
+		item.insert("tvshowid", file.id());
 	else if(file.filetype() == "episode")
-		item.insert("episodeid", file.file().toInt());
+		item.insert("episodeid", file.id());
 	else if(file.filetype() == "musicvideo")
-		item.insert("musicvideoid", file.file().toInt());
+		item.insert("musicvideoid", file.id());
 	params.insert("item", item);
 	params.insert("playlistid", videoPlaylistId_);
 	message = QJsonRpcMessage::createRequest("Playlist.Add", params);

@@ -33,7 +33,7 @@ class EpisodeInformationService : public QObject
 
 	QString title_;
 
-	eu::tgcm::kontroller::Client* client_;
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 
 	VideoControl* videoControl_;
 

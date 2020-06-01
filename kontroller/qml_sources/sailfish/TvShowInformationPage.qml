@@ -100,7 +100,7 @@ Page {
                         clip:true
                         wrapMode: Text.Wrap
                     }
-                    onClicked: mediaInformationClicked(model.modelData)
+                    onClicked: mediaInformationClicked(model.modelData, {"tvShowId":itemId})
                 }
             }
 
@@ -143,7 +143,7 @@ Page {
     Component.onCompleted: {
         service.refresh();
     }
-    signal mediaInformationClicked(var file)
+    signal mediaInformationClicked(var file, var extraData)
     function refresh() { service.refresh(); }
 }
 

@@ -178,7 +178,7 @@ Item {
 
     function getMenuItems(playableItem)
     {
-        if(playableItem == null)
+        if(playableItem === null)
             return [];
         switch(playableItem.filetype)
         {
@@ -219,11 +219,11 @@ Item {
         }
         else if(action === "play")
         {
-            control.playFile(item.file);
+            control.playFile(item);
         }
         else if(action === "addtoplaylist")
         {
-            control.addToPlaylist(item.file);
+            control.addToPlaylist(item);
         }
         else if(action === "download")
         {
@@ -239,8 +239,7 @@ Item {
             {
                 appClient.downloadService.addAlbum(item.label, item.id)
             }
-
-
+            else
             {
                 console.log("Download action on " + item.filetype + " not implemented yet");
             }

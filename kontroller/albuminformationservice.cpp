@@ -117,7 +117,7 @@ void AlbumInformationService::playFile()
 	File file;
 	file.setFiletype("album");
 	file.setType("album");
-	file.setFile(QString::number(albumId_));
+	file.setId(albumId_);
 	file.setLabel(name());
 	ctrl_->playFile(file);
 }

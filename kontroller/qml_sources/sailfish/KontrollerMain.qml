@@ -279,13 +279,22 @@ Page {
             pageStack.push(musicList);
         }
 
-        function createInformationPage(file)
+        function createInformationPage(file, creationData)
         {
             var newView;
             var component = internal.informationPageComponents[file.filetype];
             if(component && component.status === Component.Ready)
             {
-                newView = component.createObject(pageStack, {"itemId":file.file});
+                console.log("Create page for item ", file.id, " of type ", file.filetype);
+                var data = {"itemId":file.id};
+                if(creationData !== null)
+                {
+                    // extradata is needed for tv show informations (need both the tv show and the season parameter)
+                    for(var key in creationData)
+                        data[key] = creationData[key]; // copy data to creation parameters
+                }
+
+                newView = component.createObject(pageStack, data);
                 if(newView)
                 {
                     if(typeof(newView.mediaInformationClicked) !== "undefined")
