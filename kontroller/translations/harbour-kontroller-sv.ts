@@ -366,12 +366,12 @@
     <message>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="107"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Sök</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="246"/>
         <source>No items found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Inget hittades!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="141"/>
