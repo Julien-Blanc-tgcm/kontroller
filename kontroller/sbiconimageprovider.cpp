@@ -1,13 +1,14 @@
 #include "sbiconimageprovider.h"
 
-#include <sailfishapp.h>
-#include <silicatheme.h>
-#include <QGuiApplication>
-#include <QStandardPaths>
 #include <QDebug>
-#include <QFileInfo>
 #include <QDir>
 #include <QDirIterator>
+#include <QFileInfo>
+#include <QGuiApplication>
+#include <QPainter>
+#include <QStandardPaths>
+#include <sailfishapp.h>
+#include <silicatheme.h>
 
 SBIconImageProvider::SBIconImageProvider() : QQuickImageProvider{ImageType::Pixmap}
 {
