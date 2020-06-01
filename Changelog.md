@@ -1,4 +1,10 @@
 # Changelog
+## Version 0.12
+
+* Added search function in lists
+* Added an icon provider, to add custom icons to the app. Movies icon has
+been replaced by a new one
+* fixed issues related to some play buttons/actions not working
 
 ## Version 0.11
 
