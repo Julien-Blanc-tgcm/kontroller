@@ -1,59 +1,41 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import harbour.eu.tgcm 1.0
 
 CoverBackground {
-    anchors.fill: parent
+    Column {
+        anchors.fill: parent
+        anchors.margins: Theme.paddingLarge*2
+        spacing: Theme.paddingLarge
 
-    property var player: appClient.playerService.players.length > 0? appClient.playerService.players[0]:null
-
-    Label {
-        id:lbl
-        text:player && player.playingInformation?
-                     player.playingInformation.currentItem.label:""
-        anchors.top:parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        wrapMode: Text.WordWrap
-        font.pixelSize: Theme.fontSizeExtraSmall
-        horizontalAlignment: Text.AlignHCenter
-    }
-    Image {
-        source: player?player.playingInformation.currentItem.thumbnail:""
-        anchors.top:lbl.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: Theme.paddingSmall
-        anchors.rightMargin: Theme.paddingSmall
-        anchors.right: parent.right
-        height:parent.height - coverAction.height - lbl.height
-        fillMode: Image.PreserveAspectFit
-    }
-
-    CoverActionList {
-        id: coverAction
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-next"
-            onTriggered: {
-                if(player)
-                {
-                    player.next();
-                }
-            }
+        Label {
+            id: label
+            text: "Musikilo"
+            font.pixelSize: Theme.fontSizeLarge
+            font.bold: Font.Bold
+            anchors.horizontalCenter: parent.horizontalCenter
         }
-        CoverAction {
-            iconSource: {
-                if(player && player.speed > 0)
-                    return "image://theme/icon-cover-pause"
-                return "image://theme/icon-cover-play"
-            }
-            onTriggered: {
-                if(player)
-                {
-                    player.playPause();
-                }
-            }
+
+        Label {
+            id: title
+            width: parent.width
+//            text: mediaPlayer.metaData.title !== undefined ? mediaPlayer.metaData.title : ""
+            wrapMode: "WrapAtWordBoundaryOrAnywhere"
+            font.bold: Font.Bold
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Label {
+            id: author
+            width: parent.width
+//            text: mediaPlayer.metaData.author!== undefined ?
+//                      mediaPlayer.metaData.author :
+//                      mediaPlayer.metaData.albumArtist !== undefined ?
+//                          mediaPlayer.metaData.albumArtist :
+//                          mediaPlayer.metaData.contributingArtist !== undefined ?
+//                              mediaPlayer.metaData.contributingArtist : ""
+            font.bold: Font.Bold
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: "WrapAtWordBoundaryOrAnywhere"
         }
     }
-
 }
