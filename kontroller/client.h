@@ -57,6 +57,7 @@ public:
 	int serverHttpPort() const;
 	/**
 	 * @brief connectionStatus tells whether the client is connected
+	 * -1 means connection error
 	 * 0 means unconnected
 	 * 1 means connecting
 	 * 2 means connected

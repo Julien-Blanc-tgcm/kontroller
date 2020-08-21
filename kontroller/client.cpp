@@ -91,6 +91,7 @@ int Client::serverHttpPort() const
 void Client::refresh()
 {
 	freeConnections();
+	setConnectionStatus(1);
 	server_ = nullptr;
 	if(serverUuid_.size() > 0)
 		server_ = settings_->server(serverUuid_);
@@ -162,7 +163,7 @@ void Client::handleError(QJsonRpcMessage error)
 	}
 	else if(error.errorMessage().startsWith("error with http request"))
 	{
-		setConnectionStatus(0);
+		setConnectionStatus(-1);
 	}
 	else
 	{
@@ -173,9 +174,8 @@ void Client::handleError(QJsonRpcMessage error)
 
 QJsonRpcServiceReply* Client::send(QJsonRpcMessage message)
 {
-	if(connectionStatus_ == 0)
+	if(connectionStatus_ <= 0)
 	{
-		setConnectionStatus(1);
 		refresh();
 	}
 	if(tcpClient_)
@@ -251,7 +251,7 @@ void Client::handleReplyFinished()
 		}
 	}
 	else
-		setConnectionStatus(0);
+		setConnectionStatus(-1);
 	reply->deleteLater();
 }
 
@@ -275,7 +275,7 @@ void Client::handleConnectionSuccess()
 
 void Client::handleConnectionError(QAbstractSocket::SocketError err)
 {
-	setConnectionStatus(0);
+	setConnectionStatus(-1);
 	qDebug() << err;
 }
 

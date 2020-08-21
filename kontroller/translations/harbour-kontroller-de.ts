@@ -194,63 +194,58 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="65"/>
-        <source>Connected to %1</source>
-        <translation>Verbunden mit %1</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="79"/>
-        <source>Unable to connect to %1</source>
-        <translation>Kann keine Verbindung zu %1 hestellen</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="92"/>
-        <source>Trying to connect to %1</source>
-        <translation>Versuche mit %1 zu verbinden</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="107"/>
-        <source>Connection status : %1</source>
-        <translation>Verbindungsstatus : %1</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="122"/>
-        <source>No server configured</source>
-        <translation>Kein Server konfiguriert</translation>
-    </message>
-    <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="148"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="76"/>
         <source>music</source>
         <translation>Musik</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="154"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="82"/>
         <source>videos</source>
         <translation>Videos</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="160"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="88"/>
         <source>current</source>
         <translation>Aktuell</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="166"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="94"/>
         <source>remote</source>
         <translation>Fernbedienung</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="173"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="101"/>
         <source>playlist</source>
         <translation>Playlist</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="180"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="44"/>
         <source>settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="361"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="365"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="52"/>
+        <source>Switch server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="144"/>
+        <source>Connecting, please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="163"/>
+        <source>Failed to connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="168"/>
+        <source>Retry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="290"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="294"/>
         <source>Sources</source>
         <translation>Quellen</translation>
     </message>
@@ -488,6 +483,14 @@
         <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="57"/>
         <source>Episodes:</source>
         <translation>Folgen:</translation>
+    </message>
+</context>
+<context>
+    <name>ServerSelectionPage</name>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSelectionPage.qml" line="15"/>
+        <source>Server selection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

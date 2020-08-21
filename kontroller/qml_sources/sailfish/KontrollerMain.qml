@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
@@ -40,208 +40,137 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {
-            visible: appSettings.servers.length >= 1
-            Repeater {
-                model:appSettings.servers
-                delegate: MenuItem {
-                    text:modelData.name
-                    onClicked: {
-                        appClient.switchToServer(modelData.uuid)
-                        appSettings.lastServer = modelData.uuid
-                    }
+            MenuItem {
+                text: qsTr("settings")
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("SettingsPage.qml"));
+                }
+            }
+
+            MenuItem {
+                visible: appSettings.servers.length > 1
+                text: qsTr("Switch server")
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("ServerSelectionPage.qml"));
                 }
             }
         }
 
-        Item {
-            id:titleBar
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top:parent.top
-            height: childrenRect.height
-            Label {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                text: qsTr("Connected to %1").arg(appClient.server?appClient.server.name:"")
-                visible: appClient.connectionStatus === 2
-                height:Theme.itemSizeSmall
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
-            Row {
-                visible:appClient.connectionStatus === 0
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                height:Theme.itemSizeSmall
-                Label {
-                    height:Theme.itemSizeSmall
-                    text:qsTr("Unable to connect to %1").arg(appClient.server?appClient.server.name:"")
-                    color: Theme.highlightColor;
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                }
-                IconButton {
-                    icon.source: "image://theme/icon-m-refresh"
-                    onClicked: appClient.retryConnect();
-                }
-            }
-            Label {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                text:qsTr("Trying to connect to %1").arg(appClient.server?appClient.server.name:"")
-                visible: appClient.connectionStatus === 1
-                height:Theme.itemSizeSmall
-                verticalAlignment: Text.AlignVCenter
-                color: Theme.highlightColor
-                horizontalAlignment: Text.AlignHCenter
-            }
-            Row {
-                visible: appSettings.servers.length !== 0 &&
-                    appClient.connectionStatus !== 0 && appClient.connectionStatus !== 1 &&
-                         appClient.connectionStatus !== 2
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                Label {
-                    text: qsTr("Connection status : %1").arg(appClient.connectionStatus)
-                    height: Theme.itemSizeSmall
-                    verticalAlignment: Text.AlignVCenter
-                    color:Theme.highlightColor
-                    horizontalAlignment: Text.AlignHCenter
-                }
-                IconButton {
-                    icon.source: "image://theme/icon-m-refresh"
-                    onClicked: appClient.retryConnect();
-                }
-            }
-
-            Label {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                text: qsTr("No server configured")
-                visible: appSettings.servers.length === 0
-                height: Theme.itemSizeSmall
-                verticalAlignment: Text.AlignVCenter
-                color:Theme.highlightColor
-                horizontalAlignment: Text.AlignHCenter
-            }
+        PageHeader {
+            id: titleBar
+            title: appClient.server.name
         }
 
-        Item {
+        SilicaListView
+        {
+            anchors.top: titleBar.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            anchors.top:titleBar.bottom
-            anchors.topMargin:Theme.paddingMedium
-            id: theGrid
-            property bool landscape: height < width
-            property int cellWidth: landscape ? Math.min(theGrid.width / 3, theGrid.height / 2) :  Math.min(theGrid.width / 2, theGrid.height / 3)
-            property int numberOfRows : landscape ? 2 : 3;
-            property int numberOfCols : landscape ? 3 : 2;
-            Repeater {
-                model : ListModel {
-                    ListElement {
-                        page:"music"
-                        icon:"image://theme/icon-m-media-songs"
-                        needConnect:true
-                        label: qsTr("music")
-                    }
-                    ListElement {
-                        page:"videos"
-                        icon:"image://theme/icon-m-video"
-                        needConnect:true
-                        label: qsTr("videos")
-                    }
-                    ListElement {
-                        page:"current"
-                        icon:"image://theme/icon-m-accessory-speaker"
-                        needConnect:true
-                        label: qsTr("current")
-                    }
-                    ListElement {
-                        page:"remote"
-                        icon:"image://theme/icon-m-traffic"
-                        needConnect:true
-                        label: qsTr("remote")
-                    }
-
-                    ListElement {
-                        page:"playlist"
-                        icon:"image://theme/icon-m-menu"
-                        needConnect:true
-                        label: qsTr("playlist")
-                    }
-
-                    ListElement {
-                        page:"settings"
-                        icon:"image://theme/icon-m-developer-mode"
-                        needConnect:false
-                        label: qsTr("settings")
-                    }
+            visible: appClient.connectionStatus === 2
+            model: ListModel {
+                ListElement {
+                    page:"music"
+                    icon:"image://theme/icon-m-media-songs"
+                    needConnect:true
+                    label: qsTr("music")
+                }
+                ListElement {
+                    page:"videos"
+                    icon:"image://theme/icon-m-video"
+                    needConnect:true
+                    label: qsTr("videos")
+                }
+                ListElement {
+                    page:"current"
+                    icon:"image://theme/icon-m-accessory-speaker"
+                    needConnect:true
+                    label: qsTr("current")
+                }
+                ListElement {
+                    page:"remote"
+                    icon:"image://theme/icon-m-traffic"
+                    needConnect:true
+                    label: qsTr("remote")
                 }
 
-                delegate : Item {
-                    property int positionX : (theGrid.landscape ? (model.index % 3) : (model.index % 2))
-                    property int positionY : Math.floor(theGrid.landscape ? (model.index / 3) : (model.index / 2))
-                    x: (main.width - (theGrid.cellWidth * theGrid.numberOfCols)) /2 + (positionX * theGrid.cellWidth)
-                    y: positionY * theGrid.cellWidth
-                    width: theGrid.cellWidth
-                    height: theGrid.cellWidth
-                    Rectangle {
-                        anchors.fill: parent
-                        opacity:0.1
-                        color:"#fff"
-                        id:theRect
-                        radius : 15
-                        anchors.margins: Theme.paddingMedium
-                        MouseArea
-                        {
-                            anchors.fill:parent
-                            onClicked: {
-                                if(!model.needConnect || appClient.connectionStatus === 2)
-                                    pushRelevantPage(model.page);
-                            }
+                ListElement {
+                    page:"playlist"
+                    icon:"image://theme/icon-m-menu"
+                    needConnect:true
+                    label: qsTr("playlist")
+                }
+            }
+            delegate: ListItem {
+                contentHeight: Theme.itemSizeLarge
+                Row {
+                    leftPadding: Theme.itemSizeLarge
+                    spacing: Theme.horizontalPageMargin
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    IconButton {
+                        id: img
+                        icon.source: {
+                            if(!model.needConnect || appClient.connectionStatus === 2)
+                                return model.icon;
+                            else
+                                return model.icon + "?" + Theme.highlightDimmerColor;
                         }
+                        anchors.verticalCenter: parent.verticalCenter
                     }
-                    Column
-                    {
-                        anchors.verticalCenter: theRect.verticalCenter
-                        spacing: Theme.paddingLarge
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        IconButton {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            icon.source: {
-                                if(!model.needConnect || appClient.connectionStatus === 2)
-                                    return model.icon;
-                                else
-                                    return model.icon + "?" + Theme.highlightDimmerColor;
-                            }
-                            onClicked: {
-                                if(!model.needConnect || appClient.connectionStatus === 2)
-                                    pushRelevantPage(model.page)
-                            }
-                            id:btn
-                            width:icon.width
-                            height:icon.height
-                        }
-                        Label {
-                            id:lbl
-                            anchors.left:parent.left
-                            anchors.right: parent.right
-                            horizontalAlignment: Text.AlignHCenter
-                            text: label
-                            color:{
-                                if(!model.needConnect || appClient.connectionStatus === 2)
-                                    return Theme.primaryColor;
-                                else
-                                    return Theme.highlightDimmerColor
-                            }
-                        }
+                    Label {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: model.label
+                        color: (appClient.connectionStatus === 2)?
+                                   Theme.primaryColor :
+                                   Theme.highlightDimmerColor;
                     }
+                }
+                onClicked: {
+                    if(!model.needConnect || appClient.connectionStatus === 2)
+                        pushRelevantPage(model.page);
                 }
             }
         }
+
+        // connecting
+        Column {
+            anchors.fill: parent
+            anchors.topMargin: Theme.itemSizeExtraLarge
+            spacing: Theme.itemSizeLarge
+            visible: appClient.connectionStatus === 1
+            // conneting
+            Label {
+                text: qsTr("Connecting, please wait");
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.Wrap
+            }
+            BusyIndicator {
+                size: BusyIndicatorSize.Large
+                running: appClient.connectionStatus === 1
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+
+        // failed to connect
+        Column {
+            anchors.fill: parent
+            anchors.topMargin: Theme.itemSizeExtraLarge
+            spacing: Theme.itemSizeLarge
+            visible: appClient.connectionStatus < 0
+            // conneting
+            Label {
+                text: qsTr("Failed to connect");
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.Wrap
+            }
+            Button {
+                text: qsTr("Retry")
+                onClicked: appClient.refresh()
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+
     }
 
     QtObject {
@@ -368,11 +297,6 @@ Page {
         {
             pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"));
             pageStack.pushAttached(Qt.resolvedUrl("RemoteControl.qml"));
-        }
-
-        else if(page === "settings")
-        {
-            pageStack.push(Qt.resolvedUrl("SettingsPage.qml"));
         }
         else if(page === "remote")
         {
