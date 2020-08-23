@@ -194,27 +194,27 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="76"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="78"/>
         <source>music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="82"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="84"/>
         <source>videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="88"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="90"/>
         <source>current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="94"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="96"/>
         <source>remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="101"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="103"/>
         <source>playlist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -229,23 +229,38 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="144"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="63"/>
+        <source>Welcome</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="146"/>
         <source>Connecting, please wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="163"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="165"/>
         <source>Failed to connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="168"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="170"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="290"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="294"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="184"/>
+        <source>No server configured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="189"/>
+        <source>Add server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="315"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="319"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
@@ -496,89 +511,89 @@
 <context>
     <name>ServerSettingsPage</name>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="20"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="21"/>
         <source>Server Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="30"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="31"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="32"/>
         <source>Server name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="42"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="43"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="44"/>
         <source>Server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="54"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="55"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="56"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="65"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="66"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="77"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="78"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="79"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="88"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="89"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="102"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="103"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="104"/>
         <source>Server port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="113"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="114"/>
         <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="126"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="127"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="128"/>
         <source>Web port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="132"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="133"/>
         <source>Select here the volume plugin to use. Default (Kodi) is to use kodi integrated volume. If using an amplifier to control the volume, select the corresponding plugin and configure it to make the remote control the amplifier volume.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="144"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="145"/>
         <source>Volume plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="147"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="148"/>
         <source>Kodi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="150"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="151"/>
         <source>Minidsp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="167"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="168"/>
         <source>IP address of the minidsp device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="179"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="180"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="181"/>
         <source>Minidsp ip address</source>
         <translation type="unfinished"></translation>
     </message>

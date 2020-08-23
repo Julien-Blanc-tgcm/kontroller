@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 
 Dialog {
     property string serverUuid: ""
+    property bool newServer: false
 
     SilicaFlickable {
         anchors.fill: parent
@@ -180,7 +181,7 @@ to make the remote control the amplifier volume.")
                 placeholderText: qsTr("Minidsp ip address")
                 visible: serverVolumePlugin.currentIndex === 1
             }
-            
+
 /*            TextSwitch {
                 id: serverHasZones
                 text:qsTr("Use multiples zones")
@@ -222,6 +223,13 @@ to make the remote control the amplifier volume.")
             appSettings.server(serverUuid).setVolumePluginParameters({"address": miniDSPAddress.text});
         }
         appSettings.save();
+    }
+
+    onRejected: {
+        if(newServer)
+        {
+            appSettings.deleteServer(serverUuid);
+        }
     }
 
     function pushOrPullZonePage()

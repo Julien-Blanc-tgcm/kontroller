@@ -58,7 +58,9 @@ Page {
 
         PageHeader {
             id: titleBar
-            title: appClient.server.name
+            title: (appSettings.servers.length >= 1 && appClient.server) ?
+                       appClient.server.name :
+                       qsTr("Welcome")
         }
 
         SilicaListView
@@ -137,7 +139,7 @@ Page {
         Column {
             anchors.fill: parent
             anchors.topMargin: Theme.itemSizeExtraLarge
-            spacing: Theme.itemSizeLarge
+            spacing: Theme.itemSizeMedium
             visible: appClient.connectionStatus === 1
             // conneting
             Label {
@@ -156,8 +158,8 @@ Page {
         Column {
             anchors.fill: parent
             anchors.topMargin: Theme.itemSizeExtraLarge
-            spacing: Theme.itemSizeLarge
-            visible: appClient.connectionStatus < 0
+            spacing: Theme.itemSizeMedium
+            visible: appClient.connectionStatus < 0 && appSettings.servers.length > 0
             // conneting
             Label {
                 text: qsTr("Failed to connect");
@@ -167,6 +169,29 @@ Page {
             Button {
                 text: qsTr("Retry")
                 onClicked: appClient.refresh()
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+
+        // no server configured
+        Column {
+            anchors.fill: parent
+            anchors.topMargin: Theme.itemSizeExtraLarge
+            spacing: Theme.itemSizeMedium
+            visible: appSettings.servers.length === 0
+            // conneting
+            Label {
+                text: qsTr("No server configured");
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.Wrap
+            }
+            Button {
+                text: qsTr("Add server")
+                onClicked: {
+                    var newserveruuid = appSettings.newServer().uuid; // will give a uuid
+                    pushServerSettingsPage(newserveruuid); // go to settings page
+                }
+
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
@@ -400,6 +425,7 @@ Page {
         if(appSettings.lastServer.length > 0)
             appClient.switchToServer(appSettings.lastServer)
         createInfoComponents()
+        serverSettingsComponent_ = Qt.createComponent(Qt.resolvedUrl("ServerSettingsPage.qml"))
     }
 
     Connections {
@@ -422,4 +448,17 @@ Page {
             appClient.retryConnect();
         }
     }
+
+    property var serverSettingsComponent_
+
+    function pushServerSettingsPage(serveruuid)
+    {
+        console.log("push server settings for server " + serveruuid);
+        if(serverSettingsComponent_.status === Component.Error)
+        console.log(serverSettingsComponent_.errorString())
+        pageStack.push(serverSettingsComponent_.createObject(pageStack,
+                                                             {"serverUuid": serveruuid,
+                                                              "newServer": true}))
+    }
+
 }

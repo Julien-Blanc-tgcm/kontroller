@@ -52,7 +52,7 @@ Page {
                         id: remorse
                     }
 
-                    onClicked: pushServerSettingsPage(model.uuid)
+                    onClicked: pushServerSettingsPage(model.uuid, false)
                     function showRemorseItem() {
                         var uuid = model.uuid;
                         remorse.execute(listItem, qsTr("Deleted"), function() { deleteServer(uuid) });
@@ -140,19 +140,20 @@ be used, depending on the downoaded file type.")
         serverSettingsComponent = Qt.createComponent(Qt.resolvedUrl("ServerSettingsPage.qml"))
     }
 
-    function pushServerSettingsPage(serveruuid)
+    function pushServerSettingsPage(serveruuid, newServer)
     {
         console.log("push server settings for server " + serveruuid);
         if(serverSettingsComponent.status === Component.Error)
         console.log(serverSettingsComponent.errorString())
         pageStack.push(serverSettingsComponent.createObject(pageStack,
-                                                            {"serverUuid": serveruuid}))
+                                                            {"serverUuid": serveruuid,
+                                                             "newServer": newServer}))
     }
 
     function addNewServer()
     {
         var newserveruuid = appSettings.newServer().uuid; // will give a uuid
-        pushServerSettingsPage(newserveruuid); // go to settings page
+        pushServerSettingsPage(newserveruuid, true); // go to settings page
     }
 
     function deleteServer(uuid)
