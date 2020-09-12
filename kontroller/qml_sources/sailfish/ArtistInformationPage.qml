@@ -99,11 +99,11 @@ Page {
                 model:service.albums
                 anchors.left: parent.left
                 anchors.right: parent.right
-                spacing: Theme.paddingSmall
+                spacing: 0
                 delegate: ListItem {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    contentHeight: Math.max(img.height, albumtext.height)
+                    contentHeight: Theme.itemSizeMedium
                    // height: Theme.itemSizeSmall
 //                        IconButton {
 //                            width: height
@@ -114,14 +114,23 @@ Page {
 //                            onClicked: control.addToPlaylist(model.modelData)
 //                        }
                     Image {
-                        anchors.left: parent.left
-                        anchors.leftMargin: Theme.horizontalPageMargin
+                        x: Theme.horizontalPageMargin
                         visible:model.modelData.thumbnail.length > 0
                         source:model.modelData.thumbnail
-                        height: Theme.itemSizeSmall
+                        height: Theme.iconSizeMedium
                         width: height
                         anchors.verticalCenter: parent.verticalCenter
+                        fillMode: Image.PreserveAspectFit
                         id:img
+                    }
+                    IconButton {
+                        x: Theme.horizontalPageMargin
+                        visible: !img.visible
+                        icon.source: "image://theme/icon-m-media-albums"
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: icon.height
+                        width: icon.width
+                        id: theIcon
                     }
 
                     Label {
@@ -132,13 +141,14 @@ Page {
                         text:model.modelData.label
                         wrapMode: Text.Wrap
                         //elide: Text.ElideMiddle
-                        anchors.left: img.visible?img.right:parent.left
-                        anchors.leftMargin: img.visible?Theme.paddingSmall:Theme.horizontalPageMargin
+                        anchors.left: img.visible?img.right:theIcon.right
+                        anchors.leftMargin: Theme.paddingMedium
                         anchors.right: btnplay.left
-                        anchors.rightMargin: Theme.paddingSmall
+                        anchors.rightMargin: Theme.paddingMedium
                     }
                     IconButton {
-                        width: height
+                        width: icon.width
+                        height: icon.height
                         icon.source:"image://theme/icon-m-play"
                         id:btnplay
                         anchors.right: parent.right

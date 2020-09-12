@@ -154,21 +154,21 @@ Item {
 
 
         model: theModel.filteredModel //service.filesAsList
-        spacing:Theme.paddingSmall
+        spacing:0
         currentIndex: -1
 
         delegate: ListItem {
             anchors.left: parent.left
             anchors.right: parent.right
             id:currentItem
-            contentHeight: Math.max(img.height, lbl.height)
+            contentHeight: Theme.itemSizeMedium
 
             Image {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
                 visible:modelData.thumbnail.length > 0
                 source:modelData.thumbnail
-                height: Theme.itemSizeSmall
+                height: Theme.iconSizeMedium
                 width: height
                 anchors.verticalCenter: parent.verticalCenter
                 id:img
@@ -176,7 +176,7 @@ Item {
             }
             IconButton {
                 id:theIcon
-                visible: getSourceIcon(modelData.icon).length > 0
+                visible: getSourceIcon(modelData.icon).length > 0 && (service.alwaysDisplayIcons || !img.visible)
                 icon.source: getSourceIcon(modelData.icon)
                 height:icon.height
                 width:height
@@ -203,9 +203,9 @@ Item {
                 id: lbl
                 text : formatFile(modelData.filetype, modelData.label)
                 anchors.left: img.visible ? img.right: (theIcon.visible?theIcon.right:parent.left)
-                anchors.leftMargin: (img.visible || theIcon.visible) ? Theme.paddingSmall : Theme.horizontalPageMargin
+                anchors.leftMargin: (img.visible || theIcon.visible) ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.right: btnplay.visible ? btnplay.left : parent.left
-                anchors.rightMargin: btnplay.visible ? Theme.paddingSmall : Theme.horizontalPageMargin
+                anchors.rightMargin: btnplay.visible ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
                 wrapMode: Text.Wrap
             }
@@ -366,19 +366,19 @@ Item {
             return "image://theme/icon-m-folder";
         if(icon === "video")
             return "image://theme/icon-m-file-video";
-        if(icon === "artists")
+        if(icon === "artists" || icon === "artist")
             return "image://theme/icon-m-media-artists";
-        if(icon === "albums")
+        if(icon === "albums" || icon === "album")
             return "image://theme/icon-m-media-albums";
         if(icon === "genres")
             return "image://theme/icon-m-media-radio"
-        if(icon === "songs")
+        if(icon === "songs" || icon === "song")
             return "image://theme/icon-m-media-songs";
-        if(icon === "movies")
+        if(icon === "movies" || icon === "movie")
             return "image://assets/icons/icon-m-movie";
-        if(icon === "tvshows")
+        if(icon === "tvshows" || icon === "tvshow")
             return "image://theme/icon-m-media-playlists";
-        if(icon === "clips")
+        if(icon === "musicvideos" || icon === "musicvideo")
             return "image://theme/icon-m-media-songs";
         return "";
     }

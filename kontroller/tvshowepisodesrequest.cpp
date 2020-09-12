@@ -70,6 +70,7 @@ void TvShowEpisodesRequest::parseEpisodesResult_()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("episode");
 							file.setType("episode");
+							file.setIcon("episode");
 							auto thumbnail = obj.value("thumbnail").toString();
 							if (thumbnail.size() > 0)
 								file.setThumbnail(getImageUrl(client_, thumbnail).toString());

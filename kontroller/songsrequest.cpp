@@ -23,6 +23,7 @@ void SongsRequest::start(int albumid)
 	QJsonArray properties;
 	properties.push_back("title");
 	properties.push_back("file");
+	properties.push_back("thumbnail");
 	parameters["properties"] = properties;
 	if(albumid != 0)
 	{
@@ -83,6 +84,10 @@ void SongsRequest::parseSongsResult()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("song");
 							file.setType("song");
+							file.setIcon("song");
+							val = obj.value("thumbnail");
+							if(val.type() == QJsonValue::String)
+								file.setThumbnail(val.toString());
 							results.push_back(file);
 						}
 					}

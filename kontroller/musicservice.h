@@ -36,6 +36,8 @@ class MusicService : public QObject
 	Q_PROPERTY(bool inputRequested READ inputRequested WRITE setInputRequested NOTIFY inputRequestedChanged)
 	Q_PROPERTY(QString inputTitle READ inputTitle WRITE setInputTitle NOTIFY inputTitleChanged)
 	Q_PROPERTY(QString inputValue READ inputValue WRITE setInputValue NOTIFY inputValueChanged)
+	Q_PROPERTY(bool alwaysDisplayIcons READ alwaysDisplayIcons NOTIFY browsingModeChanged)
+
   public:
 	MusicService(QObject* parent = nullptr);
 	MusicService(QString browsingMode, QString browsingValue, QObject* parent = nullptr);
@@ -59,7 +61,9 @@ class MusicService : public QObject
 
 	eu::tgcm::kontroller::Client* client() const;
 
-  signals:
+	bool alwaysDisplayIcons() const;
+
+signals:
 	void filesAsListChanged();
 	void browsingModeChanged();
 	void browsingValueChanged();

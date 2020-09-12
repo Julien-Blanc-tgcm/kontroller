@@ -36,6 +36,11 @@ Client* VideoService::client() const
 	return client_;
 }
 
+bool VideoService::alwaysDisplayIcons() const
+{
+	return browsingMode_ == "directory";
+}
+
 void VideoService::setRefreshing(bool refreshing)
 {
 	refreshing_ = refreshing;
@@ -291,7 +296,7 @@ void VideoService::refresh_collection()
 		file.setFile("musicvideos");
 		file.setType("media");
 		file.setFiletype("media");
-		file.setIcon("clips");
+		file.setIcon("musicvideos");
 		files_.push_back(file);
 		/*        file = File();
 		        file.setLabel(tr("Genres"));
@@ -343,6 +348,7 @@ void VideoService::parseMoviesResults_()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("movie");
 							file.setType("movie");
+							file.setIcon("movie");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							files_.push_back(file);
 						}
@@ -388,6 +394,7 @@ void VideoService::parseTVShowsResults_()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("tvshow");
 							file.setType("tvshow");
+							file.setIcon("tvshow");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							files_.push_back(file);
 						}
@@ -433,6 +440,7 @@ void VideoService::parseMusicVideosResults_()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("musicvideo");
 							file.setType("musicvideo");
+							file.setIcon("musicvideo");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							files_.push_back(file);
 						}
@@ -477,6 +485,7 @@ void VideoService::parseGenresResults_()
 								file.setFile(QString::number(val.toDouble()));
 							file.setFiletype("genre");
 							file.setType("genre");
+							file.setIcon("genre");
 							files_.push_back(file);
 						}
 					}

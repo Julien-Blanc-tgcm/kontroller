@@ -74,6 +74,7 @@ void TvShowSeasonsRequest::parseSeasonsResult_()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("season");
 							file.setType("season");
+							file.setIcon("episode");
 							auto const thumbnail = obj.value("thumbnail").toString();
 							if(thumbnail.size() > 0)
 								file.setThumbnail(getImageUrl(client_, thumbnail).toString());

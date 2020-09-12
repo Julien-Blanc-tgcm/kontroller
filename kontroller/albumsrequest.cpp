@@ -89,6 +89,7 @@ void AlbumsRequest::parseAlbumsResult()
 							file.setFile(obj.value("file").toString());
 							file.setFiletype("album");
 							file.setType("album");
+							file.setIcon("album");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							results.push_back(file);
 						}

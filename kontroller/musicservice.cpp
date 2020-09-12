@@ -35,6 +35,11 @@ Client* MusicService::client() const
 	return client_;
 }
 
+bool MusicService::alwaysDisplayIcons() const
+{
+	return browsingMode_ == "directory";
+}
+
 void MusicService::setRefreshing(bool refreshing)
 {
 	refreshing_ = refreshing;
@@ -379,6 +384,7 @@ void MusicService::parseArtistsResults()
 								file.setId(static_cast<int>(val.toDouble()));
 							file.setFiletype("artist");
 							file.setType("artist");
+							file.setIcon("artist");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							files_.push_back(file);
 						}
@@ -447,6 +453,7 @@ void MusicService::parseGenresResults()
 								file.setFile(QString::number(val.toDouble()));
 							file.setFiletype("genre");
 							file.setType("genre");
+							file.setIcon("genre");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							files_.push_back(file);
 						}
@@ -542,6 +549,7 @@ void MusicService::parseRefreshAddonsResult_()
 							file.setFile("plugin://" + addonObj["addonid"].toString());
 							file.setType("addon");
 							file.setFiletype("addon");
+							file.setIcon("addon");
 							file.setThumbnail(getImageUrl(client_, addonObj["thumbnail"].toString()).toString());
 							files_.push_back(file);
 						}

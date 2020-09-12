@@ -110,27 +110,27 @@
         <translation>Verfügbare Alben:</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="151"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="161"/>
         <source>View information</source>
         <translation>Zeige Informationen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="155"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="165"/>
         <source>Add to playlist</source>
         <translation>Zur Playlist hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="159"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="169"/>
         <source>Play immediately</source>
         <translation>Sofort abspielen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="163"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="173"/>
         <source>Download</source>
         <translation>Herunterladen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="175"/>
+        <location filename="../qml_sources/sailfish/ArtistInformationPage.qml" line="185"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
@@ -750,27 +750,27 @@
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="290"/>
+        <location filename="../musicservice.cpp" line="295"/>
         <source>Artists</source>
         <translation>Künstler</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="298"/>
+        <location filename="../musicservice.cpp" line="303"/>
         <source>Albums</source>
         <translation>Alben</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="304"/>
+        <location filename="../musicservice.cpp" line="309"/>
         <source>Songs</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="311"/>
+        <location filename="../musicservice.cpp" line="316"/>
         <source>Genres</source>
         <translation>Genres</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="318"/>
+        <location filename="../musicservice.cpp" line="323"/>
         <source>Files</source>
         <translation>Dateien</translation>
     </message>
@@ -786,22 +786,22 @@
 <context>
     <name>eu::tgcm::kontroller::VideoService</name>
     <message>
-        <location filename="../videoservice.cpp" line="276"/>
+        <location filename="../videoservice.cpp" line="281"/>
         <source>Movies</source>
         <translation>Filme</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="283"/>
+        <location filename="../videoservice.cpp" line="288"/>
         <source>TV Shows</source>
         <translation>TV Shows</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="290"/>
+        <location filename="../videoservice.cpp" line="295"/>
         <source>Clips</source>
         <translation>Clips</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="303"/>
+        <location filename="../videoservice.cpp" line="308"/>
         <source>Files</source>
         <translation>Dateien</translation>
     </message>
