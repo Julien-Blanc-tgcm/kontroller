@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 CONFIG += sailfish
-QT += qml quick core
+QT += qml quick core network
 CONFIG(sailfish) {
   CONFIG += sailfishapp
   CONFIG += sailfishapp_i18n
@@ -12,10 +12,11 @@ CONFIG(sailfish) {
 
 PKGCONFIG += sailfishsilica
 
-CONFIG+=c++11
+CONFIG+=c++1z # c++17 not supported by current qmake
 
 SOURCES += main.cpp \
     downloadlocation.cpp \
+    kodiservicediscovery.cpp \
     musicservice.cpp \
     sbiconimageprovider.cpp \
     statusservice.cpp \
@@ -53,7 +54,11 @@ SOURCES += main.cpp \
     kodivolumeplugin.cpp \
     minidspvolumeplugin.cpp \
     ../lib/minidsplib/query.cpp \
-    ../lib/minidsplib/reply.cpp
+    ../lib/minidsplib/reply.cpp \
+    ../lib/mdns/sbzeroconfservicediscovery.cpp \
+    ../lib/mdns/sbzeroconfservicerecord.cpp \
+    ../lib/mdns/dnspacket.cpp
+
 
 CONFIG(sailfish) {
     RESOURCES += qml_sources/sailfish/qml.qrc
@@ -113,6 +118,7 @@ LIBS += -lqjsonrpc
 
 HEADERS += \
     downloadlocation.h \
+    kodiservicediscovery.h \
     musicservice.h \
     sbiconimageprovider.h \
     statusservice.h \
@@ -148,7 +154,10 @@ HEADERS += \
     downloadservice.h \
     volumeplugin.h \
     kodivolumeplugin.h \
-    minidspvolumeplugin.h
+    minidspvolumeplugin.h \
+    ../lib/mdns/sbzeroconfservicediscovery.h \
+    ../lib/mdns/sbzeroconfservicerecord.h \
+    ../lib/mdns/dnspacket.h
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

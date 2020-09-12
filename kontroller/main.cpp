@@ -17,6 +17,7 @@
 #include "downloadlocation.h"
 #include "downloadservice.h"
 #include "episodeinformationservice.h"
+#include "kodiservicediscovery.h"
 #include "movieinformationservice.h"
 #include "musiccontrol.h"
 #include "musicservice.h"
@@ -128,7 +129,12 @@ void registerTypes()
 	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml") && ret;
 	ret = qmlRegisterUncreatableType<MinidspVolumePlugin>(
 	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml") && ret;
+	assert(ret);
 
+	ret = qmlRegisterType<KodiServiceDiscovery>(qmlprefix, 1, 0, "KodiServiceDiscovery");
+	assert(ret);
+	ret = qmlRegisterUncreatableType<SBZeroConfServiceRecord>(
+	    qmlprefix, 1, 0, "SBZeroConfServiceRecord", "Nocreation from qml");
 	assert(ret);
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");

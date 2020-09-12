@@ -1,9 +1,18 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.eu.tgcm 1.0
 
 Dialog {
     property string serverUuid: ""
     property bool newServer: false
+    KodiServiceDiscovery {
+        id: serviceDiscovery
+    }
+
+    function selectingServer__()
+    {
+        return newServer && !__serverSelected
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -21,6 +30,75 @@ Dialog {
                 title: qsTr("Server Settings")
             }
 
+            BusyIndicator {
+                running: newServer && serviceDiscovery.discovering && !__serverSelected
+                size: BusyIndicatorSize.Large
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: running
+            }
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width:parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: qsTr("Discovering servers, please wait");
+                wrapMode: Text.Wrap
+                visible: newServer && serviceDiscovery.discovering && !__serverSelected
+            }
+            Label {
+                text: qsTr("The following servers have been discovered, click one to select it")
+                width:parent.width
+                visible: newServer && !__serverSelected && serviceDiscovery.servers.length >= 1
+                wrapMode: Text.Wrap
+            }
+
+            Label {
+                text: qsTr("No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled")
+                width:parent.width
+                wrapMode: Text.Wrap
+                visible: newServer && !__serverSelected && !serviceDiscovery.discovering && serviceDiscovery.servers.length === 0
+            }
+
+            SilicaListView {
+                visible: selectingServer__()
+                width:parent.width
+                height: serviceDiscovery.servers.length * Theme.itemSizeMedium
+                model: serviceDiscovery.servers
+                delegate: ListItem {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    height: Theme.itemSizeMedium
+                    DetailItem {
+                        label: model.modelData.hostname
+                        value: model.modelData.address
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    onClicked: {
+                        selectServer(model.modelData)
+                    }
+                }
+            }
+            Item {
+                height: row.height
+                anchors.left: parent.left
+                anchors.right: parent.right
+                Row {
+                    id:row
+                    Icon {
+                    source:"image://theme/icon-m-add"
+                    }
+                    Label {
+                        text: qsTr("Enter details manually")
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                MouseArea {
+                    anchors.fill:parent
+                    onClicked: __serverSelected = true
+                }
+                visible: selectingServer__()
+            }
+
             TextField {
                 id:serverName
                 text: appSettings.server(serverUuid).name
@@ -30,6 +108,7 @@ Dialog {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 label:qsTr("Server name");
                 placeholderText: qsTr("Server name")
+                visible: !selectingServer__()
             }
 
             TextField {
@@ -42,6 +121,7 @@ Dialog {
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("Server address");
                 placeholderText: qsTr("Server address");
+                visible: !selectingServer__()
             }
 
             TextField {
@@ -54,6 +134,7 @@ Dialog {
                 inputMethodHints: Qt.ImhNoAutoUppercase
                 label:qsTr("Login");
                 placeholderText: qsTr("Login");
+                visible: !selectingServer__()
             }
 
             Label {
@@ -65,6 +146,7 @@ Dialog {
                 color: Theme.highlightColor
                 text: qsTr("Password used to authenticate to kodi. Leave blank if no password is used. Note that it \
 will be stored unencrypted on the device.")
+                visible: !selectingServer__()
             }
 
             TextField {
@@ -77,6 +159,7 @@ will be stored unencrypted on the device.")
                 inputMethodHints: Qt.ImhNoAutoUppercase
                 label:qsTr("Password");
                 placeholderText: qsTr("Password");
+                visible: !selectingServer__()
             }
 
             Label {
@@ -89,6 +172,7 @@ will be stored unencrypted on the device.")
                 text: qsTr("TCP port used to connect to the server. Unless you changed it in kodi, \
 the default value should be fine. You need to enable remote access in kodi, otherwise notifications \
 will not function properly.")
+                visible: !selectingServer__()
             }
 
             TextField {
@@ -102,6 +186,7 @@ will not function properly.")
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Server port")
                 placeholderText: qsTr("Server port")
+                visible: !selectingServer__()
             }
 
             Label {
@@ -114,6 +199,7 @@ will not function properly.")
                 text: qsTr("HTTP port used to connect to the server. Unless you changed it in kodi, \
 the default value (8080) should be fine. \
 You need to enable HTTP remote access in kodi for this to work.")
+                visible: !selectingServer__()
             }
             TextField {
                 id : serverHttpPort
@@ -126,6 +212,7 @@ You need to enable HTTP remote access in kodi for this to work.")
                 inputMethodHints: Qt.ImhDigitsOnly
                 label:qsTr("Web port")
                 placeholderText: qsTr("Web port")
+                visible: !selectingServer__()
             }
             Label {
                 anchors.left: parent.left
@@ -137,6 +224,7 @@ to make the remote control the amplifier volume.")
                 anchors.rightMargin: Theme.horizontalPageMargin
                 color: Theme.highlightColor
                 wrapMode: Text.WordWrap
+                visible: !selectingServer__()
             }
             ComboBox {
                 id: serverVolumePlugin
@@ -157,6 +245,7 @@ to make the remote control the amplifier volume.")
                     else
                         currentIndex = 0;
                 }
+                visible: !selectingServer__()
             }
             Label {
                 anchors.left: parent.left
@@ -166,7 +255,7 @@ to make the remote control the amplifier volume.")
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
                 text: qsTr("IP address of the minidsp device")
-                visible: serverVolumePlugin.currentIndex === 1
+                visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
             }
             TextField {
                 id : miniDSPAddress
@@ -179,7 +268,7 @@ to make the remote control the amplifier volume.")
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("Minidsp ip address")
                 placeholderText: qsTr("Minidsp ip address")
-                visible: serverVolumePlugin.currentIndex === 1
+                visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
             }
 
 /*            TextSwitch {
@@ -232,6 +321,11 @@ to make the remote control the amplifier volume.")
         }
     }
 
+    Component.onCompleted: {
+        if(newServer)
+            serviceDiscovery.startDiscovery()
+    }
+
     function pushOrPullZonePage()
     {
         console.log("pushhere");
@@ -242,5 +336,14 @@ to make the remote control the amplifier volume.")
 //        }
 //        else if(zones)
 //            pageStack.popAttached(zones);
+    }
+
+    property bool __serverSelected: false
+
+    function selectServer(item) {
+        serverHttpPort.text = item.port
+        serverAddress.text = item.address
+        serverName.text = item.hostname
+        __serverSelected = true;
     }
 }

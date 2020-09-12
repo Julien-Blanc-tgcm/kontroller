@@ -81,6 +81,7 @@ Page {
                         text: qsTr("Add server")
                         anchors.verticalCenter: parent.verticalCenter
                     }
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
                 MouseArea {
                     anchors.fill:parent
