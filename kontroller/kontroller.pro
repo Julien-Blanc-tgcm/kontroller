@@ -189,6 +189,7 @@ disticons.files = icons/sailfish/*
 disticons.path = /usr/share/$${TARGET}/assets
 
 #OTHER_FILES += icons/sailfish/*
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
 INSTALLS += qml_sources disticons
 
