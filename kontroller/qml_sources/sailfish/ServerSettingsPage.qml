@@ -40,19 +40,19 @@ Dialog {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width:parent.width
                 horizontalAlignment: Text.AlignHCenter
-                text: qsTr("Discovering servers, please wait");
+                text: qsTr("Discovering servers, please wait.");
                 wrapMode: Text.Wrap
                 visible: newServer && serviceDiscovery.discovering && !__serverSelected
             }
             Label {
-                text: qsTr("The following servers have been discovered, click one to select it")
+                text: qsTr("The following servers have been discovered, click one to select it:")
                 width:parent.width
                 visible: newServer && !__serverSelected && serviceDiscovery.servers.length >= 1
                 wrapMode: Text.Wrap
             }
 
             Label {
-                text: qsTr("No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled")
+                text: qsTr("No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.")
                 width:parent.width
                 wrapMode: Text.Wrap
                 visible: newServer && !__serverSelected && !serviceDiscovery.discovering && serviceDiscovery.servers.length === 0
@@ -312,6 +312,10 @@ to make the remote control the amplifier volume.")
             appSettings.server(serverUuid).setVolumePluginParameters({"address": miniDSPAddress.text});
         }
         appSettings.save();
+        if(appClient.server.uuid === serverUuid)
+        { // we are using this server, we need to refresh it
+            appClient.refresh();
+        }
     }
 
     onRejected: {
