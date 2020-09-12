@@ -1,4 +1,10 @@
 # Changelog
+## Version 0.13
+
+* New home page - no longer uses a grid (did not work in landscape mode)
+* Added server discovery
+* Improved experience on first use
+
 ## Version 0.12
 
 * Added search function in lists
