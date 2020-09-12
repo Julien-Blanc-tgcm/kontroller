@@ -68,7 +68,7 @@ CONFIG(sailfish) {
 #        qml/sailfish/AlbumInformationPage.qml
 
 } else {
-    RESOURCES += qml_sources/generic/qml.qrc
+#    RESOURCES += qml_sources/generic/qml.qrc
     message("Adding generic components to resources")
 }
 

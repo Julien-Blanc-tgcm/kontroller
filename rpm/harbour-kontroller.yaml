@@ -20,7 +20,7 @@ PkgConfigBR:
 Requires:
 - sailfishsilica-qt5 >= 1.0.2
 Files:
-- '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+- '%{_datadir}/icons/hicolor/*/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
 - '%{_datadir}/%{name}/qml/sailfish'
 - '%{_bindir}'
