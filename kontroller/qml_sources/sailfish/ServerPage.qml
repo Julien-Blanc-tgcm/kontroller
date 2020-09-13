@@ -71,6 +71,7 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 font.italic: true
                 color: Theme.highlightColor
+                wrapMode: Text.Wrap
             }
 
             Label {
@@ -101,6 +102,7 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 font.italic: true
                 color: Theme.highlightColor
+                wrapMode: Text.Wrap
             }
 
 
@@ -136,6 +138,7 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 font.italic: true
                 color: Theme.highlightColor
+                wrapMode: Text.Wrap
             }
 
 
@@ -167,6 +170,7 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 font.italic: true
                 color: Theme.highlightColor
+                wrapMode: Text.Wrap
             }
         }
     }

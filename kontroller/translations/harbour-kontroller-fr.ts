@@ -529,7 +529,7 @@
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="48"/>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="113"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="115"/>
         <source>Removes item that have been deleted on disk from the library.</source>
         <translation>Supprime de la médiathèque les fichiers qui ont été effacés du disque ou ne sont plus accessibles.</translation>
     </message>
@@ -539,40 +539,40 @@
         <translation>Nettoyage de la médiathèque vidéo terminé !</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="77"/>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="144"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="78"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="147"/>
         <source>Search for new items in the video library.</source>
         <translation>Actualiser la médiathèque vidéo pour trouver de nouveaux éléments.</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="98"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="99"/>
         <source>Video library refresh finished!</source>
         <translation>Actualisation de la médiathèque vidéo terminée !</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="133"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="135"/>
         <source>Audio library cleaning finished!</source>
         <translation>Nettoyage de la médiathèque audio terminé !</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="164"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="167"/>
         <source>Audio library refresh finished!</source>
         <translation>Actualisation de la médiathèque audio terminée !</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="57"/>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="122"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="124"/>
         <source>Clean library</source>
         <translation>Nettoyer la médiathèque</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="87"/>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="153"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="88"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="156"/>
         <source>Refresh library</source>
         <translation>Actualiser la médiathèque</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerPage.qml" line="109"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="111"/>
         <source>Audio library</source>
         <translation>Médiathèque audio</translation>
     </message>
