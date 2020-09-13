@@ -30,6 +30,7 @@
 #include "seasoninformationservice.h"
 #include "server.h"
 #include "statusservice.h"
+#include "systemservice.h"
 #include "tvshowinformationservice.h"
 #include "videocontrol.h"
 #include "videoservice.h"
@@ -139,6 +140,9 @@ void registerTypes()
 	assert(ret);
 	ret = qmlRegisterUncreatableType<SBZeroConfServiceRecord>(
 	    qmlprefix, 1, 0, "SBZeroConfServiceRecord", "Nocreation from qml");
+	assert(ret);
+
+	ret = qmlRegisterType<SystemService>(qmlprefix, 1, 0, "SystemService");
 	assert(ret);
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");

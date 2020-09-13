@@ -22,6 +22,7 @@ SOURCES += main.cpp \
     sbiconimageprovider.cpp \
     statusservice.cpp \
     playlistservice.cpp \
+    systemservice.cpp \
     videoservice.cpp \
     deviceinformation.cpp \
     artistinformationservice.cpp \
@@ -125,6 +126,7 @@ HEADERS += \
     sbiconimageprovider.h \
     statusservice.h \
     playlistservice.h \
+    systemservice.h \
     videoservice.h \
     deviceinformation.h \
     artistinformationservice.h \

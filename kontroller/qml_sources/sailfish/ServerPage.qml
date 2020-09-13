@@ -5,6 +5,8 @@ import harbour.eu.tgcm 1.0
   Server Page, containing actions related to the server. ≠ from Server Settings Page
   */
 Page {
+    id: root
+    property var remorse: nullptr
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: theCol.height
@@ -13,13 +15,16 @@ Page {
             visible: true
             MenuItem {
                 text: qsTr("Shutdown server")
-                onClicked: {
-                }
+                onClicked: remorse = Remorse.popupAction(root,
+                                                         text,
+                                                         function() { systemService.shutdownServer(); })
             }
             MenuItem {
                 text: qsTr("Reboot server")
-                onClicked: {
-                }
+                onClicked: remorse = Remorse.popupAction(root,
+                                                         text,
+                                                         function() { systemService.rebootServer(); })
+
             }
         }
 
@@ -301,5 +306,9 @@ Page {
                 finishedRefreshVideoLibrary.visible = false;
             }
         }
+    }
+    SystemService {
+        client: appClient
+        id: systemService
     }
 }
