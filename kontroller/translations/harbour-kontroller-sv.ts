@@ -202,12 +202,12 @@
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="52"/>
         <source>Switch server</source>
-        <translation type="unfinished"></translation>
+        <translation>Byt server</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="63"/>
         <source>Welcome</source>
-        <translation type="unfinished"></translation>
+        <translation>Välkommen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="78"/>
@@ -237,27 +237,27 @@
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="110"/>
         <source>server management</source>
-        <translation type="unfinished"></translation>
+        <translation>serverhantering</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="153"/>
         <source>Connecting, please wait</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansluter, vänta...</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="172"/>
         <source>Failed to connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunde inte ansluta</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="177"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Försök igen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="191"/>
         <source>No server configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen server konfigurerad</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="196"/>
@@ -510,71 +510,71 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="17"/>
         <source>Shutdown server</source>
-        <translation type="unfinished"></translation>
+        <translation>Stäng av server</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="23"/>
         <source>Reboot server</source>
-        <translation type="unfinished"></translation>
+        <translation>Starta om server</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="40"/>
         <source>Server management</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverhantering</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="44"/>
         <source>Video library</source>
-        <translation type="unfinished"></translation>
+        <translation>Videobibliotek</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="48"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="115"/>
         <source>Removes item that have been deleted on disk from the library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tar bort objekt som har raderats från disk, från biblioteket.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="68"/>
         <source>Video library cleaning finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Rensning av videobiblioteket slutförd!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="78"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="147"/>
         <source>Search for new items in the video library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sök efter nya objekt i videobiblioteket.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="99"/>
         <source>Video library refresh finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppdatering av videobiblioteket slutförd!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="135"/>
         <source>Audio library cleaning finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Rensning av ljudbiblioteket slutförd!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="167"/>
         <source>Audio library refresh finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppdatering av ljudbiblioteket slutförd!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="57"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="124"/>
         <source>Clean library</source>
-        <translation type="unfinished"></translation>
+        <translation>Rensa biblioteket</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="88"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="156"/>
         <source>Refresh library</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppdatera biblioteket</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="111"/>
         <source>Audio library</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudbibliotek</translation>
     </message>
 </context>
 <context>
@@ -582,7 +582,7 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSelectionPage.qml" line="15"/>
         <source>Server selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverval</translation>
     </message>
 </context>
 <context>
@@ -595,17 +595,17 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="43"/>
         <source>Discovering servers, please wait.</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifierar servrar, vänta...</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="48"/>
         <source>The following servers have been discovered, click one to select it:</source>
-        <translation type="unfinished"></translation>
+        <translation>Följande servrar har identifierats, tryck på en för att välja den:</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="55"/>
         <source>No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen server hittades, tillse att din Kodi-instans körs på samma nätverk och att enhetens WiFi är aktiverat.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="109"/>
@@ -675,7 +675,7 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="90"/>
         <source>Enter details manually</source>
-        <translation type="unfinished"></translation>
+        <translation>Ange detaljer manuellt</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="147"/>
