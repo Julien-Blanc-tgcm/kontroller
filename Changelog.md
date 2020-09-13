@@ -1,4 +1,11 @@
 # Changelog
+
+## Version 0.14
+
+* Fixed a lot of layout issues
+* Added basic library management (cleaning and refreshing for audio/video)
+* Added menu to shutdown kodi server
+
 ## Version 0.13
 
 * New home page - no longer uses a grid (did not work in landscape mode)
