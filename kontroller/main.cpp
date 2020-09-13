@@ -18,6 +18,7 @@
 #include "downloadservice.h"
 #include "episodeinformationservice.h"
 #include "kodiservicediscovery.h"
+#include "libraryservice.h"
 #include "movieinformationservice.h"
 #include "musiccontrol.h"
 #include "musicservice.h"
@@ -129,6 +130,9 @@ void registerTypes()
 	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml") && ret;
 	ret = qmlRegisterUncreatableType<MinidspVolumePlugin>(
 	    qmlprefix, 1, 0, "VolumePlugin", "VolumePlugin cannot be created from qml") && ret;
+	assert(ret);
+
+	ret = qmlRegisterType<LibraryService>(qmlprefix, 1, 0, "LibraryService");
 	assert(ret);
 
 	ret = qmlRegisterType<KodiServiceDiscovery>(qmlprefix, 1, 0, "KodiServiceDiscovery");

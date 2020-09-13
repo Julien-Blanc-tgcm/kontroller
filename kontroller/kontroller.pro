@@ -17,6 +17,7 @@ CONFIG+=c++1z # c++17 not supported by current qmake
 SOURCES += main.cpp \
     downloadlocation.cpp \
     kodiservicediscovery.cpp \
+    libraryservice.cpp \
     musicservice.cpp \
     sbiconimageprovider.cpp \
     statusservice.cpp \
@@ -119,6 +120,7 @@ LIBS += -lqjsonrpc
 HEADERS += \
     downloadlocation.h \
     kodiservicediscovery.h \
+    libraryservice.h \
     musicservice.h \
     sbiconimageprovider.h \
     statusservice.h \

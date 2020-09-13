@@ -234,33 +234,38 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="146"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="110"/>
+        <source>server management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="153"/>
         <source>Connecting, please wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="165"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="172"/>
         <source>Failed to connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="170"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="177"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="184"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="191"/>
         <source>No server configured</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="189"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="196"/>
         <source>Add server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="315"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="319"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="322"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="326"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
@@ -497,6 +502,78 @@
     <message>
         <location filename="../qml_sources/sailfish/SeasonInformationPage.qml" line="57"/>
         <source>Episodes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ServerPage</name>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="15"/>
+        <source>Shutdown server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="20"/>
+        <source>Reboot server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="35"/>
+        <source>Server management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="39"/>
+        <source>Video library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="43"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="108"/>
+        <source>Removes item that have been deleted on disk from the library.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="63"/>
+        <source>Video library cleaning finished!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="72"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="139"/>
+        <source>Search for new items in the video library.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="93"/>
+        <source>Video library refresh finished!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="128"/>
+        <source>Audio library cleaning finished!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="159"/>
+        <source>Audio library refresh finished!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="52"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="117"/>
+        <source>Clean library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="82"/>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="148"/>
+        <source>Refresh library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerPage.qml" line="104"/>
+        <source>Audio library</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

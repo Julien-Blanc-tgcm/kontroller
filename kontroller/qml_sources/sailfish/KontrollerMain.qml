@@ -102,6 +102,13 @@ Page {
                     needConnect:true
                     label: qsTr("playlist")
                 }
+
+                ListElement {
+                    page: "server"
+                    icon: "image://theme/icon-m-levels"
+                    needConnect: true
+                    label: qsTr("server management")
+                }
             }
             delegate: ListItem {
                 contentHeight: Theme.itemSizeLarge
@@ -330,6 +337,10 @@ Page {
         else if(page === "playlist")
         {
             pageStack.push(Qt.resolvedUrl("PlaylistPage.qml"));
+        }
+        else if(page === "server")
+        {
+            pageStack.push(Qt.resolvedUrl("ServerPage.qml"))
         }
     }
 

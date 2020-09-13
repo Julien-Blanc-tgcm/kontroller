@@ -157,6 +157,18 @@ signals:
 	void downloadServiceChanged(eu::tgcm::kontroller::DownloadService* downloadService);
 	void playerServiceChanged(eu::tgcm::kontroller::PlayerService* playerService);
 	void sortIgnoreArticleChanged(bool sortIgnoreArticle);
+
+	void videoLibraryScanStarted();
+	void videoLibraryScanFinished();
+
+	void audioLibraryScanStarted();
+	void audioLibraryScanFinished();
+
+	void videoLibraryCleanStarted();
+	void videoLibraryCleanFinished();
+
+	void audioLibraryCleanStarted();
+	void audioLibraryCleanFinished();
 };
 
 }

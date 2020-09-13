@@ -408,6 +408,38 @@ void Client::handleMessageReceived(QJsonRpcMessage message)
 		{
 			emit inputFinished();
 		}
+		else if (method == "VideoLibrary.OnScanStarted")
+		{
+			emit videoLibraryScanStarted();
+		}
+		else if (method == "VideoLibrary.OnScanFinished")
+		{
+			emit videoLibraryScanFinished();
+		}
+		else if (method == "AudioLibrary.OnScanStarted")
+		{
+			emit audioLibraryScanStarted();
+		}
+		else if (method == "AudioLibrary.OnScanFinished")
+		{
+			emit audioLibraryScanFinished();
+		}
+		else if (method == "VideoLibrary.OnCleanStarted")
+		{
+			emit videoLibraryCleanStarted();
+		}
+		else if (method == "VideoLibrary.OnCleanFinished")
+		{
+			emit videoLibraryCleanFinished();
+		}
+		else if (method == "AudioLibrary.OnCleanStarted")
+		{
+			emit audioLibraryCleanStarted();
+		}
+		else if (method == "AudioLibrary.OnCleanFinished")
+		{
+			emit audioLibraryCleanFinished();
+		}
 		else
 			qDebug() << message;
 	}
