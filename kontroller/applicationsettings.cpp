@@ -18,7 +18,11 @@ namespace kontroller
 ApplicationSettings::ApplicationSettings(QObject* parent) :
     QObject{parent}
 {
+#ifdef SAILFISH_TARGET
+	QSettings settings("harbour-kontroller", "kontroller");
+#else
 	QSettings settings("tgcm.eu", "kontroller");
+#endif
 	auto nbServers = settings.beginReadArray("servers");
 	for(auto i = 0; i < nbServers; ++i)
 	{
@@ -238,7 +242,11 @@ void ApplicationSettings::setDpi(int dpi)
 
 void ApplicationSettings::save()
 {
+#ifdef SAILFISH_TARGET
+	QSettings settings("harbour-kontroller", "kontroller");
+#else
 	QSettings settings("tgcm.eu", "kontroller");
+#endif
 	settings.clear();
 	settings.beginWriteArray("servers", servers_.size());
 	int i = 0;
