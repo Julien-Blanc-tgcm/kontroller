@@ -19,6 +19,16 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
     QObject{parent}
 {
 #ifdef SAILFISH_TARGET
+	{ // migration path for old location
+		QDir dir(QDir::home());
+		dir.cd(".config");
+		if (dir.exists("tgcm.eu") && !dir.exists("harbour-kontroller"))
+		{
+			// move old settings
+			dir.rename("tgcm.eu", "harbour-kontroller");
+			dir.cd("harbour-kontroller");
+		}
+	}
 	QSettings settings("harbour-kontroller", "kontroller");
 #else
 	QSettings settings("tgcm.eu", "kontroller");
