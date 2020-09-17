@@ -178,6 +178,12 @@ Page {
                 onClicked: appClient.refresh()
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+            Button {
+                text: qsTr("Wake up server")
+                onClicked: appClient.wakeUp();
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: appClient && appClient.wakeUpPlugin
+            }
         }
 
         // no server configured

@@ -33,6 +33,10 @@ class Server : public QObject
 
 	QVariantMap volumePluginParameters_;
 
+	QString wakeUpPluginName_;
+
+	QVariantMap wakeUpPluginParameters_;
+
 public:
 	explicit Server(QObject *parent = nullptr);
 	Q_PROPERTY(QString serverAddress READ serverAddress WRITE setServerAddress NOTIFY serverAddressChanged)
@@ -48,6 +52,9 @@ public:
 	           NOTIFY volumePluginNameChanged)
 	Q_PROPERTY(QVariantMap volumePluginParameters READ volumePluginParameters WRITE setVolumePluginParameters \
 	           NOTIFY volumePluginParametersChanged)
+	Q_PROPERTY(QString wakeUpPluginName READ wakeUpPluginName WRITE setWakeUpPluginName NOTIFY wakeUpPluginNameChanged)
+	Q_PROPERTY(QVariantMap wakeUpPluginParameters READ wakeUpPluginParameters WRITE setWakeUpPluginParameters NOTIFY
+	               wakeUpPluginParametersChanged)
 	QString serverAddress() const;
 
 	int serverPort() const;
@@ -69,6 +76,11 @@ public:
 	QString volumePluginName() const;
 
 	const QVariantMap& volumePluginParameters() const;
+
+	QString wakeUpPluginName() const;
+
+	QVariantMap const& wakeUpPluginParameters() const;
+
 signals:
 
 	void serverAddressChanged(QString serverAddress);
@@ -94,6 +106,10 @@ signals:
 
 	void volumePluginParametersChanged();
 
+	void wakeUpPluginNameChanged(QString wakeUpPluginName);
+
+	void wakeUpPluginParametersChanged(QVariantMap wakeUpPluginParameters);
+
 public slots:
 	void setServerAddress(QString serverAddress);
 	void setServerPort(int serverPort);
@@ -109,6 +125,8 @@ public slots:
 	void setPassword(QString password);
 	void setVolumePluginName(QString volumePluginName);
 	void setVolumePluginParameters(QVariantMap parameters);
+	void setWakeUpPluginName(QString wakeUpPluginName);
+	void setWakeUpPluginParameters(QVariantMap wakeUpPluginParameters);
 };
 
 }

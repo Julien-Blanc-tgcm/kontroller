@@ -39,7 +39,12 @@
 #include "kodivolumeplugin.h"
 #include "minidspvolumeplugin.h"
 
+#include "wakeupplugin.h"
+#include "wolwakeupplugin.h"
+
 #include "sbiconimageprovider.h"
+
+#include <arp/macaddressfinder.h>
 
 #include <cassert>
 #include <QScreen>
@@ -143,6 +148,13 @@ void registerTypes()
 	assert(ret);
 
 	ret = qmlRegisterType<SystemService>(qmlprefix, 1, 0, "SystemService");
+	assert(ret);
+	ret = qmlRegisterUncreatableType<WakeUpPlugin>(qmlprefix, 1, 0, "WakeUpPlugin", "No creation from qml");
+	assert(ret);
+	ret = qmlRegisterUncreatableType<WolWakeUpPlugin>(qmlprefix, 1, 0, "WolWakeUpPlugin", "No creation from qml");
+	assert(ret);
+
+	ret = qmlRegisterType<eu::tgcm::arp::MacAddressFinder>(qmlprefix, 1, 0, "MacAddressFinder");
 	assert(ret);
 #ifndef SAILFISH_TARGET
     ret = qmlRegisterType<ThemeInformation>(qmlprefix, 1, 0, "ThemeInformation");

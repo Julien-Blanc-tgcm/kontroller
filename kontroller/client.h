@@ -16,6 +16,7 @@ class ApplicationSettings;
 class PlayerService;
 class Server;
 class VolumePlugin;
+class WakeUpPlugin;
 
 class Client : public QObject
 {
@@ -41,6 +42,8 @@ class Client : public QObject
 	VolumePlugin* volumePlugin_ = nullptr;
 
 	bool sortIgnoreArticle_ = false;
+
+	eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin_;
 
 public:
 	explicit Client(ApplicationSettings* settings, QObject *parent = nullptr);
@@ -82,11 +85,15 @@ public:
 
 	Q_PROPERTY(bool sortIgnoreArticle READ sortIgnoreArticle NOTIFY sortIgnoreArticleChanged)
 
+	Q_PROPERTY(eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin READ wakeUpPlugin NOTIFY wakeUpPluginChanged)
+
 	eu::tgcm::kontroller::PlayerService* playerService() const;
 
 	VolumePlugin* volumePlugin();
 
 	bool sortIgnoreArticle() const;
+
+	eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin() const;
 
 signals:
 	void connectionStatusChanged(int connected);
@@ -131,6 +138,11 @@ public slots:
 	void retryConnect();
 	void setPlayerService(eu::tgcm::kontroller::PlayerService* playerService);
 
+	/**
+	 * @brief wakeUp try to wake up the remote device
+	 */
+	void wakeUp();
+
 private slots:
 	void handleReplyFinished();
 	void setConnectionStatus(int connectionStatus);
@@ -169,6 +181,7 @@ signals:
 
 	void audioLibraryCleanStarted();
 	void audioLibraryCleanFinished();
+	void wakeUpPluginChanged(eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin);
 };
 
 }

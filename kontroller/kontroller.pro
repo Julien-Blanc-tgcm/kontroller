@@ -15,6 +15,7 @@ PKGCONFIG += sailfishsilica
 CONFIG+=c++1z # c++17 not supported by current qmake
 
 SOURCES += main.cpp \
+    ../lib/arp/macaddressfinder.cpp \
     downloadlocation.cpp \
     kodiservicediscovery.cpp \
     libraryservice.cpp \
@@ -59,7 +60,9 @@ SOURCES += main.cpp \
     ../lib/minidsplib/reply.cpp \
     ../lib/mdns/sbzeroconfservicediscovery.cpp \
     ../lib/mdns/sbzeroconfservicerecord.cpp \
-    ../lib/mdns/dnspacket.cpp
+    ../lib/mdns/dnspacket.cpp \
+    wakeupplugin.cpp \
+    wolwakeupplugin.cpp
 
 
 CONFIG(sailfish) {
@@ -119,6 +122,7 @@ TRANSLATION_SOURCES += $$PWD/*.cpp \
 LIBS += -lqjsonrpc
 
 HEADERS += \
+    ../lib/arp/macaddressfinder.h \
     downloadlocation.h \
     kodiservicediscovery.h \
     libraryservice.h \
@@ -161,7 +165,9 @@ HEADERS += \
     minidspvolumeplugin.h \
     ../lib/mdns/sbzeroconfservicediscovery.h \
     ../lib/mdns/sbzeroconfservicerecord.h \
-    ../lib/mdns/dnspacket.h
+    ../lib/mdns/dnspacket.h \
+    wakeupplugin.h \
+    wolwakeupplugin.h
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

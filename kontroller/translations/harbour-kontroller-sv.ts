@@ -194,8 +194,8 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="322"/>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="326"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="328"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="332"/>
         <source>Sources</source>
         <translation>Källor</translation>
     </message>
@@ -255,12 +255,17 @@
         <translation>Försök igen</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="191"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="182"/>
+        <source>Wake up server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="197"/>
         <source>No server configured</source>
         <translation>Ingen server konfigurerad</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="196"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="202"/>
         <source>Add server</source>
         <translation>Lägg till server</translation>
     </message>
@@ -665,6 +670,34 @@
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="270"/>
         <source>Minidsp ip address</source>
         <translation>Minidsp IP-adress</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="278"/>
+        <source>WakeUp plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="281"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="284"/>
+        <source>WakeOnLan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="302"/>
+        <source>MAC address of the device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="312"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="313"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="329"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="330"/>
+        <source>Device mac address</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="160"/>

@@ -6,6 +6,8 @@
 #include "kodivolumeplugin.h"
 #include "minidspvolumeplugin.h"
 
+#include "wolwakeupplugin.h"
+
 #include <QSettings>
 #include <QAuthenticator>
 #include <QNetworkReply>
@@ -35,6 +37,28 @@ VolumePlugin* getVolumePlugin_(Client* owner, Server* server)
 		return plugin;
 	}
 	return new KodiVolumePlugin(owner); // by default, return a kodi volume plugin. This, at least, is safe
+}
+
+WakeUpPlugin* getWakeUpPlugin(Client* owner, Server* server)
+{
+	if (server == nullptr)
+		return nullptr;
+	QString pluginName = server->wakeUpPluginName();
+	if (pluginName == WolWakeUpPlugin::pluginName())
+	{
+		QString macAddress = server->wakeUpPluginParameters().value("macAddress").toString();
+		QString ipAddress = server->wakeUpPluginParameters().value("ipAddress").toString();
+		bool ok = false;
+		int port = server->wakeUpPluginParameters().value("port").toInt(&ok);
+		if (!ok)
+			port = WolWakeUpPlugin::defaultPort();
+		auto plugin = new WolWakeUpPlugin(owner);
+		plugin->setMacAddress(macAddress);
+		plugin->setDestinationAddress(ipAddress);
+		plugin->setPort(port);
+		return plugin;
+	}
+	return nullptr;
 }
 
 }
@@ -100,8 +124,10 @@ void Client::refresh()
 	if(server_)
 	{
 		volumePlugin_ = getVolumePlugin_(this, server_);
+		wakeUpPlugin_ = getWakeUpPlugin(this, server_);
 		emit serverChanged();
 		emit volumePluginChanged();
+		emit wakeUpPluginChanged(wakeUpPlugin_);
 		serverUuid_ = server_->uuid();
 		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
 		if(server_->serverAddress().size() > 0 && server_->serverPort() > 0)
@@ -236,6 +262,12 @@ void Client::setPlayerService(PlayerService* playerService)
 
 	playerService_ = playerService;
 	emit playerServiceChanged(playerService_);
+}
+
+void Client::wakeUp()
+{
+	if (wakeUpPlugin_ != nullptr)
+		wakeUpPlugin_->wakeUp();
 }
 
 void Client::handleReplyFinished()
@@ -509,6 +541,11 @@ VolumePlugin* Client::volumePlugin()
 bool Client::sortIgnoreArticle() const
 {
 	return sortIgnoreArticle_;
+}
+
+WakeUpPlugin* Client::wakeUpPlugin() const
+{
+	return wakeUpPlugin_;
 }
 
 }

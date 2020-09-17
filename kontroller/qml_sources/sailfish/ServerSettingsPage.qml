@@ -271,6 +271,79 @@ to make the remote control the amplifier volume.")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
             }
 
+            ComboBox {
+                id: serverWakeUpPlugin
+                anchors.left: parent.left
+                anchors.right: parent.right
+                label: qsTr("WakeUp plugin")
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTr("None")
+                    }
+                    MenuItem {
+                        text: qsTr("WakeOnLan")
+                    }
+                }
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+                        currentIndex = 1;
+                    else
+                        currentIndex = 0;
+                }
+                visible: !selectingServer__()
+                onCurrentItemChanged: {
+                    if(currentIndex == 1)
+                    {
+                        refreshMacAddress()
+                    }
+                }
+            }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
+                text: qsTr("MAC address of the device")
+                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
+            }
+            TextField {
+                id : wakeUpMacAddress
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                label:qsTr("Device mac address")
+                placeholderText: qsTr("Device mac address")
+                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+                        text = appSettings.server(serverUuid).wakeUpPluginParameters.macAddress;
+                    else
+                        text = ""
+                }
+            }
+            TextField {
+                id : wakeUpMacPort
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                label:qsTr("Device mac address")
+                placeholderText: qsTr("Device mac address")
+                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+                        text = appSettings.server(serverUuid).wakeUpPluginParameters.port;
+                    else
+                        text = 9; // default value
+                }
+            }
+
+
 /*            TextSwitch {
                 id: serverHasZones
                 text:qsTr("Use multiples zones")
@@ -311,6 +384,15 @@ to make the remote control the amplifier volume.")
             appSettings.server(serverUuid).setVolumePluginName("Minidsp");
             appSettings.server(serverUuid).setVolumePluginParameters({"address": miniDSPAddress.text});
         }
+        if(serverWakeUpPlugin.currentIndex === 0)
+            appSettings.server(serverUuid).setWakeUpPluginName("None");
+        else
+        {
+            appSettings.server(serverUuid).setWakeUpPluginName("WolWakeUp");
+            appSettings.server(serverUuid).setWakeUpPluginParameters({"macAddress": wakeUpMacAddress.text,
+                                                                      "port": parseInt(wakeUpMacPort.text)})
+        }
+
         appSettings.save();
         if(appClient.server.uuid === serverUuid)
         { // we are using this server, we need to refresh it
@@ -328,6 +410,22 @@ to make the remote control the amplifier volume.")
     Component.onCompleted: {
         if(newServer)
             serviceDiscovery.startDiscovery()
+    }
+
+    MacAddressFinder {
+        id: macAddressFinder
+    }
+
+    function refreshMacAddress()
+    {
+        if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+        {
+            var mac = macAddressFinder.getMacAddress(appSettings.server(serverUuid).serverAddress);
+            if(mac && mac.length > 0)
+            {
+                wakeUpMacAddress.text = mac;
+            }
+        }
     }
 
     function pushOrPullZonePage()

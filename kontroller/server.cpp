@@ -73,6 +73,16 @@ QVariantMap const& Server::volumePluginParameters() const
 	return volumePluginParameters_;
 }
 
+QString Server::wakeUpPluginName() const
+{
+	return wakeUpPluginName_;
+}
+
+const QVariantMap& Server::wakeUpPluginParameters() const
+{
+	return wakeUpPluginParameters_;
+}
+
 void Server::setServerAddress(QString serverAddress)
 {
 	if (serverAddress_ == serverAddress)
@@ -164,6 +174,24 @@ void Server::setVolumePluginParameters(QVariantMap parameters)
 {
 	volumePluginParameters_ = parameters;
 	emit volumePluginParametersChanged();
+}
+
+void Server::setWakeUpPluginName(QString wakeUpPluginName)
+{
+	if (wakeUpPluginName_ == wakeUpPluginName)
+		return;
+
+	wakeUpPluginName_ = wakeUpPluginName;
+	emit wakeUpPluginNameChanged(wakeUpPluginName_);
+}
+
+void Server::setWakeUpPluginParameters(QVariantMap wakeUpPluginParameters)
+{
+	if (wakeUpPluginParameters_ == wakeUpPluginParameters)
+		return;
+
+	wakeUpPluginParameters_ = wakeUpPluginParameters;
+	emit wakeUpPluginParametersChanged(wakeUpPluginParameters_);
 }
 
 }

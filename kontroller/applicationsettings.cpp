@@ -77,6 +77,21 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 		}
 		else
 			server->setVolumePluginName(KodiVolumePlugin::static_name());
+
+		val = settings.value("wakeUpPlugin");
+		if (!val.isNull() && val.canConvert(QVariant::String))
+		{
+			server->setWakeUpPluginName(val.toString());
+			settings.beginGroup(val.toString());
+			QVariantMap map;
+			for (auto const& k : settings.allKeys())
+			{
+				map[k] = settings.value(k);
+			}
+			server->setWakeUpPluginParameters(map);
+			settings.endGroup();
+		}
+
 		servers_.push_back(server);
 	}
 	settings.endArray();
@@ -246,6 +261,16 @@ void ApplicationSettings::save()
 			settings.setValue(it.key(), it.value());
 		}
 		settings.endGroup();
+		if(server->wakeUpPluginName() != "")
+		{
+			settings.setValue("wakeUpPlugin", server->wakeUpPluginName());
+			settings.beginGroup(server->wakeUpPluginName());
+			for (auto it = server->wakeUpPluginParameters().begin(); it != server->wakeUpPluginParameters().end(); ++it)
+			{
+				settings.setValue(it.key(), it.value());
+			}
+			settings.endGroup();
+		}
 		i += 1;
 	}
 	settings.endArray();
