@@ -49,6 +49,10 @@ Dialog {
                 width:parent.width
                 visible: newServer && !__serverSelected && serviceDiscovery.servers.length >= 1
                 wrapMode: Text.Wrap
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
             }
 
             Label {
@@ -298,16 +302,17 @@ to make the remote control the amplifier volume.")
                     }
                 }
             }
-            Label {
+            LinkedLabel {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("MAC address of the device")
+                text: qsTr("Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
             }
+
             TextField {
                 id : wakeUpMacAddress
                 anchors.left: parent.left
@@ -332,8 +337,8 @@ to make the remote control the amplifier volume.")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
-                label:qsTr("Device mac address")
-                placeholderText: qsTr("Device mac address")
+                label:qsTr("Wake up port")
+                placeholderText: qsTr("Wake up port")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
                 Component.onCompleted: {
                     if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
@@ -418,9 +423,9 @@ to make the remote control the amplifier volume.")
 
     function refreshMacAddress()
     {
-        if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+        if(appSettings.server(serverUuid))
         {
-            var mac = macAddressFinder.getMacAddress(appSettings.server(serverUuid).serverAddress);
+            var mac = macAddressFinder.readMacAddress(appSettings.server(serverUuid).serverAddress);
             if(mac && mac.length > 0)
             {
                 wakeUpMacAddress.text = mac;

@@ -1,6 +1,8 @@
 #include "macaddressfinder.h"
 
 #include <QTextStream>
+#include <QFile>
+#include <QDebug>
 
 namespace eu
 {
@@ -15,10 +17,16 @@ MacAddressFinder::MacAddressFinder(QObject* parent) : QObject{parent}
 
 QString MacAddressFinder::readMacAddress(QString ipAddress)
 {
-	QTextStream str("/proc/net/arp", QIODevice::ReadOnly);
+	auto file = new QFile("/proc/net/arp", this);
+	if (!file->open(QIODevice::ReadOnly |QIODevice::Text))
+		return "";
+	QTextStream str(file);
 	while (str.status() == QTextStream::Ok)
 	{
-		QString line = str.readLine(255);
+		QString line;
+		auto res = str.readLineInto(&line, 255);
+		if (!res)
+			break;
 		if (line.startsWith(ipAddress)) // found the line
 		{
 			return extractMacAddress_(line);

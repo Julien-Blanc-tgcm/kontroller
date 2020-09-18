@@ -608,122 +608,126 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="55"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="59"/>
         <source>No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="90"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="94"/>
         <source>Enter details manually</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="109"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="110"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="113"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="114"/>
         <source>Server name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="122"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="123"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="126"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="127"/>
         <source>Server address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="135"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="136"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="139"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="140"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="147"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="151"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="160"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="161"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="164"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="165"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="172"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="176"/>
         <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="187"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="188"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="191"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="192"/>
         <source>Server port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="199"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="203"/>
         <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="213"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="214"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="217"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="218"/>
         <source>Web port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="220"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="224"/>
         <source>Select here the volume plugin to use. Default (Kodi) is to use kodi integrated volume. If using an amplifier to control the volume, select the corresponding plugin and configure it to make the remote control the amplifier volume.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="233"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="237"/>
         <source>Volume plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="236"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="240"/>
         <source>Kodi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="239"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="243"/>
         <source>Minidsp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="257"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="261"/>
         <source>IP address of the minidsp device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="269"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="270"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="273"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="274"/>
         <source>Minidsp ip address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="278"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="282"/>
         <source>WakeUp plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="281"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="285"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="284"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="288"/>
         <source>WakeOnLan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="302"/>
-        <source>MAC address of the device</source>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="312"/>
+        <source>Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="312"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="313"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="329"/>
-        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="330"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="340"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="341"/>
+        <source>Wake up port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="323"/>
+        <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="324"/>
         <source>Device mac address</source>
         <translation type="unfinished"></translation>
     </message>

@@ -17,7 +17,7 @@ class MacAddressFinder : public QObject // to be instantiable from qml
 	MacAddressFinder(QObject* parent = nullptr);
 	~MacAddressFinder() = default;
 
-	QString readMacAddress(QString ipAddress);
+	Q_INVOKABLE QString readMacAddress(QString ipAddress);
 
   private:
 	QString extractMacAddress_(QString arpLine);
