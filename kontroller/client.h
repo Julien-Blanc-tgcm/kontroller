@@ -43,7 +43,7 @@ class Client : public QObject
 
 	bool sortIgnoreArticle_ = false;
 
-	eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin_;
+	eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin_ = nullptr;
 
 public:
 	explicit Client(ApplicationSettings* settings, QObject *parent = nullptr);
