@@ -309,7 +309,7 @@ to make the remote control the amplifier volume.")
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.")
+                plainText: qsTr("Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
             }
 
