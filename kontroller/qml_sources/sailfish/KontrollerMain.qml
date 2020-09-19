@@ -79,7 +79,7 @@ Page {
                 }
                 ListElement {
                     page:"videos"
-                    icon:"image://theme/icon-m-video"
+                    icon:"image://assets/icons/icon-m-video-k"
                     needConnect:true
                     label: qsTr("videos")
                 }
@@ -91,7 +91,7 @@ Page {
                 }
                 ListElement {
                     page:"remote"
-                    icon:"image://theme/icon-m-traffic"
+                    icon:"image://assets/icons/icon-m-remote"
                     needConnect:true
                     label: qsTr("remote")
                 }
@@ -142,42 +142,42 @@ Page {
             }
         }
 
-        // connecting
+        // connecting / connection failed
         Column {
             anchors.fill: parent
             anchors.topMargin: Theme.itemSizeExtraLarge
             spacing: Theme.itemSizeMedium
-            visible: appClient.connectionStatus === 1
-            // conneting
+            visible: (appClient.connectionStatus === 1 || appClient.connectionStatus < 0) &&
+                     appSettings.servers.length > 0
+            // connecting
             Label {
+                visible: appClient.connectionStatus === 1
                 text: qsTr("Connecting, please wait");
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
             }
             BusyIndicator {
+                visible: running
                 size: BusyIndicatorSize.Large
                 running: appClient.connectionStatus === 1
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-        }
 
-        // failed to connect
-        Column {
-            anchors.fill: parent
-            anchors.topMargin: Theme.itemSizeExtraLarge
-            spacing: Theme.itemSizeMedium
-            visible: appClient.connectionStatus < 0 && appSettings.servers.length > 0
-            // conneting
+            // failed to connect
             Label {
+                visible: appClient.connectionStatus < 0
                 text: qsTr("Failed to connect");
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
             }
             Button {
+                visible: appClient.connectionStatus < 0
                 text: qsTr("Retry")
                 onClicked: appClient.refresh()
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+
+            // always visible
             Button {
                 text: qsTr("Wake up server")
                 onClicked: appClient.wakeUp();

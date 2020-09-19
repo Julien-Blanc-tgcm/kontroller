@@ -25,7 +25,7 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
             }
             Repeater {
-                model: ["Julien Blanc", "Åke Engelbrektson", "Вячеслав Диконов", "popanz"]
+                model: ["Julien Blanc", "Åke Engelbrektson", "Вячеслав Диконов", "popanz", "luj"]
                 Label {
                     color:Theme.highlightColor
                     wrapMode: Text.WordWrap

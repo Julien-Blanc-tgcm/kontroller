@@ -239,17 +239,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="153"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="155"/>
         <source>Connecting, please wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="172"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="169"/>
         <source>Failed to connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="177"/>
+        <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="175"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>

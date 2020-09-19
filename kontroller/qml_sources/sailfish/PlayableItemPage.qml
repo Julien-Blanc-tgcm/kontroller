@@ -377,9 +377,9 @@ Item {
         if(icon === "movies" || icon === "movie")
             return "image://assets/icons/icon-m-movie";
         if(icon === "tvshows" || icon === "tvshow")
-            return "image://theme/icon-m-media-playlists";
+            return "image://assets/icons/icon-m-tv";
         if(icon === "musicvideos" || icon === "musicvideo")
-            return "image://theme/icon-m-media-songs";
+            return "image://assets/icons/icon-m-musicvideo";
         return "";
     }
 }
