@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.15
+
+* Added wake on lan support to wake up the server
+* Changed several icons
+
 ## Version 0.14
 
 * Fixed a lot of layout issues
