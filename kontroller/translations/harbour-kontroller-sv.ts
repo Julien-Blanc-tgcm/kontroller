@@ -257,7 +257,7 @@
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="182"/>
         <source>Wake up server</source>
-        <translation type="unfinished"></translation>
+        <translation>Väck servern</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="197"/>
@@ -674,34 +674,34 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="282"/>
         <source>WakeUp plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppvakningstillägg</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="285"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="288"/>
         <source>WakeOnLan</source>
-        <translation type="unfinished"></translation>
+        <translation>WakeOnLan</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="312"/>
         <source>Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wake On Lan kräver vanligtvis konfiguration på servern. Se https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan för hjälp att aktivera det.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="340"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="341"/>
         <source>Wake up port</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppvakningsport</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="323"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="324"/>
         <source>Device mac address</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhetens MAC-adress</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="164"/>
