@@ -33,11 +33,17 @@ Item {
         {
             // this part is needed, because the change of the value property by the slider breaks the automatic update
             // of the value (no longer connected), so we put it back via this signal handler
-            volumePlugin.onCurrentVolumeChanged.connect(function() {
-                volumeSlider.value = volumePlugin.currentVolume;
-                updated = true;
-                autoHideTimer.start();
-            });
+            volumePlugin.onCurrentVolumeChanged.connect(updateVolume);
         }
+    }
+    Component.onDestruction:
+    {
+        volumePlugin.onCurrentVolumeChanged.disconnect(updateVolume);
+    }
+    function updateVolume(val)
+    {
+        volumeSlider.value = val; //volumePlugin.currentVolume;
+        updated = true;
+        autoHideTimer.start();
     }
 }
