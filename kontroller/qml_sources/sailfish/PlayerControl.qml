@@ -6,16 +6,15 @@ import "utils.js" as Utils
 Item {
 
     property bool showSlider: true
+    property bool showLabel: true
     property var player : null
-    implicitHeight: rptr.y + rptr.height - progressSlider.y
+    implicitHeight: row.y + row.height
 
     Slider {
         id: progressSlider
         anchors.left: parent.left
         anchors.right: parent.right
         //anchors.top:subDisplay.bottom
-        anchors.leftMargin: Theme.paddingMedium
-        anchors.rightMargin: Theme.paddingMedium
         minimumValue: 0
         maximumValue: 100
         value: getPercentage(player)
@@ -27,16 +26,18 @@ Item {
     }
 
     Label {
-        anchors.left: progressSlider.left
-        anchors.bottom:progressSlider.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: Theme.paddingMedium
+        anchors.verticalCenter: progressSlider.verticalCenter
         text: getTime(player)
         font.pixelSize: Theme.fontSizeExtraSmall
         id:lblCurrentTime
         color:Theme.highlightColor
     }
     Label {
-        anchors.right: progressSlider.right
-        anchors.bottom:progressSlider.bottom
+        anchors.right: parent.right
+        anchors.rightMargin: Theme.paddingMedium
+        anchors.verticalCenter: progressSlider.verticalCenter
         text: getTotalTime(player)
         font.pixelSize: Theme.fontSizeExtraSmall
         id:lblTotalTime
@@ -44,10 +45,7 @@ Item {
     }
 
     Label {
-        anchors.left:parent.left
-        anchors.right: parent.right
-        anchors.rightMargin: lblTotalTime.width + progressSlider.anchors.leftMargin * 2
-        anchors.leftMargin: lblTotalTime.width + progressSlider.anchors.rightMargin * 2
+        anchors.horizontalCenter: progressSlider.horizontalCenter
         anchors.bottom:progressSlider.bottom
         font.pixelSize: Theme.fontSizeExtraSmall
         horizontalAlignment: Text.AlignHCenter
@@ -55,46 +53,48 @@ Item {
         elide: Text.ElideMiddle
         clip:true
         color:Theme.highlightColor
+        visible: showLabel
+        id: lblDesc
     }
 
-    Repeater {
-        id:rptr
-        model: [
-            {"icon":"image://theme/icon-m-previous", "action":"prev"},
-            {"icon":"image://theme/icon-m-left", "action":"backward"},
-            {"icon":"image://theme/icon-m-clear", "action":"stop"},
-            {"icon":["image://theme/icon-m-play", "image://theme/icon-m-pause"], "action":"playpause"},
-            {"icon":"image://theme/icon-m-right", "action":"forward"},
-            {"icon":"image://theme/icon-m-next", "action":"next"}
-        ]
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: lblCurrentTime.bottom
-        anchors.topMargin: Theme.paddingMedium
-        height:Theme.iconSizeMedium
-        delegate: IconButton {
-            x: {
-                var itemWidth = parent.width / rptr.model.length;
-                var marginLeft = (itemWidth - rptr.height) / 2
-                return index * itemWidth + marginLeft;
-            }
-            y: rptr.y
-            width:Theme.iconSizeMedium
+    Row {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: lblDesc.visible?lblDesc.bottom:lblCurrentTime.bottom;
+        height:Theme.iconSizeMedium + Theme.paddingMedium
+        spacing: Theme.paddingLarge
+        id:row
+        Repeater {
+            model: [
+                {"icon":"image://theme/icon-m-previous", "action":"prev"},
+    //            {"icon":"image://theme/icon-m-left", "action":"backward"},
+                {"icon":"image://assets/icons/icon-m-stop", "action":"stop"},
+                {"icon":["image://theme/icon-m-play", "image://theme/icon-m-pause"], "action":"playpause"},
+    //            {"icon":"image://theme/icon-m-right", "action":"forward"},
+                {"icon":"image://theme/icon-m-next", "action":"next"}
+            ]
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: Theme.paddingMedium
             height:Theme.iconSizeMedium
-            icon.source: {
-                if(typeof(model.modelData.icon) === "string")
-                    return model.modelData.icon;
-                else
-                {
-                    if(player && player.speed > 0)
-                        return model.modelData.icon[1];
+            delegate: IconButton {
+                width:Theme.iconSizeMedium
+                height:Theme.iconSizeMedium
+                icon.source: {
+                    if(typeof(model.modelData.icon) === "string")
+                        return model.modelData.icon;
                     else
-                        return model.modelData.icon[0];
+                    {
+                        if(player && player.speed > 0)
+                            return model.modelData.icon[1];
+                        else
+                            return model.modelData.icon[0];
+                    }
                 }
+                onClicked: executeCommand(model.modelData.action);
             }
-            onClicked: executeCommand(model.modelData.action);
         }
     }
+
 
     function getTime(player)
     {
