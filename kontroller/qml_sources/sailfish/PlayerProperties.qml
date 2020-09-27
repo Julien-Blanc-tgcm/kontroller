@@ -13,7 +13,7 @@ Item {
         spacing: Theme.paddingSmall
         id:theCol
         ComboBox {
-            visible: player && player.type === "video"
+            visible: player && player.type === "video" && player.subtitles.length > 0
             id:cbxSubs
             label:qsTr("Subtitles")
             clip:true
@@ -30,6 +30,15 @@ Item {
             currentIndex: -1
             value: ""
             Component.onCompleted: { console.log("height is " + height); }
+        }
+        Label {
+            visible: player && player.type === "video" && player.subtitles.length === 0
+            text: qsTr("No subtitles available")
+            anchors.left: parent.left
+            anchors.leftMargin: Theme.horizontalPageMargin
+            anchors.right: parent.right
+            anchors.rightMargin: Theme.horizontalPageMargin
+            color: Theme.highlightColor
         }
 
         ComboBox {
