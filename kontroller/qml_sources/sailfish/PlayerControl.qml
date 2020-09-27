@@ -10,6 +10,8 @@ Item {
     property var player : null
     implicitHeight: row.y + row.height
 
+    property var remorse: null
+
     Slider {
         id: progressSlider
         anchors.left: parent.left
@@ -123,15 +125,15 @@ Item {
         if(player === null)
             return;
         if(command === "stop")
-            player.stop();
+        {
+            remorse = Remorse.popupAction(pageStack.currentPage, "", function(){player.stop();});
+        }
         if(command === "prev")
             player.previous();
         if(command === "playpause")
             player.playPause();
         if(command === "next")
             player.next();
-        if(command === "stop")
-            player.stop();
         if(command === "backward")
             player.seekBackward();
         if(command === "forward")
