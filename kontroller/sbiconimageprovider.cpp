@@ -61,7 +61,6 @@ QPixmap SBIconImageProvider::requestPixmap(const QString& id, QSize* size, const
 	{
 		auto path = p + "/" + components[0] + ".png";
 		QFileInfo info{path};
-		qDebug() << "Trying file " << path;
 		if (info.exists())
 		{
 			QPixmap ret;

@@ -93,8 +93,11 @@ Dialog {
                     Label {
                         text: qsTr("Enter details manually")
                         anchors.verticalCenter: parent.verticalCenter
+                        wrapMode: Text.Wrap
                     }
                     anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.horizontalPageMargin
                 }
                 MouseArea {
                     anchors.fill:parent
