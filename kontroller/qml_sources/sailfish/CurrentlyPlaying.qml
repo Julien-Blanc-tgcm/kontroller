@@ -49,6 +49,10 @@ Page {
                     id:thumbnailImg
                     fillMode: Image.PreserveAspectFit
                     z: 2
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: handleClickOnThumbDisplay();
+                    }
                 }
                 Rectangle {
                     anchors.fill:thumbnailImg
@@ -79,13 +83,10 @@ Page {
                         width: parent.width
                         id:mainDisplay
                         wrapMode: Text.Wrap
-//                        MouseArea {
-//                            anchors.fill: parent
-//                            onClicked: if(player) {
-//                                var item = {"filetype": "artist"}
-//                                mediaInformationClicked(player.playingInformation.currentItem)
-//                            }
-//                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: handleClickOnMainDisplay()
+                        }
                     }
                     Label {
                         text:player?getSubDisplay(player.playingInformation.currentItem):""
@@ -204,6 +205,48 @@ Page {
     function somethingPlaying()
     {
         return player && player.playingInformation.currentItem
+    }
+
+    function handleClickOnMainDisplay()
+    {
+        if(player) {
+            var curItem = player.playingInformation.currentItem;
+            if(!curItem)
+                return;
+            if(curItem.type === "song")
+            { // main display is the artist
+                mediaInformationClicked({"filetype": "artist", "id": curItem.artistId, "label": curItem.label}); // go to the artist page
+            }
+            else if(curItem.type === "movie")
+            {
+                mediaInformationClicked({"filetype": "movie", "id": curItem.movieId, "label": curItem.label}); // go to the movie page
+            }
+            else if(curItem.type === "episode")
+            {
+                mediaInformationClicked({"filetype": "tvshow", "id": curItem.tvshowId, "label": curItem.label}); // go to the tvshow page
+            }
+        }
+    }
+
+    function handleClickOnThumbDisplay()
+    {
+        if(player) {
+            var curItem = player.playingInformation.currentItem;
+            if(!curItem)
+                return;
+            if(curItem.type === "song")
+            { // thumb display is the album
+                mediaInformationClicked({"filetype": "album", "id": curItem.albumId, "label": curItem.label}); // go to the artist page
+            }
+            else if(curItem.type === "movie")
+            {
+                mediaInformationClicked({"filetype": "movie", "id": curItem.movieId, "label": curItem.label}); // go to the movie page
+            }
+            else if(curItem.type === "episode")
+            {
+                mediaInformationClicked({"filetype": "episode", "id": curItem.episodeId, "label": curItem.label}); // go to the episode
+            }
+        }
     }
 
     signal mediaInformationClicked(var file)

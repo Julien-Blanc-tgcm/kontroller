@@ -710,9 +710,12 @@ void Player::refreshCurrentlyPlaying_()
 	properties.append("file");
 	properties.append("artistid");
 	properties.append("albumid");
+	properties.append("displayartist");
 	properties.append("artist");
 	properties.append("album");
 	properties.append("tvshowid");
+	properties.append("showtitle");
+	properties.append("episode");
 	parameters["properties"] = properties;
 	auto mess = QJsonRpcMessage::createRequest("Player.GetItem", parameters);
 	auto reply = client_->send(mess);
@@ -841,6 +844,27 @@ void Player::handleGetItemResponse_()
 			item_.setThumbnail(getImageUrl(client_, item.value("thumbnail").toString()).toString());
 			item_.setFanart(getImageUrl(client_, item.value("fanart").toString()).toString());
 			item_.setLabel(item.value("title").toString());
+			if(item_.type() == "song")
+			{
+				item_.setSongId(item.value("id").toInt());
+				auto artistIds = item.value("artistid");
+				if(artistIds.isArray() && artistIds.toArray().size() > 0)
+				{
+					item_.setArtistId(artistIds.toArray()[0].toInt());
+				}
+				item_.setArtist(item.value("displayartist").toString());
+				item_.setAlbumId(item.value("albumid").toInt());
+				item_.setAlbum(item.value("album").toString());
+			}
+			else if(item_.type() == "movie")
+			{
+				item_.setMovieId(item.value("id").toInt());
+			}
+			else if(item_.type() == "episode")
+			{
+				item_.setTvshowId(item.value("tvshowid").toInt());
+				item_.setTvshow(item.value("showtitle").toString());
+			}
 			playingInformation_->setItem(item_);
 		}
 	}

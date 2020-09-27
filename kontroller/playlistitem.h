@@ -27,6 +27,7 @@ class PlaylistItem
 	int episodeId_;
 	int musicvideoId_;
 	int songId_;
+	int tvshowId_;
 	QString artist_;
 	QString album_;
 	QString fanart_;
@@ -50,6 +51,7 @@ public:
 	Q_PROPERTY(int episodeId READ episodeId WRITE setEpisodeId)
 	Q_PROPERTY(int musicvideoId READ musicvideoId WRITE setMusicvideoId)
 	Q_PROPERTY(int songId READ songId WRITE setSongId)
+	Q_PROPERTY(int tvshowId READ tvshowId WRITE setTvshowId)
 	Q_PROPERTY(QString artist READ artist WRITE setArtist)
 	Q_PROPERTY(QString album READ album WRITE setAlbum)
 	Q_PROPERTY(QString fanart READ fanart WRITE setFanart)
@@ -93,6 +95,8 @@ public:
 
 	QString tvshow() const;
 
+	int tvshowId() const;
+
 	void setMovieId(int movieId);
 	void setEpisodeId(int episodeId);
 	void setMusicvideoId(int musicvideoId);
@@ -102,6 +106,7 @@ public:
 	void setThumbnail(QString thumbnail);
 	void setSongId(int songId);
 	void setTvshow(QString tvshow);
+	void setTvshowId(int tvshowId);
 
 	friend QDataStream& readFromStream(QDataStream&, eu::tgcm::kontroller::PlaylistItem& file);
 };

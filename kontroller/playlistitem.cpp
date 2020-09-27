@@ -158,6 +158,16 @@ void PlaylistItem::setTvshow(QString tvshow)
 	tvshow_ = tvshow;
 }
 
+int PlaylistItem::tvshowId() const
+{
+	return tvshowId_;
+}
+
+void PlaylistItem::setTvshowId(int tvshowId)
+{
+	tvshowId_ = tvshowId;
+}
+
 QDataStream& readFromStream(QDataStream& stream, eu::tgcm::kontroller::PlaylistItem& file)
 {
 	stream >> file.album_;
