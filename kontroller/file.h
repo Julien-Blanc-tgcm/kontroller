@@ -3,8 +3,6 @@
 
 #include <QObject>
 
-#include <QVector>
-
 namespace eu
 {
 namespace tgcm
