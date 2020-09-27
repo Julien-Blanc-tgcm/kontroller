@@ -147,7 +147,11 @@ void PlaylistService::refreshPlaylistCb_()
 						QJsonObject val = val_.toObject();
 						PlaylistItem item;
 						item.setAlbumId(val.value("albumid").toInt());
-						item.setArtistId(val.value("artistid").toInt());
+						auto artistIds = val.value("artistid");
+						if(artistIds.isArray() && artistIds.toArray().size() > 0)
+						{
+							item.setArtistId(artistIds.toArray()[0].toInt());
+						}
 						QString type = val.value("type").toString();
 						int id = val.value("id").toInt();
 						if (type == "song")
