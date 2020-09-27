@@ -18,7 +18,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Remote")
+                text: qsTr("Remote control")
                 onClicked: pushRemotePage()
             }
         }
