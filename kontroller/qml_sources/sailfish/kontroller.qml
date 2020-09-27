@@ -19,8 +19,11 @@ ApplicationWindow {
             return Qt.resolvedUrl("cover/UnconnectedCover.qml");
     }
     id: appWindow
+    property var kontrollerMain: null
     initialPage: Component {
+        id: kontrollerMainComponent
         KontrollerMain {
+            Component.onCompleted: kontrollerMain = this
         }
     }
     bottomMargin: controllerPanel.visibleSize
@@ -30,10 +33,15 @@ ApplicationWindow {
         dock: Dock.Bottom
         visible: true
         height: col.height
-        contentHeight: height
-        flickableDirection: Flickable.VerticalFlick
         z:1
-        open: false
+        open:
+        {
+            if(pageStack.currentPage && !!pageStack.currentPage.hidePanel)
+                return false;
+            if(playerControl.player)
+                return true;
+            return false;
+        }
 
         Column {
             id:col
@@ -42,54 +50,43 @@ ApplicationWindow {
             anchors.top:parent.top
             spacing: Theme.paddingSmall
             Row {
+                visible: !pageStack.currentPage || !pageStack.currentPage.overridePanelImg
                 anchors.left: parent.left
                 anchors.right: parent.right
-                visible: playerControl.player
-                Image {
-                    source: playerControl.player?playerControl.player.playingInformation.currentItem.thumbnail:""
-                    height:Theme.iconSizeLarge
-                    width:Theme.iconSizeLarge
-                    id:thumbnailImg
-                    fillMode: Image.PreserveAspectFit
-                    z: 2
+                bottomPadding: Theme.paddingSmall
+                Column {
                     anchors.verticalCenter: parent.verticalCenter
+                    Image {
+                        source: playerControl.player?playerControl.player.playingInformation.currentItem.thumbnail:""
+                        height:Theme.iconSizeLarge
+                        width:Theme.iconSizeLarge
+                        id:thumbnailImg
+                        fillMode: Image.PreserveAspectFit
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: kontrollerMain.pushCurrentlyPlaying()
+                        }
+                    }
+                    Text {
+                        text: (appClient && appClient.volumePlugin) ?
+                                  "🔈 " + appClient.volumePlugin.formatVolume(appClient.volumePlugin.currentVolume) :
+                                  ""
+                        width:parent.width
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        horizontalAlignment: Text.AlignHCenter
+                        color:Theme.primaryColor
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: kontrollerMain.pushCurrentlyPlaying()
+                        }
+                    }
                 }
+
                 PlayerControl {
                     anchors.verticalCenter: parent.verticalCenter
                     width:parent.width - thumbnailImg.width
                     player: appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
                     id:playerControl
-                }
-            }
-            VolumeControl {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                volumePlugin: appClient?appClient.volumePlugin:null
-                visible: (!playerControl.player) || (updating && !pushUpMenu.active)
-                id: volumeControl
-            }
-        }
-        PushUpMenu {
-            bottomMargin: Theme.paddingSmall
-            id: pushUpMenu
-            parent: controllerPanel
-            visible: true
-            Column {
-                //visible: playerControl.player && playerControl.player.type === "video"
-                anchors.left: parent.left
-                anchors.right: parent.right
-                id:theColumn
-                VolumeControl {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    volumePlugin: appClient?appClient.volumePlugin:null
-                    visible: !volumeControl.visible
-                }
-                PlayerProperties {
-                    player: playerControl.player
-                    id: playerProperties
-                    anchors.left: parent.left
-                    anchors.right: parent.right
                 }
             }
         }
@@ -137,22 +134,6 @@ ApplicationWindow {
             theNotif.previewSummary = qsTr("Download error");
             theNotif.publish()
         }
-    }
-
-    function recomputeDockVisible()
-    {
-        controllerPanel.open = playerControl.player || volumeControl.updated || volumeControl.updating
-    }
-
-    Connections {
-        target: playerControl
-        onPlayerChanged: recomputeDockVisible()
-    }
-
-    Connections {
-        target: volumeControl
-        onUpdatedChanged: recomputeDockVisible()
-        onUpdatingChanged: recomputeDockVisible()
     }
 
 }

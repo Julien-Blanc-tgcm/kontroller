@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
@@ -7,95 +7,149 @@ import "utils.js" as Utils
 Page {
     id: item1
 
-    property var client : appClient
-    property var player : appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
+    property var client: appClient
+    property var player: appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
+
+    property bool hidePanel: true // on this page, hide the docked panel: it is redundant
 
     SilicaFlickable {
         anchors.fill: parent
+        contentHeight: theCol.height
 
-        PageHeader {
-            title: qsTr("Currently playing")
-            id:theHeader
-        }
-
-        Image {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            source : player?player.playingInformation.currentItem.fanart:""
-            id:fanartImg
-            fillMode: Image.PreserveAspectFit
-            visible: orientation === Orientation.Portrait || orientation === Orientation.PortraitInverted
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Remote")
+                onClicked: pushRemotePage()
+            }
         }
 
-        Image {
-            anchors.top:theHeader.bottom
-            anchors.right: parent.right
-            anchors.topMargin: 10
-            anchors.rightMargin: 10
-            source: player?player.playingInformation.currentItem.thumbnail:""
-            height:Theme.iconSizeExtraLarge
-            width:Theme.iconSizeExtraLarge
-            id:thumbnailImg
-            fillMode: Image.PreserveAspectFit
-            z: 2
-        }
-        Rectangle {
-            anchors.fill:thumbnailImg
-            color:"#fff"
-            opacity:0.1
-            visible : thumbnailImg.sourceSize.width === 0
-            id:fakeThumb
-        }
-        Label {
-            anchors.fill: fakeThumb
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            text:player?getThumbDisplay(player.playingInformation.currentItem):""
-            z: 1
-            visible: thumbnailImg.sourceSize.width === 0
-        }
+        Column
+        {
+            id: theCol
+            width:parent.width
+            PageHeader {
+                title: qsTr("Currently playing")
+                id:theHeader
+            }
 
-        Label {
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.top:theHeader.bottom
-            anchors.topMargin: 10
-            anchors.right: thumbnailImg.left
-            anchors.rightMargin: 10
-            text: player?getMainDisplay(player.playingInformation.currentItem):"";
-            horizontalAlignment: Text.AlignHCenter
-            id:mainDisplay
-            wrapMode: Text.WordWrap
-        }
-        Label {
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.right: thumbnailImg.left
-            anchors.rightMargin: 10
-            anchors.top: mainDisplay.bottom
-            text:player?getSubDisplay(player.playingInformation.currentItem):""
-            horizontalAlignment: Text.AlignHCenter
-            color:Theme.highlightColor
-            id:subDisplay
-            wrapMode: Text.WordWrap
-        }
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: thumbnailImg.height + Theme.paddingMedium * 2
+                color:"transparent"
+                visible: somethingPlaying()
+                Image {
+                    anchors.top:parent.top
+                    anchors.right: parent.right
+                    anchors.topMargin: Theme.paddingMedium
+                    anchors.rightMargin: Theme.paddingMedium
+                    source: player?player.playingInformation.currentItem.thumbnail:""
+                    height:Theme.iconSizeExtraLarge
+                    width:Theme.iconSizeExtraLarge
+                    id:thumbnailImg
+                    fillMode: Image.PreserveAspectFit
+                    z: 2
+                }
+                Rectangle {
+                    anchors.fill:thumbnailImg
+                    color:"#fff"
+                    opacity:0.1
+                    visible : thumbnailImg.sourceSize.width === 0
+                    id:fakeThumb
+                }
+                Label {
+                    anchors.fill: fakeThumb
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text:player?getThumbDisplay(player.playingInformation.currentItem):""
+                    z: 1
+                    visible: thumbnailImg.sourceSize.width === 0
+                }
+                Column {
+                    anchors.left: parent.left
+                    anchors.right: thumbnailImg.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: thumbnailImg.verticalCenter
+                    spacing: Theme.paddingSmall
+                    Label {
+                        text: player?getMainDisplay(player.playingInformation.currentItem):"";
+                        horizontalAlignment: Text.AlignHCenter
+                        width: parent.width
+                        id:mainDisplay
+                        wrapMode: Text.Wrap
+//                        MouseArea {
+//                            anchors.fill: parent
+//                            onClicked: if(player) {
+//                                var item = {"filetype": "artist"}
+//                                mediaInformationClicked(player.playingInformation.currentItem)
+//                            }
+//                        }
+                    }
+                    Label {
+                        text:player?getSubDisplay(player.playingInformation.currentItem):""
+                        horizontalAlignment: Text.AlignHCenter
+                        width: parent.width
+                        color: Theme.highlightColor
+                        font.italic: true
+                        id:subDisplay
+                        wrapMode: Text.WordWrap
+                    }
+                }
 
-        PlayerControl {
-            y: Math.max(thumbnailImg.y + thumbnailImg.height, subDisplay.y + subDisplay.height) + 10
-            anchors.left: parent.left
-            anchors.right: parent.right
-            player: item1.player
-            id:playerControl
-        }
+            }
 
-        PlayerProperties {
-            player: item1.player;
-            visible:player !== null
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: playerControl.bottom
+            Label {
+                text: qsTr("Nothing playing")
+                visible: !somethingPlaying()
+                color: Theme.highlightColor
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                wrapMode: Text.Wrap
+            }
+
+            PlayerControl {
+                y: Math.max(thumbnailImg.y + thumbnailImg.height, subDisplay.y + subDisplay.height) + 10
+                anchors.left: parent.left
+                anchors.right: parent.right
+                player: item1.player
+                id:playerControl
+                visible: somethingPlaying()
+                showLabel: false
+            }
+
+            SectionHeader {
+                text: qsTr("Playing options")
+                visible: somethingPlaying()
+            }
+
+            PlayerProperties {
+                player: item1.player;
+                visible: somethingPlaying()
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            SectionHeader {
+                text: qsTr("Volume")
+            }
+            VolumeControl {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                volumePlugin: appClient?appClient.volumePlugin:null
+                id: volumeControl
+            }
+            Image {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                source : player?player.playingInformation.currentItem.fanart:""
+                id:fanartImg
+                fillMode: Image.PreserveAspectFit
+                visible: somethingPlaying()
+            }
         }
     }
 
@@ -147,5 +201,11 @@ Page {
             return "";
     }
 
+    function somethingPlaying()
+    {
+        return player && player.playingInformation.currentItem
+    }
+
+    signal mediaInformationClicked(var file)
 }
 
