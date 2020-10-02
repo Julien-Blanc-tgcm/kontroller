@@ -47,7 +47,10 @@ Item {
     }
 
     Label {
-        anchors.horizontalCenter: progressSlider.horizontalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: Theme.paddingSmall
+        anchors.rightMargin: Theme.paddingSmall
         anchors.bottom:progressSlider.bottom
         font.pixelSize: Theme.fontSizeExtraSmall
         horizontalAlignment: Text.AlignHCenter

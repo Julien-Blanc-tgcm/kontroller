@@ -152,7 +152,7 @@ Page {
             // connecting
             Label {
                 visible: appClient.connectionStatus === 1
-                text: qsTr("Connecting, please wait");
+                text: qsTr("Connecting, please wait...");
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
             }

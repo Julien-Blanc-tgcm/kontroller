@@ -86,7 +86,7 @@ Page {
                 id : albumslbl
                 //anchors.top: stylelbl.bottom
                 //anchors.topMargin: 5 * scalingFactor
-                text: qsTr("Available albums : ")
+                text: qsTr("Available albums:")
                 font.bold: true
                 anchors.left: parent.left
                 anchors.leftMargin:Theme.horizontalPageMargin
@@ -182,7 +182,7 @@ Page {
                 font.bold: true
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Description")
+                text: qsTr("Description:")
                 color:Theme.highlightColor
                 anchors.leftMargin: Theme.horizontalPageMargin
             }

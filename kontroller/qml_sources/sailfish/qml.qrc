@@ -26,6 +26,8 @@
         <file>PlayerControl.qml</file>
         <file>About.qml</file>
         <file>VolumeControl.qml</file>
+        <file>PageFactory.qml</file>
+        <file>ServerPage.qml</file>
     </qresource>
     <qresource prefix="/cover">
         <file alias="CoverPage.qml">cover/CoverPage.qml</file>
