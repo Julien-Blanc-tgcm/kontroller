@@ -150,7 +150,7 @@
     <message>
         <location filename="../qml_sources/sailfish/CurrentlyPlaying.qml" line="126"/>
         <source>Playing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Abspiel Optionen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/CurrentlyPlaying.qml" line="105"/>
@@ -242,42 +242,42 @@
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="52"/>
         <source>Switch server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server wechseln</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="63"/>
         <source>Welcome</source>
-        <translation type="unfinished"></translation>
+        <translation>Willkommen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="110"/>
         <source>server management</source>
-        <translation type="unfinished"></translation>
+        <translation>Server Verwaltung</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="155"/>
         <source>Connecting, please wait...</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinde, bitte warten...</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="169"/>
         <source>Failed to connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="175"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="182"/>
         <source>Wake up server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server aufwecken</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="197"/>
         <source>No server configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Server konfiguriert</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/KontrollerMain.qml" line="202"/>
@@ -402,12 +402,12 @@
     <message>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="107"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="246"/>
         <source>No items found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Einträge gefunden!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/PlayableItemPage.qml" line="141"/>
@@ -482,7 +482,7 @@
     <message>
         <location filename="../qml_sources/sailfish/PlayerProperties.qml" line="36"/>
         <source>No subtitles available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Untertitel verfügbar</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/PlayerProperties.qml" line="46"/>
@@ -536,71 +536,71 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="17"/>
         <source>Shutdown server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server herunterfahren</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="23"/>
         <source>Reboot server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server neustarten</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="40"/>
         <source>Server management</source>
-        <translation type="unfinished"></translation>
+        <translation>Server Verwaltung</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="44"/>
         <source>Video library</source>
-        <translation type="unfinished"></translation>
+        <translation>Video Bibliothek</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="48"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="115"/>
         <source>Removes item that have been deleted on disk from the library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Löscht Videos aus der Biblitothek, die auf der Festplatte gelöscht wurden.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="68"/>
         <source>Video library cleaning finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereinigung der Video Bibliothek abgeschlossen!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="78"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="147"/>
         <source>Search for new items in the video library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche neue Videos in der Video Biblitothek.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="99"/>
         <source>Video library refresh finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisierung der Video Biblitothek abgeschlossen!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="135"/>
         <source>Audio library cleaning finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereinigung der Audio Biblitothek abgeschlossen!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="167"/>
         <source>Audio library refresh finished!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisierung der Audio Biblitothek abgeschlossen!</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="57"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="124"/>
         <source>Clean library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothek bereinigen</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="88"/>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="156"/>
         <source>Refresh library</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothek aktualisieren</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerPage.qml" line="111"/>
         <source>Audio library</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio Bibliothek</translation>
     </message>
 </context>
 <context>
@@ -608,7 +608,7 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSelectionPage.qml" line="15"/>
         <source>Server selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Server Auswahl</translation>
     </message>
 </context>
 <context>
@@ -621,22 +621,22 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="43"/>
         <source>Discovering servers, please wait...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sucher Server, bitte warten...</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="48"/>
         <source>The following servers have been discovered, click one to select it:</source>
-        <translation type="unfinished"></translation>
+        <translation>Die folgenden Server wurden gefunden, klick einen an um ihn auszuwälen:</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="59"/>
         <source>No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Server gefunden, bitte stell sicher das ein Instanz von kodi im gleichen Netzwerk läuft und auf dem Gerät WLAN aktiviert ist.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="97"/>
         <source>Enter details manually</source>
-        <translation type="unfinished"></translation>
+        <translation>Details manuell eingeben</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="118"/>
@@ -654,7 +654,7 @@
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="144"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="145"/>
         <source>Login</source>
-        <translation>Anmedlung</translation>
+        <translation>Anmeldung</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="156"/>
@@ -723,34 +723,34 @@
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="287"/>
         <source>WakeUp plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>WakeUp Plugin</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="290"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keines</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="293"/>
         <source>WakeOnLan</source>
-        <translation type="unfinished"></translation>
+        <translation>WakeOnLan</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="317"/>
         <source>Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wake On Lan braucht spezielle Einstellungen auf dem Server. Unter https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan findest Du hilfe hierzu.</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="345"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="346"/>
         <source>Wake up port</source>
-        <translation type="unfinished"></translation>
+        <translation>WakeUp Port</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="328"/>
         <location filename="../qml_sources/sailfish/ServerSettingsPage.qml" line="329"/>
         <source>Device mac address</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte MAC Adresse</translation>
     </message>
 </context>
 <context>
@@ -870,16 +870,24 @@
     </message>
 </context>
 <context>
+    <name>UnconnectedCover</name>
+    <message>
+        <location filename="../qml_sources/sailfish/cover/UnconnectedCover.qml" line="8"/>
+        <source>Kontroller</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VolumeControl</name>
     <message>
         <location filename="../qml_sources/sailfish/VolumeControl.qml" line="22"/>
         <source>Volume: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärke: %1</translation>
     </message>
     <message>
         <location filename="../qml_sources/sailfish/VolumeControl.qml" line="22"/>
         <source>No volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautlos</translation>
     </message>
 </context>
 <context>
