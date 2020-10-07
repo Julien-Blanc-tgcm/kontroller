@@ -45,8 +45,9 @@ Dialog {
                 visible: newServer && serviceDiscovery.discovering && !__serverSelected
             }
             Label {
+                x: Theme.horizontalPageMargin
                 text: qsTr("The following servers have been discovered, click one to select it:")
-                width:parent.width
+                width:parent.width - 2*x
                 visible: newServer && !__serverSelected && serviceDiscovery.servers.length >= 1
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
@@ -56,8 +57,9 @@ Dialog {
             }
 
             Label {
+                x: Theme.horizontalPageMargin
                 text: qsTr("No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.")
-                width:parent.width
+                width:parent.width - 2*x
                 wrapMode: Text.Wrap
                 visible: newServer && !__serverSelected && !serviceDiscovery.discovering && serviceDiscovery.servers.length === 0
             }
@@ -81,6 +83,13 @@ Dialog {
                     }
                 }
             }
+            // spacer
+            Item {
+                height: Theme.paddingLarge
+                width: 1
+                visible: selectingServer__()
+            }
+
             Item {
                 id: addServerGroup
                 height: row.height
@@ -118,6 +127,9 @@ Dialog {
                 label:qsTr("Server name");
                 placeholderText: qsTr("Server name")
                 visible: !selectingServer__()
+                EnterKey.enabled: text.length > 0
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: serverAddress.focus = true
             }
 
             TextField {
@@ -131,6 +143,9 @@ Dialog {
                 label:qsTr("Server address");
                 placeholderText: qsTr("Server address");
                 visible: !selectingServer__()
+                EnterKey.enabled: text.length > 0
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: serverLogin.focus = true
             }
 
             TextField {
@@ -144,6 +159,8 @@ Dialog {
                 label:qsTr("Login");
                 placeholderText: qsTr("Login");
                 visible: !selectingServer__()
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: serverPassword.focus = true
             }
 
             Label {
@@ -169,6 +186,8 @@ will be stored unencrypted on the device.")
                 label:qsTr("Password");
                 placeholderText: qsTr("Password");
                 visible: !selectingServer__()
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: serverPort.focus = true
             }
 
             Label {
@@ -196,6 +215,8 @@ will not function properly.")
                 label:qsTr("Server port")
                 placeholderText: qsTr("Server port")
                 visible: !selectingServer__()
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: serverHttpPort.focus = true
             }
 
             Label {
@@ -222,6 +243,8 @@ You need to enable HTTP remote access in kodi for this to work.")
                 label:qsTr("Web port")
                 placeholderText: qsTr("Web port")
                 visible: !selectingServer__()
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: serverHttpPort.focus = false
             }
             Label {
                 anchors.left: parent.left
@@ -246,6 +269,7 @@ to make the remote control the amplifier volume.")
                     }
                     MenuItem {
                         text: qsTr("Minidsp")
+                        onClicked: miniDSPAddress.focus = true
                     }
                 }
                 Component.onCompleted: {
@@ -278,6 +302,8 @@ to make the remote control the amplifier volume.")
                 label:qsTr("Minidsp ip address")
                 placeholderText: qsTr("Minidsp ip address")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: miniDSPAddress.focus = false
             }
 
             ComboBox {
@@ -291,6 +317,7 @@ to make the remote control the amplifier volume.")
                     }
                     MenuItem {
                         text: qsTr("WakeOnLan")
+                        onClicked: wakeUpMacAddress.focus = true
                     }
                 }
                 Component.onCompleted: {
@@ -325,6 +352,7 @@ to make the remote control the amplifier volume.")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                validator: RegExpValidator { regExp: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/ }
                 label:qsTr("Device mac address")
                 placeholderText: qsTr("Device mac address")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
@@ -334,6 +362,8 @@ to make the remote control the amplifier volume.")
                     else
                         text = ""
                 }
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: wakeUpMacPort.focus = true
             }
             TextField {
                 id : wakeUpMacPort
@@ -342,6 +372,7 @@ to make the remote control the amplifier volume.")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                validator: IntValidator{ bottom:1; top:65535}
                 label:qsTr("Wake up port")
                 placeholderText: qsTr("Wake up port")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
@@ -351,6 +382,8 @@ to make the remote control the amplifier volume.")
                     else
                         text = 9; // default value
                 }
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: wakeUpMacPort.focus = false
             }
 
 
