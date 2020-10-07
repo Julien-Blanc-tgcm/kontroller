@@ -57,6 +57,25 @@ void AlbumsRequest::startWithGenre(int genreid)
 		emit finished();
 }
 
+void AlbumsRequest::startRecentlyAdded()
+{
+	QJsonObject parameters;
+	QJsonArray properties;
+	properties.append(QLatin1String("thumbnail"));
+	parameters.insert("properties", properties);
+	QJsonObject sort;
+	sort["order"] = QLatin1String("ascending");
+	sort["method"] = QLatin1String("label");
+	sort["ignorearticle"] = client_->sortIgnoreArticle();
+	parameters.insert("sort", sort);
+	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetRecentlyAddedAlbums", parameters);
+	QJsonRpcServiceReply* reply = client_->send(message);
+	if(reply)
+		connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumsRequest::parseAlbumsResult);
+	else
+		emit finished();
+}
+
 void AlbumsRequest::parseAlbumsResult()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
@@ -102,7 +121,7 @@ void AlbumsRequest::parseAlbumsResult()
 	emit finished();
 }
 
-AlbumsRequest::~AlbumsRequest()
+AlbumsRequest::~AlbumsRequest() noexcept
 {
 	results.clear();
 }

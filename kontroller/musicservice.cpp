@@ -267,6 +267,18 @@ void MusicService::refresh_collection()
 				if(reply)
 					connect(reply, SIGNAL(finished()), this, SLOT(parseGenresResults()));
 			}
+			else if (browsingValue_ == "recentalbums")
+			{
+				auto req = new AlbumsRequest(client_, this);
+				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				req->startRecentlyAdded();
+			}
+			else if (browsingValue_ == "favoritesalbums")
+			{
+				auto req = new AlbumsRequest(client_, this);
+				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				req->startFavorites();
+			}
 		}
 		else if(browsingMode_ == "artist")
 		{
@@ -325,6 +337,12 @@ void MusicService::refresh_collection()
 		file.setType("directory");
 		file.setFiletype("directory");
 		file.setIcon("folder");
+		files_.push_back(file);
+		file.setLabel(tr("Recently added albums"));
+		file.setFile("recentalbums");
+		file.setType("media");
+		file.setFiletype("media");
+		file.setIcon("recentalbums");
 		files_.push_back(file);
 		refreshAddons_();
 		emit filesAsListChanged();

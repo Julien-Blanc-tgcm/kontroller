@@ -16,8 +16,8 @@ class File;
 class AlbumsRequest : public QObject
 {
 	Q_OBJECT
-public:
-	explicit AlbumsRequest(Client* client, QObject *parent = nullptr);
+  public:
+	explicit AlbumsRequest(Client* client, QObject* parent = nullptr);
 	~AlbumsRequest() noexcept override;
 	AlbumsRequest(AlbumsRequest&&) = delete;
 	AlbumsRequest(AlbumsRequest const&) = delete;
@@ -30,17 +30,28 @@ public:
 	void start(int artistid);
 	void startWithGenre(int genreid);
 
+	/**
+	 * @brief startRecentlyAdded starts a recently added albums request
+	 */
+	void startRecentlyAdded();
+
+	/**
+	 * @brief startFavorites starts a request to retrieve favorites albums
+	 */
+	void startFavorites();
+
 	QVector<File> results;
 	Client* client_ = nullptr;
 	bool success;
-signals:
+  signals:
 	void finished();
-private slots:
+  private slots:
 	void parseAlbumsResult();
-private:
+
+  private:
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 #endif // EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
