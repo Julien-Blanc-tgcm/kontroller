@@ -37,17 +37,17 @@ Dialog {
                 visible: running
             }
             Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width:parent.width
                 horizontalAlignment: Text.AlignHCenter
                 text: qsTr("Discovering servers, please wait...");
                 wrapMode: Text.Wrap
                 visible: newServer && serviceDiscovery.discovering && !__serverSelected
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
             }
             Label {
-                x: Theme.horizontalPageMargin
                 text: qsTr("The following servers have been discovered, click one to select it:")
-                width:parent.width - 2*x
                 visible: newServer && !__serverSelected && serviceDiscovery.servers.length >= 1
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
@@ -57,11 +57,13 @@ Dialog {
             }
 
             Label {
-                x: Theme.horizontalPageMargin
                 text: qsTr("No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.")
-                width:parent.width - 2*x
                 wrapMode: Text.Wrap
                 visible: newServer && !__serverSelected && !serviceDiscovery.discovering && serviceDiscovery.servers.length === 0
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
             }
 
             SilicaListView {
@@ -90,26 +92,20 @@ Dialog {
                 visible: selectingServer__()
             }
 
-            Item {
-                id: addServerGroup
-                height: row.height
+            Label {
+                Icon {
+                    source:"image://theme/icon-m-add"
+                    id: theIcon
+                    anchors.verticalCenter: parent.verticalCenter
+                    x: (label.width - label.contentWidth - width) / 2
+                }
+                id:label
+                text: qsTr("Enter details manually")
+                leftPadding: theIcon.width
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                Label {
-                    Icon {
-                        source:"image://theme/icon-m-add"
-                        id: theIcon
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    text: qsTr("Enter details manually")
-                    leftPadding: theIcon.width
-                    wrapMode: Text.Wrap
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                   // width: parent.width
-                }
                 MouseArea {
                     anchors.fill:parent
                     onClicked: __serverSelected = true

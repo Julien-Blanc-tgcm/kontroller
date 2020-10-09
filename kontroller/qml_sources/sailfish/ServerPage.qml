@@ -159,7 +159,7 @@ Page {
 
             // scan audio library
             Label {
-                text: qsTr("Search for new items in the video library.")
+                text: qsTr("Search for new items in the audio library.")
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignLeft
                 width:parent.width
@@ -235,13 +235,13 @@ Page {
         client: appClient
         onAudioLibraryCleanProgressChanged: {
             console.log("audio clean progress " + service.audioLibraryCleanProgress)
-            if(service.audioLibraryCleanProgress == 0)
+            if(service.audioLibraryCleanProgress === 0)
             {
                 busyCleanAudioLibrary.visible = false;
                 btnCleanAudioLibrary.visible = true;
                 finishedCleanAudioLibrary.visible = false;
             }
-            else if(service.audioLibraryCleanProgress == 100)
+            else if(service.audioLibraryCleanProgress === 100)
             {
                 busyCleanAudioLibrary.visible = false;
                 btnCleanAudioLibrary.visible = false;
@@ -258,13 +258,13 @@ Page {
         }
         onVideoLibraryCleanProgressChanged: {
             console.log("video clean progress " + service.videoLibraryCleanProgress)
-            if(service.videoLibraryCleanProgress == 0)
+            if(service.videoLibraryCleanProgress === 0)
             {
                 busyCleanVideoLibrary.visible = false;
                 btnCleanVideoLibrary.visible = true;
                 finishedCleanVideoLibrary.visible = false;
             }
-            else if(service.videoLibraryCleanProgress == 100)
+            else if(service.videoLibraryCleanProgress === 100)
             {
                 busyCleanVideoLibrary.visible = false;
                 btnCleanVideoLibrary.visible = false;
@@ -281,13 +281,13 @@ Page {
         }
         onAudioLibraryScanProgressChanged: {
             console.log("audio scan progress " + service.audioLibraryScanProgress)
-            if(service.audioLibraryScanProgress == 0)
+            if(service.audioLibraryScanProgress === 0)
             {
                 busyRefreshAudioLibrary.visible = false;
                 btnRefreshAudioLibrary.visible = true;
                 finishedRefreshAudioLibrary.visible = false;
             }
-            else if(service.audioLibraryScanProgress == 100)
+            else if(service.audioLibraryScanProgress === 100)
             {
                 busyRefreshAudioLibrary.visible = false;
                 btnRefreshAudioLibrary.visible = false;
@@ -304,13 +304,13 @@ Page {
         }
         onVideoLibraryScanProgressChanged: {
             console.log("video scan progress " + service.videoLibraryScanProgress)
-            if(service.videoLibraryScanProgress == 0)
+            if(service.videoLibraryScanProgress === 0)
             {
                 busyRefreshVideoLibrary.visible = false;
                 btnRefreshVideoLibrary.visible = true;
                 finishedRefreshVideoLibrary.visible = false;
             }
-            else if(service.videoLibraryScanProgress == 100)
+            else if(service.videoLibraryScanProgress === 100)
             {
                 busyRefreshVideoLibrary.visible = false;
                 btnRefreshVideoLibrary.visible = false;
