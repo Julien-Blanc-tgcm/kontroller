@@ -83,6 +83,26 @@ const QVariantMap& Server::wakeUpPluginParameters() const
 	return wakeUpPluginParameters_;
 }
 
+bool Server::suspendEnabled() const
+{
+	return suspendEnabled_;
+}
+
+bool Server::hibernateEnabled() const
+{
+	return hibernateEnabled_;
+}
+
+bool Server::rebootEnabled() const
+{
+	return rebootEnabled_;
+}
+
+bool Server::poweroffEnabled() const
+{
+	return poweroffEnabled_;
+}
+
 void Server::setServerAddress(QString serverAddress)
 {
 	if (serverAddress_ == serverAddress)
@@ -192,6 +212,42 @@ void Server::setWakeUpPluginParameters(QVariantMap wakeUpPluginParameters)
 
 	wakeUpPluginParameters_ = wakeUpPluginParameters;
 	emit wakeUpPluginParametersChanged(wakeUpPluginParameters_);
+}
+
+void Server::setSuspendEnabled(bool suspendEnabled)
+{
+	if (suspendEnabled_ == suspendEnabled)
+		return;
+
+	suspendEnabled_ = suspendEnabled;
+	emit suspendEnabledChanged(suspendEnabled_);
+}
+
+void Server::setHibernateEnabled(bool hibernateEnabled)
+{
+	if (hibernateEnabled_ == hibernateEnabled)
+		return;
+
+	hibernateEnabled_ = hibernateEnabled;
+	emit hibernateEnabledChanged(hibernateEnabled_);
+}
+
+void Server::setRebootEnabled(bool rebootEnabled)
+{
+	if (rebootEnabled_ == rebootEnabled)
+		return;
+
+	rebootEnabled_ = rebootEnabled;
+	emit rebootEnabledChanged(rebootEnabled_);
+}
+
+void Server::setPoweroffEnabled(bool poweroffEnabled)
+{
+	if (poweroffEnabled_ == poweroffEnabled)
+		return;
+
+	poweroffEnabled_ = poweroffEnabled;
+	emit poweroffEnabledChanged(poweroffEnabled_);
 }
 
 }

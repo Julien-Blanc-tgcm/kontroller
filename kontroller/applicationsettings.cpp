@@ -76,6 +76,28 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 			server->setPassword(val.toString());
 		else
 			server->setPassword(QString{});
+
+		val = settings.value("suspendEnabled");
+		if (!val.isNull() && val.canConvert(QVariant::Bool))
+			server->setSuspendEnabled(val.toBool());
+		else
+			server->setSuspendEnabled(false);
+		val = settings.value("hibernateEnabled");
+		if (!val.isNull() && val.canConvert(QVariant::Bool))
+			server->setHibernateEnabled(val.toBool());
+		else
+			server->setHibernateEnabled(false);
+		val = settings.value("poweroffEnabled");
+		if (!val.isNull() && val.canConvert(QVariant::Bool))
+			server->setPoweroffEnabled(val.toBool());
+		else
+			server->setPoweroffEnabled(true);
+		val = settings.value("rebootEnabled");
+		if (!val.isNull() && val.canConvert(QVariant::Bool))
+			server->setRebootEnabled(val.toBool());
+		else
+			server->setRebootEnabled(true);
+
 		val = settings.value("volumePlugin");
 		if(!val.isNull() && val.canConvert(QVariant::String))
 		{

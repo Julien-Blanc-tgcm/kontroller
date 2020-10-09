@@ -6,7 +6,7 @@ import harbour.eu.tgcm 1.0
   */
 Page {
     id: root
-    property var remorse: nullptr
+    property var remorse: null
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: theCol.height
@@ -14,17 +14,32 @@ Page {
         PullDownMenu {
             visible: true
             MenuItem {
+                text: qsTr("Hibernate server")
+                onClicked: remorse = Remorse.popupAction(root,
+                                                         text,
+                                                         function() { systemService.hibernateServer(); })
+                visible: server && server.hibernateEnabled
+            }
+            MenuItem {
+                text: qsTr("Suspend server")
+                onClicked: remorse = Remorse.popupAction(root,
+                                                         text,
+                                                         function() { systemService.suspendServer(); })
+                visible: server && server.suspendEnabled
+            }
+            MenuItem {
                 text: qsTr("Shutdown server")
                 onClicked: remorse = Remorse.popupAction(root,
                                                          text,
                                                          function() { systemService.shutdownServer(); })
+                visible: server && server.poweroffEnabled
             }
             MenuItem {
                 text: qsTr("Reboot server")
                 onClicked: remorse = Remorse.popupAction(root,
                                                          text,
                                                          function() { systemService.rebootServer(); })
-
+                visible: server && server.rebootEnabled
             }
         }
 
@@ -315,4 +330,5 @@ Page {
         client: appClient
         id: systemService
     }
+    property var server: appClient.server
 }

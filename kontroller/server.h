@@ -37,7 +37,15 @@ class Server : public QObject
 
 	QVariantMap wakeUpPluginParameters_;
 
-public:
+	bool suspendEnabled_ = false;
+
+	bool hibernateEnabled_ = false;
+
+	bool rebootEnabled_ = true;
+
+	bool poweroffEnabled_ = true;
+
+  public:
 	explicit Server(QObject *parent = nullptr);
 	Q_PROPERTY(QString serverAddress READ serverAddress WRITE setServerAddress NOTIFY serverAddressChanged)
 	Q_PROPERTY(int serverPort READ serverPort WRITE setServerPort NOTIFY serverPortChanged)
@@ -55,6 +63,12 @@ public:
 	Q_PROPERTY(QString wakeUpPluginName READ wakeUpPluginName WRITE setWakeUpPluginName NOTIFY wakeUpPluginNameChanged)
 	Q_PROPERTY(QVariantMap wakeUpPluginParameters READ wakeUpPluginParameters WRITE setWakeUpPluginParameters NOTIFY
 	               wakeUpPluginParametersChanged)
+
+	Q_PROPERTY(bool suspendEnabled READ suspendEnabled WRITE setSuspendEnabled NOTIFY suspendEnabledChanged)
+	Q_PROPERTY(bool hibernateEnabled READ hibernateEnabled WRITE setHibernateEnabled NOTIFY hibernateEnabledChanged)
+	Q_PROPERTY(bool rebootEnabled READ rebootEnabled WRITE setRebootEnabled NOTIFY rebootEnabledChanged)
+	Q_PROPERTY(bool poweroffEnabled READ poweroffEnabled WRITE setPoweroffEnabled NOTIFY poweroffEnabledChanged)
+
 	QString serverAddress() const;
 
 	int serverPort() const;
@@ -80,6 +94,14 @@ public:
 	QString wakeUpPluginName() const;
 
 	QVariantMap const& wakeUpPluginParameters() const;
+
+	bool suspendEnabled() const;
+
+	bool hibernateEnabled() const;
+
+	bool rebootEnabled() const;
+
+	bool poweroffEnabled() const;
 
 signals:
 
@@ -110,6 +132,14 @@ signals:
 
 	void wakeUpPluginParametersChanged(QVariantMap wakeUpPluginParameters);
 
+	void suspendEnabledChanged(bool suspendEnabled);
+
+	void hibernateEnabledChanged(bool hibernateEnabled);
+
+	void rebootEnabledChanged(bool rebootEnabled);
+
+	void poweroffEnabledChanged(bool poweroffEnabled);
+
 public slots:
 	void setServerAddress(QString serverAddress);
 	void setServerPort(int serverPort);
@@ -127,6 +157,10 @@ public slots:
 	void setVolumePluginParameters(QVariantMap parameters);
 	void setWakeUpPluginName(QString wakeUpPluginName);
 	void setWakeUpPluginParameters(QVariantMap wakeUpPluginParameters);
+	void setSuspendEnabled(bool suspendEnabled);
+	void setHibernateEnabled(bool hibernateEnabled);
+	void setRebootEnabled(bool rebootEnabled);
+	void setPoweroffEnabled(bool poweroffEnabled);
 };
 
 }

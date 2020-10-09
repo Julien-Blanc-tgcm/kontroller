@@ -258,6 +258,148 @@ to make the remote control the amplifier volume.")
                 wrapMode: Text.WordWrap
                 visible: !selectingServer__()
             }
+
+            SectionHeader
+            {
+                text: qsTr("Server features")
+                visible: !selectingServer__()
+            }
+
+            TextSwitch {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                text: qsTr("Power off");
+                id: poweroffSupported
+                checked: appSettings.server(serverUuid).poweroffEnabled
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default")
+                visible: !selectingServer__()
+            }
+
+            TextSwitch {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                text: qsTr("Reboot");
+                id: rebootSupported
+                checked: appSettings.server(serverUuid).rebootEnabled
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default")
+                visible: !selectingServer__()
+            }
+
+            TextSwitch {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                text: qsTr("Hibernate");
+                id: hibernateSupported
+                checked: appSettings.server(serverUuid).hibernateEnabled
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default")
+                visible: !selectingServer__()
+            }
+
+            TextSwitch {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                text: qsTr("Suspend");
+                id: suspendSupported
+                checked: appSettings.server(serverUuid).suspendEnabled
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default")
+                visible: !selectingServer__()
+            }
+
+            ComboBox {
+                id: serverWakeUpPlugin
+                anchors.left: parent.left
+                anchors.right: parent.right
+                label: qsTr("WakeUp plugin")
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTr("None")
+                    }
+                    MenuItem {
+                        text: qsTr("WakeOnLan")
+                        onClicked: wakeUpMacAddress.focus = true
+                    }
+                }
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+                        currentIndex = 1;
+                    else
+                        currentIndex = 0;
+                }
+                visible: !selectingServer__()
+                onCurrentItemChanged: {
+                    if(currentIndex == 1)
+                    {
+                        refreshMacAddress()
+                    }
+                }
+            }
+            LinkedLabel {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
+                plainText: qsTr("Wake On Lan generally requires configuration on the server. See \
+https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.")
+                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
+            }
+
+            TextField {
+                id : wakeUpMacAddress
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                validator: RegExpValidator { regExp: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/ }
+                label:qsTr("Device mac address")
+                placeholderText: qsTr("Device mac address")
+                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+                        text = appSettings.server(serverUuid).wakeUpPluginParameters.macAddress;
+                    else
+                        text = ""
+                }
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: wakeUpMacPort.focus = true
+            }
+            TextField {
+                id : wakeUpMacPort
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
+                validator: IntValidator{ bottom:1; top:65535}
+                label:qsTr("Wake up port")
+                placeholderText: qsTr("Wake up port")
+                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
+                Component.onCompleted: {
+                    if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
+                        text = appSettings.server(serverUuid).wakeUpPluginParameters.port;
+                    else
+                        text = 9; // default value
+                }
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: wakeUpMacPort.focus = false
+            }
+
+            SectionHeader
+            {
+                text: qsTr("Volume handling")
+                visible: !selectingServer__()
+            }
+
             ComboBox {
                 id: serverVolumePlugin
                 anchors.left: parent.left
@@ -306,86 +448,6 @@ to make the remote control the amplifier volume.")
                 EnterKey.onClicked: miniDSPAddress.focus = false
             }
 
-            ComboBox {
-                id: serverWakeUpPlugin
-                anchors.left: parent.left
-                anchors.right: parent.right
-                label: qsTr("WakeUp plugin")
-                menu: ContextMenu {
-                    MenuItem {
-                        text: qsTr("None")
-                    }
-                    MenuItem {
-                        text: qsTr("WakeOnLan")
-                        onClicked: wakeUpMacAddress.focus = true
-                    }
-                }
-                Component.onCompleted: {
-                    if(appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
-                        currentIndex = 1;
-                    else
-                        currentIndex = 0;
-                }
-                visible: !selectingServer__()
-                onCurrentItemChanged: {
-                    if(currentIndex == 1)
-                    {
-                        refreshMacAddress()
-                    }
-                }
-            }
-            LinkedLabel {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                wrapMode: Text.WordWrap
-                color: Theme.highlightColor
-                plainText: qsTr("Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.")
-                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
-            }
-
-            TextField {
-                id : wakeUpMacAddress
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
-                validator: RegExpValidator { regExp: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/ }
-                label:qsTr("Device mac address")
-                placeholderText: qsTr("Device mac address")
-                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
-                Component.onCompleted: {
-                    if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
-                        text = appSettings.server(serverUuid).wakeUpPluginParameters.macAddress;
-                    else
-                        text = ""
-                }
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: wakeUpMacPort.focus = true
-            }
-            TextField {
-                id : wakeUpMacPort
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
-                validator: IntValidator{ bottom:1; top:65535}
-                label:qsTr("Wake up port")
-                placeholderText: qsTr("Wake up port")
-                visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
-                Component.onCompleted: {
-                    if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
-                        text = appSettings.server(serverUuid).wakeUpPluginParameters.port;
-                    else
-                        text = 9; // default value
-                }
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: wakeUpMacPort.focus = false
-            }
-
 
 /*            TextSwitch {
                 id: serverHasZones
@@ -420,6 +482,12 @@ to make the remote control the amplifier volume.")
         appSettings.server(serverUuid).setServerHttpPort(serverHttpPort.text);
         appSettings.server(serverUuid).setServerPort(serverPort.text);
         appSettings.server(serverUuid).setLogin(serverLogin.text);
+
+        appSettings.server(serverUuid).setRebootEnabled(rebootSupported.checked);
+        appSettings.server(serverUuid).setPoweroffEnabled(poweroffSupported.checked);
+        appSettings.server(serverUuid).setSuspendEnabled(suspendSupported.checked);
+        appSettings.server(serverUuid).setHibernateEnabled(hibernateSupported.checked);
+
         if(serverVolumePlugin.currentIndex === 0)
             appSettings.server(serverUuid).setVolumePluginName("Kodi");
         else
