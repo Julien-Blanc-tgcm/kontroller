@@ -19,7 +19,7 @@ Item {
         //anchors.top:subDisplay.bottom
         minimumValue: 0
         maximumValue: 100
-        value: getPercentage(player)
+        value: 0
         onPressedChanged: {
             if(!pressed && player && player.canSeek)
                 player.percentage = value
@@ -165,5 +165,19 @@ Item {
             return qsTr("Next: <i>%1</i>").arg(item.label)
         else
             return item.type;
+    }
+
+    function updatePercentage(value)
+    {
+        progressSlider.value = value
+    }
+
+    onPlayerChanged: {
+        if(player)
+            player.onPercentageChanged.connect(updatePercentage);
+    }
+    Component.onDestruction: {
+        if(player)
+            player.onPercentageChanged.disconnect(updatePercentage);
     }
 }
