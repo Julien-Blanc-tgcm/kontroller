@@ -76,6 +76,25 @@ void AlbumsRequest::startRecentlyAdded()
 		emit finished();
 }
 
+void AlbumsRequest::startRecentlyPlayed()
+{
+	QJsonObject parameters;
+	QJsonArray properties;
+	properties.append(QLatin1String("thumbnail"));
+	parameters.insert("properties", properties);
+	QJsonObject sort;
+	sort["order"] = QLatin1String("descending");
+	sort["method"] = QLatin1String("lastplayed");
+	sort["ignorearticle"] = client_->sortIgnoreArticle();
+	parameters.insert("sort", sort);
+	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetRecentlyPlayedAlbums", parameters);
+	QJsonRpcServiceReply* reply = client_->send(message);
+	if(reply)
+		connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumsRequest::parseAlbumsResult);
+	else
+		emit finished();
+}
+
 void AlbumsRequest::parseAlbumsResult()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());

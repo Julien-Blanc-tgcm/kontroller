@@ -36,6 +36,11 @@ class AlbumsRequest : public QObject
 	void startRecentlyAdded();
 
 	/**
+	 * @brief startRecentlyPlayed starts a recently added albums request
+	 */
+	void startRecentlyPlayed();
+
+	/**
 	 * @brief startFavorites starts a request to retrieve favorites albums
 	 */
 	void startFavorites();

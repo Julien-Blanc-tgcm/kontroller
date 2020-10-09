@@ -267,18 +267,24 @@ void MusicService::refresh_collection()
 				if(reply)
 					connect(reply, SIGNAL(finished()), this, SLOT(parseGenresResults()));
 			}
-			else if (browsingValue_ == "recentalbums")
+			else if (browsingValue_ == "recentlyaddedalbums")
 			{
 				auto req = new AlbumsRequest(client_, this);
 				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
 				req->startRecentlyAdded();
 			}
-			else if (browsingValue_ == "favoritesalbums")
+			else if(browsingValue_ == "recentlyplayedalbums")
 			{
 				auto req = new AlbumsRequest(client_, this);
 				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
-				req->startFavorites();
+				req->startRecentlyPlayed();
 			}
+//			else if (browsingValue_ == "favoritesalbums")
+//			{
+//				auto req = new AlbumsRequest(client_, this);
+//				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+//				req->startFavorites();
+//			}
 		}
 		else if(browsingMode_ == "artist")
 		{
@@ -339,10 +345,16 @@ void MusicService::refresh_collection()
 		file.setIcon("folder");
 		files_.push_back(file);
 		file.setLabel(tr("Recently added albums"));
-		file.setFile("recentalbums");
+		file.setFile("recentlyaddedalbums");
 		file.setType("media");
 		file.setFiletype("media");
-		file.setIcon("recentalbums");
+		file.setIcon("recentlyaddedalbums");
+		files_.push_back(file);
+		file.setLabel(tr("Recently played albums"));
+		file.setFile("recentlyplayedalbums");
+		file.setType("media");
+		file.setFiletype("media");
+		file.setIcon("recentlyplayedalbums");
 		files_.push_back(file);
 		refreshAddons_();
 		emit filesAsListChanged();
