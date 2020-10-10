@@ -269,7 +269,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Power off");
                 id: poweroffSupported
                 checked: appSettings.server(serverUuid).poweroffEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default")
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default.")
                 visible: !selectingServer__()
             }
 
@@ -281,7 +281,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Reboot");
                 id: rebootSupported
                 checked: appSettings.server(serverUuid).rebootEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default")
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default.")
                 visible: !selectingServer__()
             }
 
@@ -293,7 +293,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Hibernate");
                 id: hibernateSupported
                 checked: appSettings.server(serverUuid).hibernateEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default")
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default.")
                 visible: !selectingServer__()
             }
 
@@ -305,7 +305,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Suspend");
                 id: suspendSupported
                 checked: appSettings.server(serverUuid).suspendEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default")
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default.")
                 visible: !selectingServer__()
             }
 
