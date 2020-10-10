@@ -380,6 +380,10 @@ Item {
             return "image://assets/icons/icon-m-tv";
         if(icon === "musicvideos" || icon === "musicvideo")
             return "image://assets/icons/icon-m-musicvideo";
+        if(icon === "recentlyaddedalbums")
+            return "image://assets/icons/icon-m-recently-added";
+        if(icon === "recentlyplayedalbums")
+            return "image://assets/icons/icon-m-recently-played";
         return "";
     }
 }
