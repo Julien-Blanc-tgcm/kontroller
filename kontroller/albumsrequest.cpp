@@ -64,8 +64,8 @@ void AlbumsRequest::startRecentlyAdded()
 	properties.append(QLatin1String("thumbnail"));
 	parameters.insert("properties", properties);
 	QJsonObject sort;
-	sort["order"] = QLatin1String("ascending");
-	sort["method"] = QLatin1String("label");
+	sort["order"] = QLatin1String("descending");
+	sort["method"] = QLatin1String("dateadded");
 	sort["ignorearticle"] = client_->sortIgnoreArticle();
 	parameters.insert("sort", sort);
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetRecentlyAddedAlbums", parameters);
