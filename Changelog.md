@@ -1,11 +1,16 @@
 # Changelog
 
+## Version 0.17
+
+* Added recently added / recently played items in music
+* Improved currently playing page
+
 ## Version 0.16
 
 * Fixed several usability issues 
   * no longer uses a pulldown menu for volume / playing options, instead
     clicking on the album art goes to the currently playing page
-  * shows the volume in tho dock
+  * shows the volume in the dock
   * reworked the currently playing page
 * added a remorse on the stop button
 
