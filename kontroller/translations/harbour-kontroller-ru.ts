@@ -942,29 +942,39 @@
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="295"/>
+        <location filename="../musicservice.cpp" line="313"/>
         <source>Artists</source>
         <translation>Исполнители</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="303"/>
+        <location filename="../musicservice.cpp" line="321"/>
         <source>Albums</source>
         <translation>Альбомы</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="309"/>
+        <location filename="../musicservice.cpp" line="327"/>
         <source>Songs</source>
         <translation>Песни</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="316"/>
+        <location filename="../musicservice.cpp" line="334"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="323"/>
+        <location filename="../musicservice.cpp" line="341"/>
         <source>Files</source>
         <translation>Файлы</translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="347"/>
+        <source>Recently added albums</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="353"/>
+        <source>Recently played albums</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
