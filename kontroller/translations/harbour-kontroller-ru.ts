@@ -73,7 +73,17 @@
         <translation>Песни:</translation>
     </message>
     <message>
-        <location filename="../qml_sources/sailfish/AlbumInformationPage.qml" line="182"/>
+        <location filename="../qml_sources/sailfish/AlbumInformationPage.qml" line="161"/>
+        <source>Add to playlist</source>
+        <translation>Добавить в список</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/AlbumInformationPage.qml" line="165"/>
+        <source>Play immediately</source>
+        <translation>Играть сейчас</translation>
+    </message>
+    <message>
+        <location filename="../qml_sources/sailfish/AlbumInformationPage.qml" line="181"/>
         <source>Description:</source>
         <translation>Описание:</translation>
     </message>
