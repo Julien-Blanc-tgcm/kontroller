@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
 	auto client = new eu::tgcm::kontroller::Client(&applicationSettings, app.data());
 	view->rootContext()->setContextProperty(QString::fromUtf8("appSettings"), &applicationSettings);
 	view->rootContext()->setContextProperty(QString::fromUtf8("appClient"), client);
-	view->setSource(SailfishApp::pathTo("qml/sailfish/kontroller.qml"));
+	view->setSource(SailfishApp::pathTo("qml/kontroller.qml"));
 	view->show();
 #else
 	QApplication* app = new QApplication(argc, argv);

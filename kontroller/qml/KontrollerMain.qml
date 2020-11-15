@@ -247,14 +247,12 @@ Page {
 
     function pushRemotePage()
     {
-        pageStack.pushAttached(Qt.resolvedUrl("RemoteControl.qml"));
-        pageStack.navigateForward(PageStackAction.Animated)
+        pageStack.push(Qt.resolvedUrl("RemoteControl.qml"));
     }
 
     function pushCurrentPage()
     {
-        pageStack.pushAttached(Qt.resolvedUrl("CurrentlyPlaying.qml"));
-        pageStack.navigateForward(PageStackAction.Animated)
+        pageStack.push(Qt.resolvedUrl("CurrentlyPlaying.qml"));
     }
 
     function toMenu()

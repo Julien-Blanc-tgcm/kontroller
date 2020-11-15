@@ -65,18 +65,6 @@ SOURCES += main.cpp \
     wolwakeupplugin.cpp
 
 
-CONFIG(sailfish) {
-    RESOURCES += qml_sources/sailfish/qml.qrc
-#    OTHER_FILES += qml/sailfish/kontroller.qml \
-#        qml/sailfish/cover/CoverPage.qml \
-#        qml/sailfish/KontrollerMain.qml \
-#        qml/sailfish/AlbumInformationPage.qml
-
-} else {
-#    RESOURCES += qml_sources/generic/qml.qrc
-    message("Adding generic components to resources")
-}
-
 INCLUDEPATH += ../qjsonrpc/src \
     ../lib
 
@@ -116,7 +104,7 @@ TRANSLATIONS += \
         translations/harbour-kontroller-de.ts
 
 TRANSLATION_SOURCES += $$PWD/*.cpp \
-    $$PWD/qml_sources/sailfish/*.qml
+    $$PWD/qml/*.qml
 
 #LIBS += -L../build-qjsonrpc-Android_pour_armeabi_v7a_GCC_4_8_Qt_5_2_1-Debug/src
 LIBS += -lqjsonrpc
@@ -192,16 +180,13 @@ DISTFILES += kontroller.prf \
     harbour-kontroller.desktop
 
 
-qml_sources.files = qml_sources/sailfish
-qml_sources.path = /usr/share/$${TARGET}/qml
-
 disticons.files = icons/sailfish/*
 disticons.path = /usr/share/$${TARGET}/assets
 
 #OTHER_FILES += icons/sailfish/*
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
-INSTALLS += qml_sources disticons
+INSTALLS += disticons
 
 #lib.path = /usr/share/harbour-kontroller/lib/
 #lib.files += ../qjsonrpc/src/libqjsonrpc.so.1

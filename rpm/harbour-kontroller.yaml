@@ -22,7 +22,7 @@ Requires:
 Files:
 - '%{_datadir}/icons/hicolor/*/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
-- '%{_datadir}/%{name}/qml/sailfish'
+- '%{_datadir}/%{name}/qml'
 - '%{_bindir}'
 - '%{_datadir}/%{name}/translations'
 - '%{_datadir}/%{name}/assets'

@@ -21,6 +21,10 @@ Page {
                 text: qsTr("Remote control")
                 onClicked: pushRemotePage()
             }
+            MenuItem {
+                text: qsTr("Playlist")
+                onClicked: pageStack.push(Qt.resolvedUrl("PlaylistPage.qml"))
+            }
         }
 
         Column
@@ -120,6 +124,20 @@ Page {
                 id:playerControl
                 visible: somethingPlaying()
                 showLabel: false
+            }
+
+            Label {
+                text: visible?qsTr("Next: %1").arg(player.playingInformation.nextItem.label):""
+                color: Theme.highlightColor
+                visible: player && player.playingInformation &&
+                         player.playingInformation.nextItem && player.playingInformation.nextItem.label !== ""
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                wrapMode: Text.Wrap
+                font.italic: true
+                horizontalAlignment: Text.AlignHCenter
             }
 
             SectionHeader {
