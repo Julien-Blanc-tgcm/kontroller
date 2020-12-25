@@ -76,6 +76,8 @@ void PlayerService::refreshPlayerInfoCb_()
 {
 	QVector<bool> playerStillExistings; // stores a list of players still existing. Deleting and recreating
 	                                        // players cause a glitch, so we try to update them instead
+	bool playersHaveChanged = false; // stores whether there has been an addition or removal on a player. Is used
+	                                 // to signal the event
 	for(int i = 0; i < currentPlayers_.size(); ++i)
 		playerStillExistings.push_back(false);
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
@@ -107,6 +109,7 @@ void PlayerService::refreshPlayerInfoCb_()
 							}
 							if(player == nullptr)
 							{
+								playersHaveChanged = true; // new player, need to signal
 								currentPlayers_.push_back(new Player(client_, this));
 								player = currentPlayers_.back();
 							}
@@ -127,6 +130,7 @@ void PlayerService::refreshPlayerInfoCb_()
 		{
 			itExists = playerStillExistings.erase(itExists);
 			(*itPlayers)->deleteLater();
+			playersHaveChanged = true; // deleted player, change !
 			itPlayers = currentPlayers_.erase(itPlayers);
 		}
 		else
@@ -135,7 +139,8 @@ void PlayerService::refreshPlayerInfoCb_()
 			++itPlayers;
 		}
 	}
-	emit playersChanged();
+	if(playersHaveChanged)
+		emit playersChanged();
 	refreshPending_ = false;
 }
 
