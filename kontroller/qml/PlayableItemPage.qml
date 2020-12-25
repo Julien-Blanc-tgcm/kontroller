@@ -208,6 +208,7 @@ Item {
                 anchors.rightMargin: btnplay.visible ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
                 wrapMode: Text.Wrap
+                opacity: modelData.played?0.5:1
             }
             IconButton {
                 id:btnplay

@@ -1,5 +1,7 @@
 #include "file.h"
 
+#include <QDataStream>
+
 namespace eu
 {
 namespace tgcm
@@ -22,6 +24,11 @@ QString File::icon() const
 	return icon_;
 }
 
+bool File::played() const
+{
+	return played_;
+}
+
 void File::setId(int id)
 {
 	id_ = id;
@@ -30,6 +37,11 @@ void File::setId(int id)
 void File::setIcon(QString icon)
 {
 	icon_ = icon;
+}
+
+void File::setPlayed(bool played)
+{
+	played_ = played;
 }
 
 int File::id() const
@@ -85,6 +97,9 @@ void File::setType(QString type)
 QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::File& file)
 {
 	QString data;
+	int id_;
+	stream >> id_;
+	file.setId(id_);
 	stream >> data;
 	file.setFile(data);
 	stream >> data;
@@ -95,10 +110,16 @@ QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::File& file)
 	file.setType(data);
 	stream >> data;
 	file.setThumbnail(data);
+	stream >> data;
+	file.setIcon(data);
+	bool p = false;
+	stream >> p;
+	file.setPlayed(p);
 	return stream;
 }
 
 QDataStream& operator<<(QDataStream& stream, const eu::tgcm::kontroller::File& file)
 {
-	return stream << file.file() << file.filetype() << file.label() << file.type() << file.thumbnail();
+	return stream << file.id() << file.file() << file.filetype() << file.label() << file.type() << file.thumbnail()
+	              << file.icon() << file.played();
 }

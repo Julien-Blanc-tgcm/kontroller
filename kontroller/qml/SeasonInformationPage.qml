@@ -93,6 +93,7 @@ Page {
                         anchors.leftMargin: img.visible ? Theme.paddingSmall: Theme.horizontalPageMargin
                         anchors.verticalCenter: parent.verticalCenter
                         id: lbl
+                        opacity: model.modelData.played?0.5:1
                     }
                     IconButton {
                         id: btnPlay
