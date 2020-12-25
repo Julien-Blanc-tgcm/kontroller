@@ -20,6 +20,8 @@ SOURCES += main.cpp \
     kodiservicediscovery.cpp \
     libraryservice.cpp \
     musicservice.cpp \
+    requests/moviesrequest.cpp \
+    requests/tvshowsrequest.cpp \
     sbiconimageprovider.cpp \
     statusservice.cpp \
     playlistservice.cpp \
@@ -115,6 +117,8 @@ HEADERS += \
     kodiservicediscovery.h \
     libraryservice.h \
     musicservice.h \
+    requests/moviesrequest.hpp \
+    requests/tvshowsrequest.hpp \
     sbiconimageprovider.h \
     statusservice.h \
     playlistservice.h \

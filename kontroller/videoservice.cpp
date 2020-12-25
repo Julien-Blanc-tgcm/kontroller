@@ -1,8 +1,10 @@
 #include "videoservice.h"
 
 #include "client.h"
+#include "requests/moviesrequest.hpp"
 #include "requests/tvshowepisodesrequest.h"
 #include "requests/tvshowseasonsrequest.h"
+#include "requests/tvshowsrequest.hpp"
 #include "utils.h"
 
 namespace eu
@@ -208,17 +210,15 @@ void VideoService::refresh_collection()
 		{
 			if (browsingValue_ == "movies")
 			{
-				message = QJsonRpcMessage::createRequest("VideoLibrary.GetMovies", parameters);
-				QJsonRpcServiceReply* reply = client_->send(message);
-				if (reply)
-					connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseMoviesResults_);
+				auto req = new MoviesRequest(client_);
+				connect(req, &MoviesRequest::finished, this, &VideoService::parseMoviesResults_);
+				req->start();
 			}
 			else if (browsingValue_ == "tvshows")
 			{
-				message = QJsonRpcMessage::createRequest("VideoLibrary.GetTVShows", parameters);
-				QJsonRpcServiceReply* reply = client_->send(message);
-				if (reply)
-					connect(reply, &QJsonRpcServiceReply::finished, this, &VideoService::parseTVShowsResults_);
+				auto req = new TvShowsRequest(client_);
+				connect(req, &TvShowsRequest::finished, this, &VideoService::parseTVShowsResults_);
+				req->start();
 			}
 			else if (browsingValue_ == "musicvideos")
 			{
@@ -252,26 +252,6 @@ void VideoService::refresh_collection()
 			auto req = new TvShowEpisodesRequest(client_);
 			connect(req, &TvShowEpisodesRequest::finished, this, &VideoService::parseEpisodesResults_);
 			req->start(list[0].toInt(), list[1].toInt());
-		}
-		else if (browsingMode_ == "album")
-		{
-			QJsonObject filter;
-			filter["albumid"] = browsingValue_.toInt();
-			parameters.insert("filter", filter);
-			message = QJsonRpcMessage::createRequest("AudioLibrary.GetSongs", parameters);
-			QJsonRpcServiceReply* reply = client_->send(message);
-			if (reply)
-				connect(reply, SIGNAL(finished()), this, SLOT(parseSongsResults()));
-		}
-		else if (browsingMode_ == "genre")
-		{
-			QJsonObject filter;
-			filter["genreid"] = browsingValue_.toInt();
-			parameters.insert("filter", filter);
-			message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
-			QJsonRpcServiceReply* reply = client_->send(message);
-			if (reply)
-				connect(reply, SIGNAL(finished()), this, SLOT(parseAlbumsResults()));
 		}
 		else
 			setRefreshing(false);
@@ -319,44 +299,10 @@ void VideoService::refresh_collection()
 
 void VideoService::parseMoviesResults_()
 {
-	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if (reply)
+	auto reply = dynamic_cast<MoviesRequest*>(sender());
+	if (reply && reply->success)
 	{
-		QJsonRpcMessage response = reply->response();
-		QJsonObject obj = response.toObject();
-		if (obj.find("result") != obj.end())
-		{
-			QJsonValue result = obj.take("result");
-			if (result.type() == QJsonValue::Object)
-			{
-				QJsonValue files;
-				files = result.toObject().take("movies");
-				if (files.type() == QJsonValue::Array)
-				{
-					QJsonArray const res = files.toArray();
-					for (auto const& f : res)
-					{
-						File file;
-						if (f.type() == QJsonValue::Object)
-						{
-							QJsonObject obj = f.toObject();
-							QJsonValue val = obj.value("label");
-							if (val.type() == QJsonValue::String)
-								file.setLabel(val.toString());
-							val = obj.value("movieid");
-							if (val.type() == QJsonValue::Double)
-								file.setId(static_cast<int>(val.toDouble()));
-							file.setFile(obj.value("file").toString());
-							file.setFiletype("movie");
-							file.setType("movie");
-							file.setIcon("movie");
-							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
-							files_.push_back(file);
-						}
-					}
-				}
-			}
-		}
+		files_ = reply->results;
 	}
 	setRefreshing(false);
 	emit filesChanged();
@@ -365,47 +311,13 @@ void VideoService::parseMoviesResults_()
 
 void VideoService::parseTVShowsResults_()
 {
-	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if (reply)
+	auto reply = dynamic_cast<TvShowsRequest*>(sender());
+	if (reply && reply->success)
 	{
-		QJsonRpcMessage response = reply->response();
-		QJsonObject obj = response.toObject();
-		if (obj.find("result") != obj.end())
-		{
-			QJsonValue result = obj.take("result");
-			if (result.type() == QJsonValue::Object)
-			{
-				QJsonValue files;
-				files = result.toObject().take("tvshows");
-				if (files.type() == QJsonValue::Array)
-				{
-					QJsonArray res = files.toArray();
-					for (QJsonArray::const_iterator it = res.begin(); it != res.end(); ++it)
-					{
-						File file;
-						if ((*it).type() == QJsonValue::Object)
-						{
-							QJsonObject obj = (*it).toObject();
-							QJsonValue val = obj.value("label");
-							if (val.type() == QJsonValue::String)
-								file.setLabel(val.toString());
-							val = obj.value("tvshowid");
-							if (val.type() == QJsonValue::Double)
-								file.setId(static_cast<int>(val.toDouble()));
-							file.setFile(obj.value("file").toString());
-							file.setFiletype("tvshow");
-							file.setType("tvshow");
-							file.setIcon("tvshow");
-							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
-							files_.push_back(file);
-						}
-					}
-				}
-			}
-		}
+		files_ = reply->results;
 	}
-	emit filesChanged();
 	setRefreshing(false);
+	emit filesChanged();
 	sender()->deleteLater();
 }
 
