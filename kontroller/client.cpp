@@ -3,8 +3,8 @@
 #include "applicationsettings.h"
 #include "playerservice.h"
 
-#include "kodivolumeplugin.h"
-#include "minidspvolumeplugin.h"
+#include "plugins/volume/kodivolumeplugin.h"
+#include "plugins/volume/minidspvolumeplugin.h"
 
 #include "wolwakeupplugin.h"
 

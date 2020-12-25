@@ -1,7 +1,7 @@
 #include "applicationsettings.h"
 
-#include "kodivolumeplugin.h"
-#include "minidspvolumeplugin.h"
+#include "plugins/volume/kodivolumeplugin.h"
+#include "plugins/volume/minidspvolumeplugin.h"
 
 #include <QSettings>
 #include <QDir>

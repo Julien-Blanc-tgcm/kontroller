@@ -2,9 +2,6 @@
 
 #include <QUuid>
 
-#include <kodivolumeplugin.h>
-#include <minidspvolumeplugin.h>
-
 namespace eu
 {
 namespace tgcm

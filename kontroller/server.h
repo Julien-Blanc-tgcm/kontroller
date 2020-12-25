@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QVariantMap>
 
-#include "volumeplugin.h"
+#include "plugins/volume/volumeplugin.h"
 
 namespace eu
 {

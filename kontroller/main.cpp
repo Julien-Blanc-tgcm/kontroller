@@ -35,9 +35,9 @@
 #include "videocontrol.h"
 #include "videoservice.h"
 
-#include "volumeplugin.h"
-#include "kodivolumeplugin.h"
-#include "minidspvolumeplugin.h"
+#include "plugins/volume/volumeplugin.h"
+#include "plugins/volume/kodivolumeplugin.h"
+#include "plugins/volume/minidspvolumeplugin.h"
 
 #include "wakeupplugin.h"
 #include "wolwakeupplugin.h"

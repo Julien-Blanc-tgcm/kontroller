@@ -51,9 +51,9 @@ SOURCES += main.cpp \
     server.cpp \
     themeinformation.cpp \
     downloadservice.cpp \
-    volumeplugin.cpp \
-    kodivolumeplugin.cpp \
-    minidspvolumeplugin.cpp \
+    plugins/volume/volumeplugin.cpp \
+    plugins/volume/kodivolumeplugin.cpp \
+    plugins/volume/minidspvolumeplugin.cpp \
     requests/tvshowepisodesrequest.cpp \
     requests/albumsrequest.cpp \
     requests/songsrequest.cpp \
@@ -148,9 +148,9 @@ HEADERS += \
     server.h \
     themeinformation.h \
     downloadservice.h \
-    volumeplugin.h \
-    kodivolumeplugin.h \
-    minidspvolumeplugin.h \
+    plugins/volume/volumeplugin.h \
+    plugins/volume/kodivolumeplugin.h \
+    plugins/volume/minidspvolumeplugin.h \
     wakeupplugin.h \
     wolwakeupplugin.h \
     requests/albumsrequest.h \
