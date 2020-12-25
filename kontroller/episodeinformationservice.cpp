@@ -85,6 +85,11 @@ Client* EpisodeInformationService::client() const
 	return client_;
 }
 
+int EpisodeInformationService::resumePosition() const
+{
+	return resumePosition_;
+}
+
 void EpisodeInformationService::setPlot(QString plot)
 {
 	if (plot_ == plot)
@@ -235,6 +240,16 @@ void EpisodeInformationService::playFile()
 	videoControl_->playFile(file);
 }
 
+void EpisodeInformationService::resumeFile()
+{
+	File file;
+	file.setFiletype("episode");
+	file.setType("episode");
+	file.setId(episodeId_);
+	file.setLabel(title());
+	videoControl_->resumeFile(file, resumePosition_);
+}
+
 void EpisodeInformationService::setClient(Client* client)
 {
 	if (client_ == client)
@@ -243,6 +258,15 @@ void EpisodeInformationService::setClient(Client* client)
 	client_ = client;
 	videoControl_->setClient(client_);
 	emit clientChanged(client_);
+}
+
+void EpisodeInformationService::setResumePosition(int resumePosition)
+{
+	if (resumePosition_ == resumePosition)
+		return;
+
+	resumePosition_ = resumePosition;
+	emit resumePositionChanged(resumePosition_);
 }
 
 void EpisodeInformationService::handleRefresh_()
@@ -269,6 +293,15 @@ void EpisodeInformationService::handleRefresh_()
 		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
 		setLastplayed(QDateTime::fromString(details.value("lastplayed").toString(), Qt::ISODate));
 		setSeason(details.value("season").toDouble());
+		auto v = details.value("resume");
+		if (v.isObject())
+		{
+			v = v.toObject().value("position");
+			if (v.isDouble())
+			{
+				setResumePosition(v.toDouble());
+			}
+		}
 	}
 }
 

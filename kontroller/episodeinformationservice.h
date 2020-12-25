@@ -37,7 +37,9 @@ class EpisodeInformationService : public QObject
 
 	VideoControl* videoControl_;
 
-  public:
+	int resumePosition_;
+
+public:
 	explicit EpisodeInformationService(QObject* parent = nullptr);
 
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
@@ -54,6 +56,7 @@ class EpisodeInformationService : public QObject
 	Q_PROPERTY(QDateTime lastplayed READ lastplayed WRITE setLastplayed NOTIFY lastplayedChanged)
 	Q_PROPERTY(int season READ season WRITE setSeason NOTIFY seasonChanged)
 	Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
+	Q_PROPERTY(int resumePosition READ resumePosition WRITE setResumePosition NOTIFY resumePositionChanged)
 
 	QString plot() const;
 
@@ -83,7 +86,9 @@ class EpisodeInformationService : public QObject
 
 	eu::tgcm::kontroller::Client* client() const;
 
-  signals:
+	int resumePosition() const;
+
+signals:
 
 	void plotChanged(QString plot);
 
@@ -113,7 +118,9 @@ class EpisodeInformationService : public QObject
 
 	void clientChanged(eu::tgcm::kontroller::Client* client);
 
-  public slots:
+	void resumePositionChanged(int resumePosition);
+
+public slots:
 	void setPlot(QString plot);
 	void setRating(double rating);
 	void setRuntime(int runtime);
@@ -132,9 +139,13 @@ class EpisodeInformationService : public QObject
 
 	void playFile();
 
+	void resumeFile();
+
 	void setClient(eu::tgcm::kontroller::Client* client);
 
-  private slots:
+	void setResumePosition(int resumePosition);
+
+private slots:
 	void handleRefresh_();
 };
 

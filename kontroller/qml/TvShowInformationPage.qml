@@ -43,6 +43,7 @@ Page {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top:header.bottom
+            spacing: Theme.paddingSmall
             id:col
             PropertiesWithImage {
                 anchors.left: parent.left

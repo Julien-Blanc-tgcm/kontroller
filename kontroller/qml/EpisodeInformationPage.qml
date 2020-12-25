@@ -3,6 +3,7 @@ import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "utils.js" as Utils
 import "."
+import "./components"
 
 Page {
     id:main
@@ -34,42 +35,37 @@ Page {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: header.bottom
+            spacing: Theme.paddingSmall
 
-            Repeater {
-                id:properties
-                model:[
-                    {text:qsTr("Rating:"), value:Utils.formatRating(service.rating)},
-                    {text:qsTr("Season:"), value:service.season},
-                    {text:qsTr("Episode:"), value:service.episode},
-                    {text:qsTr("Runtime:"), value:Utils.formatTime(service.runtime)},
-                    {text:qsTr("Last played:"), value:Utils.formatDate(service.lastplayed)}
+            PropertiesWithImage {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                properties: [
+                    qsTr("<b>Rating:</b> %1").arg(Utils.formatRating(service.rating)),
+                    qsTr("<b>Season:</b> %1").arg(service.season),
+                    qsTr("<b>Episode:</b> %1").arg(service.episode),
+                    qsTr("<b>Runtime:</b> %1").arg(Utils.formatTime(service.runtime)),
+                    qsTr("<b>Last played:</b> %1").arg(Utils.formatDate(service.lastplayed))
                 ]
-                delegate: Item {
-                    height:Theme.itemSizeSmall
-                    anchors.left: theCol.left
-                    anchors.right: theCol.right
-                    Label {
-                        id:txt
-                        text: model.modelData.text
-                        font.bold: true
-                        x:Theme.horizontalPageMargin
-                        verticalAlignment: Text.AlignVCenter
-                        color:Theme.highlightColor
-                    }
-                    Label {
-                        anchors.left: txt.right
-                        anchors.leftMargin: Theme.paddingSmall
-                        text:typeof(model.modelData.value) !== "undefined"?model.modelData.value:""
-                        color:Theme.highlightColor
-                    }
-                }
             }
 
-            Button {
-                text:qsTr("Play episode")
-                id:playlink
-                onClicked: service.playFile()
-                anchors.horizontalCenter: parent.horizontalCenter
+            Column { // create a new column to avoid spacing between the two elements
+                width:parent.width
+                ResumeButton {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onResume: service.resumeFile()
+                    onPlay: service.playFile()
+                    labelPlay: qsTr("Play episode")
+                    labelResume: qsTr("Resume episode")
+                    offerResume: service.resumePosition !== 0
+                }
+                Label {
+                    text: qsTr("(at %1)").arg(Utils.formatTime(service.resumePosition))
+                    font.italic: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: Theme.highlightColor
+                    visible: service.resumePosition !== 0
+                }
             }
 
             Label {

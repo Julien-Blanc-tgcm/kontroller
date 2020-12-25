@@ -192,37 +192,47 @@
 <context>
     <name>EpisodeInformationPage</name>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="41"/>
-        <source>Rating:</source>
-        <translation>Note :</translation>
-    </message>
-    <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="42"/>
-        <source>Season:</source>
-        <translation>Saison :</translation>
-    </message>
-    <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="43"/>
-        <source>Episode:</source>
-        <translation>Épisode :</translation>
-    </message>
-    <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="44"/>
-        <source>Runtime:</source>
-        <translation>Durée :</translation>
+        <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Note :&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="45"/>
-        <source>Last played:</source>
-        <translation>Vu le :</translation>
+        <source>&lt;b&gt;Season:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Saison :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="69"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="46"/>
+        <source>&lt;b&gt;Episode:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Épisode :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/EpisodeInformationPage.qml" line="47"/>
+        <source>&lt;b&gt;Runtime:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Durée :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/EpisodeInformationPage.qml" line="48"/>
+        <source>&lt;b&gt;Last played:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Vu le :&lt;/b&gt; %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/EpisodeInformationPage.qml" line="58"/>
         <source>Play episode</source>
         <translation>Démarrer la lecture</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="77"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="59"/>
+        <source>Resume episode</source>
+        <translation>Reprendre la lecture</translation>
+    </message>
+    <message>
+        <location filename="../qml/EpisodeInformationPage.qml" line="63"/>
+        <source>(at %1)</source>
+        <translation>(à %1)</translation>
+    </message>
+    <message>
+        <location filename="../qml/EpisodeInformationPage.qml" line="73"/>
         <source>Plot:</source>
         <translation>Intrigue :</translation>
     </message>
@@ -495,17 +505,17 @@
 <context>
     <name>PlayerProperties</name>
     <message>
-        <location filename="../qml/PlayerProperties.qml" line="18"/>
+        <location filename="../qml/PlayerProperties.qml" line="19"/>
         <source>Subtitles</source>
         <translation>Sous-titres</translation>
     </message>
     <message>
-        <location filename="../qml/PlayerProperties.qml" line="36"/>
+        <location filename="../qml/PlayerProperties.qml" line="37"/>
         <source>No subtitles available</source>
         <translation>Aucun sous-titres disponible</translation>
     </message>
     <message>
-        <location filename="../qml/PlayerProperties.qml" line="46"/>
+        <location filename="../qml/PlayerProperties.qml" line="47"/>
         <source>Audio</source>
         <translation>Piste audio</translation>
     </message>
@@ -895,7 +905,7 @@
 <context>
     <name>TvShowInformationPage</name>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="64"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="65"/>
         <source>Seasons:</source>
         <translation>Saisons :</translation>
     </message>
@@ -915,32 +925,32 @@
         <translation>Retour au menu</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="51"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="52"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Année :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="52"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="53"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="53"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="54"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Note :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="54"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Seasons:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Saisons :&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="55"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Épisodes:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="112"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="113"/>
         <source>Plot</source>
         <translation>Intrigue</translation>
     </message>
@@ -1007,7 +1017,7 @@
 <context>
     <name>eu::tgcm::kontroller::Player</name>
     <message>
-        <location filename="../player.cpp" line="520"/>
+        <location filename="../player.cpp" line="575"/>
         <source>No subtitle</source>
         <translation>Aucun sous-titres</translation>
     </message>

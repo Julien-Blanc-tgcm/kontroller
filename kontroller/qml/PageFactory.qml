@@ -115,7 +115,7 @@ QtObject {
         if(currentlyPlayingPageComponent.status !== Component.Ready)
         {
             console.log("Error at CurrentlyPlaying component creation");
-            console.log(videoPageComponent.errorString());
+            console.log(currentlyPlayingPageComponent.errorString());
             return;
         }
         var page = currentlyPlayingPageComponent.createObject(pageStack);

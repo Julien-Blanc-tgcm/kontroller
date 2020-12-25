@@ -106,6 +106,11 @@ Client* MovieInformationService::client() const
 	return client_;
 }
 
+int MovieInformationService::resumePosition() const
+{
+	return resumePosition_;
+}
+
 MovieInformationService::MovieInformationService(QObject *parent) : QObject(parent),
     year_(0),
     ctrl_{new VideoControl(this)}
@@ -125,6 +130,8 @@ void MovieInformationService::refresh()
 	properties.append(QString("plot"));
 	properties.append(QString("rating"));
 	properties.append(QString("file"));
+	properties.append(QString("resume"));
+	properties.append(QString("lastplayed"));
 	parameters["properties"] = properties;
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetMovieDetails", parameters);
 	auto reply = client_->send(message);
@@ -148,6 +155,15 @@ void MovieInformationService::setClient(Client* client)
 	client_ = client;
 	ctrl_->setClient(client);
 	emit clientChanged(client_);
+}
+
+void MovieInformationService::setResumePosition(int resumePosition)
+{
+	if (resumePosition_ == resumePosition)
+		return;
+
+	resumePosition_ = resumePosition;
+	emit resumePositionChanged(resumePosition_);
 }
 
 void MovieInformationService::handleRefresh_()
@@ -178,6 +194,13 @@ void MovieInformationService::handleRefresh_()
 		emit genresChanged();
 		setPlot(details.value("plot").toString());
 		setRating(details.value("rating").toDouble());
+		auto v = details.value("resume");
+		if (v.isObject())
+		{
+			v = v.toObject().value("position");
+			if (v.isDouble())
+				setResumePosition(v.toDouble());
+		}
 	}
 }
 

@@ -27,6 +27,43 @@ void VideoControl::playFile(File file)
 	        &QJsonRpcServiceReply::finished,
 	        this,
 	        &VideoControl::addCurrentFileToPlaylist_);
+
+}
+
+void VideoControl::resumeFile(File file, int position)
+{
+	QJsonRpcMessage message;
+	QJsonObject params;
+	QJsonObject item;
+	if (file.filetype() == "directory")
+		item.insert("directory", file.file());
+	else if (file.filetype() == "file")
+		item.insert("file", file.file());
+	else if (file.filetype() == "movie")
+		item.insert("movieid", file.id());
+	else if (file.filetype() == "tvshow")
+		item.insert("tvshowid", file.id());
+	else if (file.filetype() == "episode")
+		item.insert("episodeid", file.id());
+	else if (file.filetype() == "musicvideo")
+		item.insert("musicvideoid", file.id());
+	params.insert("item", item);
+	if (position != 0)
+	{
+		QJsonObject options;
+		QJsonObject timeResume;
+		int hours = position / 3600;
+		timeResume.insert("hours", hours);
+		int remaining = position % 3600;
+		timeResume.insert("minutes", remaining / 60);
+		remaining = remaining % 60;
+		timeResume.insert("seconds", remaining);
+		timeResume.insert("milliseconds", 0);
+		options.insert("resume", timeResume);
+		params.insert("options", options);
+	}
+	message = QJsonRpcMessage::createRequest("Player.Open", params);
+	client_->send(message);
 }
 
 QJsonRpcServiceReply* VideoControl::clearPlaylist()

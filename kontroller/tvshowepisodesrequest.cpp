@@ -31,6 +31,8 @@ void TvShowEpisodesRequest::start(int tvshowId, int season)
 	parameters.insert("sort", sort);
 	QJsonArray properties;
 	properties.push_back(QString::fromUtf8("thumbnail"));
+	properties.push_back(QString::fromUtf8("lastplayed"));
+	properties.push_back(QString::fromUtf8("resume"));
 	parameters.insert("properties", properties);
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetEpisodes", parameters);
 	QJsonRpcServiceReply* reply = client_->send(message);
@@ -74,6 +76,9 @@ void TvShowEpisodesRequest::parseEpisodesResult_()
 							auto thumbnail = obj.value("thumbnail").toString();
 							if (thumbnail.size() > 0)
 								file.setThumbnail(getImageUrl(client_, thumbnail).toString());
+							val = obj.value("lastplayed");
+							file.setPlayed(val.isString() && val.toString().size() > 0);
+							val = obj.value("resume");
 							episodes.push_back(file);
 						}
 					}

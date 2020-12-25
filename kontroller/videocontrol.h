@@ -35,13 +35,13 @@ public slots:
 	QJsonRpcServiceReply *clearPlaylist();
 	QJsonRpcServiceReply *addToPlaylist(eu::tgcm::kontroller::File file);
 	void playFile(eu::tgcm::kontroller::File file);
+	void resumeFile(eu::tgcm::kontroller::File file, int position);
 	void startPlaying();
 
 	void setClient(eu::tgcm::kontroller::Client* client);
 
 private slots:
 	void addCurrentFileToPlaylist_();
-
 };
 
 }
