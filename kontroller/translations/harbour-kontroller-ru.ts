@@ -149,43 +149,43 @@
 <context>
     <name>CurrentlyPlaying</name>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="144"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="145"/>
         <source>Playing options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="109"/>
-        <location filename="../qml/CurrentlyPlaying.qml" line="177"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="110"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="178"/>
         <source>Nothing playing</source>
         <translation>Остановлено</translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="21"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="22"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="25"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="26"/>
         <source>Playlist</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="130"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="131"/>
         <source>Next: %1</source>
         <translation>Далее: %1</translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="156"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="157"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="182"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="183"/>
         <source>Unknow artist</source>
         <translation>Неизвестный исполнитель</translation>
     </message>
     <message>
-        <location filename="../qml/CurrentlyPlaying.qml" line="35"/>
+        <location filename="../qml/CurrentlyPlaying.qml" line="36"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
@@ -436,7 +436,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="246"/>
+        <location filename="../qml/PlayableItemPage.qml" line="247"/>
         <source>No items found!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -456,26 +456,26 @@
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="277"/>
-        <location filename="../qml/PlayableItemPage.qml" line="287"/>
+        <location filename="../qml/PlayableItemPage.qml" line="278"/>
+        <location filename="../qml/PlayableItemPage.qml" line="288"/>
         <source>Add to playlist</source>
         <translation>Добавить в список</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="278"/>
-        <location filename="../qml/PlayableItemPage.qml" line="288"/>
+        <location filename="../qml/PlayableItemPage.qml" line="279"/>
+        <location filename="../qml/PlayableItemPage.qml" line="289"/>
         <source>Play immediately</source>
         <translation>Играть сейчас</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="279"/>
-        <location filename="../qml/PlayableItemPage.qml" line="293"/>
+        <location filename="../qml/PlayableItemPage.qml" line="280"/>
+        <location filename="../qml/PlayableItemPage.qml" line="294"/>
         <source>View information</source>
         <translation>Показать сведения</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="280"/>
-        <location filename="../qml/PlayableItemPage.qml" line="289"/>
+        <location filename="../qml/PlayableItemPage.qml" line="281"/>
+        <location filename="../qml/PlayableItemPage.qml" line="290"/>
         <source>Download</source>
         <translation>Загрузить</translation>
     </message>
@@ -483,22 +483,22 @@
 <context>
     <name>PlayerControl</name>
     <message>
-        <location filename="../qml/PlayerControl.qml" line="151"/>
+        <location filename="../qml/components/PlayerControl.qml" line="151"/>
         <source>&lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>&lt;i&gt;%1&lt;/i&gt; из &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/PlayerControl.qml" line="153"/>
+        <location filename="../qml/components/PlayerControl.qml" line="153"/>
         <source>&lt;i&gt;%1&lt;/i&gt;</source>
         <translation>&lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/PlayerControl.qml" line="163"/>
+        <location filename="../qml/components/PlayerControl.qml" line="163"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>Далее: &lt;i&gt;%1&lt;/i&gt; из &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/PlayerControl.qml" line="165"/>
+        <location filename="../qml/components/PlayerControl.qml" line="165"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Далее: &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
@@ -506,17 +506,17 @@
 <context>
     <name>PlayerProperties</name>
     <message>
-        <location filename="../qml/PlayerProperties.qml" line="19"/>
+        <location filename="../qml/components/PlayerProperties.qml" line="18"/>
         <source>Subtitles</source>
         <translation>Субтитры</translation>
     </message>
     <message>
-        <location filename="../qml/PlayerProperties.qml" line="37"/>
+        <location filename="../qml/components/PlayerProperties.qml" line="36"/>
         <source>No subtitles available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/PlayerProperties.qml" line="47"/>
+        <location filename="../qml/components/PlayerProperties.qml" line="46"/>
         <source>Audio</source>
         <translation>Звук</translation>
     </message>
@@ -532,32 +532,32 @@
 <context>
     <name>SeasonInformationPage</name>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="57"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="58"/>
         <source>Episodes:</source>
         <translation>Серии:</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="20"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="21"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="24"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="25"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="28"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="29"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="48"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="49"/>
         <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="49"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="50"/>
         <source>&lt;b&gt;Watched:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Просмотрено:&lt;/b&gt; %1</translation>
     </message>
@@ -906,52 +906,52 @@
 <context>
     <name>TvShowInformationPage</name>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="65"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="66"/>
         <source>Seasons:</source>
         <translation>Сезоны:</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="23"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="24"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="27"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="28"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="31"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="32"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="52"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="53"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Год:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="53"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="54"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="54"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Рейтинг:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="55"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Seasons:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Сезоны:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="56"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="57"/>
         <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="113"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="114"/>
         <source>Plot</source>
         <translation>Сюжет</translation>
     </message>
@@ -967,12 +967,12 @@
 <context>
     <name>VolumeControl</name>
     <message>
-        <location filename="../qml/VolumeControl.qml" line="22"/>
+        <location filename="../qml/components/VolumeControl.qml" line="22"/>
         <source>Volume: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/VolumeControl.qml" line="22"/>
+        <location filename="../qml/components/VolumeControl.qml" line="22"/>
         <source>No volume</source>
         <translation type="unfinished"></translation>
     </message>
@@ -980,37 +980,37 @@
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="313"/>
+        <location filename="../musicservice.cpp" line="314"/>
         <source>Artists</source>
         <translation>Исполнители</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="321"/>
+        <location filename="../musicservice.cpp" line="322"/>
         <source>Albums</source>
         <translation>Альбомы</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="327"/>
+        <location filename="../musicservice.cpp" line="328"/>
         <source>Songs</source>
         <translation>Песни</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="334"/>
+        <location filename="../musicservice.cpp" line="335"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="341"/>
+        <location filename="../musicservice.cpp" line="342"/>
         <source>Files</source>
         <translation>Файлы</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="347"/>
+        <location filename="../musicservice.cpp" line="348"/>
         <source>Recently added albums</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="353"/>
+        <location filename="../musicservice.cpp" line="354"/>
         <source>Recently played albums</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1026,22 +1026,22 @@
 <context>
     <name>eu::tgcm::kontroller::VideoService</name>
     <message>
-        <location filename="../videoservice.cpp" line="281"/>
+        <location filename="../videoservice.cpp" line="282"/>
         <source>Movies</source>
         <translation>Фильмы</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="288"/>
+        <location filename="../videoservice.cpp" line="289"/>
         <source>TV Shows</source>
         <translation>Телепередачи</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="295"/>
+        <location filename="../videoservice.cpp" line="296"/>
         <source>Clips</source>
         <translation>Клипы</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="308"/>
+        <location filename="../videoservice.cpp" line="309"/>
         <source>Files</source>
         <translation>Файлы</translation>
     </message>

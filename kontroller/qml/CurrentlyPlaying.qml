@@ -3,6 +3,7 @@ import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
 import "utils.js" as Utils
+import "./components"
 
 Page {
     id: item1
