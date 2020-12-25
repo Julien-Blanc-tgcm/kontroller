@@ -3,7 +3,7 @@
 #include "applicationsettings.h"
 #include "client.h"
 #include "file.h"
-#include "songsrequest.h"
+#include "requests/songsrequest.h"
 
 #include <qjsonrpcservice.h>
 

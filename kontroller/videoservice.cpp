@@ -1,7 +1,8 @@
 #include "videoservice.h"
+
 #include "client.h"
-#include "tvshowepisodesrequest.h"
-#include "tvshowseasonsrequest.h"
+#include "requests/tvshowepisodesrequest.h"
+#include "requests/tvshowseasonsrequest.h"
 #include "utils.h"
 
 namespace eu

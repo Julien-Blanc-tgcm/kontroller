@@ -1,6 +1,7 @@
 #include "musicservice.h"
-#include "albumsrequest.h"
-#include "songsrequest.h"
+
+#include "requests/albumsrequest.h"
+#include "requests/songsrequest.h"
 #include "utils.h"
 
 namespace eu

@@ -1,7 +1,7 @@
 #include "artistinformationservice.h"
 
-#include "albumsrequest.h"
 #include "client.h"
+#include "requests/albumsrequest.h"
 #include "utils.h"
 
 namespace eu

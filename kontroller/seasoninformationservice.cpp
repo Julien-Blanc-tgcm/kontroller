@@ -1,8 +1,8 @@
 #include "seasoninformationservice.h"
+
 #include "client.h"
-#include "tvshowepisodesrequest.h"
+#include "requests/tvshowepisodesrequest.h"
 #include "utils.h"
-#include <QStringList>
 
 namespace eu
 {

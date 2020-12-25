@@ -27,16 +27,12 @@ SOURCES += main.cpp \
     videoservice.cpp \
     deviceinformation.cpp \
     artistinformationservice.cpp \
-    albumsrequest.cpp \
-    songsrequest.cpp \
     albuminformationservice.cpp \
     musiccontrol.cpp \
     videocontrol.cpp \
     movieinformationservice.cpp \
     tvshowinformationservice.cpp \
-    tvshowseasonsrequest.cpp \
     seasoninformationservice.cpp \
-    tvshowepisodesrequest.cpp \
     utils.cpp \
     episodeinformationservice.cpp \
 #    playlistcontrol.cpp \
@@ -56,13 +52,17 @@ SOURCES += main.cpp \
     volumeplugin.cpp \
     kodivolumeplugin.cpp \
     minidspvolumeplugin.cpp \
+    requests/tvshowepisodesrequest.cpp \
+    requests/albumsrequest.cpp \
+    requests/songsrequest.cpp \
+    requests/tvshowseasonsrequest.cpp \
+    wakeupplugin.cpp \
+    wolwakeupplugin.cpp \
     ../lib/minidsplib/query.cpp \
     ../lib/minidsplib/reply.cpp \
     ../lib/mdns/sbzeroconfservicediscovery.cpp \
     ../lib/mdns/sbzeroconfservicerecord.cpp \
     ../lib/mdns/dnspacket.cpp \
-    wakeupplugin.cpp \
-    wolwakeupplugin.cpp
 
 
 INCLUDEPATH += ../qjsonrpc/src \
@@ -123,16 +123,12 @@ HEADERS += \
     deviceinformation.h \
     artistinformationservice.h \
     utils.h \
-    albumsrequest.h \
-    songsrequest.h \
     albuminformationservice.h \
     musiccontrol.h \
     videocontrol.h \
     movieinformationservice.h \
     tvshowinformationservice.h \
-    tvshowseasonsrequest.h \
     seasoninformationservice.h \
-    tvshowepisodesrequest.h \
     episodeinformationservice.h \
 #    playlistcontrol.h \
     playlistitem.h \
@@ -151,11 +147,15 @@ HEADERS += \
     volumeplugin.h \
     kodivolumeplugin.h \
     minidspvolumeplugin.h \
+    wakeupplugin.h \
+    wolwakeupplugin.h \
+    requests/albumsrequest.h \
+    requests/songsrequest.h \
+    requests/tvshowseasonsrequest.h \
+    requests/tvshowepisodesrequest.h \
     ../lib/mdns/sbzeroconfservicediscovery.h \
     ../lib/mdns/sbzeroconfservicerecord.h \
     ../lib/mdns/dnspacket.h \
-    wakeupplugin.h \
-    wolwakeupplugin.h
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
