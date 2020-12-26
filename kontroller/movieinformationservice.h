@@ -88,6 +88,7 @@ signals:
 public slots:
 	void refresh();
 	void playFile();
+	void resumeFile();
 	void setClient(eu::tgcm::kontroller::Client* client);
 
 	void setResumePosition(int resumePosition);

@@ -148,6 +148,16 @@ void MovieInformationService::playFile()
 	ctrl_->playFile(file);
 }
 
+void MovieInformationService::resumeFile()
+{
+	File file;
+	file.setFiletype("movie");
+	file.setType("movie");
+	file.setId(movieId_);
+	file.setLabel(title());
+	ctrl_->resumeFile(file, resumePosition_);
+}
+
 void MovieInformationService::setClient(Client* client)
 {
 	if (client_ == client)

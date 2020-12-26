@@ -3,6 +3,8 @@ import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "utils.js" as Utils
 import "."
+import "./components"
+
 Page {
     id:main
     signal remoteClicked()
@@ -91,10 +93,23 @@ Page {
                 wrapMode: Text.WordWrap
             }
 
-            Button {
-                text:qsTr("Play movie")
-                onClicked: service.playFile()
-                anchors.horizontalCenter: parent.horizontalCenter
+            Column { // create a new column to avoid spacing between the two elements
+                width:parent.width
+                ResumeButton {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onResume: service.resumeFile()
+                    onPlay: service.playFile()
+                    labelPlay: qsTr("Play movie")
+                    labelResume: qsTr("Resume movie")
+                    offerResume: service.resumePosition !== 0
+                }
+                Label {
+                    text: qsTr("(at %1)").arg(Utils.formatTime(service.resumePosition))
+                    font.italic: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: Theme.highlightColor
+                    visible: service.resumePosition !== 0
+                }
             }
 
             Label {
