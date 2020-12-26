@@ -30,9 +30,11 @@ class MovieInformationService : public QObject
 	VideoControl* ctrl_;
 	eu::tgcm::kontroller::Client* client_;
 
-	int resumePosition_;
+	int resumePosition_ = 0;
 
-  public:
+	bool refreshing_ = false;
+
+public:
 	explicit MovieInformationService(QObject* parent = nullptr);
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	Q_PROPERTY(int movieId READ movieId WRITE setMovieId NOTIFY movieIdChanged)
@@ -44,6 +46,7 @@ class MovieInformationService : public QObject
 	Q_PROPERTY(QString plot READ plot WRITE setPlot NOTIFY plotChanged)
 	Q_PROPERTY(double rating READ rating WRITE setRating NOTIFY ratingChanged)
 	Q_PROPERTY(int resumePosition READ resumePosition WRITE setResumePosition NOTIFY resumePositionChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
 
 	int movieId() const;
 	void setMovieId(int movieId);
@@ -72,6 +75,8 @@ class MovieInformationService : public QObject
 
 	int resumePosition() const;
 
+	bool refreshing() const;
+
 signals:
 	void movieIdChanged();
 	void titleChanged();
@@ -85,6 +90,8 @@ signals:
 
 	void resumePositionChanged(int resumePosition);
 
+	void refreshingChanged(bool refreshing);
+
 public slots:
 	void refresh();
 	void playFile();
@@ -92,6 +99,8 @@ public slots:
 	void setClient(eu::tgcm::kontroller::Client* client);
 
 	void setResumePosition(int resumePosition);
+
+	void setRefreshing(bool refreshing);
 
 private slots:
 	void handleRefresh_();

@@ -111,6 +111,11 @@ int MovieInformationService::resumePosition() const
 	return resumePosition_;
 }
 
+bool MovieInformationService::refreshing() const
+{
+	return refreshing_;
+}
+
 MovieInformationService::MovieInformationService(QObject *parent) : QObject(parent),
     year_(0),
     ctrl_{new VideoControl(this)}
@@ -119,6 +124,7 @@ MovieInformationService::MovieInformationService(QObject *parent) : QObject(pare
 
 void MovieInformationService::refresh()
 {
+	setRefreshing(true);
 	QJsonObject parameters;
 	parameters["movieid"] = movieId_;
 	QJsonArray properties;
@@ -176,6 +182,15 @@ void MovieInformationService::setResumePosition(int resumePosition)
 	emit resumePositionChanged(resumePosition_);
 }
 
+void MovieInformationService::setRefreshing(bool refreshing)
+{
+	if (refreshing_ == refreshing)
+		return;
+
+	refreshing_ = refreshing;
+	emit refreshingChanged(refreshing_);
+}
+
 void MovieInformationService::handleRefresh_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
@@ -212,6 +227,7 @@ void MovieInformationService::handleRefresh_()
 				setResumePosition(v.toDouble());
 		}
 	}
+	setRefreshing(false);
 }
 
 }

@@ -12,6 +12,7 @@ Page {
     signal backToMenuClicked()
 
     SilicaFlickable {
+        visible: !service.refreshing
 
         PageHeader {
             id:header
@@ -133,6 +134,13 @@ Page {
                 color:Theme.highlightColor
             }
         }
+    }
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     property alias itemId : service.movieId
