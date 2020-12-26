@@ -27,62 +27,62 @@
 <context>
     <name>AlbumInformationPage</name>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="73"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Artists:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Artister:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="82"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;År:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="91"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="57"/>
         <source>&lt;b&gt;Label:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Etikett:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="100"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="58"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="38"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="29"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="42"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="33"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="46"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="37"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="120"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="64"/>
         <source>Play album</source>
         <translation>Spela upp album</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="127"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="71"/>
         <source>Songs:</source>
         <translation>Låtar:</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="161"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="106"/>
         <source>Add to playlist</source>
         <translation>Lägg till i spellista</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="165"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="110"/>
         <source>Play immediately</source>
         <translation>Spela upp nu</translation>
     </message>
     <message>
-        <location filename="../qml/AlbumInformationPage.qml" line="181"/>
+        <location filename="../qml/AlbumInformationPage.qml" line="132"/>
         <source>Description:</source>
         <translation>Beskrivning:</translation>
     </message>
@@ -90,57 +90,57 @@
 <context>
     <name>ArtistInformationPage</name>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="60"/>
-        <source>Genre :</source>
-        <translation>Genre :</translation>
+        <location filename="../qml/ArtistInformationPage.qml" line="53"/>
+        <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="75"/>
-        <source>Style :</source>
-        <translation>Stil :</translation>
+        <location filename="../qml/ArtistInformationPage.qml" line="54"/>
+        <source>&lt;b&gt;Style:&lt;/b&gt; %1</source>
+        <translation>&lt;b&gt;Stil:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="89"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="63"/>
         <source>Available albums:</source>
-        <translation>Tillgängliga album :</translation>
+        <translation>Tillgängliga album:</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="161"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="127"/>
         <source>View information</source>
         <translation>Visa information</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="165"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="131"/>
         <source>Add to playlist</source>
         <translation>Lägg till i spellista</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="169"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="135"/>
         <source>Play immediately</source>
         <translation>Spela upp nu</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="173"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="139"/>
         <source>Download</source>
         <translation>Ladda ner</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="185"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="157"/>
         <source>Description:</source>
         <translation>Beskrivning :</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="21"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="25"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="25"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="29"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="29"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="33"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>
@@ -192,47 +192,47 @@
 <context>
     <name>EpisodeInformationPage</name>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="44"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="34"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Betyg:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="45"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="35"/>
         <source>&lt;b&gt;Season:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Säsong:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="46"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="36"/>
         <source>&lt;b&gt;Episode:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Avsnitt:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="47"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="37"/>
         <source>&lt;b&gt;Runtime:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Speltid:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="48"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="38"/>
         <source>&lt;b&gt;Last played:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Tidigare spelad:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="58"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="49"/>
         <source>Play episode</source>
         <translation>Spela upp avsnittet</translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="59"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="50"/>
         <source>Resume episode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="63"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="54"/>
         <source>(at %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/EpisodeInformationPage.qml" line="73"/>
+        <location filename="../qml/EpisodeInformationPage.qml" line="64"/>
         <source>Plot:</source>
         <translation>Handling:</translation>
     </message>
@@ -367,47 +367,57 @@
 <context>
     <name>MovieInformationPage</name>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="95"/>
+        <location filename="../qml/MovieInformationPage.qml" line="103"/>
         <source>Play movie</source>
         <translation>Spela upp film</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="102"/>
+        <location filename="../qml/MovieInformationPage.qml" line="104"/>
+        <source>Resume movie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MovieInformationPage.qml" line="108"/>
+        <source>(at %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MovieInformationPage.qml" line="118"/>
         <source>Plot:</source>
         <translation>Handling:</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="22"/>
+        <location filename="../qml/MovieInformationPage.qml" line="25"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="26"/>
+        <location filename="../qml/MovieInformationPage.qml" line="29"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="30"/>
+        <location filename="../qml/MovieInformationPage.qml" line="33"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="59"/>
+        <location filename="../qml/MovieInformationPage.qml" line="62"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;År:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="68"/>
+        <location filename="../qml/MovieInformationPage.qml" line="71"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="78"/>
+        <location filename="../qml/MovieInformationPage.qml" line="81"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Betyg:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="88"/>
+        <location filename="../qml/MovieInformationPage.qml" line="91"/>
         <source>&lt;b&gt;Runtime:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Speltid:&lt;/b&gt; %1</translation>
     </message>
@@ -531,32 +541,32 @@
 <context>
     <name>SeasonInformationPage</name>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="58"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="59"/>
         <source>Episodes:</source>
         <translation>Avsnitt:</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="21"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="22"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="25"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="26"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="29"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="30"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="49"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="50"/>
         <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Avsnitt:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/SeasonInformationPage.qml" line="50"/>
+        <location filename="../qml/SeasonInformationPage.qml" line="51"/>
         <source>&lt;b&gt;Watched:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Sedd:&lt;/b&gt; %1</translation>
     </message>
@@ -905,52 +915,52 @@
 <context>
     <name>TvShowInformationPage</name>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="66"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="67"/>
         <source>Seasons:</source>
         <translation>Säsonger:</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="24"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="25"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="28"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="29"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="32"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="33"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="53"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="54"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;År:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="54"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="55"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Betyg:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="56"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="57"/>
         <source>&lt;b&gt;Seasons:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Säsonger:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="57"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="58"/>
         <source>&lt;b&gt;Episodes:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Avsnitt:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/TvShowInformationPage.qml" line="114"/>
+        <location filename="../qml/TvShowInformationPage.qml" line="128"/>
         <source>Plot</source>
         <translation>Handling</translation>
     </message>
@@ -1025,22 +1035,22 @@
 <context>
     <name>eu::tgcm::kontroller::VideoService</name>
     <message>
-        <location filename="../videoservice.cpp" line="282"/>
+        <location filename="../videoservice.cpp" line="262"/>
         <source>Movies</source>
         <translation>Filmer</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="289"/>
+        <location filename="../videoservice.cpp" line="269"/>
         <source>TV Shows</source>
         <translation>TV-program</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="296"/>
+        <location filename="../videoservice.cpp" line="276"/>
         <source>Clips</source>
         <translation>Klipp</translation>
     </message>
     <message>
-        <location filename="../videoservice.cpp" line="309"/>
+        <location filename="../videoservice.cpp" line="289"/>
         <source>Files</source>
         <translation>Filer</translation>
     </message>
