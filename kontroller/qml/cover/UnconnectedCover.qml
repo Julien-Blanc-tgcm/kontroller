@@ -3,13 +3,19 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
     Label {
-        id: label
-        anchors.centerIn: parent
-        text: qsTr("Kontroller")
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: Theme.paddingSmall
+        anchors.rightMargin: Theme.paddingSmall
+        wrapMode: Text.Wrap
+        font.pixelSize: Theme.fontSizeExtraLarge
+        horizontalAlignment: Text.AlignHCenter
+        text: qsTr("Not connected to the server")
     }
     IconButton {
         id:unconnected
-        anchors.top:label.bottom
+        anchors.top:parent.top
         icon.source: "image://theme/icon-s-warning"
     }
 

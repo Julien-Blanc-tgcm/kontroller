@@ -146,6 +146,14 @@
     </message>
 </context>
 <context>
+    <name>CoverPage</name>
+    <message>
+        <location filename="../qml/cover/CoverPage.qml" line="30"/>
+        <source>Nothing playing</source>
+        <translation>Aucune lecture en cours</translation>
+    </message>
+</context>
+<context>
     <name>CurrentlyPlaying</name>
     <message>
         <location filename="../qml/CurrentlyPlaying.qml" line="145"/>
@@ -968,9 +976,9 @@
 <context>
     <name>UnconnectedCover</name>
     <message>
-        <location filename="../qml/cover/UnconnectedCover.qml" line="8"/>
-        <source>Kontroller</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qml/cover/UnconnectedCover.qml" line="14"/>
+        <source>Not connected to the server</source>
+        <translation>Aucune connexion au serveur</translation>
     </message>
 </context>
 <context>

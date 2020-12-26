@@ -9,6 +9,7 @@ CoverBackground {
 
     Label {
         id:lbl
+        visible: player && player.playingInformation
         text:player && player.playingInformation?
                      player.playingInformation.currentItem.label:""
         anchors.top:parent.top
@@ -17,6 +18,16 @@ CoverBackground {
         wrapMode: Text.WordWrap
         font.pixelSize: Theme.fontSizeExtraSmall
         horizontalAlignment: Text.AlignHCenter
+    }
+    Label {
+        visible: !player || !player.playingInformation
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        wrapMode: Text.Wrap
+        font.pixelSize: Theme.fontSizeExtraLarge
+        horizontalAlignment: Text.AlignHCenter
+        text: qsTr("Nothing playing")
     }
     Image {
         source: player?player.playingInformation.currentItem.thumbnail:""
@@ -31,7 +42,7 @@ CoverBackground {
 
     CoverActionList {
         id: coverAction
-
+        enabled: player && player.playingInformation
         CoverAction {
             iconSource: "image://theme/icon-cover-next"
             onTriggered: {
