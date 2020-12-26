@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.18
+
+* improved cover pages when nothing playing / connection failed
+* add resume handling of movies / tv show episodes
+* display already played items differently in movies and episodes list
+* fixed a bug with the player refreshing far too often, causing glitches in
+the interface
+* added a lot of busy indicators
+
 ## Version 0.17
 
 * Added recently added / recently played items in music
