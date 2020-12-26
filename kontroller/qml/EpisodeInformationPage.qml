@@ -20,17 +20,6 @@ Page {
             wrapMode:Text.WordWrap
         }
 
-        Image {
-            id: fanart
-            source: service.thumbnail
-            height:parent.width / 3
-            width:parent.width / 3
-            fillMode: Image.PreserveAspectFit
-            anchors.right: parent.right
-            anchors.top:header.bottom
-            anchors.rightMargin: Theme.horizontalPageMargin
-        }
-
         Column {
             id:theCol
             anchors.left: parent.left
@@ -48,6 +37,7 @@ Page {
                     qsTr("<b>Runtime:</b> %1").arg(Utils.formatTime(service.runtime)),
                     qsTr("<b>Last played:</b> %1").arg(Utils.formatDate(service.lastplayed))
                 ]
+                imageSource: service.thumbnail
             }
 
             Column { // create a new column to avoid spacing between the two elements

@@ -32,6 +32,7 @@ Item {
         width:parent.width / 3
         fillMode: Image.PreserveAspectFit
         anchors.right: parent.right
+        anchors.rightMargin: Theme.horizontalPageMargin
         anchors.top:parent.top
         source: imageSource
         BusyIndicator {
