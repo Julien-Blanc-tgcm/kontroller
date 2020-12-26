@@ -34,5 +34,11 @@ Item {
         anchors.right: parent.right
         anchors.top:parent.top
         source: imageSource
+        BusyIndicator {
+            anchors.centerIn: parent
+            size: BusyIndicatorSize.Small
+            running: visible
+            visible: fanart.status == Image.Loading
+        }
     }
 }

@@ -11,6 +11,7 @@ Page {
         contentHeight: theCol.childrenRect.height + header.height
         anchors.fill: parent
         clip:true
+        visible: !service.refreshing
 
         VerticalScrollDecorator {}
         PageHeader {
@@ -90,6 +91,14 @@ Page {
                 color:Theme.highlightColor
             }
         }
+    }
+
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     EpisodeInformationService {

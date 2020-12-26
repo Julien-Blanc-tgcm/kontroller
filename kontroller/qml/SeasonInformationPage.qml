@@ -14,6 +14,7 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: theCol.childrenRect.height + theCol.y
+        visible: !service.refreshing
         VerticalScrollDecorator {}
 
         PullDownMenu {
@@ -68,6 +69,7 @@ Page {
                 anchors.right: parent.right
                 spacing: Theme.paddingSmall
                 height:childrenRect.height
+                visible: !service.refreshingEpisodes
                 delegate: ListItem {
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -82,6 +84,12 @@ Page {
                         height: width
                         visible: model.modelData.thumbnail.length > 0
                         anchors.verticalCenter: parent.verticalCenter
+                        BusyIndicator {
+                            anchors.centerIn: parent
+                            visible:img.status == Image.Loading
+                            running: visible
+                            size: BusyIndicatorSize.Small
+                        }
                     }
 
                     Label {
@@ -107,7 +115,21 @@ Page {
                     onClicked: mediaInformationClicked(model.modelData)
                 }
             }
+            BusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible:service.refreshingEpisodes
+                running: visible
+                size: BusyIndicatorSize.Medium
+            }
         }
+    }
+
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     SeasonInformationService {

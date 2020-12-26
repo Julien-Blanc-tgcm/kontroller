@@ -31,7 +31,11 @@ class SeasonInformationService : public QObject
 
 	QVector<File> episodes_;
 
-	eu::tgcm::kontroller::Client* client_;
+	eu::tgcm::kontroller::Client* client_ = nullptr;
+
+	bool refreshing_ = false;
+
+	bool refreshingEpisodes_ = false;
 
 public:
 	explicit SeasonInformationService(QObject* parent = nullptr);
@@ -45,6 +49,9 @@ public:
 	Q_PROPERTY(QString fanart READ fanart WRITE setFanart NOTIFY fanartChanged)
 	Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
 	Q_PROPERTY(QVariantList episodes READ episodesList NOTIFY episodesChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
+	Q_PROPERTY(
+	    bool refreshingEpisodes READ refreshingEpisodes WRITE setRefreshingEpisodes NOTIFY refreshingEpisodesChanged)
 
 	int seasonId() const;
 	void setSeasonId(int seasonId);
@@ -74,6 +81,10 @@ public:
 
 	int tvShowId() const;
 
+	bool refreshing() const;
+
+	bool refreshingEpisodes() const;
+
 signals:
 	void seasonIdChanged();
 	void showTitleChanged();
@@ -88,12 +99,20 @@ signals:
 
 	void tvShowIdChanged(int tvShowId);
 
+	void refreshingChanged(bool refreshing);
+
+	void refreshingEpisodesChanged(bool refreshingEpisodes);
+
 public slots:
 	void refresh();
 
 	void setClient(eu::tgcm::kontroller::Client* client);
 
 	void setTvShowId(int tvShowId);
+
+	void setRefreshing(bool refreshing);
+
+	void setRefreshingEpisodes(bool refreshingEpisodes);
 
 private slots:
 	void refreshEpisodes_();

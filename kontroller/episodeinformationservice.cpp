@@ -90,6 +90,11 @@ int EpisodeInformationService::resumePosition() const
 	return resumePosition_;
 }
 
+bool EpisodeInformationService::refreshing() const
+{
+	return refreshing_;
+}
+
 void EpisodeInformationService::setPlot(QString plot)
 {
 	if (plot_ == plot)
@@ -193,6 +198,7 @@ void EpisodeInformationService::refresh()
 {
 	if (episodeId_ != 0)
 	{
+		setRefreshing(true);
 		QJsonObject parameters;
 		parameters["episodeid"] = episodeId_;
 		QJsonArray properties;
@@ -269,6 +275,15 @@ void EpisodeInformationService::setResumePosition(int resumePosition)
 	emit resumePositionChanged(resumePosition_);
 }
 
+void EpisodeInformationService::setRefreshing(bool refreshing)
+{
+	if (refreshing_ == refreshing)
+		return;
+
+	refreshing_ = refreshing;
+	emit refreshingChanged(refreshing_);
+}
+
 void EpisodeInformationService::handleRefresh_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
@@ -303,6 +318,7 @@ void EpisodeInformationService::handleRefresh_()
 			}
 		}
 	}
+	setRefreshing(false);
 }
 
 void EpisodeInformationService::setEpisodeId(int episodeId)

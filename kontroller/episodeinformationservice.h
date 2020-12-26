@@ -35,9 +35,11 @@ class EpisodeInformationService : public QObject
 
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 
-	VideoControl* videoControl_;
+	VideoControl* videoControl_ = nullptr;
 
-	int resumePosition_;
+	int resumePosition_ = 0;
+
+	bool refreshing_ = false;
 
 public:
 	explicit EpisodeInformationService(QObject* parent = nullptr);
@@ -57,6 +59,7 @@ public:
 	Q_PROPERTY(int season READ season WRITE setSeason NOTIFY seasonChanged)
 	Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
 	Q_PROPERTY(int resumePosition READ resumePosition WRITE setResumePosition NOTIFY resumePositionChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
 
 	QString plot() const;
 
@@ -87,6 +90,8 @@ public:
 	eu::tgcm::kontroller::Client* client() const;
 
 	int resumePosition() const;
+
+	bool refreshing() const;
 
 signals:
 
@@ -120,6 +125,8 @@ signals:
 
 	void resumePositionChanged(int resumePosition);
 
+	void refreshingChanged(bool refreshing);
+
 public slots:
 	void setPlot(QString plot);
 	void setRating(double rating);
@@ -144,6 +151,8 @@ public slots:
 	void setClient(eu::tgcm::kontroller::Client* client);
 
 	void setResumePosition(int resumePosition);
+
+	void setRefreshing(bool refreshing);
 
 private slots:
 	void handleRefresh_();

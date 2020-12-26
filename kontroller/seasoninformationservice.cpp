@@ -122,6 +122,7 @@ SeasonInformationService::SeasonInformationService(QObject* parent) : QObject(pa
 
 void SeasonInformationService::refresh()
 {
+	setRefreshing(true);
 	QJsonObject parameters;
 	parameters["tvshowid"] = tvShowId_;
 	QJsonArray properties;
@@ -136,7 +137,6 @@ void SeasonInformationService::refresh()
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetSeasons", parameters);
 	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &SeasonInformationService::handleRefresh_);
-	refreshEpisodes_();
 }
 
 void SeasonInformationService::setClient(Client* client)
@@ -157,8 +157,27 @@ void SeasonInformationService::setTvShowId(int tvshowId)
 	emit tvShowIdChanged(tvShowId_);
 }
 
+void SeasonInformationService::setRefreshing(bool refreshing)
+{
+	if (refreshing_ == refreshing)
+		return;
+
+	refreshing_ = refreshing;
+	emit refreshingChanged(refreshing_);
+}
+
+void SeasonInformationService::setRefreshingEpisodes(bool refreshingEpisodes)
+{
+	if (refreshingEpisodes_ == refreshingEpisodes)
+		return;
+
+	refreshingEpisodes_ = refreshingEpisodes;
+	emit refreshingEpisodesChanged(refreshingEpisodes_);
+}
+
 void SeasonInformationService::refreshEpisodes_()
 {
+	setRefreshingEpisodes(true);
 	auto req = new TvShowEpisodesRequest(client_);
 	connect(req, &TvShowEpisodesRequest::finished, this, &SeasonInformationService::handleRefreshEpisodes_);
 	req->start(tvShowId_, seasonId_);
@@ -195,6 +214,8 @@ void SeasonInformationService::handleRefresh_()
 			}
 		}
 	}
+	refreshEpisodes_();
+	setRefreshing(false);
 }
 
 void SeasonInformationService::handleRefreshEpisodes_()
@@ -207,6 +228,7 @@ void SeasonInformationService::handleRefreshEpisodes_()
 		req->deleteLater();
 		emit episodesChanged();
 	}
+	setRefreshingEpisodes(false);
 }
 
 Client* SeasonInformationService::client() const
@@ -218,6 +240,17 @@ int SeasonInformationService::tvShowId() const
 {
 	return tvShowId_;
 }
+
+bool SeasonInformationService::refreshingEpisodes() const
+{
+	return refreshingEpisodes_;
+}
+
+bool SeasonInformationService::refreshing() const
+{
+	return refreshing_;
+}
+
 
 } // namespace kontroller
 } // namespace tgcm

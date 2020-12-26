@@ -12,6 +12,7 @@ Page {
     signal backToMenuClicked()
 
     SilicaFlickable {
+        visible: !service.refreshing
         anchors.fill: parent
         contentHeight: header.height + col.childrenRect.height
         contentWidth: parent.width
@@ -76,6 +77,7 @@ Page {
                 anchors.left:parent.left
                 anchors.right: parent.right
                 spacing: Theme.paddingSmall
+                visible: !service.refreshingSeasons
                 delegate: ListItem {
                     contentHeight:Math.max(seasonLabel.height, seasonImg.height)
                     anchors.left: parent.left
@@ -90,6 +92,12 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         id:seasonImg
                         fillMode: Image.PreserveAspectFit
+                        BusyIndicator {
+                            anchors.centerIn: parent
+                            running: visible
+                            size:BusyIndicatorSize.Small
+                            visible: seasonImg.progress < 1
+                        }
                     }
                     Label {
                         id:seasonLabel
@@ -104,6 +112,12 @@ Page {
                     }
                     onClicked: mediaInformationClicked(model.modelData, {"tvShowId":itemId})
                 }
+            }
+            BusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible:service.refreshingSeasons
+                running: visible
+                size: BusyIndicatorSize.Medium
             }
 
             Label {
@@ -128,6 +142,14 @@ Page {
                 color:Theme.highlightColor
             }
         }
+    }
+
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     TvShowInformationService {

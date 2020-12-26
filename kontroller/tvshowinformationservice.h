@@ -39,9 +39,13 @@ class TvShowInformationService : public QObject
 	QString art_;
 	QVector<File> seasons_;
 
-	eu::tgcm::kontroller::Client* client_;
+	eu::tgcm::kontroller::Client* client_ = nullptr;
 
-  public:
+	bool refreshing_ = false;
+
+	bool refreshingSeasons_ = false;
+
+public:
 	explicit TvShowInformationService(QObject* parent = nullptr);
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	Q_PROPERTY(int tvshowId READ tvshowId WRITE setTvshowId NOTIFY tvshowIdChanged)
@@ -61,6 +65,8 @@ class TvShowInformationService : public QObject
 	Q_PROPERTY(QString art READ art WRITE setArt NOTIFY artChanged)
 	Q_PROPERTY(QVariantList seasons READ seasons NOTIFY seasonsChanged)
 	Q_PROPERTY(QStringList genres READ genres NOTIFY genresChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
+	Q_PROPERTY(bool refreshingSeasons READ refreshingSeasons WRITE setRefreshingSeasons NOTIFY refreshingSeasonsChanged)
 
 	int tvshowId() const;
 	void setTvshowId(int tvshowId);
@@ -112,7 +118,11 @@ class TvShowInformationService : public QObject
 
 	eu::tgcm::kontroller::Client* client() const;
 
-  signals:
+	bool refreshing() const;
+
+	bool refreshingSeasons() const;
+
+signals:
 	void thumbnailChanged();
 	void tvshowIdChanged();
 	void titleChanged();
@@ -132,12 +142,20 @@ class TvShowInformationService : public QObject
 	void genresChanged();
 	void clientChanged(eu::tgcm::kontroller::Client* client);
 
-  public slots:
+	void refreshingChanged(bool refreshing);
+
+	void refreshingSeasonsChanged(bool refreshingSeasons);
+
+public slots:
 	void refresh();
 
 	void setClient(eu::tgcm::kontroller::Client* client);
 
-  private slots:
+	void setRefreshing(bool refreshing);
+
+	void setRefreshingSeasons(bool refreshingSeasons);
+
+private slots:
 	void refreshSeasons_();
 	void handleRefresh_();
 	void handleSeasons_();

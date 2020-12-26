@@ -186,6 +186,7 @@ void TvShowInformationService::setTvshowId(int tvshowId)
 
 void TvShowInformationService::refresh()
 {
+	setRefreshing(true);
 	QJsonObject parameters;
 	parameters["tvshowid"] = tvshowId_;
 	QJsonArray properties;
@@ -212,7 +213,6 @@ void TvShowInformationService::refresh()
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("VideoLibrary.GetTvShowDetails", parameters);
 	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &TvShowInformationService::handleRefresh_);
-	refreshSeasons_();
 }
 
 void TvShowInformationService::setClient(Client* client)
@@ -222,6 +222,24 @@ void TvShowInformationService::setClient(Client* client)
 
 	client_ = client;
 	emit clientChanged(client_);
+}
+
+void TvShowInformationService::setRefreshing(bool refreshing)
+{
+	if (refreshing_ == refreshing)
+		return;
+
+	refreshing_ = refreshing;
+	emit refreshingChanged(refreshing_);
+}
+
+void TvShowInformationService::setRefreshingSeasons(bool refreshingSeasons)
+{
+	if (refreshingSeasons_ == refreshingSeasons)
+		return;
+
+	refreshingSeasons_ = refreshingSeasons;
+	emit refreshingSeasonsChanged(refreshingSeasons_);
 }
 
 void TvShowInformationService::handleRefresh_()
@@ -268,6 +286,8 @@ void TvShowInformationService::handleRefresh_()
 		        if(val.isObject())
 		            setArt(getImageUrl(val.toObject().value("banner").toString()).toString()); */
 	}
+	refreshSeasons_();
+	setRefreshing(false);
 }
 
 QVariantList TvShowInformationService::seasons()
@@ -291,8 +311,19 @@ Client* TvShowInformationService::client() const
 	return client_;
 }
 
+bool TvShowInformationService::refreshing() const
+{
+	return refreshing_;
+}
+
+bool TvShowInformationService::refreshingSeasons() const
+{
+	return refreshingSeasons_;
+}
+
 void TvShowInformationService::refreshSeasons_()
 {
+	setRefreshingSeasons(true);
 	auto seasonsQuery = new TvShowSeasonsRequest(client_, this);
 	connect(seasonsQuery, &TvShowSeasonsRequest::finished, this, &TvShowInformationService::handleSeasons_);
 	seasonsQuery->start(this->tvshowId());
@@ -306,6 +337,7 @@ void TvShowInformationService::handleSeasons_()
 		seasons_ = seasonsQuery->seasons;
 		emit seasonsChanged();
 	}
+	setRefreshingSeasons(false);
 }
 
 } // namespace kontroller
