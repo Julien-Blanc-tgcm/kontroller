@@ -123,14 +123,25 @@ void AlbumInformationService::playFile()
 	ctrl_->playFile(file);
 }
 
+bool AlbumInformationService::refreshing() const
+{
+	return refreshing_;
+}
+
+bool AlbumInformationService::refreshingSongs() const
+{
+	return refreshingSongs_;
+}
+
 AlbumInformationService::AlbumInformationService(QObject* parent) : QObject(parent),
-    ctrl_(new MusicControl(this))
+	ctrl_(new MusicControl(this))
 {
 
 }
 
 void AlbumInformationService::refresh()
 {
+	setRefreshing(true);
 	QJsonObject parameters;
 	parameters["albumid"] = albumId_;
 	QJsonArray properties;
@@ -149,9 +160,6 @@ void AlbumInformationService::refresh()
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbumDetails", parameters);
 	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumInformationService::handleRefresh_);
-	auto songsQuery = new SongsRequest(client_);
-	connect(songsQuery, &SongsRequest::finished, this, &AlbumInformationService::handleSongs_);
-	songsQuery->start(albumId_);
 }
 
 void AlbumInformationService::setClient(Client* client)
@@ -162,6 +170,24 @@ void AlbumInformationService::setClient(Client* client)
 	client_ = client;
 	ctrl_->setClient(client);
 	emit clientChanged(client_);
+}
+
+void AlbumInformationService::setRefreshing(bool refreshing)
+{
+	if (refreshing_ == refreshing)
+		return;
+
+	refreshing_ = refreshing;
+	emit refreshingChanged(refreshing_);
+}
+
+void AlbumInformationService::setRefreshingSongs(bool refreshingSongs)
+{
+	if (refreshingSongs_ == refreshingSongs)
+		return;
+
+	refreshingSongs_ = refreshingSongs;
+	emit refreshingSongsChanged(refreshingSongs_);
 }
 
 void AlbumInformationService::handleRefresh_()
@@ -205,7 +231,13 @@ void AlbumInformationService::handleRefresh_()
 		emit artistsChanged();
 		setLabel(details.value("albumlabel").toString());
 		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
+		auto songsQuery = new SongsRequest(client_);
+		connect(songsQuery, &SongsRequest::finished, this, &AlbumInformationService::handleSongs_);
+		songsQuery->start(albumId_);
+		setRefreshingSongs(true);
+
 	}
+	setRefreshing(false);
 }
 
 void AlbumInformationService::handleSongs_()
@@ -217,6 +249,7 @@ void AlbumInformationService::handleSongs_()
 		emit songsChanged();
 		songsQuery->deleteLater();
 	}
+	setRefreshingSongs(false);
 }
 
 }

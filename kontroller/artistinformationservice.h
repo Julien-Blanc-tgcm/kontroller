@@ -27,8 +27,10 @@ class ArtistInformationService : public QObject
 	QList<QString> style_;
 	QVector<File> albums_;
 	eu::tgcm::kontroller::Client* client_ = nullptr;
+	bool refreshing_ = false;
+	bool refreshingAlbums_ = false;
 
-  public:
+public:
 	explicit ArtistInformationService(QObject* parent = nullptr);
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
 	Q_PROPERTY(int artistId READ artistId WRITE setArtistId NOTIFY artistIdChanged)
@@ -40,6 +42,8 @@ class ArtistInformationService : public QObject
 	Q_PROPERTY(QString genres READ genres NOTIFY genresChanged)
 	Q_PROPERTY(QString style READ style NOTIFY styleChanged)
 	Q_PROPERTY(QVariantList albums READ albums NOTIFY albumsChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
+	Q_PROPERTY(bool refreshingAlbums READ refreshingAlbums WRITE setRefreshingAlbums NOTIFY refreshingAlbumsChanged)
 
 	int artistId() const;
 	void setArtistId(int artistId);
@@ -64,7 +68,11 @@ class ArtistInformationService : public QObject
 
 	eu::tgcm::kontroller::Client* client() const;
 
-  signals:
+	bool refreshing() const;
+
+	bool refreshingAlbums() const;
+
+signals:
 	void artistIdChanged();
 	void artistNameChanged();
 	void artistDescriptionChanged();
@@ -75,11 +83,19 @@ class ArtistInformationService : public QObject
 	void albumsChanged();
 	void clientChanged(eu::tgcm::kontroller::Client* client);
 
-  public slots:
+	void refreshingChanged(bool refreshing);
+
+	void refreshingAlbumsChanged(bool refreshingAlbums);
+
+public slots:
 	void refresh();
 	void setClient(eu::tgcm::kontroller::Client* client);
 
-  private slots:
+	void setRefreshing(bool refreshing);
+
+	void setRefreshingAlbums(bool refreshingAlbums);
+
+private slots:
 	void handleRefresh_();
 	void handleAlbums_();
 };

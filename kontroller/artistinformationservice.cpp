@@ -103,12 +103,23 @@ Client* ArtistInformationService::client() const
 	return client_;
 }
 
+bool ArtistInformationService::refreshing() const
+{
+	return refreshing_;
+}
+
+bool ArtistInformationService::refreshingAlbums() const
+{
+	return refreshingAlbums_;
+}
+
 ArtistInformationService::ArtistInformationService(QObject* parent) : QObject(parent)
 {
 }
 
 void ArtistInformationService::refresh()
 {
+	setRefreshing(true);
 	QJsonObject parameters;
 	parameters["artistid"] = artistId_;
 	QJsonArray properties;
@@ -121,9 +132,6 @@ void ArtistInformationService::refresh()
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtistDetails", parameters);
 	auto reply = client_->send(message);
 	connect(reply, &QJsonRpcServiceReply::finished, this, &ArtistInformationService::handleRefresh_);
-	auto albumsQuery = new AlbumsRequest(client_, this);
-	connect(albumsQuery, &AlbumsRequest::finished, this, &ArtistInformationService::handleAlbums_);
-	albumsQuery->start(artistId_);
 }
 
 void ArtistInformationService::setClient(Client* client)
@@ -133,6 +141,24 @@ void ArtistInformationService::setClient(Client* client)
 
 	client_ = client;
 	emit clientChanged(client_);
+}
+
+void ArtistInformationService::setRefreshing(bool refreshing)
+{
+	if (refreshing_ == refreshing)
+		return;
+
+	refreshing_ = refreshing;
+	emit refreshingChanged(refreshing_);
+}
+
+void ArtistInformationService::setRefreshingAlbums(bool refreshingAlbums)
+{
+	if (refreshingAlbums_ == refreshingAlbums)
+		return;
+
+	refreshingAlbums_ = refreshingAlbums;
+	emit refreshingAlbumsChanged(refreshingAlbums_);
 }
 
 void ArtistInformationService::handleRefresh_()
@@ -175,7 +201,12 @@ void ArtistInformationService::handleRefresh_()
 		}
 		setFanart(getImageUrl(client_, details.value("fanart").toString()).toString());
 		setThumbnail(getImageUrl(client_, details.value("thumbnail").toString()).toString());
+		auto albumsQuery = new AlbumsRequest(client_, this);
+		connect(albumsQuery, &AlbumsRequest::finished, this, &ArtistInformationService::handleAlbums_);
+		albumsQuery->start(artistId_);
+		setRefreshingAlbums(true);
 	}
+	setRefreshing(false);
 }
 
 void ArtistInformationService::handleAlbums_()
@@ -186,6 +217,7 @@ void ArtistInformationService::handleAlbums_()
 		albums_ = albumsQuery->results;
 		emit albumsChanged();
 	}
+	setRefreshingAlbums(false);
 }
 
 } // namespace kontroller

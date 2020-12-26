@@ -2,6 +2,8 @@ import QtQuick 2.0
 import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
+import "./components"
+import "utils.js" as Utils
 
 Page {
     id:main
@@ -9,22 +11,11 @@ Page {
     signal currentClicked()
     signal backToMenuClicked()
 
-    function formatArray(strings)
-    {
-        var ret = "";
-        for(var i = 0; i < strings.length; ++i)
-        {
-            if(i !== 0)
-                ret += ", ";
-            ret += strings[i];
-        }
-        return ret;
-    }
-
     SilicaFlickable {
         clip:true
         anchors.fill: parent
         contentHeight: txtTitle.height + col.childrenRect.height
+        visible: !service.refreshing
 
         PageHeader {
             title:service.name
@@ -57,63 +48,16 @@ Page {
             anchors.right: parent.right
             spacing:Theme.paddingSmall
 
-            Item {
-                height:childrenRect.height
+            PropertiesWithImage {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                Column {
-                    anchors.right: parent.right
-                    anchors.rightMargin: width / 3
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    Label {
-                        anchors.left: parent.left
-                        anchors.leftMargin: Theme.horizontalPageMargin
-                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                        text:qsTr("<b>Artists:</b> %1").arg(service.artists[0])
-                        color:Theme.highlightColor
-                        verticalAlignment: Text.AlignTop
-                        wrapMode: Text.Wrap
-                    }
-                    Label {
-                        anchors.left: parent.left
-                        anchors.leftMargin: Theme.horizontalPageMargin
-                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                        text:qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:"")
-                        color:Theme.highlightColor
-                        verticalAlignment: Text.AlignTop
-                        wrapMode: Text.Wrap
-                    }
-                    Label {
-                        anchors.left: parent.left
-                        anchors.leftMargin: Theme.horizontalPageMargin
-                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                        text:qsTr("<b>Label:</b> %1").arg(service.label)
-                        color:Theme.highlightColor
-                        verticalAlignment: Text.AlignTop
-                        wrapMode: Text.Wrap
-                    }
-                    Label {
-                        anchors.left: parent.left
-                        anchors.leftMargin: Theme.horizontalPageMargin
-                        width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                        text:qsTr("<b>Genre:</b> %1").arg(formatArray(service.genres))
-                        color:Theme.highlightColor
-                        verticalAlignment: Text.AlignTop
-                        wrapMode: Text.Wrap
-                    }
-                }
-
-                Image {
-                    id: fanart
-                    source: service.thumbnail
-                    width:(parent.width - 2 * Theme.horizontalPageMargin) / 3
-                    height:width
-                    fillMode: Image.PreserveAspectFit
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.horizontalPageMargin
-                    anchors.top:parent.top
-                }
+                properties: [
+                    qsTr("<b>Artists:</b> %1").arg(service.artists[0]),
+                    qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:""),
+                    qsTr("<b>Label:</b> %1").arg(service.label),
+                    qsTr("<b>Genre:</b> %1").arg(Utils.formatArray(service.genres)),
+                ]
+                imageSource: service.thumbnail
             }
 
             Button {
@@ -134,6 +78,7 @@ Page {
                 width:parent.width
                 height: childrenRect.height
                 model:service.songs
+                visible: !service.refreshingSongs
                 delegate: ListItem {
                     contentHeight: Theme.itemSizeSmall
                     anchors.left: parent.left
@@ -168,6 +113,12 @@ Page {
                     }
                 }
             }
+            BusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible:service.refreshingSongs
+                running: visible
+                size: BusyIndicatorSize.Medium
+            }
 
             Label {
                 id:theText
@@ -191,6 +142,14 @@ Page {
                 text:service.description
             }
         }
+    }
+
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     property alias itemId : service.albumId

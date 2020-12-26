@@ -30,6 +30,9 @@ private:
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 	MusicControl* ctrl_ = nullptr;
 
+	bool refreshing_ = false;
+	bool refreshingSongs_ = false;
+
 public:
 	explicit AlbumInformationService(QObject* parent = nullptr);
 	Q_PROPERTY(eu::tgcm::kontroller::Client* client READ client WRITE setClient NOTIFY clientChanged)
@@ -42,6 +45,8 @@ public:
 	Q_PROPERTY(int year READ year WRITE setYear NOTIFY yearChanged)
 	Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
 	Q_PROPERTY(QStringList artists READ artists WRITE setArtists NOTIFY artistsChanged)
+	Q_PROPERTY(bool refreshing READ refreshing WRITE setRefreshing NOTIFY refreshingChanged)
+	Q_PROPERTY(bool refreshingSongs READ refreshingSongs WRITE setRefreshingSongs NOTIFY refreshingSongsChanged)
 
 	int albumId() const;
 	void setAlbumId(int albumId);
@@ -70,10 +75,18 @@ public:
 
 	Q_INVOKABLE void playFile();
 
+	bool refreshing() const;
+
+	bool refreshingSongs() const;
+
 public slots:
 	void refresh();
 
 	void setClient(eu::tgcm::kontroller::Client* client);
+
+	void setRefreshing(bool refreshing);
+
+	void setRefreshingSongs(bool refreshingSongs);
 
 signals:
 	void albumIdChanged();
@@ -86,6 +99,10 @@ signals:
 	void labelChanged();
 	void artistsChanged();
 	void clientChanged(eu::tgcm::kontroller::Client* client);
+
+	void refreshingChanged(bool refreshing);
+
+	void refreshingSongsChanged(bool refreshingSongs);
 
 private slots:
 	void handleRefresh_();

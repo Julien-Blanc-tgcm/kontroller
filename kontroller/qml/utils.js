@@ -69,3 +69,15 @@ function formatMsecTime(time)
     ret += secs;
     return ret;
 }
+
+function formatArray(strings)
+{
+    var ret = "";
+    for(var i = 0; i < strings.length; ++i)
+    {
+        if(i !== 0)
+            ret += ", ";
+        ret += strings[i];
+    }
+    return ret;
+}

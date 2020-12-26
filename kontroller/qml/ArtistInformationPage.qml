@@ -2,6 +2,9 @@ import QtQuick 2.0
 import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
+import "./components"
+import "./utils.js" as Utils
+
 Page {
     id:main
     signal remoteClicked()
@@ -13,6 +16,7 @@ Page {
     SilicaFlickable {
         anchors.fill:parent
         contentHeight:theCol.childrenRect.height
+        visible: !service.refreshing
 
         VerticalScrollDecorator {}
 
@@ -41,45 +45,15 @@ Page {
             PageHeader {
                 title:service.artistName
             }
-            Image {
-                id:fanart1
-                anchors.right: parent.right
-                anchors.left: parent.left
-                source: service.fanart
-                height: 300
-                fillMode: Image.PreserveAspectFit
-                visible: sourceSize.height > 0
-            }
 
-            Row {
-                spacing: Theme.paddingMedium
+            PropertiesWithImage {
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                Label {
-                    id:genrelbl
-                    text: qsTr("Genre :")
-                    font.bold: true
-                    color:Theme.highlightColor
-                }
-                Label {
-                    text: service.genres
-                    color:Theme.highlightColor
-                }
-            }
-            Row {
-                spacing: Theme.paddingMedium
-                anchors.left: parent.left
-                anchors.leftMargin:Theme.horizontalPageMargin
-                Label {
-                    id : stylelbl
-                    text: qsTr("Style :")
-                    font.bold: true
-                    color:Theme.highlightColor
-                }
-                Label {
-                    text: service.style
-                    color:Theme.highlightColor
-                }
+                anchors.right: parent.right
+                properties: [
+                    qsTr("<b>Genre:</b> %1").arg(service.genres),
+                    qsTr("<b>Style:</b> %1").arg(service.style)
+                ]
+                imageSource: service.thumbnail
             }
 
             Label {
@@ -100,19 +74,11 @@ Page {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 spacing: 0
+                visible: !service.refreshingAlbums
                 delegate: ListItem {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     contentHeight: Theme.itemSizeMedium
-                   // height: Theme.itemSizeSmall
-//                        IconButton {
-//                            width: height
-//                            height: Theme.itemSizeSmall
-//                            icon.source:"image://theme/icon-m-add"
-//                            id:btnaddtopl
-//                            x:0
-//                            onClicked: control.addToPlaylist(model.modelData)
-//                        }
                     Image {
                         x: Theme.horizontalPageMargin
                         visible:model.modelData.thumbnail.length > 0
@@ -177,6 +143,12 @@ Page {
                     onClicked: mediaInformationClicked(model.modelData)
                 }
             }
+            BusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible:service.refreshingAlbums
+                running: visible
+                size: BusyIndicatorSize.Medium
+            }
             Label {
                 id:lblDesc
                 font.bold: true
@@ -198,7 +170,25 @@ Page {
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
             }
+            Image {
+                id:fanart1
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                source: service.fanart
+                fillMode: Image.PreserveAspectFit
+                visible: sourceSize.height > 0
+            }
         }
+    }
+
+    BusyIndicator {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        visible:service.refreshing
+        running: visible
+        size: BusyIndicatorSize.Large
     }
 
     property alias itemId : service.artistId
