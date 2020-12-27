@@ -158,7 +158,7 @@
     <message>
         <location filename="../qml/CurrentlyPlaying.qml" line="145"/>
         <source>Playing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppspelningsalternativ</translation>
     </message>
     <message>
         <location filename="../qml/CurrentlyPlaying.qml" line="110"/>
@@ -232,12 +232,12 @@
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="50"/>
         <source>Resume episode</source>
-        <translation type="unfinished"></translation>
+        <translation>Återuppta avsnittet</translation>
     </message>
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="54"/>
         <source>(at %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(från %1)</translation>
     </message>
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="64"/>
@@ -382,12 +382,12 @@
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="104"/>
         <source>Resume movie</source>
-        <translation type="unfinished"></translation>
+        <translation>Återuppta filmen</translation>
     </message>
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="108"/>
         <source>(at %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(från %1)</translation>
     </message>
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="118"/>
@@ -530,7 +530,7 @@
     <message>
         <location filename="../qml/components/PlayerProperties.qml" line="36"/>
         <source>No subtitles available</source>
-        <translation type="unfinished"></translation>
+        <translation>Inga undertexter tillgängliga</translation>
     </message>
     <message>
         <location filename="../qml/components/PlayerProperties.qml" line="46"/>
@@ -646,12 +646,12 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="17"/>
         <source>Hibernate server</source>
-        <translation type="unfinished"></translation>
+        <translation>Försätt servern i viloläge</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="24"/>
         <source>Suspend server</source>
-        <translation type="unfinished"></translation>
+        <translation>Försätt servern i vänteläge</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="103"/>
@@ -731,32 +731,32 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="260"/>
         <source>Server features</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverfunktioner</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="269"/>
         <source>Power off</source>
-        <translation type="unfinished"></translation>
+        <translation>Stäng av</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="281"/>
         <source>Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Starta om</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="293"/>
         <source>Hibernate</source>
-        <translation type="unfinished"></translation>
+        <translation>Viloläge</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="305"/>
         <source>Suspend</source>
-        <translation type="unfinished"></translation>
+        <translation>Vänteläge</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="395"/>
         <source>Volume handling</source>
-        <translation type="unfinished"></translation>
+        <translation>Volymhantering</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="403"/>
@@ -793,13 +793,13 @@
         <location filename="../qml/ServerSettingsPage.qml" line="272"/>
         <location filename="../qml/ServerSettingsPage.qml" line="284"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Checked by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om inaktiverat, kommer alternativet inte att visas i toppmenyn för serverhantering. Aktiverat som standard.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="296"/>
         <location filename="../qml/ServerSettingsPage.qml" line="308"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Unchecked by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om inaktiverat, kommer alternativet inte att visas i toppmenyn för serverhantering. Avaktiverat som standard.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="319"/>
@@ -978,7 +978,7 @@
     <message>
         <location filename="../qml/cover/UnconnectedCover.qml" line="14"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Inte ansluten till servern</translation>
     </message>
 </context>
 <context>
@@ -1024,12 +1024,12 @@
     <message>
         <location filename="../musicservice.cpp" line="348"/>
         <source>Recently added albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyligen tillagda album</translation>
     </message>
     <message>
         <location filename="../musicservice.cpp" line="354"/>
         <source>Recently played albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyligen spelade album</translation>
     </message>
 </context>
 <context>
