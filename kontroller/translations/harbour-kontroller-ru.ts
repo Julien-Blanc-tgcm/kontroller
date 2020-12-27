@@ -1067,35 +1067,35 @@
 <context>
     <name>kontroller</name>
     <message>
-        <location filename="../qml/kontroller.qml" line="112"/>
+        <location filename="../qml/kontroller.qml" line="113"/>
         <source>Download of %1 started</source>
         <translation>Загрузка %1 начата</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="115"/>
         <location filename="../qml/kontroller.qml" line="116"/>
+        <location filename="../qml/kontroller.qml" line="117"/>
         <source>Download started</source>
         <translation>Загрузка начата</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="121"/>
+        <location filename="../qml/kontroller.qml" line="122"/>
         <source>Download of %1 complete</source>
         <translation>Загнузка %1 окончена</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="124"/>
         <location filename="../qml/kontroller.qml" line="125"/>
+        <location filename="../qml/kontroller.qml" line="126"/>
         <source>Download complete</source>
         <translation>Загрузка окончена</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="130"/>
+        <location filename="../qml/kontroller.qml" line="131"/>
         <source>Download of %1 failed with error %2</source>
         <translation>Загрузка %1 превалась с ошибкой %2</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="133"/>
         <location filename="../qml/kontroller.qml" line="134"/>
+        <location filename="../qml/kontroller.qml" line="135"/>
         <source>Download error</source>
         <translation>Ошибка загрузки</translation>
     </message>

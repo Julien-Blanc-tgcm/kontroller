@@ -2,6 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import harbour.eu.tgcm 1.0
 import Nemo.Notifications 1.0
+import "./components"
 
 ApplicationWindow {
 
