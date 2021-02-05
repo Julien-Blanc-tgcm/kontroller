@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import harbour.eu.tgcm 1.0
 
 Page {
-    id:main
+    id: __root
     property string browsingMode: ""
     property string browsingValue: ""
     property string label: ""
@@ -19,8 +19,8 @@ Page {
     MusicService {
         id: musicService
         client: appClient
-        browsingMode: main.browsingMode
-        browsingValue: main.browsingValue
+        browsingMode: __root.browsingMode
+        browsingValue: __root.browsingValue
     }
     MusicControl {
         id: musicControl

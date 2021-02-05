@@ -434,22 +434,22 @@
 <context>
     <name>PlayableItemPage</name>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="49"/>
+        <location filename="../qml/PlayableItemPage.qml" line="66"/>
         <source>Input text</source>
         <translation>Введите текст</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="57"/>
+        <location filename="../qml/PlayableItemPage.qml" line="74"/>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="61"/>
+        <location filename="../qml/PlayableItemPage.qml" line="78"/>
         <source>OK</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="107"/>
+        <location filename="../qml/PlayableItemPage.qml" line="117"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -459,17 +459,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="141"/>
+        <location filename="../qml/PlayableItemPage.qml" line="25"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="145"/>
+        <location filename="../qml/PlayableItemPage.qml" line="29"/>
         <source>Currently playing</source>
         <translation>Сейчас играет</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="149"/>
+        <location filename="../qml/PlayableItemPage.qml" line="33"/>
         <source>Back to menu</source>
         <translation>Главное меню</translation>
     </message>
@@ -1067,35 +1067,35 @@
 <context>
     <name>kontroller</name>
     <message>
-        <location filename="../qml/kontroller.qml" line="113"/>
+        <location filename="../qml/kontroller.qml" line="112"/>
         <source>Download of %1 started</source>
         <translation>Загрузка %1 начата</translation>
     </message>
     <message>
+        <location filename="../qml/kontroller.qml" line="115"/>
         <location filename="../qml/kontroller.qml" line="116"/>
-        <location filename="../qml/kontroller.qml" line="117"/>
         <source>Download started</source>
         <translation>Загрузка начата</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="122"/>
+        <location filename="../qml/kontroller.qml" line="121"/>
         <source>Download of %1 complete</source>
         <translation>Загнузка %1 окончена</translation>
     </message>
     <message>
+        <location filename="../qml/kontroller.qml" line="124"/>
         <location filename="../qml/kontroller.qml" line="125"/>
-        <location filename="../qml/kontroller.qml" line="126"/>
         <source>Download complete</source>
         <translation>Загрузка окончена</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="131"/>
+        <location filename="../qml/kontroller.qml" line="130"/>
         <source>Download of %1 failed with error %2</source>
         <translation>Загрузка %1 превалась с ошибкой %2</translation>
     </message>
     <message>
+        <location filename="../qml/kontroller.qml" line="133"/>
         <location filename="../qml/kontroller.qml" line="134"/>
-        <location filename="../qml/kontroller.qml" line="135"/>
         <source>Download error</source>
         <translation>Ошибка загрузки</translation>
     </message>

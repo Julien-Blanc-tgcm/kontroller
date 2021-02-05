@@ -34,7 +34,6 @@ ApplicationWindow {
         dock: Dock.Bottom
         visible: true
         height: col.height
-        z:1
         open:
         {
             if(pageStack.currentPage && !!pageStack.currentPage.hidePanel)

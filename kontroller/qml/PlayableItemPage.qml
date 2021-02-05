@@ -2,8 +2,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "."
 
-Item {
-    id: __root
+SilicaFlickable {
+    id: __rootItem
     property var service
     property var control
     property var directPlay : []
@@ -18,6 +18,23 @@ Item {
         properties: ["label"]
         type: 1 // FilterType.Contains
     }
+
+    VerticalScrollDecorator {flickable: __rootItem}
+    PullDownMenu {
+        MenuItem {
+            text:qsTr("Remote control")
+            onClicked: remoteClicked()
+        }
+        MenuItem {
+            text:qsTr("Currently playing")
+            onClicked: currentClicked()
+        }
+        MenuItem {
+            text:qsTr("Back to menu")
+            onClicked: backToMenuClicked();
+        }
+    }
+
 
     Rectangle {
         id: inputMain
@@ -64,94 +81,77 @@ Item {
         }
     }
 
+    Item {
+        anchors.left: parent.left
+        id: searchBar
+        anchors.leftMargin: Theme.horizontalPageMargin
+        anchors.rightMargin: Theme.horizontalPageMargin
+        anchors.right: parent.right
+        height: childrenRect.height
+        z: 1
+        PageHeader {
+            id: _header
+            title: __rootItem.title
+        }
+        Item {
+            visible: theModel.sourceModel.length > 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: _header.bottom
+            height: Math.max(_icon.height, _searchBox.height)
+            Icon {
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                source: "image://theme/icon-m-search"
+                id:_icon
+                highlighted: _searchBox.activeFocus
+            }
+            TextInput {
+                anchors.left: _icon.right
+                anchors.right: _cancel.visible?_cancel.left:parent.right
+                anchors.rightMargin: _cancel.visible?Theme.paddingLarge:0
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: Theme.fontSizeMedium
+                color: activeFocus?Theme.highlightColor:Theme.primaryColor
+                id: _searchBox
+                property string __initialText : qsTr("Search")
+                text: __initialText
+                EnterKey.iconSource: "image://theme/icon-m-search"
+                EnterKey.onClicked: {
+                    if(text == "")
+                    {
+                        theModel.filter = ""
+                        text = __initialText
+                    }
+                    else
+                        theModel.filter = text
+                }
+                onActiveFocusChanged: {
+                    if(activeFocus && text == __initialText)
+                        text = "";
+                }
+            }
+            IconButton {
+                id: _cancel
+                icon.source: "image://theme/icon-m-clear"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                onClicked: {
+                    _searchBox.text = _searchBox.__initialText
+                    theModel.filter = ""
+                }
+            }
+        }
+    }
+
     SilicaListView {
         id:thelist
-        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.top: searchBar.bottom
         anchors.bottom: parent.bottom
         clip:true
         visible: !service.refreshing
-        header: Item {
-            anchors.left: parent.left
-            anchors.leftMargin: Theme.horizontalPageMargin
-            anchors.rightMargin: Theme.horizontalPageMargin
-            anchors.right: parent.right
-            height: childrenRect.height
-            z: 1
-            PageHeader {
-                id: _header
-                title: __root.title
-            }
-            Item {
-                visible: theModel.sourceModel.length > 10
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: _header.bottom
-                height: Math.max(_icon.height, _searchBox.height)
-                Icon {
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: "image://theme/icon-m-search"
-                    id:_icon
-                    highlighted: _searchBox.activeFocus
-                }
-                TextInput {
-                    anchors.left: _icon.right
-                    anchors.right: _cancel.visible?_cancel.left:parent.right
-                    anchors.rightMargin: _cancel.visible?Theme.paddingLarge:0
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: activeFocus?Theme.highlightColor:Theme.primaryColor
-                    id: _searchBox
-                    property string __initialText : qsTr("Search")
-                    text: __initialText
-                    EnterKey.iconSource: "image://theme/icon-m-search"
-                    EnterKey.onClicked: {
-                        if(text == "")
-                        {
-                            theModel.filter = ""
-                            text = __initialText
-                        }
-                        else
-                            theModel.filter = text
-                    }
-                    onActiveFocusChanged: {
-                        if(activeFocus && text == __initialText)
-                            text = "";
-                    }
-                }
-                IconButton {
-                    id: _cancel
-                    icon.source: "image://theme/icon-m-clear"
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-                    onClicked: {
-                        _searchBox.text = _searchBox.__initialText
-                        theModel.filter = ""
-                    }
-                }
-            }
-        }
-
-
-        VerticalScrollDecorator {flickable: thelist}
-        PullDownMenu {
-            MenuItem {
-                text:qsTr("Remote control")
-                onClicked: remoteClicked()
-            }
-            MenuItem {
-                text:qsTr("Currently playing")
-                onClicked: currentClicked()
-            }
-            MenuItem {
-                text:qsTr("Back to menu")
-                onClicked: backToMenuClicked();
-            }
-        }
-
-
 
         model: theModel.filteredModel //service.filesAsList
         spacing:0
