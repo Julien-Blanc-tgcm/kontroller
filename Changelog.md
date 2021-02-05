@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.19
+
+* fixes display issues with Sailfish OS 4
+
 ## Version 0.18
 
 * improved cover pages when nothing playing / connection failed
