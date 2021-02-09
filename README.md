@@ -65,4 +65,4 @@ Then, type the following commands (as root):
 ### Windows
 
 There are lots of tutorials online about turning on Wake-on-LAN on Windows.
-Check https://search.mdosch.de/search?q=windows%2Benable%2Bwake%2Bon%2Blan&categories=general for details.
+Check https://duckduckgo.com/?q=windows+enable+wake+on+lan for details.
