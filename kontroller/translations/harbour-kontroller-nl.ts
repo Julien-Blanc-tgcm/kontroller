@@ -721,7 +721,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="169"/>
         <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
-        <translation>Wachtwoord om Kodi te authenticeren. Laat dit leeg als je geen wachtwoord gebruikt. Let op: het wachtwoord wordt onversleuteld opgeslagen.</translation>
+        <translation>Wachtwoord om te authenticeren bij Kodi. Laat dit leeg als je geen wachtwoord gebruikt. Let op: het wachtwoord wordt onversleuteld opgeslagen.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="182"/>
