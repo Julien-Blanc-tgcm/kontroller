@@ -6,7 +6,7 @@
     <message>
         <location filename="../qml/About.qml" line="14"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>About</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="20"/>
