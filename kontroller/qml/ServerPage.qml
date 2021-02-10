@@ -60,7 +60,7 @@ Page {
             }
 
             Label {
-                text: qsTr("Removes item that have been deleted on disk from the library.")
+                text: qsTr("Removes deleted items from the library too.")
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignLeft
                 width:parent.width
@@ -127,7 +127,7 @@ Page {
             }
 
             Label {
-                text: qsTr("Removes item that have been deleted on disk from the library.")
+                text: qsTr("Removes deleted items from the library too.")
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignLeft
                 width:parent.width
