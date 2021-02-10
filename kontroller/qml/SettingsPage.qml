@@ -90,14 +90,13 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Common")
+                text: qsTr("General")
             }
 
             ComboBox {
                 label: qsTr("Download location")
-                description: qsTr("Where to put downloaded files. By default, use \
-the phone memory, but SD card memory can be used as well. The relevant folder will \
-be used, depending on the downoaded file type.")
+                description: qsTr("Download folder. Defaults to \
+device memory, but SD card can be used. Picks folder depending on filetype.")
                 onCurrentItemChanged: {
                     appSettings.downloadLocationIndex = currentIndex
                 }
@@ -108,7 +107,7 @@ be used, depending on the downoaded file type.")
                         delegate: MenuItem {
                             text: (model.modelData.typeAsInt === DownloadLocation.Phone) ?
                                       qsTr("Phone memory") :
-                                      qsTr("SD Card %1").arg(model.modelData.name);
+                                      qsTr("SD card %1").arg(model.modelData.name);
                         }
                     }
                 }
@@ -119,7 +118,7 @@ be used, depending on the downoaded file type.")
 
             TextSwitch {
                 id:chkIgnoreWifi
-                text:qsTr("Ignore wi-fi status")
+                text:qsTr("Ignore Wi-Fi status")
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
