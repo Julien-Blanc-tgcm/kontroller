@@ -435,7 +435,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan"
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("miniDSP IP address")
-                placeholderText: qsTr("MiniDSP IP address")
+                placeholderText: qsTr("miniDSP IP address")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: miniDSPAddress.focus = false
