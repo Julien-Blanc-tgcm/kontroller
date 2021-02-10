@@ -266,7 +266,7 @@ void VideoService::refresh_collection()
 		file.setIcon("movies");
 		files_.push_back(file);
 		file = File();
-		file.setLabel(tr("TV shows"));
+		file.setLabel(tr("TV Shows"));
 		file.setFile("tvshows");
 		file.setType("media");
 		file.setFiletype("media");

@@ -310,7 +310,7 @@ so that the amplifier volume is controlled by the remote instead.")
                 id: serverWakeUpPlugin
                 anchors.left: parent.left
                 anchors.right: parent.right
-                label: qsTr("Wake-on-LAN plugin")
+                label: qsTr("Wake-up plugin")
                 menu: ContextMenu {
                     MenuItem {
                         text: qsTr("None")
