@@ -152,7 +152,7 @@ Page {
             // connecting
             Label {
                 visible: appClient.connectionStatus === 1
-                text: qsTr("Connecting, please wait...");
+                text: qsTr("Connecting…");
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
             }
@@ -166,7 +166,7 @@ Page {
             // failed to connect
             Label {
                 visible: appClient.connectionStatus < 0
-                text: qsTr("Failed to connect");
+                text: qsTr("Could not connect");
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
             }
