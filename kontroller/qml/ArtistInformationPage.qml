@@ -124,7 +124,7 @@ Page {
                     }
                     menu: ContextMenu {
                         MenuItem {
-                            text: qsTr("View information")
+                            text: qsTr("View info")
                             onClicked: mediaInformationClicked(model.modelData)
                         }
                         MenuItem {
