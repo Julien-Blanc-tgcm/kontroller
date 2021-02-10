@@ -18,7 +18,7 @@ Page {
             anchors.right: parent.right
             anchors.leftMargin: Theme.horizontalPageMargin
             anchors.rightMargin: Theme.horizontalPageMargin
-            text:qsTr("To learn new zones, start polling and then switch the audio output inside Kodi. Zones will be added automatically. Don’t forget go back and save afterwhile")
+            text:qsTr("To learn new zones, start polling and then switch the audio output inside Kodi to add them automatically. Go back and save after a while.")
             wrapMode: Text.WordWrap
             color:Theme.highlightColor
         }
