@@ -14,7 +14,7 @@ Current features include:
 * Discovery of servers on the local network
 * Multiple servers
 * Volume management, via Kodi or external device
-* Shutdown / Wake-on-LAN management
+* Shutdown /  wake-up management
 
 # Wake-on-LAN
 
