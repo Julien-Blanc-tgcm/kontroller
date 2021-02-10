@@ -38,7 +38,7 @@ Dialog {
             }
             Label {
                 horizontalAlignment: Text.AlignHCenter
-                text: qsTr("Discovering servers, please wait...");
+                text: qsTr("Discovering servers…");
                 wrapMode: Text.Wrap
                 visible: newServer && serviceDiscovery.discovering && !__serverSelected
                 anchors.left: parent.left
@@ -47,7 +47,7 @@ Dialog {
                 anchors.rightMargin: Theme.horizontalPageMargin
             }
             Label {
-                text: qsTr("The following servers have been discovered, click one to select it:")
+                text: qsTr("Click one of these discovered servers to select it:")
                 visible: newServer && !__serverSelected && serviceDiscovery.servers.length >= 1
                 wrapMode: Text.Wrap
                 anchors.left: parent.left
@@ -57,7 +57,7 @@ Dialog {
             }
 
             Label {
-                text: qsTr("No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.")
+                text: qsTr("No server found. Make sure your device has Wi-Fi turned on and that Kodi is running on the same network.")
                 wrapMode: Text.Wrap
                 visible: newServer && !__serverSelected && !serviceDiscovery.discovering && serviceDiscovery.servers.length === 0
                 anchors.left: parent.left
@@ -152,8 +152,8 @@ Dialog {
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase
-                label:qsTr("Login");
-                placeholderText: qsTr("Login");
+                label:qsTr("Username");
+                placeholderText: qsTr("Username");
                 visible: !selectingServer__()
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: serverPassword.focus = true
@@ -166,8 +166,7 @@ Dialog {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("Password used to authenticate to kodi. Leave blank if no password is used. Note that it \
-will be stored unencrypted on the device.")
+                text: qsTr("(Optional) password for Kodi login. (Stored unencrypted on device.)")
                 visible: !selectingServer__()
             }
 
@@ -193,9 +192,8 @@ will be stored unencrypted on the device.")
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("TCP port used to connect to the server. Unless you changed it in kodi, \
-the default value should be fine. You need to enable remote access in kodi, otherwise notifications \
-will not function properly.")
+                text: qsTr("TCP port for Kodi login. Change it if you used your \
+own value in Kodi. Turn on remote access in kodi to have working notifications.")
                 visible: !selectingServer__()
             }
 
@@ -222,9 +220,8 @@ will not function properly.")
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("HTTP port used to connect to the server. Unless you changed it in kodi, \
-the default value (8080) should be fine. \
-You need to enable HTTP remote access in kodi for this to work.")
+                text: qsTr("HTTP port for Kodi login. \"8080\" is fine unless you set up \
+something else in Kodi. Turn on \"HTTP remote access\" in Kodi for it to work.")
                 visible: !selectingServer__()
             }
             TextField {
@@ -245,9 +242,9 @@ You need to enable HTTP remote access in kodi for this to work.")
             Label {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Select here the volume plugin to use. Default (Kodi) is to use kodi integrated \
-volume. If using an amplifier to control the volume, select the corresponding plugin and configure it \
-to make the remote control the amplifier volume.")
+                text: qsTr("Here you can change the default integrated Kodi volume plugin. \
+If your amplifier controls the volume you can select and adjust the corresponding plugin \
+so that the amplifier volume is controlled by the remote instead.")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 color: Theme.highlightColor
@@ -269,7 +266,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Power off");
                 id: poweroffSupported
                 checked: appSettings.server(serverUuid).poweroffEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default.")
+                description: qsTr("Keep option in server management pulley menu. Checked by default.")
                 visible: !selectingServer__()
             }
 
@@ -281,7 +278,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Reboot");
                 id: rebootSupported
                 checked: appSettings.server(serverUuid).rebootEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Checked by default.")
+                description: qsTr("Keep option in server management pulley menu. On by default.")
                 visible: !selectingServer__()
             }
 
@@ -293,7 +290,7 @@ to make the remote control the amplifier volume.")
                 text: qsTr("Hibernate");
                 id: hibernateSupported
                 checked: appSettings.server(serverUuid).hibernateEnabled
-                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. Unchecked by default.")
+                description: qsTr("If unchecked, the option will not appear in the server management pulley menu. On by default.")
                 visible: !selectingServer__()
             }
 
@@ -313,13 +310,13 @@ to make the remote control the amplifier volume.")
                 id: serverWakeUpPlugin
                 anchors.left: parent.left
                 anchors.right: parent.right
-                label: qsTr("WakeUp plugin")
+                label: qsTr("Wake-on-LAN plugin")
                 menu: ContextMenu {
                     MenuItem {
                         text: qsTr("None")
                     }
                     MenuItem {
-                        text: qsTr("WakeOnLan")
+                        text: qsTr("Wake-on-LAN")
                         onClicked: wakeUpMacAddress.focus = true
                     }
                 }
@@ -344,8 +341,8 @@ to make the remote control the amplifier volume.")
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                plainText: qsTr("Wake On Lan generally requires configuration on the server. See \
-https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.")
+                plainText: qsTr("Wake-on-LAN usually needs to be set up on the server, as per
+https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
             }
 
@@ -357,8 +354,8 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan 
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 validator: RegExpValidator { regExp: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/ }
-                label:qsTr("Device mac address")
-                placeholderText: qsTr("Device mac address")
+                label:qsTr("Device MAC address")
+                placeholderText: qsTr("Device MAC address")
                 visible: serverWakeUpPlugin.currentIndex === 1 && !selectingServer__()
                 Component.onCompleted: {
                     if(appSettings.server(serverUuid) && appSettings.server(serverUuid).wakeUpPluginName === "WolWakeUp")
@@ -406,12 +403,12 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan 
                         text: qsTr("Kodi")
                     }
                     MenuItem {
-                        text: qsTr("Minidsp")
+                        text: qsTr("miniDSP")
                         onClicked: miniDSPAddress.focus = true
                     }
                 }
                 Component.onCompleted: {
-                    if(appSettings.server(serverUuid).volumePluginName === "Minidsp")
+                    if(appSettings.server(serverUuid).volumePluginName === "miniDSP")
                         currentIndex = 1;
                     else
                         currentIndex = 0;
@@ -425,7 +422,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan 
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("IP address of the minidsp device")
+                text: qsTr("IP address of the miniDSP device")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
             }
             TextField {
@@ -437,8 +434,8 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan 
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
-                label:qsTr("Minidsp ip address")
-                placeholderText: qsTr("Minidsp ip address")
+                label:qsTr("miniDSP IP address")
+                placeholderText: qsTr("MiniDSP IP address")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: miniDSPAddress.focus = false
