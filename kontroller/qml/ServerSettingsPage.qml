@@ -242,9 +242,8 @@ something else in Kodi. Turn on \"HTTP remote access\" in Kodi for it to work.")
             Label {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                text: qsTr("Here you can change the default integrated Kodi volume plugin. \
-If your amplifier controls the volume you can select and adjust the corresponding plugin \
-so that the amplifier volume is controlled by the remote instead.")
+                text: qsTr("Here you can change the selected Kodi volume control. Change \
+it if you want to control the volume on your amplifier directly from kontroller.")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 color: Theme.highlightColor
