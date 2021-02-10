@@ -80,7 +80,7 @@ Page {
             }
             Label {
                 id: finishedCleanVideoLibrary
-                text: qsTr("Video library cleaning finished!");
+                text: qsTr("Video library cleaned.");
                 visible: false
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
@@ -111,7 +111,7 @@ Page {
             }
             Label {
                 id: finishedRefreshVideoLibrary
-                text: qsTr("Video library refresh finished!");
+                text: qsTr("Video library updated.");
                 visible: false
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
@@ -147,7 +147,7 @@ Page {
             }
             Label {
                 id: finishedCleanAudioLibrary
-                text: qsTr("Audio library cleaning finished!");
+                text: qsTr("Audio library cleaned.");
                 visible: false
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
@@ -179,7 +179,7 @@ Page {
             }
             Label {
                 id: finishedRefreshAudioLibrary
-                text: qsTr("Audio library refresh finished!");
+                text: qsTr("Audio library updated.");
                 visible: false
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
