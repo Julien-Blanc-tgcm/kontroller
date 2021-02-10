@@ -14,9 +14,9 @@ Current features include:
 * Discovery of servers on the local network
 * Multiple servers
 * Volume management, via Kodi or external device
-* Shutdown / wake-up management
+* Shutdown / Wake-on-LAN management
 
-# WakeOnLan
+# Wake-on-LAN
 
 Wake-on-LAN usually requires some configuration at the server level.
 
@@ -35,7 +35,7 @@ be activated at the system level.
 
 ### Linux with systemd
 
-You need to install the *ethtool* package to help with configuring Wake-on_LAN.
+You need to install the *ethtool* package to help with configuring Wake-on-LAN.
 Then, identify your network card with ```ip link```.
 It should show a line with either something like ```ethX``` or ```enpXsY```, where X and Y are digits.
 
