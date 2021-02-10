@@ -572,7 +572,7 @@ void Player::handlePlayerStatus_()
 						auto nosub = new Subtitle(this);
 						nosub->setIndex(-1);
 						nosub->setLanguage("");
-						nosub->setName(tr("No subtitle"));
+						nosub->setName(tr("No subtitles"));
 						subtitles_.push_back(nosub);
 						for (auto sub_ : subtitles)
 						{
