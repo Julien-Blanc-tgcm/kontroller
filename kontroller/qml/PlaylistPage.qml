@@ -16,39 +16,31 @@ Page{
         anchors.fill:parent
         model: service?service.items:[]
         clip:true
-        spacing:1
         currentIndex: service?service.playlistPosition:-1
 
         delegate : ListItem {
             contentHeight: Theme.itemSizeMedium
-            highlighted: service.playlistPosition === index
-            IconButton {
-                id:switchTo
-                icon.source: "image://theme/icon-m-enter-next"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                onClicked: activateItem(model)
-            }
-
+            width: parent.width
             Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                color: (service.playlistPosition === index) ? Theme.highlightColor:Theme.primaryColor
                 id : theText
                 text: model.modelData.label
                 elide: Text.ElideRight
-                clip:true
-                anchors.left: switchTo.right
-                anchors.right: remove.left
-                anchors.leftMargin: 5
-                anchors.rightMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
             }
-            IconButton {
-                id: remove
-                icon.source: "image://theme/icon-m-remove"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 5
-                onClicked: service.removeElement(model.index)
+            menu: ContextMenu {
+                MenuItem {
+                    text:qsTr("Remove")
+                    onClicked: service.removeElement(model.index)
+                }
+                hasContent: service.playlistPosition !== index
             }
+            onClicked: activateItem(model)
+
         }
     }
 

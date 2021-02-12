@@ -545,6 +545,11 @@
         <source>Current playlist</source>
         <translation>Huidige speellijst</translation>
     </message>
+    <message>
+        <location filename="../qml/PlaylistPage.qml" line="37"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SeasonInformationPage</name>
@@ -817,7 +822,7 @@
         <source>WakeUp plugin</source>
         <translation>Wekplug-in</translation>
     </message>
-<message>
+    <message>
         <location filename="../qml/ServerSettingsPage.qml" line="269"/>
         <location filename="../qml/ServerSettingsPage.qml" line="281"/>
         <source>Keep option in server management pulley menu. On by default.</source>

@@ -545,6 +545,11 @@
         <source>Current playlist</source>
         <translation>Aktuelle Playlist</translation>
     </message>
+    <message>
+        <location filename="../qml/PlaylistPage.qml" line="37"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SeasonInformationPage</name>
