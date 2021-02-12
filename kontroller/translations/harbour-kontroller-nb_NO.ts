@@ -10,17 +10,17 @@
     </message>
     <message>
         <location filename="../qml/About.qml" line="20"/>
-        <source>&lt;b&gt;Kontroller&lt;/b&gt; is released under GNU General Public License version 3, in the hope that it will be usefull. The following persons contributed to Kontroller, either via code or translations:</source>
+        <source>&lt;b&gt;Kontroller&lt;/b&gt; is copylefted libre software, licensed GPLV3+.Brought to you by these people:</source>
         <translation>&lt;b&gt;Kontroller&lt;/b&gt; er gemenhetslig fri programvare, lisensiert GPLv3+. Disse har bidratt med kode og oversettelser:</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="48"/>
-        <source>Kontroller uses QJsonRPC. Many thanks to all the people who contributed to this project.</source>
+        <source>Kontroller uses QJsonRPC. Many thanks to its contributors.</source>
         <translation>Kontroller bruker QJsonRPC. Mange takk til alle som har bidratt til dette prosjektet.</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="63"/>
-        <source>Kontroller home page:</source>
+        <source>Kontroller homepage:</source>
         <translation type="unfinished">Kontroller-hjemmesiden:</translation>
     </message>
 </context>
@@ -121,7 +121,7 @@
     </message>
     <message>
         <location filename="../qml/ArtistInformationPage.qml" line="127"/>
-        <source>View information</source>
+        <source>View info</source>
         <translation type="unfinished">Vis info</translation>
     </message>
     <message>
@@ -294,12 +294,12 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="155"/>
-        <source>Connecting, please wait...</source>
+        <source>Connecting…</source>
         <translation type="unfinished">Kobler til. Vent …</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="169"/>
-        <source>Failed to connect</source>
+        <source>Could not connect</source>
         <translation type="unfinished">Klarte ikke å koble til</translation>
     </message>
     <message>
@@ -604,12 +604,12 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="63"/>
         <location filename="../qml/ServerPage.qml" line="130"/>
-        <source>Removes item that have been deleted on disk from the library.</source>
+        <source>Removes deleted items from the library too.</source>
         <translation type="unfinished">Fjerner element som har blitt slettet fra disken fra biblioteket.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="83"/>
-        <source>Video library cleaning finished!</source>
+        <source>Video library cleaned.</source>
         <translation type="unfinished">Videobibliotek tømt.</translation>
     </message>
     <message>
@@ -619,12 +619,12 @@
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="114"/>
-        <source>Video library refresh finished!</source>
+        <source>Video library updated.</source>
         <translation type="unfinished">Videobibliotek oppdatert.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="150"/>
-        <source>Audio library cleaning finished!</source>
+        <source>Audio library cleaned.</source>
         <translation type="unfinished">Lydbibliotek tømt.</translation>
     </message>
     <message>
@@ -634,7 +634,7 @@
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="182"/>
-        <source>Audio library refresh finished!</source>
+        <source>Audio library updated.</source>
         <translation type="unfinished">Lydbibliotek oppdatert.</translation>
     </message>
     <message>
@@ -682,17 +682,17 @@
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="41"/>
-        <source>Discovering servers, please wait...</source>
+        <source>Discovering servers…</source>
         <translation type="unfinished">Oppdager tjenere. Vent …</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="50"/>
-        <source>The following servers have been discovered, click one to select it:</source>
+        <source>Click one of these discovered servers to select it:</source>
         <translation type="unfinished">Følgende tjenere ble oppdaget. Klikk på en av dem for å velge den:</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="60"/>
-        <source>No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.</source>
+        <source>No server found. Make sure your device has Wi-Fi turned on and that Kodi is running on the same network.</source>
         <translation type="unfinished">Fant ingen tjener. Forsikre deg om at en Kodi-instans kjører på samme nettverk, og at enhetens Wi-Fi er påslått.</translation>
     </message>
     <message>
@@ -715,145 +715,146 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="155"/>
         <location filename="../qml/ServerSettingsPage.qml" line="156"/>
-        <source>Login</source>
+        <source>Username</source>
         <translation type="unfinished">Innloggingsnavn</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="169"/>
-        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
+        <source>(Optional) password for Kodi login. (Stored unencrypted on device.)</source>
         <translation type="unfinished">Passord brukt til identitetsbekreftelse mot Kodi. La stå tomt for å ikke bruke passord. Merk at passordet lagres ukryptert på enheten.</translation>
     </message>
     <message>
+        <location filename="../qml/ServerSettingsPage.qml" line="181"/>
         <location filename="../qml/ServerSettingsPage.qml" line="182"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="183"/>
         <source>Password</source>
         <translation>Passord</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="196"/>
-        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="195"/>
+        <source>TCP port for Kodi connection. Change it if you used your own value in Kodi. Turn on remote access in kodi to have working notifications.</source>
         <translation>TCP-port brukt tilkobling til tjeneren. Med mindre du har endret det i Kodi skal forvalgt verdi fungere. Du vil måtte skru på fjernkontroll-tilgang i Kodi, ellers vil ikke merknader fungere som de skal.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="211"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="212"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="209"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="210"/>
         <source>Server port</source>
         <translation>Tjenerport</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="225"/>
-        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="223"/>
+        <source>HTTP port for Kodi connection. &quot;8080&quot; is fine unless you set up something else in Kodi. Turn on &quot;HTTP remote access&quot; in Kodi for it to work.</source>
         <translation type="unfinished">HTTP-port bruk for tilkobling til tjeneren. Med mindre du har endret det i Kodi skal forvalgt verdi (8080) fungere. Du må skru på HTTP-fjerntilgang i Kodi for at dette skal virke.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="239"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="240"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="236"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="237"/>
         <source>Web port</source>
         <translation>Vev-port</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="248"/>
-        <source>Select here the volume plugin to use. Default (Kodi) is to use kodi integrated volume. If using an amplifier to control the volume, select the corresponding plugin and configure it to make the remote control the amplifier volume.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="245"/>
+        <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
         <translation type="unfinished">Velg lydstyrkeprogramtillegget å bruke. Forvalget er å bruke Kodi sin integrerte lydstyrke. Hvis du bruker en forsterker til å kontrollere lydstyrken kan du velge tilhørende programtillegg og sette det opp slik at fjernkontrollen styrer forsterkerlydstyrken.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="260"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="257"/>
         <source>Server features</source>
         <translation>Tjenerfunksjoner</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="269"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="266"/>
         <source>Power off</source>
         <translation>Skru av</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="281"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="278"/>
         <source>Reboot</source>
         <translation>Omstart</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="293"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="290"/>
         <source>Hibernate</source>
         <translation>Hvilemodus</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="305"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="302"/>
         <source>Suspend</source>
         <translation>Dvalemodus</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="395"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="392"/>
         <source>Volume handling</source>
         <translation>Lydstyrkehåndtering</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="403"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="400"/>
         <source>Volume plugin</source>
         <translation>Lydstyrkeprogramtillegg</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="406"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="403"/>
         <source>Kodi</source>
         <translation>Kodi</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="409"/>
-        <source>Minidsp</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="406"/>
+        <source>miniDSP</source>
         <translation type="unfinished">miniDSP</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="428"/>
-        <source>IP address of the minidsp device</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="425"/>
+        <source>IP address of the miniDSP device</source>
         <translation type="unfinished">IP-adresse for miniDSP-enhet</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="440"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="441"/>
-        <source>Minidsp ip address</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="437"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="438"/>
+        <source>miniDSP IP address</source>
         <translation type="unfinished">IP-adresse til miniDSP</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="316"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="313"/>
         <source>WakeUp plugin</source>
         <translation type="unfinished">Wake-on-LAN -programtillegg</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="272"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="284"/>
-        <source>If unchecked, the option will not appear in the server management pulley menu. Checked by default.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="269"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="281"/>
+        <source>Keep option in server management pulley menu. On by default.</source>
         <translation type="unfinished">Hvis uvalgt vil innstillingen ikke vises i toppmenyen for tjenerhåndtering. Valgt som forvalg.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="296"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="308"/>
-        <source>If unchecked, the option will not appear in the server management pulley menu. Unchecked by default.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="293"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="305"/>
+        <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
         <translation type="unfinished">Hvis uvalgt vil innstillingen ikke vises i toppmenyen for tjenerhåndtering. Uvalgt som forvalg.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="319"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="316"/>
         <source>None</source>
         <translation>Ingen</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="322"/>
-        <source>WakeOnLan</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="319"/>
+        <source>Wake-on-LAN</source>
         <translation type="unfinished">Wake-on-LAN</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="347"/>
-        <source>Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="344"/>
+        <source>Wake-on-LAN usually needs to be set up on the server, as per
+https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
         <translation type="unfinished">Wake-on-Lan krever vanligvis oppsett på tjeneren. https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan har info om hvordan.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="380"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="381"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="377"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="378"/>
         <source>Wake up port</source>
         <translation>Wake-on-LAN -port</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="360"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="361"/>
-        <source>Device mac address</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="357"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="358"/>
+        <source>Device MAC address</source>
         <translation type="unfinished">Enhetens MAC-adresse</translation>
     </message>
 </context>
@@ -891,7 +892,7 @@
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="93"/>
-        <source>Common</source>
+        <source>General</source>
         <translation type="unfinished">Generelt</translation>
     </message>
     <message>
@@ -901,22 +902,22 @@
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="98"/>
-        <source>Where to put downloaded files. By default, use the phone memory, but SD card memory can be used as well. The relevant folder will be used, depending on the downoaded file type.</source>
+        <source>Download location. Defaults to device memory, but SD card can be used. Picks folder depending on filetype.</source>
         <translation type="unfinished">Hvor filer skal lastes ned til. Som forvalg brukes enhetsminne, men SD-kortminne kan også brukes. Relevant mappe vil bli brukt avhengig av nedlastet filtype.</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="110"/>
+        <location filename="../qml/SettingsPage.qml" line="109"/>
         <source>Phone memory</source>
         <translation>Telefonminne</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="111"/>
-        <source>SD Card %1</source>
+        <location filename="../qml/SettingsPage.qml" line="110"/>
+        <source>SD card %1</source>
         <translation type="unfinished">SD-kort %1</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="122"/>
-        <source>Ignore wi-fi status</source>
+        <location filename="../qml/SettingsPage.qml" line="121"/>
+        <source>Ignore Wi-Fi status</source>
         <translation type="unfinished">Ignorer Wi-Fi-status</translation>
     </message>
 </context>
@@ -1036,7 +1037,7 @@
     <name>eu::tgcm::kontroller::Player</name>
     <message>
         <location filename="../player.cpp" line="575"/>
-        <source>No subtitle</source>
+        <source>No subtitles</source>
         <translation type="unfinished">Ingen undertekst</translation>
     </message>
 </context>

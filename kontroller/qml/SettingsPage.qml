@@ -95,7 +95,7 @@ Page {
 
             ComboBox {
                 label: qsTr("Download location")
-                description: qsTr("Download folder. Defaults to \
+                description: qsTr("Download location. Defaults to \
 device memory, but SD card can be used. Picks folder depending on filetype.")
                 onCurrentItemChanged: {
                     appSettings.downloadLocationIndex = currentIndex

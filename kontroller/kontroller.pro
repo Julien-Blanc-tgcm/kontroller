@@ -99,11 +99,15 @@ CONFIG(sailfishapp) {
 }
 
 TRANSLATIONS += \
+        translations/harbour-kontroller-de.ts \
         translations/harbour-kontroller-en.ts \
         translations/harbour-kontroller-fr.ts \
+        translations/harbour-kontroller-nb_NO.ts \
+        translations/harbour-kontroller-nl.ts \
+        translations/harbour-kontroller-nl_BE.ts \
         translations/harbour-kontroller-ru.ts \
         translations/harbour-kontroller-sv.ts \
-        translations/harbour-kontroller-de.ts
+
 
 TRANSLATION_SOURCES += $$PWD/*.cpp \
     $$PWD/qml/*.qml

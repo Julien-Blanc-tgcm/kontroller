@@ -192,7 +192,7 @@ Dialog {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("TCP port for Kodi login. Change it if you used your \
+                text: qsTr("TCP port for Kodi connection. Change it if you used your \
 own value in Kodi. Turn on remote access in kodi to have working notifications.")
                 visible: !selectingServer__()
             }
@@ -220,7 +220,7 @@ own value in Kodi. Turn on remote access in kodi to have working notifications."
                 anchors.rightMargin: Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
-                text: qsTr("HTTP port for Kodi login. \"8080\" is fine unless you set up \
+                text: qsTr("HTTP port for Kodi connection. \"8080\" is fine unless you set up \
 something else in Kodi. Turn on \"HTTP remote access\" in Kodi for it to work.")
                 visible: !selectingServer__()
             }
@@ -435,7 +435,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan"
                 anchors.rightMargin: Theme.horizontalPageMargin
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhPreferNumbers
                 label:qsTr("miniDSP IP address")
-                placeholderText: qsTr("MiniDSP IP address")
+                placeholderText: qsTr("miniDSP IP address")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: miniDSPAddress.focus = false

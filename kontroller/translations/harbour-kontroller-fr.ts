@@ -10,17 +10,17 @@
     </message>
     <message>
         <location filename="../qml/About.qml" line="20"/>
-        <source>&lt;b&gt;Kontroller&lt;/b&gt; is released under GNU General Public License version 3, in the hope that it will be usefull. The following persons contributed to Kontroller, either via code or translations:</source>
+        <source>&lt;b&gt;Kontroller&lt;/b&gt; is copylefted libre software, licensed GPLV3+.Brought to you by these people:</source>
         <translation>&lt;b&gt;Kontroller&lt;/b&gt; est distribué sous licence GNU General Public License version 3. Les personnes suivantes ont contribué à Kontroller, via du code ou des traductions :</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="48"/>
-        <source>Kontroller uses QJsonRPC. Many thanks to all the people who contributed to this project.</source>
-        <translation>Kontroller utilise QJsonRPC. L’auteur tient à remercier les personnes ayant contribué à ce projet.</translation>
+        <source>Kontroller uses QJsonRPC. Many thanks to its contributors.</source>
+        <translation>Kontroller utilise QJsonRPC. Un grand merci à toutes les personnes ayant contribué à ce projet.</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="63"/>
-        <source>Kontroller home page:</source>
+        <source>Kontroller homepage:</source>
         <translation>Page du projet :</translation>
     </message>
 </context>
@@ -106,7 +106,7 @@
     </message>
     <message>
         <location filename="../qml/ArtistInformationPage.qml" line="127"/>
-        <source>View information</source>
+        <source>View info</source>
         <translation>Informations</translation>
     </message>
     <message>
@@ -295,12 +295,12 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="155"/>
-        <source>Connecting, please wait...</source>
+        <source>Connecting…</source>
         <translation>Connexion en cours, merci de patienter...</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="169"/>
-        <source>Failed to connect</source>
+        <source>Could not connect</source>
         <translation>Connexion échouée</translation>
     </message>
     <message>
@@ -604,12 +604,12 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="63"/>
         <location filename="../qml/ServerPage.qml" line="130"/>
-        <source>Removes item that have been deleted on disk from the library.</source>
+        <source>Removes deleted items from the library too.</source>
         <translation>Supprime de la médiathèque les fichiers qui ont été effacés du disque ou ne sont plus accessibles.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="83"/>
-        <source>Video library cleaning finished!</source>
+        <source>Video library cleaned.</source>
         <translation>Nettoyage de la médiathèque vidéo terminé !</translation>
     </message>
     <message>
@@ -619,12 +619,12 @@
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="114"/>
-        <source>Video library refresh finished!</source>
+        <source>Video library updated.</source>
         <translation>Actualisation de la médiathèque vidéo terminée !</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="150"/>
-        <source>Audio library cleaning finished!</source>
+        <source>Audio library cleaned.</source>
         <translation>Nettoyage de la médiathèque audio terminé !</translation>
     </message>
     <message>
@@ -634,7 +634,7 @@
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="182"/>
-        <source>Audio library refresh finished!</source>
+        <source>Audio library updated.</source>
         <translation>Actualisation de la médiathèque audio terminée !</translation>
     </message>
     <message>
@@ -682,17 +682,17 @@
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="41"/>
-        <source>Discovering servers, please wait...</source>
+        <source>Discovering servers…</source>
         <translation>Découverte des serveurs en cours, veuillez patienter...</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="50"/>
-        <source>The following servers have been discovered, click one to select it:</source>
+        <source>Click one of these discovered servers to select it:</source>
         <translation>Les serveurs suivants sont disponibles, cliquez sur le nom pour sélectionner le serveur à utiliser :</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="60"/>
-        <source>No server found, make sure an instance of kodi is running on the same network, and device wifi is enabled.</source>
+        <source>No server found. Make sure your device has Wi-Fi turned on and that Kodi is running on the same network.</source>
         <translation>Aucun server trouvé, assurez-vous qu’une instance Kodi est visible sur le réseau, et que le wifi est activé.</translation>
     </message>
     <message>
@@ -710,127 +710,128 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="155"/>
         <location filename="../qml/ServerSettingsPage.qml" line="156"/>
-        <source>Login</source>
+        <source>Username</source>
         <translation>Identifiant</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="196"/>
-        <source>TCP port used to connect to the server. Unless you changed it in kodi, the default value should be fine. You need to enable remote access in kodi, otherwise notifications will not function properly.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="195"/>
+        <source>TCP port for Kodi connection. Change it if you used your own value in Kodi. Turn on remote access in kodi to have working notifications.</source>
         <translation>Port TCP utilisé pour les notifications. Sauf changement dans kodi, laisser la valeur par défaut (9090). Il faut activer l’accès à distance dans les paramètres de Kodi.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="225"/>
-        <source>HTTP port used to connect to the server. Unless you changed it in kodi, the default value (8080) should be fine. You need to enable HTTP remote access in kodi for this to work.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="223"/>
+        <source>HTTP port for Kodi connection. &quot;8080&quot; is fine unless you set up something else in Kodi. Turn on &quot;HTTP remote access&quot; in Kodi for it to work.</source>
         <translation>Port HTTP utilisé. Sauf changement dans kodi, laisser la valeur par défaut (8080). Vous devez autoriser l’accès à distance HTTP dans Kodi pour utiliser l’application.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="248"/>
-        <source>Select here the volume plugin to use. Default (Kodi) is to use kodi integrated volume. If using an amplifier to control the volume, select the corresponding plugin and configure it to make the remote control the amplifier volume.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="245"/>
+        <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
         <translation>Sélectionner le plugin à utiliser pour le contrôle du volume. Par défaut, le volume intégré de kodi est utilisé. Si vous utilizez un amplificateur externe ou un autre dispositif, choisissez le plugin correspondant et configurez le. Le contrôle du volume agira sur le dispositif sélectionné.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="260"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="257"/>
         <source>Server features</source>
         <translation>Fonctionnalités serveur</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="269"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="266"/>
         <source>Power off</source>
         <translation>Extinction</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="281"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="278"/>
         <source>Reboot</source>
         <translation>Redémarrage</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="293"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="290"/>
         <source>Hibernate</source>
         <translation>Hibernation</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="305"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="302"/>
         <source>Suspend</source>
         <translation>Suspension</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="395"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="392"/>
         <source>Volume handling</source>
         <translation>Gestion du volume</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="403"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="400"/>
         <source>Volume plugin</source>
         <translation>Plugin pour le volume</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="406"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="403"/>
         <source>Kodi</source>
         <translation>Kodi</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="409"/>
-        <source>Minidsp</source>
-        <translation>Minidsp</translation>
+        <location filename="../qml/ServerSettingsPage.qml" line="406"/>
+        <source>miniDSP</source>
+        <translation>minidsp</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="428"/>
-        <source>IP address of the minidsp device</source>
-        <translation>Adresse IP du périphérique minidsp</translation>
+        <location filename="../qml/ServerSettingsPage.qml" line="425"/>
+        <source>IP address of the miniDSP device</source>
+        <translation>Adresse IP du périphérique miniDSP</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="440"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="441"/>
-        <source>Minidsp ip address</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="437"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="438"/>
+        <source>miniDSP IP address</source>
         <translation>Adresse ip</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="316"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="313"/>
         <source>WakeUp plugin</source>
         <translation>Plugin de réveil</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="272"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="284"/>
-        <source>If unchecked, the option will not appear in the server management pulley menu. Checked by default.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="269"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="281"/>
+        <source>Keep option in server management pulley menu. On by default.</source>
         <translation>Si non coché, l’option n’apparaîtra pas dans le menu déroulant de la page Gestion du serveur. Coché par défaut.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="296"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="308"/>
-        <source>If unchecked, the option will not appear in the server management pulley menu. Unchecked by default.</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="293"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="305"/>
+        <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
         <translation>Si non coché, l’option n’apparaîtra pas dans le menu déroulant de la page Gestion du serveur. Décoché par défaut.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="319"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="316"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="322"/>
-        <source>WakeOnLan</source>
-        <translation>Wake On Lan</translation>
+        <location filename="../qml/ServerSettingsPage.qml" line="319"/>
+        <source>Wake-on-LAN</source>
+        <translation>Wake on LAN</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="347"/>
-        <source>Wake On Lan generally requires configuration on the server. See https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan for help enabling it.</source>
-        <translation>L’activation de Wake On Lan nécessite généralement une configuration côté serveur. Consultez https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan pour plus d’informations.</translation>
+        <location filename="../qml/ServerSettingsPage.qml" line="344"/>
+        <source>Wake-on-LAN usually needs to be set up on the server, as per
+https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
+        <translation>L’activation de Wake on Lan nécessite généralement une configuration côté serveur. Consultez https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan pour plus d’informations.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="380"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="381"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="377"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="378"/>
         <source>Wake up port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="360"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="361"/>
-        <source>Device mac address</source>
+        <location filename="../qml/ServerSettingsPage.qml" line="357"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="358"/>
+        <source>Device MAC address</source>
         <translation>Adresse matérielle du serveur</translation>
     </message>
     <message>
+        <location filename="../qml/ServerSettingsPage.qml" line="181"/>
         <location filename="../qml/ServerSettingsPage.qml" line="182"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="183"/>
         <source>Password</source>
         <translation>Mot de passe</translation>
     </message>
@@ -841,18 +842,18 @@
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="169"/>
-        <source>Password used to authenticate to kodi. Leave blank if no password is used. Note that it will be stored unencrypted on the device.</source>
+        <source>(Optional) password for Kodi login. (Stored unencrypted on device.)</source>
         <translation>Mot de passe utilisé pour l’authentification à Kodi. Laisser vide si aucun mot de passe n’est nécessaire. Attention, ce mot de passe est enregistré en clair sur le périphérique.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="211"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="212"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="209"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="210"/>
         <source>Server port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="239"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="240"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="236"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="237"/>
         <source>Web port</source>
         <translation>Port web</translation>
     </message>
@@ -891,7 +892,7 @@
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="93"/>
-        <source>Common</source>
+        <source>General</source>
         <translation>Paramètres globaux</translation>
     </message>
     <message>
@@ -901,23 +902,23 @@
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="98"/>
-        <source>Where to put downloaded files. By default, use the phone memory, but SD card memory can be used as well. The relevant folder will be used, depending on the downoaded file type.</source>
+        <source>Download location. Defaults to device memory, but SD card can be used. Picks folder depending on filetype.</source>
         <translation>Mémoire à utiliser pour les fichiers téléchargés. Par défaut, la mémoire du téléphone est utilisée. Le dossier est choisi en fonction du type de la donnée téléchargée (Musique, Vidéo, Image...).</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="110"/>
+        <location filename="../qml/SettingsPage.qml" line="109"/>
         <source>Phone memory</source>
         <translation>Téléphone</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="111"/>
-        <source>SD Card %1</source>
+        <location filename="../qml/SettingsPage.qml" line="110"/>
+        <source>SD card %1</source>
         <translation>Carte mémoire %1</translation>
     </message>
     <message>
-        <location filename="../qml/SettingsPage.qml" line="122"/>
-        <source>Ignore wi-fi status</source>
-        <translation>Ignorer l’état wi-fi</translation>
+        <location filename="../qml/SettingsPage.qml" line="121"/>
+        <source>Ignore Wi-Fi status</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1036,7 +1037,7 @@
     <name>eu::tgcm::kontroller::Player</name>
     <message>
         <location filename="../player.cpp" line="575"/>
-        <source>No subtitle</source>
+        <source>No subtitles</source>
         <translation>Aucun sous-titres</translation>
     </message>
 </context>
