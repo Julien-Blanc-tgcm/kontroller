@@ -127,7 +127,7 @@ ApplicationWindow {
         }
         onDownloadError: {
             var theFile = file;
-            var message = qsTr("Download of %1 failed with error %2").arg(theFile).arg(error);
+            var message = qsTr("Could not download %1 because %2").arg(theFile).arg(error);
             theNotif.body = message
             theNotif.previewBody = message
             theNotif.summary = qsTr("Download error");

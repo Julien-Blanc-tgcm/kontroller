@@ -17,8 +17,8 @@ Page {
             Label {
                 color: Theme.highlightColor
                 wrapMode: Text.WordWrap
-                text: qsTr("<b>Kontroller</b> is released under GNU General Public License version 3, in the hope that it will\
- be usefull. The following persons contributed to Kontroller, either via code or translations:")
+                text: qsTr("<b>Kontroller</b> is copylefted libre software, licensed GPLV3+.\
+Brought to you by these people:")
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -45,7 +45,7 @@ Page {
             Label {
                 color: Theme.highlightColor
                 wrapMode: Text.WordWrap
-                text: qsTr("Kontroller uses QJsonRPC. Many thanks to all the people who contributed to this project.")
+                text: qsTr("Kontroller uses QJsonRPC. Many thanks to its contributors.")
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -60,7 +60,7 @@ Page {
             Label {
                 color: Theme.highlightColor
                 wrapMode: Text.WordWrap
-                text: qsTr("Kontroller home page:")
+                text: qsTr("Kontroller homepage:")
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
