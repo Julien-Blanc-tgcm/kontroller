@@ -148,7 +148,12 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="30"/>
+        <location filename="../qml/cover/CoverPage.qml" line="22"/>
+        <source>Not connected to the server</source>
+        <translation type="unfinished">Geên verbinding me’ de server</translation>
+    </message>
+    <message>
+        <location filename="../qml/cover/CoverPage.qml" line="53"/>
         <source>Nothing playing</source>
         <translation>Standby</translation>
     </message>
@@ -1003,39 +1008,44 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="314"/>
+        <location filename="../musicservice.cpp" line="320"/>
         <source>Artists</source>
         <translation>Artiesten</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="322"/>
+        <location filename="../musicservice.cpp" line="328"/>
         <source>Albums</source>
         <translation>Albums</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="328"/>
+        <location filename="../musicservice.cpp" line="334"/>
         <source>Songs</source>
         <translation>Liedjes</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="335"/>
+        <location filename="../musicservice.cpp" line="341"/>
         <source>Genres</source>
         <translation>Genres</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="342"/>
+        <location filename="../musicservice.cpp" line="348"/>
         <source>Files</source>
         <translation>Bestanden</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="348"/>
+        <location filename="../musicservice.cpp" line="354"/>
         <source>Recently added albums</source>
         <translation>Overlaatst toegevoegde albums</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="354"/>
+        <location filename="../musicservice.cpp" line="360"/>
         <source>Recently played albums</source>
         <translation>Overlaatst afgespeelde albums</translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="366"/>
+        <source>Random albums</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1072,35 +1082,35 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>kontroller</name>
     <message>
-        <location filename="../qml/kontroller.qml" line="112"/>
+        <location filename="../qml/kontroller.qml" line="107"/>
         <source>Download of %1 started</source>
         <translation>Den download van %1 is begost</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="115"/>
-        <location filename="../qml/kontroller.qml" line="116"/>
+        <location filename="../qml/kontroller.qml" line="110"/>
+        <location filename="../qml/kontroller.qml" line="111"/>
         <source>Download started</source>
         <translation>Download begost</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="121"/>
+        <location filename="../qml/kontroller.qml" line="116"/>
         <source>Download of %1 complete</source>
         <translation>Den download van %1 is voltoôid</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="124"/>
-        <location filename="../qml/kontroller.qml" line="125"/>
+        <location filename="../qml/kontroller.qml" line="119"/>
+        <location filename="../qml/kontroller.qml" line="120"/>
         <source>Download complete</source>
         <translation>Download voltoôid</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="130"/>
+        <location filename="../qml/kontroller.qml" line="125"/>
         <source>Download of %1 failed with error %2</source>
         <translation>Den download van %1 is mislukt me’ de foutmelding %2</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="133"/>
-        <location filename="../qml/kontroller.qml" line="134"/>
+        <location filename="../qml/kontroller.qml" line="128"/>
+        <location filename="../qml/kontroller.qml" line="129"/>
         <source>Download error</source>
         <translation>Download mislukt</translation>
     </message>

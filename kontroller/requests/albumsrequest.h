@@ -41,6 +41,12 @@ class AlbumsRequest : public QObject
 	void startRecentlyPlayed();
 
 	/**
+	 * @brief startRandom starts a random album request, that will retrieve the given number of items
+	 * @param count The number of random albums to retrieve
+	 */
+	void startRandom(int count);
+
+	/**
 	 * @brief startFavorites starts a request to retrieve favorites albums
 	 */
 	void startFavorites();

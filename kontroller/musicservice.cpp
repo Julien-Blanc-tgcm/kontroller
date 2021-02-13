@@ -280,6 +280,12 @@ void MusicService::refresh_collection()
 				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
 				req->startRecentlyPlayed();
 			}
+			else if(browsingValue_ == "randomalbums")
+			{
+				auto req = new AlbumsRequest(client_, this);
+				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				req->startRandom(30);
+			}
 //			else if (browsingValue_ == "favoritesalbums")
 //			{
 //				auto req = new AlbumsRequest(client_, this);
@@ -356,6 +362,12 @@ void MusicService::refresh_collection()
 		file.setType("media");
 		file.setFiletype("media");
 		file.setIcon("recentlyplayedalbums");
+		files_.push_back(file);
+		file.setLabel(tr("Random albums"));
+		file.setFile("randomalbums");
+		file.setType("media");
+		file.setFiletype("media");
+		file.setIcon("randomalbums");
 		files_.push_back(file);
 		refreshAddons_();
 		emit filesAsListChanged();

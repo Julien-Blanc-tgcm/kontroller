@@ -95,6 +95,28 @@ void AlbumsRequest::startRecentlyPlayed()
 		emit finished();
 }
 
+void AlbumsRequest::startRandom(int count)
+{
+	QJsonObject filter;
+	QJsonObject parameters;
+	QJsonArray properties;
+	properties.append(QLatin1String("thumbnail"));
+	parameters.insert("properties", properties);
+	QJsonObject sort;
+	sort["method"] = QLatin1String("random");
+	parameters.insert("sort", sort);
+	QJsonObject limits;
+	limits["start"] = 0;
+	limits["end"] = count;
+	parameters.insert("limits", limits);
+	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
+	QJsonRpcServiceReply* reply = client_->send(message);
+	if(reply)
+		connect(reply, &QJsonRpcServiceReply::finished, this, &AlbumsRequest::parseAlbumsResult);
+	else
+		emit finished();
+}
+
 void AlbumsRequest::parseAlbumsResult()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
