@@ -6,7 +6,6 @@ SilicaFlickable {
     id: __rootItem
     property var service
     property var control
-    property var directPlay : []
     property var playableItems:[]
     property string mediaType:""
     property string title : ""
@@ -204,7 +203,7 @@ SilicaFlickable {
                 text : formatFile(modelData.filetype, modelData.label)
                 anchors.left: img.visible ? img.right: (theIcon.visible?theIcon.right:parent.left)
                 anchors.leftMargin: (img.visible || theIcon.visible) ? Theme.paddingMedium : Theme.horizontalPageMargin
-                anchors.right: btnplay.visible ? btnplay.left : parent.left
+                anchors.right: btnplay.visible ? btnplay.left : parent.right
                 anchors.rightMargin: btnplay.visible ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
                 wrapMode: Text.Wrap

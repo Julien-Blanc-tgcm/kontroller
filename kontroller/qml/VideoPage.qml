@@ -31,7 +31,6 @@ Page {
         service: videoService
         control: videoControl
         anchors.fill: parent
-        directPlay: ['directory', 'media', 'tvshow', 'season', 'movie']
         playableItems : ['movie', 'file', 'episode', 'musicvideo']
         mediaType: "video"
         title:label

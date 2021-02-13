@@ -32,8 +32,7 @@ Page {
         service:musicService;
         control:musicControl
         anchors.fill: parent
-        directPlay: ['album', 'directory', 'artist', 'media']
-        playableItems :['directory', 'album', 'song', 'file']
+        playableItems :['album', 'song', 'file']
         mediaType: "music"
         title: label
 
