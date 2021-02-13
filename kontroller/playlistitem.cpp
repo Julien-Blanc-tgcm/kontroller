@@ -168,6 +168,16 @@ void PlaylistItem::setTvshowId(int tvshowId)
 	tvshowId_ = tvshowId;
 }
 
+int PlaylistItem::duration() const
+{
+	return duration_;
+}
+
+void PlaylistItem::setDuration(int duration)
+{
+	duration_ = duration;
+}
+
 QDataStream& readFromStream(QDataStream& stream, eu::tgcm::kontroller::PlaylistItem& file)
 {
 	stream >> file.album_;
@@ -181,6 +191,7 @@ QDataStream& readFromStream(QDataStream& stream, eu::tgcm::kontroller::PlaylistI
 	stream >> file.movieId_;
 	stream >> file.musicvideoId_;
 	stream >> file.songId_;
+	stream >> file.duration_;
 	return stream;
 }
 
@@ -193,7 +204,7 @@ QDataStream& operator<<(QDataStream& stream, const eu::tgcm::kontroller::Playlis
 {
 	return stream << file.album() << file.albumId() << file.artist() << file.artistId() << file.episodeId()
 	              << file.fanart() << file.file() << file.label() << file.movieId() << file.musicvideoId()
-	              << file.songId();
+	              << file.songId() << file.duration();
 }
 
 QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::PlaylistItem& file)

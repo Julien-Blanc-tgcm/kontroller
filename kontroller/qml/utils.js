@@ -12,10 +12,10 @@ function formatTime(time)
         if(hour > 0 && min < 10)
             ret += "0";
         ret += min;
-        if(hour == 0)
+        if(hour === 0)
             ret += "min";
     }
-    if(hour == 0)
+    if(hour === 0)
     {
         var sec = time % 60;
         if(min > 0 && sec < 10)
@@ -39,7 +39,7 @@ function formatDate(date)
 
 function join(vals, sep)
 {
-    if(vals.length == 0)
+    if(vals.length === 0)
         return "";
     var ret = vals[0];
     for(var i = 1; i < vals.length; ++i)

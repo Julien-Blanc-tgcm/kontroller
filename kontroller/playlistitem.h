@@ -3,8 +3,6 @@
 
 #include <QObject>
 
-
-
 namespace eu
 {
 namespace tgcm
@@ -21,24 +19,25 @@ class PlaylistItem
 	QString type_;
 	QString file_;
 	QString label_;
-	int artistId_;
-	int albumId_;
-	int movieId_;
-	int episodeId_;
-	int musicvideoId_;
-	int songId_;
-	int tvshowId_;
+	int artistId_ = 0;
+	int albumId_ = 0;
+	int movieId_ = 0;
+	int episodeId_ = 0;
+	int musicvideoId_ = 0;
+	int songId_ = 0;
+	int tvshowId_ = 0;
 	QString artist_;
 	QString album_;
 	QString fanart_;
 	QString thumbnail_;
 	QString tvshow_;
+	int duration_ = 0;
 
-public:
+  public:
 	PlaylistItem() = default;
 	~PlaylistItem() = default;
 	PlaylistItem(PlaylistItem const&) = default;
-	PlaylistItem(PlaylistItem &&) = default;
+	PlaylistItem(PlaylistItem&&) = default;
 	PlaylistItem& operator=(PlaylistItem const&) = default;
 	PlaylistItem& operator=(PlaylistItem&&) = default;
 
@@ -57,19 +56,19 @@ public:
 	Q_PROPERTY(QString fanart READ fanart WRITE setFanart)
 	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail)
 	Q_PROPERTY(QString tvshow READ tvshow WRITE setTvshow)
-
+	Q_PROPERTY(int duration READ duration WRITE setDuration)
 	/**
 	 * @brief type the type of the playlist list item, may be photo, video or audio
 	 * @return
 	 */
 	QString type() const;
-	void setType(const QString &type);
+	void setType(const QString& type);
 
 	QString file() const;
-	void setFile(const QString &file);
+	void setFile(const QString& file);
 
 	QString label() const;
-	void setLabel(const QString &label);
+	void setLabel(const QString& label);
 
 	int artistId() const;
 	void setArtistId(int artistId);
@@ -107,13 +106,16 @@ public:
 	void setSongId(int songId);
 	void setTvshow(QString tvshow);
 	void setTvshowId(int tvshowId);
+	int duration() const;
+	void setDuration(int duration);
 
 	friend QDataStream& readFromStream(QDataStream&, eu::tgcm::kontroller::PlaylistItem& file);
+  public slots:
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 
 QDataStream& operator<<(QDataStream& stream, eu::tgcm::kontroller::PlaylistItem const& file);
 

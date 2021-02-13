@@ -116,6 +116,7 @@ void PlaylistService::refreshPlaylist_()
 		properties.append(QString("thumbnail"));
 		properties.append(QString("showtitle"));
 		properties.append(QString("tvshowid"));
+		properties.append(QString("duration"));
 		parameters["properties"] = properties;
 		parameters["playlistid"] = playlistId_;
 		QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetItems", parameters);
@@ -164,13 +165,16 @@ void PlaylistService::refreshPlaylistCb_()
 							item.setMusicvideoId(id);
 						item.setFile(val.value("file").toString());
 						item.setLabel(val.value("label").toString());
+						if (val.value("title").toString().size() > 0)
+							item.setLabel(val.value("title").toString()); // set title instead if available
 						item.setType(val.value("type").toString());
 						item.setAlbum(val.value("album").toString());
 						item.setArtist(val.value("displayartist").toString());
 						item.setFanart(getImageUrl(client_, val.value("fanart").toString()).toString());
 						item.setThumbnail(getImageUrl(client_, val.value("thumbnail").toString()).toString());
 						item.setTvshow(val.value("showtitle").toString());
-						item.setTvshowId(val.value("tvshowid").toInt());
+						item.setTvshowId(val.value("tvshowid").toInt(0));
+						item.setDuration(val.value("duration").toInt(0));
 						currentItems_.push_back(item);
 					}
 				}

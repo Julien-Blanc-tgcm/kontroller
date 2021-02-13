@@ -541,12 +541,12 @@
 <context>
     <name>PlaylistPage</name>
     <message>
-        <location filename="../qml/PlaylistPage.qml" line="12"/>
+        <location filename="../qml/PlaylistPage.qml" line="13"/>
         <source>Current playlist</source>
         <translation>Lecture en cours</translation>
     </message>
     <message>
-        <location filename="../qml/PlaylistPage.qml" line="37"/>
+        <location filename="../qml/PlaylistPage.qml" line="86"/>
         <source>Remove</source>
         <translation>Enlever</translation>
     </message>
