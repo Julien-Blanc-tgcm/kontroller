@@ -6,9 +6,9 @@ Item {
     property var properties: []
     property string imageSource: ""
     Column {
+        id: theColumn
         anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.rightMargin: parent.width / 3
+        width: parent.width * 2 / 3
         anchors.top: parent.top
         Repeater {
             id:rep
@@ -28,11 +28,12 @@ Item {
 
     Image {
         id: fanart
-        height:parent.width / 3
-        width:parent.width / 3
-        fillMode: Image.PreserveAspectFit
+        anchors.left: theColumn.right
+        anchors.leftMargin: Theme.paddingSmall
         anchors.right: parent.right
         anchors.rightMargin: Theme.horizontalPageMargin
+        height:width
+        fillMode: Image.PreserveAspectFit
         anchors.top:parent.top
         source: imageSource
         BusyIndicator {
