@@ -41,7 +41,7 @@ Page {
         anchors.fill: parent
         PullDownMenu {
             MenuItem {
-                text: qsTr("settings")
+                text: qsTr("Settings")
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("SettingsPage.qml"));
                 }
@@ -75,39 +75,39 @@ Page {
                     page:"music"
                     icon:"image://theme/icon-m-media-songs"
                     needConnect:true
-                    label: qsTr("music")
+                    label: qsTr("Music")
                 }
                 ListElement {
                     page:"videos"
                     icon:"image://assets/icons/icon-m-video-k"
                     needConnect:true
-                    label: qsTr("videos")
+                    label: qsTr("Videos")
                 }
                 ListElement {
                     page:"current"
                     icon:"image://theme/icon-m-accessory-speaker"
                     needConnect:true
-                    label: qsTr("current")
+                    label: qsTr("Current")
                 }
                 ListElement {
                     page:"remote"
                     icon:"image://assets/icons/icon-m-remote"
                     needConnect:true
-                    label: qsTr("remote")
+                    label: qsTr("Remote")
                 }
 
                 ListElement {
                     page:"playlist"
                     icon:"image://theme/icon-m-menu"
                     needConnect:true
-                    label: qsTr("playlist")
+                    label: qsTr("Playlist")
                 }
 
                 ListElement {
                     page: "server"
                     icon: "image://theme/icon-m-levels"
                     needConnect: true
-                    label: qsTr("server management")
+                    label: qsTr("Server management")
                 }
             }
             delegate: ListItem {

@@ -265,33 +265,33 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="78"/>
-        <source>music</source>
-        <translation>musik</translation>
+        <source>Music</source>
+        <translation>Musik</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="84"/>
-        <source>videos</source>
-        <translation>videor</translation>
+        <source>Videos</source>
+        <translation>Videor</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
-        <source>current</source>
-        <translation>aktuellt</translation>
+        <source>Current</source>
+        <translation>Aktuellt</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="96"/>
-        <source>remote</source>
-        <translation>fjärr</translation>
+        <source>Remote</source>
+        <translation>Fjärr</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="103"/>
-        <source>playlist</source>
-        <translation>spellista</translation>
+        <source>Playlist</source>
+        <translation>Spellista</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="110"/>
-        <source>server management</source>
-        <translation>serverhantering</translation>
+        <source>Server management</source>
+        <translation>Serverhantering</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="155"/>
@@ -325,8 +325,8 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="44"/>
-        <source>settings</source>
-        <translation>inställningar</translation>
+        <source>Settings</source>
+        <translation>Inställningar</translation>
     </message>
 </context>
 <context>

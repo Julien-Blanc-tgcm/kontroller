@@ -249,27 +249,27 @@
     <name>KontrollerMain</name>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="78"/>
-        <source>music</source>
+        <source>Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="84"/>
-        <source>videos</source>
+        <source>Videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
-        <source>current</source>
+        <source>Current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="96"/>
-        <source>remote</source>
+        <source>Remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="103"/>
-        <source>playlist</source>
+        <source>Playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -284,7 +284,7 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="44"/>
-        <source>settings</source>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -299,7 +299,7 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="110"/>
-        <source>server management</source>
+        <source>Server management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

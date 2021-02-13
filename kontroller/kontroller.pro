@@ -99,6 +99,7 @@ CONFIG(sailfishapp) {
 }
 
 TRANSLATIONS += \
+        translations/harbour-kontroller.ts \
         translations/harbour-kontroller-de.ts \
         translations/harbour-kontroller-en.ts \
         translations/harbour-kontroller-fr.ts \

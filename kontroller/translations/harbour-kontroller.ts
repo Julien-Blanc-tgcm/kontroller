@@ -249,28 +249,28 @@
     <name>KontrollerMain</name>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="78"/>
-        <source>music</source>
-        <translation>music</translation>
+        <source>Music</source>
+        <translation>Music</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="84"/>
-        <source>videos</source>
-        <translation>videos</translation>
+        <source>Videos</source>
+        <translation>Videos</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
-        <source>current</source>
-        <translation>current</translation>
+        <source>Current</source>
+        <translation>Current</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="96"/>
-        <source>remote</source>
-        <translation>remote</translation>
+        <source>Remote</source>
+        <translation>Remote</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="103"/>
-        <source>playlist</source>
-        <translation>playlist</translation>
+        <source>Playlist</source>
+        <translation>Playlist</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="155"/>
@@ -284,8 +284,8 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="44"/>
-        <source>settings</source>
-        <translation>settings</translation>
+        <source>Settings</source>
+        <translation>Settings</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="52"/>
@@ -299,8 +299,8 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="110"/>
-        <source>server management</source>
-        <translation>server management</translation>
+        <source>Server management</source>
+        <translation>Server management</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="175"/>

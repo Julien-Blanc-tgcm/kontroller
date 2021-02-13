@@ -265,32 +265,32 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="78"/>
-        <source>music</source>
+        <source>Music</source>
         <translation>Musique</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="84"/>
-        <source>videos</source>
+        <source>Videos</source>
         <translation>Vidéos</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
-        <source>current</source>
+        <source>Current</source>
         <translation>Lecture en cours</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="96"/>
-        <source>remote</source>
+        <source>Remote</source>
         <translation>Télécommande</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="103"/>
-        <source>playlist</source>
+        <source>Playlist</source>
         <translation>Liste de lecture</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="110"/>
-        <source>server management</source>
+        <source>Server management</source>
         <translation>Gestion du serveur</translation>
     </message>
     <message>
@@ -325,7 +325,7 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="44"/>
-        <source>settings</source>
+        <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
 </context>
