@@ -25,7 +25,7 @@ Brought to you by these people:")
                 anchors.rightMargin: Theme.horizontalPageMargin
             }
             Repeater {
-                model: ["Julien Blanc", "Åke Engelbrektson", "Вячеслав Диконов", "popanz", "luj"]
+                model: ["Julien Blanc", "Åke Engelbrektson", "Вячеслав Диконов", "popanz", "luj", "nthn", "comradekingu"]
                 Label {
                     color:Theme.highlightColor
                     wrapMode: Text.WordWrap
