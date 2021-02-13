@@ -44,6 +44,8 @@ Page {
 
             PageHeader {
                 title:service.artistName
+                wrapMode: Text.WordWrap
+                clip: true
             }
 
             PropertiesWithImage {
