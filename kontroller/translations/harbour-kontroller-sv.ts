@@ -548,7 +548,7 @@
     <message>
         <location filename="../qml/PlaylistPage.qml" line="86"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort</translation>
     </message>
 </context>
 <context>
@@ -610,7 +610,7 @@
         <location filename="../qml/ServerPage.qml" line="63"/>
         <location filename="../qml/ServerPage.qml" line="130"/>
         <source>Removes deleted items from the library too.</source>
-        <translation>Tar bort objekt som har raderats från disk, från biblioteket.</translation>
+        <translation>Tar bort objekt från biblioteket också.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="83"/>
