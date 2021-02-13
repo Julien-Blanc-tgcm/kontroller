@@ -38,60 +38,25 @@ Page {
         clip:true
         anchors.fill:parent
         contentWidth: width;
-        contentHeight: fanart.height + header.height + theCol.contentHeight;
-        Image {
-            id: fanart
-            source: service.thumbnail
-            height:parent.width / 3
-            width:parent.width / 3
-            fillMode: Image.PreserveAspectFit
-            anchors.right: parent.right
-            anchors.top:header.bottom
-        }
+        contentHeight: header.height + theCol.childrenRect.height + Theme.paddingMedium
         Column {
-            id:theCol
+            id: theCol
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top:header.bottom
             spacing:Theme.paddingSmall
 
-            Label {
+            PropertiesWithImage {
+                id: fanart
+                imageSource: service.thumbnail
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:"")
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-            }
-
-            Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Genre:</b> %1").arg(service.genres)
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.WordWrap
-            }
-
-            Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Rating:</b> %1").arg(Utils.formatRating(service.rating))
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.WordWrap
-            }
-
-            Label {
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                width : main.width - fanart.width - 2 * Theme.horizontalPageMargin
-                text:qsTr("<b>Runtime:</b> %1").arg(Utils.formatTime(service.runtime))
-                color:Theme.highlightColor
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.WordWrap
+                anchors.right: parent.right
+                properties: [
+                    qsTr("<b>Year:</b> %1").arg((service.year !== 0)? service.year:""),
+                    qsTr("<b>Genre:</b> %1").arg(service.genres),
+                    qsTr("<b>Rating:</b> %1").arg(Utils.formatRating(service.rating)),
+                    qsTr("<b>Runtime:</b> %1").arg(Utils.formatTime(service.runtime))
+                ]
             }
 
             Column { // create a new column to avoid spacing between the two elements

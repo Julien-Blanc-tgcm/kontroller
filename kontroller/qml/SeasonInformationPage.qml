@@ -13,7 +13,7 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: theCol.childrenRect.height + theCol.y
+        contentHeight: theCol.childrenRect.height + theCol.y + Theme.paddingMedium
         visible: !service.refreshing
         VerticalScrollDecorator {}
 

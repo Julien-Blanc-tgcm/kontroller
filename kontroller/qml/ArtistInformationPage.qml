@@ -176,8 +176,6 @@ Page {
                 id:fanart1
                 anchors.right: parent.right
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
                 source: service.fanart
                 fillMode: Image.PreserveAspectFit
                 visible: sourceSize.height > 0

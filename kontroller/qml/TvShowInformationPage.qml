@@ -14,7 +14,7 @@ Page {
     SilicaFlickable {
         visible: !service.refreshing
         anchors.fill: parent
-        contentHeight: header.height + col.childrenRect.height
+        contentHeight: header.height + col.childrenRect.height + Theme.paddingMedium
         contentWidth: parent.width
         clip:true
 
