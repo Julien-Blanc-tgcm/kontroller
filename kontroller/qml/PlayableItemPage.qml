@@ -207,7 +207,7 @@ SilicaFlickable {
                 anchors.rightMargin: btnplay.visible ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
                 wrapMode: Text.Wrap
-                opacity: modelData.played?0.5:1
+                color: modelData.played ? Theme.secondaryColor : Theme.primaryColor
             }
             IconButton {
                 id:btnplay
