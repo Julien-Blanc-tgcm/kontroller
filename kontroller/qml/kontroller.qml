@@ -13,12 +13,7 @@ ApplicationWindow {
 
     allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
-    cover: {
-        if(appClient.connectionStatus === 2)
-            return Qt.resolvedUrl("cover/CoverPage.qml")
-        else
-            return Qt.resolvedUrl("cover/UnconnectedCover.qml");
-    }
+    cover: Qt.resolvedUrl("cover/CoverPage.qml")
     id: appWindow
     property var kontrollerMain: null
     initialPage: Component {

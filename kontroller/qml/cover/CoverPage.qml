@@ -7,9 +7,32 @@ CoverBackground {
 
     property var player: appClient.playerService.players.length > 0? appClient.playerService.players[0]:null
 
+    property var connected: appClient.connectionStatus === 2
+
+
+    Label {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: Theme.paddingSmall
+        anchors.rightMargin: Theme.paddingSmall
+        wrapMode: Text.Wrap
+        font.pixelSize: Theme.fontSizeExtraLarge
+        horizontalAlignment: Text.AlignHCenter
+        text: qsTr("Not connected to the server")
+        visible: !connected
+    }
+    IconButton {
+        id:unconnected
+        anchors.top:parent.top
+        icon.source: "image://theme/icon-s-warning"
+        visible: !connected
+    }
+
+
     Label {
         id:lbl
-        visible: player && player.playingInformation
+        visible: connected && (player && player.playingInformation)
         text:player && player.playingInformation?
                      player.playingInformation.currentItem.label:""
         anchors.top:parent.top
@@ -20,7 +43,7 @@ CoverBackground {
         horizontalAlignment: Text.AlignHCenter
     }
     Label {
-        visible: !player || !player.playingInformation
+        visible: connected && (!player || !player.playingInformation)
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
@@ -30,6 +53,7 @@ CoverBackground {
         text: qsTr("Nothing playing")
     }
     Image {
+        visible: connected
         source: player?player.playingInformation.currentItem.thumbnail:""
         anchors.top:lbl.bottom
         anchors.left: parent.left
@@ -42,7 +66,7 @@ CoverBackground {
 
     CoverActionList {
         id: coverAction
-        enabled: player && player.playingInformation
+        enabled:  connected && (player && player.playingInformation)
         CoverAction {
             iconSource: "image://theme/icon-cover-next"
             onTriggered: {
