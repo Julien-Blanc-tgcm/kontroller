@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 0.20
+
+* Internationalization improvements:
+  * Now available in two new languages, Dutch (as well as Belgian) and Norwegian
+  * Large improvements in the English version, which should now look on par with
+    the French one
+* New playlist page with a much cleaner look and a more native behaviour
+* New "Random albums" option in Music section
+* Fix a cover page bug with SFOS 4
+* Lots of small ui fixes
+
 ## Version 0.19
 
 * fixes display issues with Sailfish OS 4
