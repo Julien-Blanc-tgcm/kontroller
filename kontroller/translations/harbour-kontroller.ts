@@ -105,42 +105,42 @@
         <translation>Back to menu</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="53"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="54"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Style:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Style:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="63"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="65"/>
         <source>Available albums:</source>
         <translation>Available albums:</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="127"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="129"/>
         <source>View info</source>
         <translation>View info</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="131"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="133"/>
         <source>Add to playlist</source>
         <translation>Add to playlist</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="135"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="137"/>
         <source>Play immediately</source>
         <translation>Play immediately</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="139"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="141"/>
         <source>Download</source>
         <translation>Download</translation>
     </message>
     <message>
-        <location filename="../qml/ArtistInformationPage.qml" line="157"/>
+        <location filename="../qml/ArtistInformationPage.qml" line="159"/>
         <source>Description:</source>
         <translation>Description:</translation>
     </message>
@@ -395,42 +395,42 @@
         <translation>Back to menu</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="62"/>
+        <location filename="../qml/MovieInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Year:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Year:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="71"/>
+        <location filename="../qml/MovieInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Genre:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="81"/>
+        <location filename="../qml/MovieInformationPage.qml" line="57"/>
         <source>&lt;b&gt;Rating:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Rating:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="91"/>
+        <location filename="../qml/MovieInformationPage.qml" line="58"/>
         <source>&lt;b&gt;Runtime:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Runtime:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="103"/>
+        <location filename="../qml/MovieInformationPage.qml" line="68"/>
         <source>Play movie</source>
         <translation>Play movie</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="104"/>
+        <location filename="../qml/MovieInformationPage.qml" line="69"/>
         <source>Resume movie</source>
         <translation>Resume movie</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="108"/>
+        <location filename="../qml/MovieInformationPage.qml" line="73"/>
         <source>(at %1)</source>
         <translation>(at %1)</translation>
     </message>
     <message>
-        <location filename="../qml/MovieInformationPage.qml" line="118"/>
+        <location filename="../qml/MovieInformationPage.qml" line="83"/>
         <source>Plot:</source>
         <translation>Plot:</translation>
     </message>
@@ -438,66 +438,66 @@
 <context>
     <name>PlayableItemPage</name>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="66"/>
+        <location filename="../qml/PlayableItemPage.qml" line="65"/>
         <source>Input text</source>
         <translation>Input text</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="74"/>
+        <location filename="../qml/PlayableItemPage.qml" line="73"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="78"/>
+        <location filename="../qml/PlayableItemPage.qml" line="77"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="117"/>
+        <location filename="../qml/PlayableItemPage.qml" line="116"/>
         <source>Search</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="247"/>
+        <location filename="../qml/PlayableItemPage.qml" line="246"/>
         <source>No items found!</source>
         <translation>No items found!</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="25"/>
+        <location filename="../qml/PlayableItemPage.qml" line="24"/>
         <source>Remote control</source>
         <translation>Remote control</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="29"/>
+        <location filename="../qml/PlayableItemPage.qml" line="28"/>
         <source>Currently playing</source>
         <translation>Currently playing</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="33"/>
+        <location filename="../qml/PlayableItemPage.qml" line="32"/>
         <source>Back to menu</source>
         <translation>Back to menu</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="278"/>
-        <location filename="../qml/PlayableItemPage.qml" line="288"/>
+        <location filename="../qml/PlayableItemPage.qml" line="277"/>
+        <location filename="../qml/PlayableItemPage.qml" line="287"/>
         <source>Add to playlist</source>
         <translation>Add to playlist</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="279"/>
-        <location filename="../qml/PlayableItemPage.qml" line="289"/>
+        <location filename="../qml/PlayableItemPage.qml" line="278"/>
+        <location filename="../qml/PlayableItemPage.qml" line="288"/>
         <source>Play immediately</source>
         <translation>Play immediately</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="280"/>
-        <location filename="../qml/PlayableItemPage.qml" line="294"/>
+        <location filename="../qml/PlayableItemPage.qml" line="279"/>
+        <location filename="../qml/PlayableItemPage.qml" line="293"/>
         <source>View information</source>
         <translation>View information</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="281"/>
-        <location filename="../qml/PlayableItemPage.qml" line="290"/>
+        <location filename="../qml/PlayableItemPage.qml" line="280"/>
+        <location filename="../qml/PlayableItemPage.qml" line="289"/>
         <source>Download</source>
         <translation>Download</translation>
     </message>
@@ -983,14 +983,6 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <location filename="../qml/TvShowInformationPage.qml" line="128"/>
         <source>Plot</source>
         <translation>Plot</translation>
-    </message>
-</context>
-<context>
-    <name>UnconnectedCover</name>
-    <message>
-        <location filename="../qml/cover/UnconnectedCover.qml" line="14"/>
-        <source>Not connected to the server</source>
-        <translation>Not connected to the server</translation>
     </message>
 </context>
 <context>
