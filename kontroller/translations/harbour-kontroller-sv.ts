@@ -150,7 +150,7 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="22"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished">Inte ansluten till servern</translation>
+        <translation>Inte ansluten till servern</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="53"/>
@@ -1037,7 +1037,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../musicservice.cpp" line="366"/>
         <source>Random albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Slumpmässiga album</translation>
     </message>
 </context>
 <context>
