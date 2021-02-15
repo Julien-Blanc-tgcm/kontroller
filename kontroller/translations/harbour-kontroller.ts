@@ -762,109 +762,109 @@
         <translation>(Optional) password for Kodi login. (Stored unencrypted on device.)</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="245"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="385"/>
         <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
         <translation>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="257"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="244"/>
         <source>Server features</source>
         <translation>Server features</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="266"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="253"/>
         <source>Power off</source>
         <translation>Power off</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="269"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="281"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="256"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="268"/>
         <source>Keep option in server management pulley menu. On by default.</source>
         <translation>Keep option in server management pulley menu. On by default.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="278"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="265"/>
         <source>Reboot</source>
         <translation>Reboot</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="290"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="277"/>
         <source>Hibernate</source>
         <translation>Hibernate</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="293"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="305"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="280"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="292"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
         <translation>If unchecked, the option will not appear in the server management pulley menu. Off by default.</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="302"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="289"/>
         <source>Suspend</source>
         <translation>Suspend</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="319"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="306"/>
         <source>Wake-on-LAN</source>
         <translation>Wake-on-LAN</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="344"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="331"/>
         <source>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
         <translation>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="357"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="358"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="344"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="345"/>
         <source>Device MAC address</source>
         <translation>evice MAC address</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="392"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="379"/>
         <source>Volume handling</source>
         <translation>Volume handling</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="400"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="398"/>
         <source>Volume plugin</source>
         <translation>Volume plugin</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="403"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="401"/>
         <source>Kodi</source>
         <translation>Kodi</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="406"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="404"/>
         <source>miniDSP</source>
         <translation>miniDSP</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="425"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="423"/>
         <source>IP address of the miniDSP device</source>
         <translation>IP address of the miniDSP device</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="437"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="438"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="435"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="436"/>
         <source>miniDSP IP address</source>
         <translation>miniDSP IP address</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="313"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="300"/>
         <source>WakeUp plugin</source>
         <translation>WakeUp plugin</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="316"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="303"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="377"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="378"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="364"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="365"/>
         <source>Wake up port</source>
         <translation>Wake up port</translation>
     </message>

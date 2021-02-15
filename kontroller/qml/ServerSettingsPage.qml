@@ -239,19 +239,6 @@ something else in Kodi. Turn on \"HTTP remote access\" in Kodi for it to work.")
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: serverHttpPort.focus = false
             }
-            Label {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                text: qsTr("Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. \
-If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is \
-controlled by the remote instead")
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                color: Theme.highlightColor
-                wrapMode: Text.WordWrap
-                visible: !selectingServer__()
-            }
-
             SectionHeader
             {
                 text: qsTr("Server features")
@@ -392,7 +379,18 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan"
                 text: qsTr("Volume handling")
                 visible: !selectingServer__()
             }
-
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                text: qsTr("Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. \
+If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is \
+controlled by the remote instead")
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                color: Theme.highlightColor
+                wrapMode: Text.WordWrap
+                visible: !selectingServer__()
+            }
             ComboBox {
                 id: serverVolumePlugin
                 anchors.left: parent.left
