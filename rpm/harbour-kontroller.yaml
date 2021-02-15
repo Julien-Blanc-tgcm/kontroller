@@ -1,10 +1,10 @@
 Name: harbour-kontroller
 Summary: A remote control for xbmc/kodi
 Version: 0.20
-Release: 2
+Release: 4
 Group: Applications/Multimedia
 URL: https://github.com/Julien-Blanc-tgcm/kontroller/
-License: GPL_v2
+License: GPLv3
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
