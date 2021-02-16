@@ -406,7 +406,7 @@ controlled by the remote instead")
                     }
                 }
                 Component.onCompleted: {
-                    if(appSettings.server(serverUuid).volumePluginName === "miniDSP")
+                    if(appSettings.server(serverUuid).volumePluginName === "Minidsp") // not a displayed value, not cased correctly, but keep it for compatibility
                         currentIndex = 1;
                     else
                         currentIndex = 0;

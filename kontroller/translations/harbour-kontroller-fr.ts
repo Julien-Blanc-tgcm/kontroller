@@ -781,7 +781,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="404"/>
         <source>miniDSP</source>
-        <translation>minidsp</translation>
+        <translation>miniDSP</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="423"/>
