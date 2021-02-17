@@ -26,6 +26,7 @@ void SongsRequest::start(int albumid)
 	properties.push_back("title");
 	properties.push_back("file");
 	properties.push_back("thumbnail");
+	properties.push_back("displayartist");
 	parameters["properties"] = properties;
 	if(albumid != 0)
 	{
@@ -90,6 +91,8 @@ void SongsRequest::parseSongsResult()
 							val = obj.value("thumbnail");
 							if(val.type() == QJsonValue::String)
 								file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
+							val = obj.value("displayartist");
+							file.setSecondaryLabel(val.toString());
 							results.push_back(file);
 						}
 					}
