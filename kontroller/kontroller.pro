@@ -54,12 +54,12 @@ SOURCES += main.cpp \
     plugins/volume/volumeplugin.cpp \
     plugins/volume/kodivolumeplugin.cpp \
     plugins/volume/minidspvolumeplugin.cpp \
+    plugins/wakeup/wakeupplugin.cpp \
+    plugins/wakeup/wolwakeupplugin.cpp \
     requests/tvshowepisodesrequest.cpp \
     requests/albumsrequest.cpp \
     requests/songsrequest.cpp \
     requests/tvshowseasonsrequest.cpp \
-    wakeupplugin.cpp \
-    wolwakeupplugin.cpp \
     ../lib/minidsplib/query.cpp \
     ../lib/minidsplib/reply.cpp \
     ../lib/mdns/sbzeroconfservicediscovery.cpp \
@@ -156,8 +156,8 @@ HEADERS += \
     plugins/volume/volumeplugin.h \
     plugins/volume/kodivolumeplugin.h \
     plugins/volume/minidspvolumeplugin.h \
-    wakeupplugin.h \
-    wolwakeupplugin.h \
+    plugins/wakeup/wakeupplugin.h \
+    plugins/wakeup/wolwakeupplugin.h \
     requests/albumsrequest.h \
     requests/songsrequest.h \
     requests/tvshowseasonsrequest.h \

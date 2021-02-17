@@ -39,8 +39,8 @@
 #include "plugins/volume/kodivolumeplugin.h"
 #include "plugins/volume/minidspvolumeplugin.h"
 
-#include "wakeupplugin.h"
-#include "wolwakeupplugin.h"
+#include "plugins/wakeup/wakeupplugin.h"
+#include "plugins/wakeup/wolwakeupplugin.h"
 
 #include "sbiconimageprovider.h"
 
