@@ -24,6 +24,11 @@ QString File::icon() const
 	return icon_;
 }
 
+QString File::secondaryLabel() const
+{
+	return secondaryLabel_;
+}
+
 bool File::played() const
 {
 	return played_;
@@ -42,6 +47,11 @@ void File::setIcon(QString icon)
 void File::setPlayed(bool played)
 {
 	played_ = played;
+}
+
+void File::setSecondaryLabel(QString secondaryLabel)
+{
+	secondaryLabel_ = secondaryLabel;
 }
 
 int File::id() const
@@ -115,11 +125,13 @@ QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::File& file)
 	bool p = false;
 	stream >> p;
 	file.setPlayed(p);
+	stream >> data;
+	file.setSecondaryLabel(data);
 	return stream;
 }
 
 QDataStream& operator<<(QDataStream& stream, const eu::tgcm::kontroller::File& file)
 {
 	return stream << file.id() << file.file() << file.filetype() << file.label() << file.type() << file.thumbnail()
-	              << file.icon() << file.played();
+	              << file.icon() << file.played() << file.secondaryLabel();
 }

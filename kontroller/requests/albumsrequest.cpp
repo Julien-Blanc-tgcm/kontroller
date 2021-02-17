@@ -26,6 +26,7 @@ void AlbumsRequest::start(int artistid)
 	}
 	QJsonArray properties;
 	properties.append(QLatin1String("thumbnail"));
+	properties.append(QLatin1String("displayartist"));
 	parameters.insert("properties", properties);
 	QJsonObject sort;
 	sort["order"] = QLatin1String("ascending");
@@ -48,6 +49,7 @@ void AlbumsRequest::startWithGenre(int genreid)
 	parameters.insert("filter", filter);
 	QJsonArray properties;
 	properties.append(QLatin1String("thumbnail"));
+	properties.append(QLatin1String("displayartist"));
 	parameters.insert("properties", properties);
 	auto message = QJsonRpcMessage::createRequest("AudioLibrary.GetAlbums", parameters);
 	QJsonRpcServiceReply* reply = client_->send(message);
@@ -62,6 +64,7 @@ void AlbumsRequest::startRecentlyAdded()
 	QJsonObject parameters;
 	QJsonArray properties;
 	properties.append(QLatin1String("thumbnail"));
+	properties.append(QLatin1String("displayartist"));
 	parameters.insert("properties", properties);
 	QJsonObject sort;
 	sort["order"] = QLatin1String("descending");
@@ -81,6 +84,7 @@ void AlbumsRequest::startRecentlyPlayed()
 	QJsonObject parameters;
 	QJsonArray properties;
 	properties.append(QLatin1String("thumbnail"));
+	properties.append(QLatin1String("displayartist"));
 	parameters.insert("properties", properties);
 	QJsonObject sort;
 	sort["order"] = QLatin1String("descending");
@@ -101,6 +105,7 @@ void AlbumsRequest::startRandom(int count)
 	QJsonObject parameters;
 	QJsonArray properties;
 	properties.append(QLatin1String("thumbnail"));
+	properties.append(QLatin1String("displayartist"));
 	parameters.insert("properties", properties);
 	QJsonObject sort;
 	sort["method"] = QLatin1String("random");
@@ -151,6 +156,8 @@ void AlbumsRequest::parseAlbumsResult()
 							file.setType("album");
 							file.setIcon("album");
 							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
+							val = obj.value("displayartist");
+							file.setSecondaryLabel(val.toString());
 							results.push_back(file);
 						}
 					}

@@ -459,7 +459,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="246"/>
+        <location filename="../qml/PlayableItemPage.qml" line="280"/>
         <source>No items found!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -479,26 +479,26 @@
         <translation>Главное меню</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="277"/>
-        <location filename="../qml/PlayableItemPage.qml" line="287"/>
+        <location filename="../qml/PlayableItemPage.qml" line="311"/>
+        <location filename="../qml/PlayableItemPage.qml" line="321"/>
         <source>Add to playlist</source>
         <translation>Добавить в список</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="278"/>
-        <location filename="../qml/PlayableItemPage.qml" line="288"/>
+        <location filename="../qml/PlayableItemPage.qml" line="312"/>
+        <location filename="../qml/PlayableItemPage.qml" line="322"/>
         <source>Play immediately</source>
         <translation>Играть сейчас</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="279"/>
-        <location filename="../qml/PlayableItemPage.qml" line="293"/>
+        <location filename="../qml/PlayableItemPage.qml" line="313"/>
+        <location filename="../qml/PlayableItemPage.qml" line="327"/>
         <source>View information</source>
         <translation>Показать сведения</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="280"/>
-        <location filename="../qml/PlayableItemPage.qml" line="289"/>
+        <location filename="../qml/PlayableItemPage.qml" line="314"/>
+        <location filename="../qml/PlayableItemPage.qml" line="323"/>
         <source>Download</source>
         <translation>Загрузить</translation>
     </message>
@@ -552,7 +552,7 @@
         <translation>Список воспроизведения</translation>
     </message>
     <message>
-        <location filename="../qml/PlaylistPage.qml" line="86"/>
+        <location filename="../qml/PlaylistPage.qml" line="85"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>

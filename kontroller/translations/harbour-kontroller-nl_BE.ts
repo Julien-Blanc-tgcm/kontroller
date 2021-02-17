@@ -458,7 +458,7 @@
         <translation>Zoeken</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="246"/>
+        <location filename="../qml/PlayableItemPage.qml" line="280"/>
         <source>No items found!</source>
         <translation>Geên items gevonden!</translation>
     </message>
@@ -478,26 +478,26 @@
         <translation>Terug naar ’t menu</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="277"/>
-        <location filename="../qml/PlayableItemPage.qml" line="287"/>
+        <location filename="../qml/PlayableItemPage.qml" line="311"/>
+        <location filename="../qml/PlayableItemPage.qml" line="321"/>
         <source>Add to playlist</source>
         <translation>Toevoegen aan speellijst</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="278"/>
-        <location filename="../qml/PlayableItemPage.qml" line="288"/>
+        <location filename="../qml/PlayableItemPage.qml" line="312"/>
+        <location filename="../qml/PlayableItemPage.qml" line="322"/>
         <source>Play immediately</source>
         <translation>Nu afspelen</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="279"/>
-        <location filename="../qml/PlayableItemPage.qml" line="293"/>
+        <location filename="../qml/PlayableItemPage.qml" line="313"/>
+        <location filename="../qml/PlayableItemPage.qml" line="327"/>
         <source>View information</source>
         <translation>Informatie tônen</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="280"/>
-        <location filename="../qml/PlayableItemPage.qml" line="289"/>
+        <location filename="../qml/PlayableItemPage.qml" line="314"/>
+        <location filename="../qml/PlayableItemPage.qml" line="323"/>
         <source>Download</source>
         <translation>Downloaden</translation>
     </message>
@@ -551,7 +551,7 @@
         <translation>Huidige speellijst</translation>
     </message>
     <message>
-        <location filename="../qml/PlaylistPage.qml" line="86"/>
+        <location filename="../qml/PlaylistPage.qml" line="85"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>

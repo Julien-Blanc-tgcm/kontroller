@@ -42,7 +42,7 @@ Page{
                 anchors.right: parent.right
                 visible: model.modelData.artist.length !== 0
                 anchors.verticalCenter: parent.verticalCenter
-                height: theLabel.height + theArtist.height
+                height: theLabel.height + theArtist.height + Theme.paddingSmall
 
                 Label { // else just show item label
                     anchors.left: parent.left
@@ -61,7 +61,6 @@ Page{
                     anchors.top: theLabel.bottom
                     anchors.topMargin: Theme.paddingSmall
                     color: active ? Theme.highlightDimmerColor:Theme.secondaryColor
-
                     text: model.modelData.artist
                     elide: Text.ElideRight
                     font.pixelSize: Theme.fontSizeSmall

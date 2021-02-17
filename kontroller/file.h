@@ -21,6 +21,7 @@ class File
 	QString type_;
 	QString thumbnail_;
 	QString icon_;
+	QString secondaryLabel_;
 	bool played_ = false;
 
   public:
@@ -44,6 +45,7 @@ class File
 	Q_PROPERTY(QString type READ type WRITE setType)
 	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail)
 	Q_PROPERTY(QString icon READ icon WRITE setIcon)
+	Q_PROPERTY(QString secondaryLabel READ secondaryLabel WRITE setSecondaryLabel)
 	Q_PROPERTY(bool played READ played WRITE setPlayed)
 
 	int id() const;
@@ -53,6 +55,7 @@ class File
 	QString type() const;
 	QString thumbnail() const;
 	QString icon() const;
+	QString secondaryLabel() const;
 	/**
 	 * @brief played whether the item has already been played or not
 	 * @return
@@ -67,6 +70,7 @@ class File
 	void setThumbnail(QString thumbnail);
 	void setIcon(QString icon);
 	void setPlayed(bool played);
+	void setSecondaryLabel(QString secondaryLabel);
 
 };
 
