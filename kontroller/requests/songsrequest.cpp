@@ -1,4 +1,6 @@
 #include "songsrequest.h"
+
+#include "../utils.h"
 #include "client.h"
 #include "file.h"
 
@@ -87,7 +89,7 @@ void SongsRequest::parseSongsResult()
 							file.setIcon("song");
 							val = obj.value("thumbnail");
 							if(val.type() == QJsonValue::String)
-								file.setThumbnail(val.toString());
+								file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
 							results.push_back(file);
 						}
 					}
