@@ -3,6 +3,8 @@ import harbour.eu.tgcm 1.0
 import Sailfish.Silica 1.0
 import "."
 import "utils.js" as Utils
+import "./components"
+
 Page{
     id:main
 
@@ -22,7 +24,8 @@ Page{
         delegate : ListItem {
             contentHeight: Theme.itemSizeMedium
             width: parent.width
-            property bool active : service.playlistPosition === index
+            property bool active: service.playlistPosition === index
+            id: baseItem
             Label {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
@@ -32,52 +35,17 @@ Page{
                 width: Theme.itemSizeMedium
                 font.pixelSize: Theme.fontSizeExtraLarge
                 visible: model.modelData.duration !== 0 // some kodi versions are buggy and return 0, so don't show that
-                color:  active?Theme.highlightDimmerColor:Theme.secondaryColor
+                color: active?Theme.highlightDimmerColor:Theme.secondaryColor
             }
-
-            Item { // show label + artist if available
+            TwoLinesDisplay {
                 anchors.left: time.visible?time.right:parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
                 anchors.right: parent.right
-                visible: model.modelData.artist.length !== 0
+                active: baseItem.active
+                label: modelData.label
+                secondaryLabel: modelData.artist
                 anchors.verticalCenter: parent.verticalCenter
-                height: theLabel.height + theArtist.height + Theme.paddingSmall
-
-                Label { // else just show item label
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    color: active ? Theme.highlightColor:Theme.primaryColor
-                    id : theLabel
-                    text: model.modelData.label
-                    elide: Text.ElideRight
-                    anchors.top: parent.top
-                }
-
-                Label {
-                    id: theArtist
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: theLabel.bottom
-                    anchors.topMargin: Theme.paddingSmall
-                    color: active ? Theme.highlightDimmerColor:Theme.secondaryColor
-                    text: model.modelData.artist
-                    elide: Text.ElideRight
-                    font.pixelSize: Theme.fontSizeSmall
-                }
-            }
-
-            Label { // else just show item label (for movies)
-                anchors.left: time.visible?time.right:parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                color: active ? Theme.highlightColor:Theme.primaryColor
-                id : theText
-                text: model.modelData.label
-                elide: Text.ElideRight
-                anchors.verticalCenter: parent.verticalCenter
-                visible: model.modelData.artist.length === 0
             }
 
             menu: ContextMenu {

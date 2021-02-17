@@ -438,66 +438,66 @@
 <context>
     <name>PlayableItemPage</name>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="65"/>
+        <location filename="../qml/PlayableItemPage.qml" line="66"/>
         <source>Input text</source>
         <translation>Indatatext</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="73"/>
+        <location filename="../qml/PlayableItemPage.qml" line="74"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="77"/>
+        <location filename="../qml/PlayableItemPage.qml" line="78"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="116"/>
+        <location filename="../qml/PlayableItemPage.qml" line="117"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="280"/>
+        <location filename="../qml/PlayableItemPage.qml" line="248"/>
         <source>No items found!</source>
         <translation>Inget hittades!</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="24"/>
+        <location filename="../qml/PlayableItemPage.qml" line="25"/>
         <source>Remote control</source>
         <translation>Fjärrkontroll</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="28"/>
+        <location filename="../qml/PlayableItemPage.qml" line="29"/>
         <source>Currently playing</source>
         <translation>Spelas nu</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="32"/>
+        <location filename="../qml/PlayableItemPage.qml" line="33"/>
         <source>Back to menu</source>
         <translation>Tillbaka till menyn</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="311"/>
-        <location filename="../qml/PlayableItemPage.qml" line="321"/>
+        <location filename="../qml/PlayableItemPage.qml" line="279"/>
+        <location filename="../qml/PlayableItemPage.qml" line="289"/>
         <source>Add to playlist</source>
         <translation>Lägg till i spellista</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="312"/>
-        <location filename="../qml/PlayableItemPage.qml" line="322"/>
+        <location filename="../qml/PlayableItemPage.qml" line="280"/>
+        <location filename="../qml/PlayableItemPage.qml" line="290"/>
         <source>Play immediately</source>
         <translation>Spela upp nu</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="313"/>
-        <location filename="../qml/PlayableItemPage.qml" line="327"/>
+        <location filename="../qml/PlayableItemPage.qml" line="281"/>
+        <location filename="../qml/PlayableItemPage.qml" line="295"/>
         <source>View information</source>
         <translation>Visa information</translation>
     </message>
     <message>
-        <location filename="../qml/PlayableItemPage.qml" line="314"/>
-        <location filename="../qml/PlayableItemPage.qml" line="323"/>
+        <location filename="../qml/PlayableItemPage.qml" line="282"/>
+        <location filename="../qml/PlayableItemPage.qml" line="291"/>
         <source>Download</source>
         <translation>Ladda ner</translation>
     </message>
@@ -546,12 +546,12 @@
 <context>
     <name>PlaylistPage</name>
     <message>
-        <location filename="../qml/PlaylistPage.qml" line="13"/>
+        <location filename="../qml/PlaylistPage.qml" line="15"/>
         <source>Current playlist</source>
         <translation>Aktuell spellista</translation>
     </message>
     <message>
-        <location filename="../qml/PlaylistPage.qml" line="85"/>
+        <location filename="../qml/PlaylistPage.qml" line="53"/>
         <source>Remove</source>
         <translation>Ta bort</translation>
     </message>

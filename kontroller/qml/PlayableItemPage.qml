@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "."
+import "components"
 
 SilicaFlickable {
     id: __rootItem
@@ -160,7 +161,7 @@ SilicaFlickable {
             anchors.left: parent.left
             anchors.right: parent.right
             id:currentItem
-            contentHeight: Math.max(Theme.itemSizeMedium, twoLinesDisplay.visible?twoLinesDisplay.height:theIcon.height)
+            contentHeight: Math.max(Theme.itemSizeMedium, twoLinesDisplay.height)
 
             Image {
                 anchors.left: parent.left
@@ -198,51 +199,18 @@ SilicaFlickable {
                 }
             }
 
-            Item { // show label + artist if available
+            TwoLinesDisplay {
+                id:twoLinesDisplay
                 anchors.left: img.visible ? img.right: (theIcon.visible?theIcon.right:parent.left)
                 anchors.leftMargin: (img.visible || theIcon.visible) ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.right: btnplay.visible ? btnplay.left : parent.right
                 anchors.rightMargin: btnplay.visible ? Theme.paddingMedium : Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
-                visible: modelData.secondaryLabel.length !== 0
-                height: theLabel.height + theSecondary.height + Theme.paddingSmall
-                id: twoLinesDisplay
-
-                Label { // else just show item label
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    color: Theme.primaryColor
-                    id : theLabel
-                    text: model.modelData.label
-                    elide: Text.ElideRight
-                    anchors.top: parent.top
-                }
-
-                Label {
-                    id: theSecondary
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: theLabel.bottom
-                    anchors.topMargin: Theme.paddingSmall
-                    color: Theme.secondaryColor
-                    text: model.modelData.secondaryLabel
-                    elide: Text.ElideRight
-                    font.pixelSize: Theme.fontSizeSmall
-                }
+                label: model.modelData.label
+                secondaryLabel: model.modelData.secondaryLabel
+                dimmed: modelData.played
             }
 
-            Label {
-                visible: modelData.secondaryLabel.length === 0
-                id: lbl
-                text : formatFile(modelData.filetype, modelData.label)
-                anchors.left: img.visible ? img.right: (theIcon.visible?theIcon.right:parent.left)
-                anchors.leftMargin: (img.visible || theIcon.visible) ? Theme.paddingMedium : Theme.horizontalPageMargin
-                anchors.right: btnplay.visible ? btnplay.left : parent.right
-                anchors.rightMargin: btnplay.visible ? Theme.paddingMedium : Theme.horizontalPageMargin
-                anchors.verticalCenter: parent.verticalCenter
-                wrapMode: Text.Wrap
-                color: modelData.played ? Theme.secondaryColor : Theme.primaryColor
-            }
             IconButton {
                 id:btnplay
                 icon.source: "image://theme/icon-m-play"
