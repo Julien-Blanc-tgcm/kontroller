@@ -253,83 +253,83 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="78"/>
+        <location filename="../qml/KontrollerMain.qml" line="52"/>
         <source>Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="84"/>
+        <location filename="../qml/KontrollerMain.qml" line="58"/>
         <source>Videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="90"/>
+        <location filename="../qml/KontrollerMain.qml" line="64"/>
         <source>Current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="96"/>
+        <location filename="../qml/KontrollerMain.qml" line="70"/>
         <source>Remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="103"/>
+        <location filename="../qml/KontrollerMain.qml" line="77"/>
         <source>Playlist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="155"/>
+        <location filename="../qml/KontrollerMain.qml" line="129"/>
         <source>Connecting…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="169"/>
+        <location filename="../qml/KontrollerMain.qml" line="143"/>
         <source>Could not connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="44"/>
+        <location filename="../qml/KontrollerMain.qml" line="18"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="52"/>
+        <location filename="../qml/KontrollerMain.qml" line="26"/>
         <source>Switch server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="63"/>
+        <location filename="../qml/KontrollerMain.qml" line="37"/>
         <source>Welcome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="110"/>
+        <location filename="../qml/KontrollerMain.qml" line="84"/>
         <source>Server management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="175"/>
+        <location filename="../qml/KontrollerMain.qml" line="149"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="182"/>
+        <location filename="../qml/KontrollerMain.qml" line="156"/>
         <source>Wake up server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="197"/>
+        <location filename="../qml/KontrollerMain.qml" line="171"/>
         <source>No server configured</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="202"/>
+        <location filename="../qml/KontrollerMain.qml" line="176"/>
         <source>Add server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="224"/>
-        <location filename="../qml/KontrollerMain.qml" line="228"/>
+        <location filename="../qml/KontrollerMain.qml" line="198"/>
+        <location filename="../qml/KontrollerMain.qml" line="202"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
