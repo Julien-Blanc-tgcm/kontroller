@@ -1037,7 +1037,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../musicservice.cpp" line="366"/>
         <source>Random albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilfeldige album</translation>
     </message>
 </context>
 <context>
