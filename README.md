@@ -16,6 +16,21 @@ Current features include:
 * Volume management, via Kodi or external device
 * Shutdown /  wake-up management
 
+# Translations
+
+Kontroller is available in several languages, including:
+
+* Belgian
+* Dutch
+* English
+* French
+* German
+* Russian
+* Swedish
+* Norwegian
+
+Translating the app is done on [weblate](http://hosted.weblate.com/kontroller).
+
 # Wake-on-LAN
 
 Wake-on-LAN usually requires some configuration at the server level.
