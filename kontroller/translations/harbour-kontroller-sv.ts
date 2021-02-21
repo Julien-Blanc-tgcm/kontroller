@@ -301,7 +301,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="155"/>
         <source>Connecting…</source>
-        <translation>Ansluter, vänta...</translation>
+        <translation>Ansluter…</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="169"/>
@@ -620,7 +620,7 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="83"/>
         <source>Video library cleaned.</source>
-        <translation>Rensning av videobiblioteket slutförd!</translation>
+        <translation>Rensning av videobiblioteket slutförd.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="93"/>
@@ -630,12 +630,12 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="114"/>
         <source>Video library updated.</source>
-        <translation>Uppdatering av videobiblioteket slutförd!</translation>
+        <translation>Uppdatering av videobiblioteket slutförd.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="150"/>
         <source>Audio library cleaned.</source>
-        <translation>Rensning av ljudbiblioteket slutförd!</translation>
+        <translation>Rensning av ljudbiblioteket slutförd.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="162"/>
@@ -645,7 +645,7 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="182"/>
         <source>Audio library updated.</source>
-        <translation>Uppdatering av ljudbiblioteket slutförd!</translation>
+        <translation>Uppdatering av ljudbiblioteket slutförd.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="72"/>
@@ -693,7 +693,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="41"/>
         <source>Discovering servers…</source>
-        <translation>Identifierar servrar, vänta...</translation>
+        <translation>Identifierar servrar…</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="50"/>
@@ -825,7 +825,8 @@
         <location filename="../qml/ServerSettingsPage.qml" line="331"/>
         <source>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
-        <translation>Wake On Lan kräver vanligtvis konfiguration på servern. Se https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan för hjälp att aktivera det.</translation>
+        <translation>Wake On Lan kräver vanligtvis konfiguration på servern.
+Se https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="364"/>
@@ -853,7 +854,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="169"/>
         <source>(Optional) password for Kodi login. (Stored unencrypted on device.)</source>
-        <translation>Lösenord för att autentisera inloggning till Kodi. Lämnas tomt om inget lösenord används. Notera att lösenordet kommer att lagras okrypterat på enheten.</translation>
+        <translation>(Valfritt) Lösenord för inloggning till Kodi (Lagras okrypterat på enheten).</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="209"/>
