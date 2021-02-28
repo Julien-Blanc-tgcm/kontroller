@@ -6,7 +6,7 @@
 #include "plugins/volume/kodivolumeplugin.h"
 #include "plugins/volume/minidspvolumeplugin.h"
 
-#include "wolwakeupplugin.h"
+#include "plugins/wakeup/wolwakeupplugin.h"
 
 #include <QSettings>
 #include <QAuthenticator>
