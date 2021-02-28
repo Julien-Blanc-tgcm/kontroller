@@ -51,6 +51,7 @@ SOURCES += main.cpp \
     server.cpp \
     themeinformation.cpp \
     downloadservice.cpp \
+    services/imageservice.cpp \
     plugins/volume/volumeplugin.cpp \
     plugins/volume/kodivolumeplugin.cpp \
     plugins/volume/minidspvolumeplugin.cpp \
@@ -101,12 +102,12 @@ CONFIG(sailfishapp) {
 TRANSLATIONS += \
         translations/harbour-kontroller.ts \
         translations/harbour-kontroller-de.ts \
-        translations/harbour-kontroller-en.ts \
         translations/harbour-kontroller-fr.ts \
         translations/harbour-kontroller-nb_NO.ts \
         translations/harbour-kontroller-nl.ts \
         translations/harbour-kontroller-nl_BE.ts \
         translations/harbour-kontroller-ru.ts \
+        translations/harbour-kontroller-si.ts \
         translations/harbour-kontroller-sv.ts \
 
 
@@ -139,7 +140,6 @@ HEADERS += \
     tvshowinformationservice.h \
     seasoninformationservice.h \
     episodeinformationservice.h \
-#    playlistcontrol.h \
     playlistitem.h \
     subtitle.h \
     client.h \
@@ -153,6 +153,7 @@ HEADERS += \
     server.h \
     themeinformation.h \
     downloadservice.h \
+    services/imageservice.h \
     plugins/volume/volumeplugin.h \
     plugins/volume/kodivolumeplugin.h \
     plugins/volume/minidspvolumeplugin.h \

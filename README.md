@@ -31,6 +31,12 @@ Kontroller is available in several languages, including:
 
 Translating the app is done on [weblate](http://hosted.weblate.com/kontroller).
 
+# Support kontroller
+
+Kontroller is developed for fun, on my free time. If you wish to support its
+development, then consider supporting [weblate](https://weblate.org/donate/)
+as they provide the translation infrastructure for free.
+
 # Wake-on-LAN
 
 Wake-on-LAN usually requires some configuration at the server level.

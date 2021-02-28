@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="en">
 <context>
     <name>About</name>
     <message>
@@ -150,7 +150,7 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="22"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished">Not connected to the server</translation>
+        <translation>Not connected to the server</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="53"/>
@@ -553,7 +553,7 @@
     <message>
         <location filename="../qml/PlaylistPage.qml" line="53"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Remove</translation>
     </message>
 </context>
 <context>
