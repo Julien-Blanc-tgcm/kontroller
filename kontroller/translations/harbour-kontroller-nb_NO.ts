@@ -553,7 +553,7 @@
     <message>
         <location filename="../qml/PlaylistPage.qml" line="53"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern</translation>
     </message>
 </context>
 <context>

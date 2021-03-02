@@ -6,7 +6,7 @@
     <message>
         <location filename="../qml/About.qml" line="14"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>පිළිබඳව</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="20"/>
@@ -137,7 +137,7 @@
     <message>
         <location filename="../qml/ArtistInformationPage.qml" line="141"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>බාගන්න</translation>
     </message>
     <message>
         <location filename="../qml/ArtistInformationPage.qml" line="159"/>
