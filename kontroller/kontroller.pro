@@ -17,6 +17,7 @@ CONFIG+=c++1z # c++17 not supported by current qmake
 SOURCES += main.cpp \
     ../lib/arp/macaddressfinder.cpp \
     downloadlocation.cpp \
+    imagecontrol.cpp \
     kodiservicediscovery.cpp \
     libraryservice.cpp \
     musicservice.cpp \
@@ -120,6 +121,7 @@ LIBS += -lqjsonrpc
 HEADERS += \
     ../lib/arp/macaddressfinder.h \
     downloadlocation.h \
+    imagecontrol.h \
     kodiservicediscovery.h \
     libraryservice.h \
     musicservice.h \

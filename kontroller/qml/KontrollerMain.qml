@@ -84,6 +84,12 @@ Page {
                     label: qsTr("Videos")
                 }
                 ListElement {
+                    page:"images"
+                    icon:"image://theme/icon-m-image"
+                    needConnect: true
+                    label: qsTr("Images")
+                }
+                ListElement {
                     page:"current"
                     icon:"image://theme/icon-m-accessory-speaker"
                     needConnect:true
@@ -226,6 +232,10 @@ Page {
         else if(page === "videos")
         {
             internal.createVideoPage({"file": "", "filetype": "", "label": qsTr("Sources")});
+        }
+        else if(page === "images")
+        {
+            internal.createImagePage({"file":"", "filetype":"", "label":qsTr("Sources")});
         }
         else if(page === "current")
         {

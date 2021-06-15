@@ -144,6 +144,11 @@ void ImageService::refresh()
 		refresh_files();
 	else if(browsingMode_ == "addon")
 		refresh_files();
+	else
+	{
+		refresh_files();
+		refreshAddons_(); // also add addons at root
+	}
 }
 
 void ImageService::setFiles(const QVector<File> &value)
@@ -190,9 +195,8 @@ void ImageService::refresh_files()
 			obj["ignorearticle"] = client_->sortIgnoreArticle();
 			parameters.insert("sort", obj);
 		}
-		parameters.insert("media", QString("images"));
+		parameters.insert("media", QString("pictures"));
 		QJsonArray properties;
-		properties.push_back("label");
 		properties.push_back("thumbnail");
 		properties.push_back("file");
 		parameters.insert("properties", properties);
@@ -269,11 +273,16 @@ void ImageService::parseDirectoryResults()
 							val = obj.value("type");
 							if(val.type() == QJsonValue::String)
 								file.setType(val.toString());
-							file.setThumbnail(getImageUrl(client_, obj.value("thumbnail").toString()).toString());
+							auto thumbnail = obj.value("thumbnail").toString();
+							if (thumbnail.size() == 0 && file.filetype() == "file")
+								thumbnail = "image://" + QUrl::toPercentEncoding(file.file()) + "/transform?size=thumb";
+							qDebug() << thumbnail << file.filetype();
+							file.setThumbnail(getImageUrl(client_, thumbnail).toString());
+
 							if (file.filetype() == "directory")
 								file.setIcon("folder");
 							else if (file.filetype() == "file")
-								file.setIcon("music");
+								file.setIcon("image");
 							files_.push_back(file);
 						}
 					}

@@ -388,6 +388,8 @@ SilicaFlickable {
             return "image://assets/icons/icon-m-recently-played";
         if(icon === "randomalbums")
             return "image://assets/icons/icon-m-random";
+        if(icon === "image")
+            return "image://theme/icon-m-file-image";
         return "";
     }
 }

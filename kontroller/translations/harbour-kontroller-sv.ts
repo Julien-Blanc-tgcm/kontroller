@@ -253,8 +253,9 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="224"/>
-        <location filename="../qml/KontrollerMain.qml" line="228"/>
+        <location filename="../qml/KontrollerMain.qml" line="230"/>
+        <location filename="../qml/KontrollerMain.qml" line="234"/>
+        <location filename="../qml/KontrollerMain.qml" line="238"/>
         <source>Sources</source>
         <translation>Källor</translation>
     </message>
@@ -280,51 +281,56 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/KontrollerMain.qml" line="96"/>
         <source>Current</source>
         <translation>Aktuellt</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="96"/>
+        <location filename="../qml/KontrollerMain.qml" line="102"/>
         <source>Remote</source>
         <translation>Fjärr</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="103"/>
+        <location filename="../qml/KontrollerMain.qml" line="109"/>
         <source>Playlist</source>
         <translation>Spellista</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="110"/>
+        <location filename="../qml/KontrollerMain.qml" line="116"/>
         <source>Server management</source>
         <translation>Serverhantering</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="155"/>
+        <location filename="../qml/KontrollerMain.qml" line="161"/>
         <source>Connecting…</source>
         <translation>Ansluter…</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="169"/>
+        <location filename="../qml/KontrollerMain.qml" line="175"/>
         <source>Could not connect</source>
         <translation>Kunde inte ansluta</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="175"/>
+        <location filename="../qml/KontrollerMain.qml" line="181"/>
         <source>Retry</source>
         <translation>Försök igen</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="182"/>
+        <location filename="../qml/KontrollerMain.qml" line="188"/>
         <source>Wake up server</source>
         <translation>Väck servern</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="197"/>
+        <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>No server configured</source>
         <translation>Ingen server konfigurerad</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="202"/>
+        <location filename="../qml/KontrollerMain.qml" line="208"/>
         <source>Add server</source>
         <translation>Lägg till server</translation>
     </message>

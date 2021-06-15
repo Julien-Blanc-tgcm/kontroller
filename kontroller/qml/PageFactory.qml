@@ -85,6 +85,20 @@ QtObject {
         videoList.backToMenuClicked.connect(toMenu);
     }
 
+    function createImagePage(file) {
+        var imageList = pageStack.push("ImagePage.qml", {
+                                           "visible": true,
+                                           "browsingMode": file.filetype,
+                                           "browsingValue": file.file,
+                                           "label":file.label
+                                       });
+        imageList.mediaClicked.connect(createImagePage);
+        imageList.mediaInformationClicked.connect(createInformationPage);
+        imageList.remoteClicked.connect(pushRemotePage);
+        imageList.currentClicked.connect(pushCurrentPage);
+        imageList.backToMenuClicked.connect(toMenu);
+    }
+
     function createCurrentlyPlayingPage()
     {
         var page = pageStack.push("CurrentlyPlaying.qml");

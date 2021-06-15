@@ -263,17 +263,17 @@
         <translation>Videos</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="90"/>
+        <location filename="../qml/KontrollerMain.qml" line="96"/>
         <source>Current</source>
         <translation>Aktuell</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="96"/>
+        <location filename="../qml/KontrollerMain.qml" line="102"/>
         <source>Remote</source>
         <translation>Fernbedienung</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="103"/>
+        <location filename="../qml/KontrollerMain.qml" line="109"/>
         <source>Playlist</source>
         <translation>Playlist</translation>
     </message>
@@ -293,43 +293,49 @@
         <translation>Willkommen</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="110"/>
+        <location filename="../qml/KontrollerMain.qml" line="90"/>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/KontrollerMain.qml" line="116"/>
         <source>Server management</source>
         <translation>Server Verwaltung</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="155"/>
+        <location filename="../qml/KontrollerMain.qml" line="161"/>
         <source>Connecting…</source>
         <translation>Verbinde, bitte warten...</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="169"/>
+        <location filename="../qml/KontrollerMain.qml" line="175"/>
         <source>Could not connect</source>
         <translation>Verbindung fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="175"/>
+        <location filename="../qml/KontrollerMain.qml" line="181"/>
         <source>Retry</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="182"/>
+        <location filename="../qml/KontrollerMain.qml" line="188"/>
         <source>Wake up server</source>
         <translation>Server aufwecken</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="197"/>
+        <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>No server configured</source>
         <translation>Kein Server konfiguriert</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="202"/>
+        <location filename="../qml/KontrollerMain.qml" line="208"/>
         <source>Add server</source>
         <translation>Füge Server hinzu</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="224"/>
-        <location filename="../qml/KontrollerMain.qml" line="228"/>
+        <location filename="../qml/KontrollerMain.qml" line="230"/>
+        <location filename="../qml/KontrollerMain.qml" line="234"/>
+        <location filename="../qml/KontrollerMain.qml" line="238"/>
         <source>Sources</source>
         <translation>Quellen</translation>
     </message>

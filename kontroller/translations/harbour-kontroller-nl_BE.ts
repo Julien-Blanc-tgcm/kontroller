@@ -263,17 +263,17 @@
         <translation>Video’s</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="90"/>
+        <location filename="../qml/KontrollerMain.qml" line="96"/>
         <source>Current</source>
         <translation>Huidig</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="96"/>
+        <location filename="../qml/KontrollerMain.qml" line="102"/>
         <source>Remote</source>
         <translation>Zapper</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="103"/>
+        <location filename="../qml/KontrollerMain.qml" line="109"/>
         <source>Playlist</source>
         <translation>Speellijst</translation>
     </message>
@@ -293,43 +293,49 @@
         <translation>Welkom</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="110"/>
+        <location filename="../qml/KontrollerMain.qml" line="90"/>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/KontrollerMain.qml" line="116"/>
         <source>Server management</source>
         <translation>Serverbeheer</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="155"/>
+        <location filename="../qml/KontrollerMain.qml" line="161"/>
         <source>Connecting…</source>
         <translation>Bezig me te verbinden, efkes geduld…</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="169"/>
+        <location filename="../qml/KontrollerMain.qml" line="175"/>
         <source>Could not connect</source>
         <translation>’t Verbinden is mislukt</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="175"/>
+        <location filename="../qml/KontrollerMain.qml" line="181"/>
         <source>Retry</source>
         <translation>Herproberen</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="182"/>
+        <location filename="../qml/KontrollerMain.qml" line="188"/>
         <source>Wake up server</source>
         <translation>Server wekken</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="197"/>
+        <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>No server configured</source>
         <translation>Gêne server geconfigureerd</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="202"/>
+        <location filename="../qml/KontrollerMain.qml" line="208"/>
         <source>Add server</source>
         <translation>Server toevoegen</translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="224"/>
-        <location filename="../qml/KontrollerMain.qml" line="228"/>
+        <location filename="../qml/KontrollerMain.qml" line="230"/>
+        <location filename="../qml/KontrollerMain.qml" line="234"/>
+        <location filename="../qml/KontrollerMain.qml" line="238"/>
         <source>Sources</source>
         <translation>Bronnen</translation>
     </message>

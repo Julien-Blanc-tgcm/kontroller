@@ -24,7 +24,7 @@ Item {
             if(!pressed && player && player.canSeek)
                 player.percentage = value
         }
-        visible: showSlider
+        visible: showSlider && player && player.type !== "picture"
     }
 
     Label {

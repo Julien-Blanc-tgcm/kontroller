@@ -1,5 +1,5 @@
-#ifndef EU_TGCM_KONTROLLER_MUSICSERVICE_H
-#define EU_TGCM_KONTROLLER_MUSICSERVICE_H
+#ifndef EU_TGCM_KONTROLLER_IMAGESERVICE_H
+#define EU_TGCM_KONTROLLER_IMAGESERVICE_H
 
 #include "client.h"
 #include "file.h"
@@ -115,4 +115,4 @@ signals:
 } // namespace kontroller
 } // namespace tgcm
 } // namespace eu
-#endif // EU_TGCM_KONTROLLER_	MUSICSERVICE_H
+#endif // EU_TGCM_KONTROLLER_IMAGESERVICE_H
