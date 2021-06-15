@@ -12,11 +12,7 @@
 #include <QAuthenticator>
 #include <QNetworkReply>
 
-namespace eu
-{
-namespace tgcm
-{
-namespace kontroller
+namespace eu::tgcm::kontroller
 {
 
 namespace
@@ -61,9 +57,9 @@ WakeUpPlugin* getWakeUpPlugin(Client* owner, Server* server)
 	return nullptr;
 }
 
-}
+} // namespace
 
-Client::Client(ApplicationSettings* settings, QObject *parent) :
+Client::Client(ApplicationSettings* settings, QObject* parent) :
     QObject(parent),
     settings_{settings},
     serverUuid_(),
@@ -72,11 +68,13 @@ Client::Client(ApplicationSettings* settings, QObject *parent) :
     tcpClient_(nullptr),
     connectionStatus_(0),
     downloadService_{new DownloadService{this, settings}},
-    playerService_{new PlayerService{this, this}}
+    playerService_{new PlayerService{this, this}},
+    timer_{new QTimer(this)}
 {
 	// refresh the client if servers changes
 	// because the server may disappear
 	connect(settings, &ApplicationSettings::serversChanged, this, &Client::refresh);
+	connect(timer_, &QTimer::timeout, this, &Client::pollNext_);
 }
 
 Client::~Client() noexcept
@@ -115,7 +113,7 @@ int Client::serverHttpPort() const
 void Client::refresh()
 {
 	freeConnections();
-	setConnectionStatus(1);
+	setConnectionStatus_(1);
 	server_ = nullptr;
 	if(serverUuid_.size() > 0)
 		server_ = settings_->server(serverUuid_);
@@ -132,18 +130,18 @@ void Client::refresh()
 		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
 		if(server_->serverAddress().size() > 0 && server_->serverPort() > 0)
 		{
-			setConnectionStatus(1);
+			setConnectionStatus_(1);
 			{
 				clientSocket_ = new QTcpSocket();
-				connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess()));
+				connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess_()));
 				connect(clientSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
-				        this, SLOT(handleConnectionError(QAbstractSocket::SocketError)));
+				        this, SLOT(handleConnectionError_(QAbstractSocket::SocketError)));
 				clientSocket_->connectToHost(server_->serverAddress(), static_cast<quint16>(server_->serverPort()));
 			}
 		}
 	}
 	else
-		setConnectionStatus(-1);
+		setConnectionStatus_(-1);
 }
 
 int Client::connectionStatus() const
@@ -189,7 +187,7 @@ void Client::handleError(QJsonRpcMessage error)
 	}
 	else if(error.errorMessage().startsWith("error with http request"))
 	{
-		setConnectionStatus(-1);
+		setConnectionStatus_(-1);
 	}
 	else
 	{
@@ -217,14 +215,8 @@ QJsonRpcServiceReply* Client::send(QJsonRpcMessage message)
 
 QJsonRpcServiceReply *Client::httpSend(QJsonRpcMessage message)
 {
-	if(!client_)
-	{
-		client_ = new QJsonRpcHttpClient(baseUrl() + "jsonrpc");
-		connect(client_->networkAccessManager(), &QNetworkAccessManager::authenticationRequired,
-		        this, &Client::provideCredentials_);
-	}
-	auto reply = client_->sendMessage(message);
-	connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished()));
+	auto reply = client()->sendMessage(message);
+	connect(reply, SIGNAL(finished()), this, SLOT(handleReplyFinished_()));
 	return reply;
 }
 
@@ -270,7 +262,7 @@ void Client::wakeUp()
 		wakeUpPlugin_->wakeUp();
 }
 
-void Client::handleReplyFinished()
+void Client::handleReplyFinished_()
 {
 	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
@@ -283,35 +275,59 @@ void Client::handleReplyFinished()
 		}
 	}
 	else
-		setConnectionStatus(-1);
+		setConnectionStatus_(-1);
 	reply->deleteLater();
 }
 
-void Client::setConnectionStatus(int connectionStatus)
+void Client::setConnectionStatus_(int connectionStatus)
 {
 	connectionStatus_ = connectionStatus;
 	emit connectionStatusChanged(connectionStatus_);
 }
 
-void Client::handleConnectionSuccess()
+void Client::handleConnectionSuccess_()
 {
 	tcpClient_ = new QJsonRpcSocket(clientSocket_);
 	connect(tcpClient_, SIGNAL(messageReceived(QJsonRpcMessage)), this,
-	        SLOT(handleMessageReceived(QJsonRpcMessage)));
-	setConnectionStatus(2);
+	        SLOT(handleMessageReceived_(QJsonRpcMessage)));
+	setConnectionStatus_(2);
 	playerService_->refreshPlayerInfo();
 	volumePlugin()->refreshVolume();
 	refreshServerParameters_();
 	emit serverChanged();
 }
 
-void Client::handleConnectionError(QAbstractSocket::SocketError err)
+void Client::handleConnectionError_(QAbstractSocket::SocketError err)
 {
-	setConnectionStatus(-1);
+	setConnectionStatus_(-1);
+	auto mess = QJsonRpcMessage::createRequest("JSONRPC.Ping");
+	auto query = client_->sendMessage(mess);
+	connect(query, &QJsonRpcServiceReply::finished, this, &Client::handlePingReply_);
 	qDebug() << err;
 }
 
-void Client::handleMessageReceived(QJsonRpcMessage message)
+void Client::handlePingReply_()
+{
+	auto reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
+	if (reply != nullptr)
+	{
+		if (reply->response().type() == QJsonRpcMessage::Type::Response)
+		{
+			qDebug() << "Ping successful";
+			setConnectionStatus_(2);
+			playerService_->refreshPlayerInfo();
+			volumePlugin()->refreshVolume();
+			refreshServerParameters_();
+			emit serverChanged();
+			setupPolling_();
+		}
+		else
+			setConnectionStatus_(-1);
+	}
+	reply->deleteLater();
+}
+
+void Client::handleMessageReceived_(QJsonRpcMessage message)
 {
 	if(message.type() == QJsonRpcMessage::Notification)
 	{
@@ -533,6 +549,31 @@ void Client::handleRefreshServerParameters_()
 	}
 }
 
+void Client::pollNext_()
+{
+	// do the actual calls
+}
+
+QJsonRpcHttpClient* Client::client()
+{
+	if (!client_)
+	{
+		client_ = new QJsonRpcHttpClient(baseUrl() + "jsonrpc");
+		connect(client_->networkAccessManager(),
+		        &QNetworkAccessManager::authenticationRequired,
+		        this,
+		        &Client::provideCredentials_);
+	}
+	return client_;
+}
+
+void Client::setupPolling_()
+{
+	timer_->setInterval(1000);
+	timer_->setSingleShot(false);
+	timer_->start();
+}
+
 VolumePlugin* Client::volumePlugin()
 {
 	return volumePlugin_;
@@ -548,6 +589,4 @@ WakeUpPlugin* Client::wakeUpPlugin() const
 	return wakeUpPlugin_;
 }
 
-}
-}
-}
+} // namespace eu::tgcm::kontroller

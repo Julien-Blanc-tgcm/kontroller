@@ -5,6 +5,8 @@
 
 #include <qjsonrpchttpclient.h>
 
+#include <QTimer>
+
 namespace eu
 {
 namespace tgcm
@@ -34,6 +36,12 @@ class Client : public QObject
 
 	Server* server_ = nullptr;
 
+	/**
+	 * @brief httpOnly_ will not make use of the tcp connection to receive notifications, but only the http. Thus, will
+	 * use polling for some data
+	 */
+	bool httpOnly_ = false;
+
 	void freeConnections();
 	eu::tgcm::kontroller::DownloadService* downloadService_ = nullptr;
 
@@ -44,6 +52,8 @@ class Client : public QObject
 	bool sortIgnoreArticle_ = false;
 
 	eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin_ = nullptr;
+
+	QTimer* timer_ = nullptr;
 
 public:
 	explicit Client(ApplicationSettings* settings, QObject *parent = nullptr);
@@ -76,7 +86,7 @@ public:
 	           NOTIFY downloadServiceChanged)
 	Q_PROPERTY(eu::tgcm::kontroller::Server* server READ server NOTIFY serverChanged)
 	eu::tgcm::kontroller::DownloadService* downloadService() const;
-	Q_PROPERTY(int connectionStatus READ connectionStatus WRITE setConnectionStatus NOTIFY connectionStatusChanged)
+	Q_PROPERTY(int connectionStatus READ connectionStatus WRITE setConnectionStatus_ NOTIFY connectionStatusChanged)
 
 	Q_PROPERTY(eu::tgcm::kontroller::PlayerService* playerService READ playerService WRITE setPlayerService \
 	           NOTIFY playerServiceChanged)
@@ -144,15 +154,21 @@ public slots:
 	void wakeUp();
 
 private slots:
-	void handleReplyFinished();
-	void setConnectionStatus(int connectionStatus);
+	void handleReplyFinished_();
+	void setConnectionStatus_(int connectionStatus);
 
-	void handleConnectionSuccess();
-	void handleConnectionError(QAbstractSocket::SocketError);
-	void handleMessageReceived(QJsonRpcMessage message);
+	void handleConnectionSuccess_();
+	void handleConnectionError_(QAbstractSocket::SocketError);
+	void handlePingReply_();
+	void handleMessageReceived_(QJsonRpcMessage message);
 	void provideCredentials_(QNetworkReply *reply, QAuthenticator *authenticator);
 	void refreshServerParameters_();
 	void handleRefreshServerParameters_();
+	void pollNext_();
+
+  private:
+	QJsonRpcHttpClient* client();
+	void setupPolling_();
 
 signals:
 	// these ones are the notifications the kodi api can send
