@@ -38,7 +38,7 @@ BraceWrapping:
     BeforeElse: true
 BreakInheritanceList: AfterColon
 BreakConstructorInitializers: AfterColon
-ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
 PointerAlignment: Left
 #IndentCaseBlocks: false
 IndentCaseLabels: true
