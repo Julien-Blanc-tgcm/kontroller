@@ -45,10 +45,4 @@ Page {
     {
         musicService.refresh()
     }
-
-    function refreshCollection()
-    {
-        musicService.refreshCollection();
-    }
-
 }

@@ -42,10 +42,4 @@ Page {
     }
 
     Component.onCompleted : refresh()
-
-    function refreshCollection()
-    {
-        videoService.refreshCollection();
-    }
-
 }
