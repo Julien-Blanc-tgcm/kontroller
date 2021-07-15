@@ -825,7 +825,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <location filename="../qml/ServerSettingsPage.qml" line="344"/>
         <location filename="../qml/ServerSettingsPage.qml" line="345"/>
         <source>Device MAC address</source>
-        <translation>evice MAC address</translation>
+        <translation>Device MAC address</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="379"/>
