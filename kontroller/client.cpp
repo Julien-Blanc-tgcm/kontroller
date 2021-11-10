@@ -265,7 +265,7 @@ QNetworkReply* Client::downloadFile(QString path)
 {
 	QNetworkRequest request;
 	request.setUrl(baseUrl() + path);
-	auto reply = client_->networkAccessManager()->get(request);
+	auto reply = client()->networkAccessManager()->get(request);
 	return reply;
 }
 
@@ -339,9 +339,12 @@ void Client::handleConnectionSuccess_()
 void Client::handleConnectionError_(QAbstractSocket::SocketError err)
 {
 	setConnectionStatus_(ConnectionStatus::ConnectionError);
-	auto mess = QJsonRpcMessage::createRequest("JSONRPC.Ping");
-	auto query = client_->sendMessage(mess);
-	connect(query, &QJsonRpcServiceReply::finished, this, &Client::handlePingReply_);
+	if(client_ != nullptr)
+	{
+		auto mess = QJsonRpcMessage::createRequest("JSONRPC.Ping");
+		auto query = client_->sendMessage(mess);
+		connect(query, &QJsonRpcServiceReply::finished, this, &Client::handlePingReply_);
+	}
 	qDebug() << err;
 }
 
