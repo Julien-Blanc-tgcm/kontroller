@@ -239,6 +239,28 @@ something else in Kodi. Turn on \"HTTP remote access\" in Kodi for it to work.")
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: serverHttpPort.focus = false
             }
+            Label {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
+                text: qsTr("Ignore the wi-fi status, try to connect to the server even if the wifi is not connected \
+(useful if you connect via another type of connection, such as a VPN).")
+                visible: !selectingServer__()
+            }
+            TextSwitch {
+                id:chkIgnoreWifi
+                text:qsTr("Ignore Wi-Fi status")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+                Component.onCompleted: {
+                    checked = appSettings.server(serverUuid).ignoreWifiStatus
+                }
+            }
             SectionHeader
             {
                 text: qsTr("Server features")
@@ -439,7 +461,6 @@ controlled by the remote instead")
                 EnterKey.onClicked: miniDSPAddress.focus = false
             }
 
-
 /*            TextSwitch {
                 id: serverHasZones
                 text:qsTr("Use multiples zones")
@@ -478,6 +499,7 @@ controlled by the remote instead")
         appSettings.server(serverUuid).setPoweroffEnabled(poweroffSupported.checked);
         appSettings.server(serverUuid).setSuspendEnabled(suspendSupported.checked);
         appSettings.server(serverUuid).setHibernateEnabled(hibernateSupported.checked);
+        appSettings.server(serverUuid).setIgnoreWifiStatus(chkIgnoreWifi.checked);
 
         if(serverVolumePlugin.currentIndex === 0)
             appSettings.server(serverUuid).setVolumePluginName("Kodi");

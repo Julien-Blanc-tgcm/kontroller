@@ -12,7 +12,7 @@ CONFIG(sailfish) {
 
 PKGCONFIG += sailfishsilica
 
-CONFIG+=c++1z # c++17 not supported by current qmake
+CONFIG+=c++17
 
 SOURCES += main.cpp \
     ../lib/arp/macaddressfinder.cpp \
@@ -24,7 +24,6 @@ SOURCES += main.cpp \
     requests/moviesrequest.cpp \
     requests/tvshowsrequest.cpp \
     sbiconimageprovider.cpp \
-    statusservice.cpp \
     playlistservice.cpp \
     systemservice.cpp \
     videoservice.cpp \
@@ -128,7 +127,6 @@ HEADERS += \
     requests/moviesrequest.hpp \
     requests/tvshowsrequest.hpp \
     sbiconimageprovider.h \
-    statusservice.h \
     playlistservice.h \
     systemservice.h \
     videoservice.h \

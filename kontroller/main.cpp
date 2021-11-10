@@ -29,7 +29,6 @@
 #include "remote.h"
 #include "seasoninformationservice.h"
 #include "server.h"
-#include "statusservice.h"
 #include "systemservice.h"
 #include "tvshowinformationservice.h"
 #include "videocontrol.h"
@@ -92,8 +91,6 @@ void registerTypes()
 	assert(ret);
 	ret = qmlRegisterUncreatableType<PlayerService>(
 	    qmlprefix, 1, 0, "PlayerService", QString::fromUtf8("PlayerService is not creatable from qml"));
-	assert(ret);
-	ret = qmlRegisterType<StatusService>(qmlprefix, 1, 0, "StatusService");
 	assert(ret);
 	ret = qmlRegisterUncreatableType<Player>(
 	    qmlprefix, 1, 0, "Player", QString::fromUtf8("Player is not creatable from qml"));

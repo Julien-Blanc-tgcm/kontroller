@@ -5,17 +5,17 @@
 namespace eu ::tgcm ::kontroller
 {
 
-bool Server::ignoreWifi() const
+bool Server::ignoreWifiStatus() const
 {
 	return ignoreWifi_;
 }
 
-void Server::setIgnoreWifi(bool newIgnoreWifi)
+void Server::setIgnoreWifiStatus(bool newIgnoreWifi)
 {
 	if (ignoreWifi_ == newIgnoreWifi)
 		return;
 	ignoreWifi_ = newIgnoreWifi;
-	emit ignoreWifiChanged();
+	emit ignoreWifiStatusChanged();
 }
 
 Server::Server(QObject *parent) : QObject(parent),

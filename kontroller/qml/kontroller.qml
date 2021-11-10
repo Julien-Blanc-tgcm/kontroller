@@ -87,11 +87,6 @@ ApplicationWindow {
         }
     }
 
-    StatusService {
-        id:statusService
-        settings: appSettings
-    }
-
     Notification {
         id: theNotif
         appName: "kontroller"

@@ -98,6 +98,14 @@ ApplicationSettings::ApplicationSettings(QObject* parent) :
 		else
 			server->setRebootEnabled(true);
 
+		val = settings.value("ignoreWifiStatus");
+		if (!val.isNull() && val.canConvert(QVariant::Bool))
+		{
+			server->setIgnoreWifiStatus(val.toBool());
+		}
+		else
+			server->setIgnoreWifiStatus(false);
+
 		val = settings.value("volumePlugin");
 		if(!val.isNull() && val.canConvert(QVariant::String))
 		{
@@ -238,19 +246,6 @@ int ApplicationSettings::lastServerIndex() const
 	return 0;
 }
 
-bool ApplicationSettings::ignoreWifiStatus() const
-{
-	return ignoreWifiStatus_;
-}
-
-void ApplicationSettings::setIgnoreWifiStatus(bool ignoreWifiStatus)
-{
-	if(ignoreWifiStatus == ignoreWifiStatus_)
-		return;
-	ignoreWifiStatus_ = ignoreWifiStatus;
-	emit ignoreWifiStatusChanged(ignoreWifiStatus_);
-}
-
 /*DeviceType ApplicationSettings::deviceType() const
 {
     return deviceType_;
@@ -293,6 +288,7 @@ void ApplicationSettings::save()
 		settings.setValue("hasZones", server->hasZones());
 		settings.setValue("zones", server->zones());
 		settings.setValue("login", server->login());
+		settings.setValue("ignoreWifiStatus", server->ignoreWifiStatus());
 		settings.setValue("password", server->password());
 		settings.setValue("volumePlugin", server->volumePluginName());
 		settings.beginGroup(server->volumePluginName());
@@ -320,7 +316,6 @@ void ApplicationSettings::save()
 	settings.setValue("downloadFolder", downloadLocation().baseFolder());
 	settings.setValue("lastServer", lastServer());
 //    settings.setValue("deviceType", (int)deviceType_);
-//    settings.setValue("ignoreWifiStatus", ignoreWifiStatus_);
 	settings.sync();
 }
 

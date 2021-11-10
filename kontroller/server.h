@@ -70,7 +70,7 @@ class Server : public QObject
 	Q_PROPERTY(bool hibernateEnabled READ hibernateEnabled WRITE setHibernateEnabled NOTIFY hibernateEnabledChanged)
 	Q_PROPERTY(bool rebootEnabled READ rebootEnabled WRITE setRebootEnabled NOTIFY rebootEnabledChanged)
 	Q_PROPERTY(bool poweroffEnabled READ poweroffEnabled WRITE setPoweroffEnabled NOTIFY poweroffEnabledChanged)
-	Q_PROPERTY(bool ignoreWifi READ ignoreWifi WRITE setIgnoreWifi NOTIFY ignoreWifiChanged)
+	Q_PROPERTY(bool ignoreWifiStatus READ ignoreWifiStatus WRITE setIgnoreWifiStatus NOTIFY ignoreWifiStatusChanged)
 
 	QString serverAddress() const;
 
@@ -106,8 +106,7 @@ class Server : public QObject
 
 	bool poweroffEnabled() const;
 
-	bool ignoreWifi() const;
-	void setIgnoreWifi(bool newIgnoreWifi);
+	bool ignoreWifiStatus() const;
 
   signals:
 
@@ -146,7 +145,7 @@ class Server : public QObject
 
 	void poweroffEnabledChanged(bool poweroffEnabled);
 
-	void ignoreWifiChanged();
+	void ignoreWifiStatusChanged();
 
   public slots:
 	void setServerAddress(QString serverAddress);
@@ -169,6 +168,7 @@ class Server : public QObject
 	void setHibernateEnabled(bool hibernateEnabled);
 	void setRebootEnabled(bool rebootEnabled);
 	void setPoweroffEnabled(bool poweroffEnabled);
+	void setIgnoreWifiStatus(bool newIgnoreWifi);
 };
 
 }

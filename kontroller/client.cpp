@@ -149,7 +149,7 @@ void Client::refresh()
 		emit wakeUpPluginChanged(wakeUpPlugin_);
 		serverUuid_ = server_->uuid();
 		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
-		if (wifiUp() || server_->ignoreWifi())
+		if (wifiUp() || server_->ignoreWifiStatus())
 		{
 			if (server_->serverAddress().size() > 0 && server_->serverPort() > 0)
 			{
@@ -609,7 +609,7 @@ void Client::checkWifiStatus_()
 			{
 				wifiUp_ = false;
 				emit wifiUpChanged(false);
-				if (server() && !server()->ignoreWifi())
+				if (server() && !server()->ignoreWifiStatus())
 				{
 					setConnectionStatus_(ConnectionStatus::NoWifi);
 				}

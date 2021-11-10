@@ -115,22 +115,6 @@ device memory, but SD card can be used. Picks folder depending on filetype.")
                     currentIndex = appSettings.downloadLocationIndex;
                 }
             }
-
-            TextSwitch {
-                id:chkIgnoreWifi
-                text:qsTr("Ignore Wi-Fi status")
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
-                onCheckedChanged:
-                {
-                    appSettings.ignoreWifiStatus = checked;
-                }
-                Component.onCompleted: {
-                    checked = appSettings.ignoreWifiStatus
-                }
-            }
         }
     }
 

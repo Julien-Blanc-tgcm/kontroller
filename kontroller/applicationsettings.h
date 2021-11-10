@@ -56,7 +56,6 @@ private:
 public:
 	explicit ApplicationSettings(QObject* parent = nullptr);
 
-	Q_PROPERTY(bool ignoreWifiStatus READ ignoreWifiStatus WRITE setIgnoreWifiStatus NOTIFY ignoreWifiStatusChanged)
 	Q_PROPERTY(QString lastServer READ lastServer WRITE setLastServer NOTIFY lastServerChanged)
 	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Server> servers READ servers NOTIFY serversChanged)
 	Q_PROPERTY(eu::tgcm::kontroller::DownloadLocation downloadLocation READ downloadLocation WRITE setDownloadLocation \
@@ -78,8 +77,6 @@ public:
 	int dpi() const;
 	void setDpi(int dpi);
 #endif
-	bool ignoreWifiStatus() const;
-	void setIgnoreWifiStatus(bool ignoreWifiStatus);
 	DownloadLocation downloadLocation() const;
 
 	void setDownloadLocation(const DownloadLocation &downloadLocation);
@@ -104,7 +101,6 @@ signals:
 	void lastServerChanged();
 	void serversChanged();
 	void currentServerChanged();
-	void ignoreWifiStatusChanged(bool ignoreWifiStatus);
 #ifndef SAILFISH_TARGET
 	void dpiChanged(int dpi);
 #endif
