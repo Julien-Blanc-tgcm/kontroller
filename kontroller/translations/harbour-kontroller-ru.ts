@@ -517,22 +517,23 @@
 <context>
     <name>PlayerControl</name>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="151"/>
+        <location filename="../qml/components/PlayerControl.qml" line="156"/>
         <source>&lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>&lt;i&gt;%1&lt;/i&gt; из &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="153"/>
+        <location filename="../qml/components/PlayerControl.qml" line="158"/>
+        <location filename="../qml/components/PlayerControl.qml" line="160"/>
         <source>&lt;i&gt;%1&lt;/i&gt;</source>
         <translation>&lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="163"/>
+        <location filename="../qml/components/PlayerControl.qml" line="170"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>Далее: &lt;i&gt;%1&lt;/i&gt; из &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="165"/>
+        <location filename="../qml/components/PlayerControl.qml" line="172"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Далее: &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
@@ -774,108 +775,118 @@
         <translation>Порт HTTP</translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="385"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="407"/>
         <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="244"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="266"/>
         <source>Server features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="253"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="249"/>
+        <source>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ServerSettingsPage.qml" line="275"/>
         <source>Power off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="265"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="287"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="277"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="299"/>
         <source>Hibernate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="289"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="311"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="379"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="401"/>
         <source>Volume handling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="398"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="420"/>
         <source>Volume plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="401"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="423"/>
         <source>Kodi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="404"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="426"/>
         <source>miniDSP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="423"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="445"/>
         <source>IP address of the miniDSP device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="435"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="436"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="457"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="458"/>
         <source>miniDSP IP address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="300"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="255"/>
+        <source>Ignore Wi-Fi status</source>
+        <translation>Игнорировать состояние WiFi</translation>
+    </message>
+    <message>
+        <location filename="../qml/ServerSettingsPage.qml" line="322"/>
         <source>WakeUp plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="256"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="268"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="278"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="290"/>
         <source>Keep option in server management pulley menu. On by default.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="280"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="292"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="302"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="314"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="303"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="325"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="306"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="328"/>
         <source>Wake-on-LAN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="331"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="353"/>
         <source>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="364"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="365"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="386"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="387"/>
         <source>Wake up port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ServerSettingsPage.qml" line="344"/>
-        <location filename="../qml/ServerSettingsPage.qml" line="345"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="366"/>
+        <location filename="../qml/ServerSettingsPage.qml" line="367"/>
         <source>Device MAC address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -936,11 +947,6 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <location filename="../qml/SettingsPage.qml" line="110"/>
         <source>SD card %1</source>
         <translation>SD карта %1</translation>
-    </message>
-    <message>
-        <location filename="../qml/SettingsPage.qml" line="121"/>
-        <source>Ignore Wi-Fi status</source>
-        <translation>Игнорировать состояние WiFi</translation>
     </message>
 </context>
 <context>
@@ -1086,35 +1092,35 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>kontroller</name>
     <message>
-        <location filename="../qml/kontroller.qml" line="107"/>
+        <location filename="../qml/kontroller.qml" line="102"/>
         <source>Download of %1 started</source>
         <translation>Загрузка %1 начата</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="110"/>
-        <location filename="../qml/kontroller.qml" line="111"/>
+        <location filename="../qml/kontroller.qml" line="105"/>
+        <location filename="../qml/kontroller.qml" line="106"/>
         <source>Download started</source>
         <translation>Загрузка начата</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="116"/>
+        <location filename="../qml/kontroller.qml" line="111"/>
         <source>Download of %1 complete</source>
         <translation>Загнузка %1 окончена</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="119"/>
-        <location filename="../qml/kontroller.qml" line="120"/>
+        <location filename="../qml/kontroller.qml" line="114"/>
+        <location filename="../qml/kontroller.qml" line="115"/>
         <source>Download complete</source>
         <translation>Загрузка окончена</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="125"/>
+        <location filename="../qml/kontroller.qml" line="120"/>
         <source>Download of %1 failed with error %2</source>
         <translation>Загрузка %1 превалась с ошибкой %2</translation>
     </message>
     <message>
-        <location filename="../qml/kontroller.qml" line="128"/>
-        <location filename="../qml/kontroller.qml" line="129"/>
+        <location filename="../qml/kontroller.qml" line="123"/>
+        <location filename="../qml/kontroller.qml" line="124"/>
         <source>Download error</source>
         <translation>Ошибка загрузки</translation>
     </message>
