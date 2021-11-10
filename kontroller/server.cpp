@@ -2,12 +2,21 @@
 
 #include <QUuid>
 
-namespace eu
+namespace eu ::tgcm ::kontroller
 {
-namespace tgcm
+
+bool Server::ignoreWifi() const
 {
-namespace kontroller
+	return ignoreWifi_;
+}
+
+void Server::setIgnoreWifi(bool newIgnoreWifi)
 {
+	if (ignoreWifi_ == newIgnoreWifi)
+		return;
+	ignoreWifi_ = newIgnoreWifi;
+	emit ignoreWifiChanged();
+}
 
 Server::Server(QObject *parent) : QObject(parent),
     uuid_(QUuid::createUuid().toString())
@@ -247,7 +256,4 @@ void Server::setPoweroffEnabled(bool poweroffEnabled)
 	emit poweroffEnabledChanged(poweroffEnabled_);
 }
 
-}
-}
-}
-
+} // namespace eu::tgcm::kontroller

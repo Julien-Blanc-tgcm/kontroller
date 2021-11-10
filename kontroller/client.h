@@ -55,6 +55,14 @@ class Client : public QObject
 
 	QTimer* timer_ = nullptr;
 
+	/**
+	 * @brief timerNetworkInterface_ uses polling to check the state of the network interfaces.
+	 * 5s polling is enough
+	 */
+	QTimer* timerNetworkInterface_ = nullptr;
+
+	bool wifiUp_ = false;
+
 public:
 	explicit Client(ApplicationSettings* settings, QObject *parent = nullptr);
 	~Client() noexcept override;
@@ -68,8 +76,19 @@ public:
 	int serverPort() const;
 
 	int serverHttpPort() const;
+
+	enum class ConnectionStatus
+	{
+		NoWifi = -2,
+		ConnectionError = -1,
+		Unconnected = 0,
+		Connecting = 1,
+		Connected = 2
+	};
+
 	/**
 	 * @brief connectionStatus tells whether the client is connected
+	 * -2 means no wifi and it is required
 	 * -1 means connection error
 	 * 0 means unconnected
 	 * 1 means connecting
@@ -77,6 +96,12 @@ public:
 	 * @return
 	 */
 	int connectionStatus() const;
+
+	/**
+	 * @brief wifiUp returns the state of the wifi connection
+	 * @return true / false
+	 */
+	bool wifiUp() const;
 
 	bool useHttpInterface() const;
 
@@ -86,7 +111,7 @@ public:
 	           NOTIFY downloadServiceChanged)
 	Q_PROPERTY(eu::tgcm::kontroller::Server* server READ server NOTIFY serverChanged)
 	eu::tgcm::kontroller::DownloadService* downloadService() const;
-	Q_PROPERTY(int connectionStatus READ connectionStatus WRITE setConnectionStatus_ NOTIFY connectionStatusChanged)
+	Q_PROPERTY(int connectionStatus READ connectionStatus NOTIFY connectionStatusChanged)
 
 	Q_PROPERTY(eu::tgcm::kontroller::PlayerService* playerService READ playerService WRITE setPlayerService \
 	           NOTIFY playerServiceChanged)
@@ -96,6 +121,8 @@ public:
 	Q_PROPERTY(bool sortIgnoreArticle READ sortIgnoreArticle NOTIFY sortIgnoreArticleChanged)
 
 	Q_PROPERTY(eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin READ wakeUpPlugin NOTIFY wakeUpPluginChanged)
+
+	Q_PROPERTY(bool wifiUp READ wifiUp NOTIFY wifiUpChanged);
 
 	eu::tgcm::kontroller::PlayerService* playerService() const;
 
@@ -155,7 +182,6 @@ public slots:
 
 private slots:
 	void handleReplyFinished_();
-	void setConnectionStatus_(int connectionStatus);
 
 	void handleConnectionSuccess_();
 	void handleConnectionError_(QAbstractSocket::SocketError);
@@ -165,12 +191,14 @@ private slots:
 	void refreshServerParameters_();
 	void handleRefreshServerParameters_();
 	void pollNext_();
+	void checkWifiStatus_();
 
   private:
+	void setConnectionStatus_(ConnectionStatus connectionStatus);
 	QJsonRpcHttpClient* client();
 	void setupPolling_();
 
-signals:
+  signals:
 	// these ones are the notifications the kodi api can send
 	// note that if using HTTP transport only, no notifications will be available
 	void playerSpeedChanged(int playerid, int speed);
@@ -198,11 +226,10 @@ signals:
 	void audioLibraryCleanStarted();
 	void audioLibraryCleanFinished();
 	void wakeUpPluginChanged(eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin);
+	void wifiUpChanged(bool);
 };
 
-}
-}
-}
-
-
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 #endif // EU_TGCM_KONTROLLER_CLIENT_H

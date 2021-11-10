@@ -254,9 +254,9 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="230"/>
-        <location filename="../qml/KontrollerMain.qml" line="234"/>
-        <location filename="../qml/KontrollerMain.qml" line="238"/>
+        <location filename="../qml/KontrollerMain.qml" line="245"/>
+        <location filename="../qml/KontrollerMain.qml" line="249"/>
+        <location filename="../qml/KontrollerMain.qml" line="253"/>
         <source>Sources</source>
         <translation>Источники</translation>
     </message>
@@ -327,11 +327,16 @@
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="203"/>
+        <source>Wifi is disabled, enable it to connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/KontrollerMain.qml" line="218"/>
         <source>No server configured</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/KontrollerMain.qml" line="208"/>
+        <location filename="../qml/KontrollerMain.qml" line="223"/>
         <source>Add server</source>
         <translation>Добавить сервер</translation>
     </message>

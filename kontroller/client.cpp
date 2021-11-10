@@ -11,6 +11,7 @@
 #include <QSettings>
 #include <QAuthenticator>
 #include <QNetworkReply>
+#include <QNetworkInterface>
 
 namespace eu::tgcm::kontroller
 {
@@ -57,6 +58,21 @@ WakeUpPlugin* getWakeUpPlugin(Client* owner, Server* server)
 	return nullptr;
 }
 
+// helper function, for compatibility with old qt
+bool isWifi_(QNetworkInterface const& interface)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+	return inteface.type() == QNetworkInterface::Wifi;
+#else
+	return interface.name().startsWith("wlan");
+#endif
+}
+
+bool isUp_(QNetworkInterface const& interface)
+{
+	return (interface.flags() & QNetworkInterface::IsUp) == QNetworkInterface::IsUp;
+}
+
 } // namespace
 
 Client::Client(ApplicationSettings* settings, QObject* parent) :
@@ -69,12 +85,17 @@ Client::Client(ApplicationSettings* settings, QObject* parent) :
     connectionStatus_(0),
     downloadService_{new DownloadService{this, settings}},
     playerService_{new PlayerService{this, this}},
-    timer_{new QTimer(this)}
+    timer_{new QTimer(this)},
+    timerNetworkInterface_{new QTimer(this)}
 {
 	// refresh the client if servers changes
 	// because the server may disappear
 	connect(settings, &ApplicationSettings::serversChanged, this, &Client::refresh);
 	connect(timer_, &QTimer::timeout, this, &Client::pollNext_);
+	connect(timerNetworkInterface_, &QTimer::timeout, this, &Client::checkWifiStatus_);
+	timerNetworkInterface_->setSingleShot(false);
+	timerNetworkInterface_->start(5000);
+	checkWifiStatus_();
 }
 
 Client::~Client() noexcept
@@ -113,7 +134,7 @@ int Client::serverHttpPort() const
 void Client::refresh()
 {
 	freeConnections();
-	setConnectionStatus_(1);
+	setConnectionStatus_(ConnectionStatus::Connecting);
 	server_ = nullptr;
 	if(serverUuid_.size() > 0)
 		server_ = settings_->server(serverUuid_);
@@ -128,25 +149,40 @@ void Client::refresh()
 		emit wakeUpPluginChanged(wakeUpPlugin_);
 		serverUuid_ = server_->uuid();
 		qDebug() << "Connection to " << server_->serverAddress() << server_->serverPort();
-		if(server_->serverAddress().size() > 0 && server_->serverPort() > 0)
+		if (wifiUp() || server_->ignoreWifi())
 		{
-			setConnectionStatus_(1);
+			if (server_->serverAddress().size() > 0 && server_->serverPort() > 0)
 			{
-				clientSocket_ = new QTcpSocket();
-				connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess_()));
-				connect(clientSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
-				        this, SLOT(handleConnectionError_(QAbstractSocket::SocketError)));
-				clientSocket_->connectToHost(server_->serverAddress(), static_cast<quint16>(server_->serverPort()));
+				setConnectionStatus_(ConnectionStatus::Connecting);
+				{
+					clientSocket_ = new QTcpSocket();
+					connect(clientSocket_, SIGNAL(connected()), this, SLOT(handleConnectionSuccess_()));
+					connect(clientSocket_,
+					        SIGNAL(error(QAbstractSocket::SocketError)),
+					        this,
+					        SLOT(handleConnectionError_(QAbstractSocket::SocketError)));
+					clientSocket_->connectToHost(server_->serverAddress(), static_cast<quint16>(server_->serverPort()));
+				}
 			}
+		}
+		else
+		{
+			qDebug() << "Not connecting, wifi down and not ignoring it";
+			setConnectionStatus_(ConnectionStatus::NoWifi);
 		}
 	}
 	else
-		setConnectionStatus_(-1);
+		setConnectionStatus_(ConnectionStatus::ConnectionError);
 }
 
 int Client::connectionStatus() const
 {
 	return connectionStatus_;
+}
+
+bool Client::wifiUp() const
+{
+	return wifiUp_;
 }
 
 bool Client::useHttpInterface() const
@@ -183,11 +219,11 @@ void Client::handleError(QJsonRpcMessage error)
 {
 	if(error.errorCode() == QJsonRpc::ErrorCode::TimeoutError)
 	{
-		//setConnectionStatus(0);
+		refresh(); // refresh the connection, this is an error
 	}
 	else if(error.errorMessage().startsWith("error with http request"))
 	{
-		setConnectionStatus_(-1);
+		setConnectionStatus_(ConnectionStatus::ConnectionError);
 	}
 	else
 	{
@@ -273,15 +309,18 @@ void Client::handleReplyFinished_()
 			qDebug() << reply->response();
 			handleError(reply->response());
 		}
+		reply->deleteLater();
 	}
 	else
-		setConnectionStatus_(-1);
-	reply->deleteLater();
+	{
+		setConnectionStatus_(ConnectionStatus::ConnectionError);
+		sender()->deleteLater();
+	}
 }
 
-void Client::setConnectionStatus_(int connectionStatus)
+void Client::setConnectionStatus_(ConnectionStatus connectionStatus)
 {
-	connectionStatus_ = connectionStatus;
+	connectionStatus_ = static_cast<int>(connectionStatus);
 	emit connectionStatusChanged(connectionStatus_);
 }
 
@@ -290,7 +329,7 @@ void Client::handleConnectionSuccess_()
 	tcpClient_ = new QJsonRpcSocket(clientSocket_);
 	connect(tcpClient_, SIGNAL(messageReceived(QJsonRpcMessage)), this,
 	        SLOT(handleMessageReceived_(QJsonRpcMessage)));
-	setConnectionStatus_(2);
+	setConnectionStatus_(ConnectionStatus::Connected);
 	playerService_->refreshPlayerInfo();
 	volumePlugin()->refreshVolume();
 	refreshServerParameters_();
@@ -299,7 +338,7 @@ void Client::handleConnectionSuccess_()
 
 void Client::handleConnectionError_(QAbstractSocket::SocketError err)
 {
-	setConnectionStatus_(-1);
+	setConnectionStatus_(ConnectionStatus::ConnectionError);
 	auto mess = QJsonRpcMessage::createRequest("JSONRPC.Ping");
 	auto query = client_->sendMessage(mess);
 	connect(query, &QJsonRpcServiceReply::finished, this, &Client::handlePingReply_);
@@ -314,7 +353,7 @@ void Client::handlePingReply_()
 		if (reply->response().type() == QJsonRpcMessage::Type::Response)
 		{
 			qDebug() << "Ping successful";
-			setConnectionStatus_(2);
+			setConnectionStatus_(ConnectionStatus::Connected);
 			playerService_->refreshPlayerInfo();
 			volumePlugin()->refreshVolume();
 			refreshServerParameters_();
@@ -322,9 +361,11 @@ void Client::handlePingReply_()
 			setupPolling_();
 		}
 		else
-			setConnectionStatus_(-1);
+			setConnectionStatus_(ConnectionStatus::ConnectionError);
+		reply->deleteLater();
 	}
-	reply->deleteLater();
+	else
+		sender()->deleteLater();
 }
 
 void Client::handleMessageReceived_(QJsonRpcMessage message)
@@ -552,6 +593,35 @@ void Client::handleRefreshServerParameters_()
 void Client::pollNext_()
 {
 	// do the actual calls
+}
+
+void Client::checkWifiStatus_()
+{
+	auto list = QNetworkInterface::allInterfaces();
+	for (auto& interface : list)
+	{
+		if (isWifi_(interface))
+		{
+			if (!isUp_(interface) && wifiUp_)
+			{
+				wifiUp_ = false;
+				emit wifiUpChanged(false);
+				if (server() && !server()->ignoreWifi())
+				{
+					setConnectionStatus_(ConnectionStatus::NoWifi);
+				}
+			}
+			else if (isUp_(interface) && !wifiUp_)
+			{
+				wifiUp_ = true;
+				emit wifiUpChanged(true);
+				if (connectionStatus_ == -2 && server() != nullptr)
+				{
+					refresh(); // retry connection, wifi is up !
+				}
+			}
+		}
+	}
 }
 
 QJsonRpcHttpClient* Client::client()

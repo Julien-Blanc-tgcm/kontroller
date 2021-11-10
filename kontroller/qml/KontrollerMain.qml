@@ -153,7 +153,7 @@ Page {
             anchors.fill: parent
             anchors.topMargin: Theme.itemSizeExtraLarge
             spacing: Theme.itemSizeMedium
-            visible: (appClient.connectionStatus === 1 || appClient.connectionStatus < 0) &&
+            visible: (appClient.connectionStatus === 1 || appClient.connectionStatus === -1) &&
                      appSettings.servers.length > 0
             // connecting
             Label {
@@ -171,13 +171,13 @@ Page {
 
             // failed to connect
             Label {
-                visible: appClient.connectionStatus < 0
+                visible: appClient.connectionStatus === -1
                 text: qsTr("Could not connect");
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.Wrap
             }
             Button {
-                visible: appClient.connectionStatus < 0
+                visible: appClient.connectionStatus === -1
                 text: qsTr("Retry")
                 onClicked: appClient.refresh()
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -189,6 +189,21 @@ Page {
                 onClicked: appClient.wakeUp();
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: appClient && appClient.wakeUpPlugin
+            }
+        }
+
+        // connecting / connection failed
+        Column {
+            anchors.fill: parent
+            anchors.topMargin: Theme.itemSizeExtraLarge
+            spacing: Theme.itemSizeMedium
+            visible: (appClient.connectionStatus === -2) && appSettings.servers.length > 0
+            // connecting
+            Label {
+                text: qsTr("Wifi is disabled, enable it to connect");
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
+                width: parent.width
             }
         }
 
