@@ -16,7 +16,6 @@ Item {
         id: progressSlider
         anchors.left: parent.left
         anchors.right: parent.right
-        //anchors.top:subDisplay.bottom
         minimumValue: 0
         maximumValue: 100
         value: 0
@@ -25,6 +24,7 @@ Item {
                 player.percentage = value
         }
         visible: showSlider && player && player.type !== "picture"
+        valueText: down?getPercentageTime(player, sliderValue):""
     }
 
     Label {
@@ -123,6 +123,11 @@ Item {
             return 0;
     }
 
+    function getPercentageTime(player, percentage)
+    {
+        return Utils.formatMsecTime(player.totalTime * percentage / 100);
+    }
+
     function executeCommand(command)
     {
         if(player === null)
@@ -151,6 +156,8 @@ Item {
             return qsTr("<i>%1</i> by <i>%2</i>").arg(item.label).arg(item.artist)
         else if(item.type === "unknown")
             return qsTr("<i>%1</i>").arg(item.label)
+        else if(item.type === "movie")
+            return qsTr("<i>%1</i>").arg(item.label)
         else
             return item.type;
     }
@@ -169,7 +176,8 @@ Item {
 
     function updatePercentage(value)
     {
-        progressSlider.value = value
+        if(!progressSlider.pressed) // don't update value while it is being modified
+            progressSlider.value = value
     }
 
     onPlayerChanged: {

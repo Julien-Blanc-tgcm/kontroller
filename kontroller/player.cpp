@@ -784,7 +784,9 @@ void Player::setPercentage(double percentage)
 {
 	QJsonObject parameters;
 	parameters.insert("playerid", playerId_);
-	parameters.insert("value", percentage);
+	QJsonObject valueArg;
+	valueArg.insert("percentage", percentage);
+	parameters.insert("value", valueArg);
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Seek", parameters);
 	client_->send(message);
 	// don't handle result here : will be handled by a notification or the refresh
@@ -794,7 +796,9 @@ void Player::seekBackward()
 {
 	QJsonObject parameters;
 	parameters.insert("playerid", playerId_);
-	parameters.insert("value", QLatin1String("smallbackward"));
+	QJsonObject valueArg;
+	valueArg.insert("percentage", QLatin1String("smallbackward"));
+	parameters.insert("value", valueArg);
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Seek", parameters);
 	client_->send(message);
 }
@@ -803,7 +807,9 @@ void Player::seekForward()
 {
 	QJsonObject parameters;
 	parameters.insert("playerid", playerId_);
-	parameters.insert("value", QLatin1String("smallforward"));
+	QJsonObject valueArg;
+	valueArg.insert("percentage", QLatin1String("smallforward"));
+	parameters.insert("value", valueArg);
 	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Player.Seek", parameters);
 	client_->send(message);
 }
