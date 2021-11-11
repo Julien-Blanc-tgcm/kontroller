@@ -14,28 +14,20 @@ namespace kontroller
 {
 
 PlaylistService::PlaylistService(Client* client, Player* player, QObject* parent) :
-    QObject(parent), client_{client}, player_{player}, playlistId_(-1)
+    QObject(parent), client_{client}, player_{player}
 {
 	connect(client_, &Client::playlistCleared, this, &PlaylistService::handlePlaylistCleared_);
 	connect(client_, &Client::playlistElementRemoved, this, &PlaylistService::handlePlaylistElementRemoved);
 	connect(client_, &Client::playlistElementAdded, this, &PlaylistService::handlePlaylistElementAdded);
-	connect(client_, &Client::playlistCurrentItemChanged, this, &PlaylistService::setCurrentlyPlayedItem_);
-	connect(client_->playerService(), &PlayerService::playersChanged, this, &PlaylistService::handlePlayerChanged_);
+	//	connect(client_, &Client::playlistCurrentItemChanged, this, &PlaylistService::setCurrentlyPlayedItem_);
+	connect(player_, &Player::playlistIdChanged, this, &PlaylistService::playlistIdChanged);
+	connect(player_, &Player::typeChanged, this, &PlaylistService::playlistTypeChanged);
+	connect(player_, &Player::playlistPositionChanged, this, &PlaylistService::playlistPositionChanged);
 }
 
 int PlaylistService::playlistId() const
 {
-	return playlistId_;
-}
-
-void PlaylistService::setPlaylistId(int playlistId)
-{
-	if (playlistId != playlistId_)
-	{
-		playlistId_ = playlistId;
-		emit playlistIdChanged();
-		refreshPlaylist_();
-	}
+	return player_->playlistId();
 }
 
 QVariantList PlaylistService::items()
@@ -50,32 +42,20 @@ QVariantList PlaylistService::items()
 
 QString PlaylistService::playlistType() const
 {
-	return playlistType_;
-}
-
-void PlaylistService::setPlaylistType(const QString& playlistType)
-{
-	if (playlistType != playlistType_)
-	{
-		playlistType_ = playlistType;
-		//    playlistId_ = -1;
-		findMatchingPlaylist_();
-		emit playlistTypeChanged();
-	}
+	return player_->type();
 }
 
 int PlaylistService::playlistPosition() const
 {
-	return playlistPosition_;
+	return player_->playlistPosition();
 }
 
-void PlaylistService::setPlaylistPosition(int playlistPosition)
-{
-	playlistPosition_ = playlistPosition;
-	emit playlistPositionChanged();
-	emit itemsChanged();
-	player_->setPlaylistPosition(playlistPosition);
-}
+//void PlaylistService::setPlaylistPosition(int playlistPosition)
+//{
+//	playlistPosition_ = playlistPosition;
+//	emit playlistPositionChanged();
+//	player_->setPlaylistPosition(playlistPosition);
+//}
 
 const QVector<PlaylistItem> PlaylistService::currentItems() const
 {
@@ -85,7 +65,7 @@ const QVector<PlaylistItem> PlaylistService::currentItems() const
 void PlaylistService::switchToItem(int position)
 {
 	QJsonObject parameters;
-	int playerId = client_->playerService()->getPlayerId(playlistType_);
+	int playerId = player_->playerId();
 	if (playerId < 0)
 		return;
 	parameters["playerid"] = playerId;
@@ -98,7 +78,7 @@ void PlaylistService::switchToItem(int position)
 
 void PlaylistService::refreshPlaylist_()
 {
-	if (!refreshing_ && playlistId_ >= 0)
+	if (!refreshing_ && playlistId() >= 0)
 	{
 		QJsonObject parameters;
 		QJsonArray properties;
@@ -118,7 +98,7 @@ void PlaylistService::refreshPlaylist_()
 		properties.append(QString("tvshowid"));
 		properties.append(QString("duration"));
 		parameters["properties"] = properties;
-		parameters["playlistid"] = playlistId_;
+		parameters["playlistid"] = playlistId();
 		QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetItems", parameters);
 		auto reply = client_->send(message);
 		connect(reply, SIGNAL(finished()), this, SLOT(refreshPlaylistCb_()));
@@ -163,6 +143,8 @@ void PlaylistService::refreshPlaylistCb_()
 							item.setEpisodeId(id);
 						else if (type == "musicvideo")
 							item.setMusicvideoId(id);
+						else if (type == "picture")
+							item.setPictureId(id);
 						item.setFile(val.value("file").toString());
 						item.setLabel(val.value("label").toString());
 						if (val.value("title").toString().size() > 0)
@@ -179,7 +161,7 @@ void PlaylistService::refreshPlaylistCb_()
 					}
 				}
 			}
-			setPlaylistPosition(player_->playlistPosition());
+//			setPlaylistPosition(player_->playlistPosition());
 		}
 		else
 		{
@@ -194,49 +176,9 @@ void PlaylistService::refreshPlaylistCb_()
 	}
 }
 
-void PlaylistService::findMatchingPlaylist_()
-{
-	QJsonRpcMessage message = QJsonRpcMessage::createRequest("Playlist.GetPlaylists");
-	auto reply = client_->send(message);
-	connect(reply, &QJsonRpcServiceReply::finished, this, &PlaylistService::findMatchingPlaylistCb_);
-}
-
-void PlaylistService::findMatchingPlaylistCb_()
-{
-	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
-	if (reply)
-	{
-		QJsonRpcMessage response = reply->response();
-		if (response.errorCode() == 0)
-		{
-			QJsonValue items_ = response.result().toArray();
-			if (items_.isArray())
-			{
-				QJsonArray items = items_.toArray();
-				for (QJsonValue val_ : items)
-				{
-					if (val_.isObject())
-					{
-						QJsonObject val = val_.toObject();
-						QString type = val.value("type").toString();
-						if (type == playlistType_)
-						{
-							QJsonValue pid = val.value("playlistid");
-							if (pid.isDouble())
-							{
-								setPlaylistId((int)pid.toDouble());
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 void PlaylistService::handlePlaylistCleared_(int playlist)
 {
-	if (playlist == playlistId_)
+	if (playlist == playlistId())
 	{
 		currentItems_.clear();
 		emit itemsChanged();
@@ -245,12 +187,12 @@ void PlaylistService::handlePlaylistCleared_(int playlist)
 
 void PlaylistService::handlePlaylistElementRemoved(int playlist, int position)
 {
-	if (playlist == playlistId_)
+	if (playlist == playlistId())
 	{
 		if (position < currentItems_.size())
 		{
-			if (position < playlistPosition_)
-				playlistPosition_ -= 1;
+//			if (position < playlistPosition_)
+//				playlistPosition_ -= 1;
 			currentItems_.removeAt(position);
 			emit itemsChanged();
 		}
@@ -259,7 +201,7 @@ void PlaylistService::handlePlaylistElementRemoved(int playlist, int position)
 
 void PlaylistService::handlePlaylistElementAdded(int playlistId)
 {
-	if (playlistId == playlistId_)
+	if (playlistId == this->playlistId())
 		refreshPlaylist_();
 }
 
@@ -267,7 +209,7 @@ void PlaylistService::clearPlaylist()
 {
 	QJsonRpcMessage message;
 	QJsonObject params;
-	params.insert("playlistid", playlistId_);
+	params.insert("playlistid", playlistId());
 	message = QJsonRpcMessage::createRequest("Playlist.Clear", params);
 	client_->send(message);
 }
@@ -276,7 +218,7 @@ void PlaylistService::removeElement(int index)
 {
 	QJsonRpcMessage message;
 	QJsonObject params;
-	params.insert("playlistid", playlistId_);
+	params.insert("playlistid", playlistId());
 	params.insert("position", index);
 	message = QJsonRpcMessage::createRequest("Playlist.Remove", params);
 	client_->send(message);
@@ -287,60 +229,61 @@ void PlaylistService::refresh()
 	refreshPlaylist_();
 }
 
-void PlaylistService::setCurrentlyPlayedItem_(int playerId, QString type, int id)
-{
-	if (player_->playerId() != playerId)
-		return; // not for us
-	bool found = false;
-	for (int i = 0; i < currentItems_.size(); ++i)
-	{
-		auto item = currentItems_[i];
-		if (type == "song")
-		{
-			if (item.songId() == id)
-			{
-				setPlaylistPosition(i);
-				found = true;
-			}
-		}
-		else if (type == "movie")
-		{
-			if (item.movieId() == id)
-			{
-				found = true;
-				setPlaylistPosition(i);
-			}
-		}
-		else if (type == "episode")
-		{
-			if (item.episodeId() == id)
-			{
-				found = true;
-				setPlaylistPosition(i);
-			}
-		}
-		else if (type == "musicvideo")
-			if (item.musicvideoId() == id)
-			{
-				found = true;
-				setPlaylistPosition(i);
-			}
-	}
-	if (!found)
-		refreshPlaylist_();
-}
-
-void PlaylistService::handlePlayerChanged_()
-{
-	if (!client_->playerService()->playersList().empty())
-	{
-		setPlaylistType(client_->playerService()->playersList().at(0)->type());
-	}
-	else
-	{
-		playlistType_.clear();
-	}
-}
+//void PlaylistService::setCurrentlyPlayedItem_(int playerId, QString type, int id, QString file)
+//{
+//	if (player_->playerId() != playerId)
+//		return; // not for us
+//	bool found = false;
+//	for (int i = 0; !found && i < currentItems_.size(); ++i)
+//	{
+//		auto item = currentItems_[i];
+//		if (type == "song")
+//		{
+//			if (item.songId() == id)
+//			{
+//				setPlaylistPosition(i);
+//				found = true;
+//			}
+//		}
+//		else if (type == "movie")
+//		{
+//			if (item.movieId() == id)
+//			{
+//				found = true;
+////				setPlaylistPosition(i);
+//			}
+//		}
+//		else if (type == "episode")
+//		{
+//			if (item.episodeId() == id)
+//			{
+//				found = true;
+//				setPlaylistPosition(i);
+//			}
+//		}
+//		else if (type == "musicvideo")
+//		{
+//			if (item.musicvideoId() == id)
+//			{
+//				found = true;
+////				setPlaylistPosition(i);
+//			}
+//		}
+//		else if (type == "picture")
+//		{
+//			if (item.file() == file)
+//			{
+//				found = true;
+////				setPlaylistPosition(i);
+//			}
+//		}
+//	}
+//	if (!found)
+//	{
+//		qDebug() << "Current item not found, refreshing the playlist";
+//		//refreshPlaylist_();
+//	}
+//}
 
 void PlaylistService::handleGotoReply_()
 {
@@ -352,7 +295,6 @@ void PlaylistService::handleGotoReply_()
 		{
 			if (pendingPosition_ != -1)
 			{
-				setPlaylistPosition(pendingPosition_);
 				pendingPosition_ = -1;
 			}
 		}

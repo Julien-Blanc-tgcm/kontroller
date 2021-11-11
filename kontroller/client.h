@@ -202,9 +202,8 @@ private slots:
 	// these ones are the notifications the kodi api can send
 	// note that if using HTTP transport only, no notifications will be available
 	void playerSpeedChanged(int playerid, int speed);
-	void playlistCurrentItemChanged(int playerid, QString type, int id);
-	// a player stopped (any player, information not in notification)
-	void playerStopped();
+	void playlistCurrentItemChanged(int playerid, QString type, int id, QString file);
+	void playerStopped(int playerId);
 
 	void playlistCleared(int playlistId);
 	void playlistElementRemoved(int playlistId, int position);

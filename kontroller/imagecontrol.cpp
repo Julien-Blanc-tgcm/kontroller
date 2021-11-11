@@ -30,7 +30,7 @@ void ImageControl::playFile(File file)
 	{
 		QJsonObject params;
 		QJsonObject item;
-		item.insert("path", file.file());
+		item.insert("file", file.file());
 		params.insert("item", item);
 		params.insert("options", QJsonObject{});
 		auto message = QJsonRpcMessage::createRequest("Player.Open", params);

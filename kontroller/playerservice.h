@@ -68,7 +68,7 @@ private slots:
 	void updateConnectionStatus_(int);
 
 	void updatePlayerSpeed(int playerId, int speed);
-	void stopPlayer_();
+	void stopPlayer_(int playerId);
 
 	void updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds);
   private:

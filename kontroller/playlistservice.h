@@ -25,9 +25,6 @@ class PlaylistService : public QObject
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 	eu::tgcm::kontroller::Player* player_ = nullptr;
 	QVector<PlaylistItem> currentItems_;
-	int playlistId_;
-	QString playlistType_;
-	int playlistPosition_;
 
 	bool refreshing_ = false;
 	bool restartAfterRefreshing_ = false;
@@ -37,19 +34,16 @@ class PlaylistService : public QObject
 public:
 	explicit PlaylistService(Client* client, eu::tgcm::kontroller::Player* player, QObject *parent = nullptr);
 
-	Q_PROPERTY(int playlistId READ playlistId WRITE setPlaylistId NOTIFY playlistIdChanged)
-	Q_PROPERTY(QString playlistType READ playlistType WRITE setPlaylistType NOTIFY playlistTypeChanged)
-	Q_PROPERTY(int playlistPosition READ playlistPosition WRITE setPlaylistPosition NOTIFY playlistPositionChanged)
+	Q_PROPERTY(int playlistId READ playlistId NOTIFY playlistIdChanged)
+	Q_PROPERTY(QString playlistType READ playlistType NOTIFY playlistTypeChanged)
+	Q_PROPERTY(int playlistPosition READ playlistPosition NOTIFY playlistPositionChanged)
 	Q_PROPERTY(QVariantList items READ items NOTIFY itemsChanged)
 
 	int playlistId() const;
-	void setPlaylistId(int playlistId);
 
 	QString playlistType() const;
-	void setPlaylistType(const QString &playlistType);
 
 	int playlistPosition() const;
-	void setPlaylistPosition(int playlistPosition);
 
 	const QVector<PlaylistItem> currentItems() const;
 	QVariantList items();
@@ -71,15 +65,12 @@ public slots:
 	void refresh();
 
 private slots:
-	void setCurrentlyPlayedItem_(int playerId, QString type, int id);
+//	void setCurrentlyPlayedItem_(int playerId, QString type, int id, QString file);
 	void refreshPlaylist_();
 	void refreshPlaylistCb_();
-	void findMatchingPlaylist_();
-	void findMatchingPlaylistCb_();
 	void handlePlaylistCleared_(int playlist);
 	void handlePlaylistElementRemoved(int playlist, int position);
 	void handlePlaylistElementAdded(int playlistId);
-	void handlePlayerChanged_();
 	void handleGotoReply_();
 };
 

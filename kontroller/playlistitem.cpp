@@ -9,6 +9,18 @@ namespace tgcm
 namespace kontroller
 {
 
+int PlaylistItem::pictureId() const
+{
+	return pictureId_;
+}
+
+void PlaylistItem::setPictureId(int newPictureId)
+{
+	if (pictureId_ == newPictureId)
+		return;
+	pictureId_ = newPictureId;
+}
+
 QString PlaylistItem::type() const
 {
 	return type_;
@@ -185,6 +197,7 @@ QDataStream& readFromStream(QDataStream& stream, eu::tgcm::kontroller::PlaylistI
 	stream >> file.artist_;
 	stream >> file.artistId_;
 	stream >> file.episodeId_;
+	stream >> file.pictureId_;
 	stream >> file.fanart_;
 	stream >> file.file_;
 	stream >> file.label_;
@@ -203,8 +216,8 @@ QDataStream& readFromStream(QDataStream& stream, eu::tgcm::kontroller::PlaylistI
 QDataStream& operator<<(QDataStream& stream, const eu::tgcm::kontroller::PlaylistItem& file)
 {
 	return stream << file.album() << file.albumId() << file.artist() << file.artistId() << file.episodeId()
-	              << file.fanart() << file.file() << file.label() << file.movieId() << file.musicvideoId()
-	              << file.songId() << file.duration();
+	              << file.pictureId() << file.fanart() << file.file() << file.label() << file.movieId()
+	              << file.musicvideoId() << file.songId() << file.duration();
 }
 
 QDataStream& operator>>(QDataStream& stream, eu::tgcm::kontroller::PlaylistItem& file)

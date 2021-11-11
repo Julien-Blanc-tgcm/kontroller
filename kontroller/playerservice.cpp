@@ -7,12 +7,11 @@ namespace tgcm
 namespace kontroller
 {
 
-PlayerService::PlayerService(eu::tgcm::kontroller::Client* client, QObject *parent) : QObject(parent),
-    client_{client}
+PlayerService::PlayerService(eu::tgcm::kontroller::Client* client, QObject* parent) : QObject(parent), client_{client}
 {
 	refreshTimer_.setInterval(5000);
 	refreshTimer_.setSingleShot(false);
-	playerRefreshTimer_.setInterval(200);
+	playerRefreshTimer_.setInterval(300);
 	playerRefreshTimer_.setSingleShot(true);
 	connect(&refreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
 	connect(&playerRefreshTimer_, &QTimer::timeout, this, &PlayerService::refreshPlayerInfo);
@@ -57,14 +56,14 @@ int PlayerService::getPlayerId(QString type)
 	return -1;
 }
 
-Player *PlayerService::getPlayer(QString type)
+Player* PlayerService::getPlayer(QString type)
 {
-    for(Player* player : currentPlayers_)
-    {
-        if(player->type() == type)
-            return player;
-    }
-    return nullptr;
+	for (Player* player : currentPlayers_)
+	{
+		if (player->type() == type)
+			return player;
+	}
+	return nullptr;
 }
 
 QQmlListProperty<Player> PlayerService::players()
@@ -75,7 +74,7 @@ QQmlListProperty<Player> PlayerService::players()
 void PlayerService::refreshPlayerInfoCb_()
 {
 	QVector<bool> playerStillExistings; // stores a list of players still existing. Deleting and recreating
-	                                        // players cause a glitch, so we try to update them instead
+	                                    // players cause a glitch, so we try to update them instead
 	bool playersHaveChanged = false; // stores whether there has been an addition or removal on a player. Is used
 	                                 // to signal the event
 	for(int i = 0; i < currentPlayers_.size(); ++i)
@@ -163,44 +162,48 @@ void PlayerService::updateConnectionStatus_(int newStatus)
 
 void PlayerService::updatePlayerSpeed(int playerId, int speed)
 {
-    bool found = false;
-    for(Player* player : currentPlayers_)
-    {
-        if(player->playerId() == playerId)
-        {
-            found = true;
-            player->setSpeed(speed);
-        }
-    }
-    if(!found)
-        refreshPlayerInfo();
+	bool found = false;
+	for (Player* player : currentPlayers_)
+	{
+		if (player->playerId() == playerId)
+		{
+			found = true;
+			if(speed == 0)
+				player->setSpeed(speed);
+			else
+				player->refreshPlayerStatus();
+		}
+	}
+	if(!found)
+		refreshPlayerInfo();
 }
 
-void PlayerService::stopPlayer_()
+void PlayerService::stopPlayer_(int playerId)
 {
-    playerRefreshTimer_.start();
+	for (auto player : currentPlayers_)
+	{
+		if (player->playerId() == playerId)
+		{
+			player->refreshPlayerStatus();
+		}
+	}
+	// to delete the player, since it is no longer active
+	playerRefreshTimer_.start();
 }
 
 void PlayerService::updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds)
 {
-    bool found = false;
-    for(Player* player : currentPlayers_)
-    {
-        if(player->playerId() == playerId)
-        {
-            found = true;
-			player->setTime(player->time() +
-                        hours * 3600 * 1000 +
-                            minutes * 60 * 1000 +
-                            seconds * 1000 +
-                            milliseconds
-                        );
-        }
-    }
-    if(!found)
-        refreshPlayerInfo();
-/*    else
-		emit playersChanged(); */
+	bool found = false;
+	for(Player* player : currentPlayers_)
+	{
+		if(player->playerId() == playerId)
+		{
+			found = true;
+			player->setTime(player->time() + hours * 3600 * 1000 + minutes * 60 * 1000 + seconds * 1000 + milliseconds);
+		}
+	}
+	if(!found)
+		refreshPlayerInfo();
 }
 
 int PlayerService::playerCount_(QQmlListProperty<Player>* list)
@@ -216,6 +219,6 @@ Player* PlayerService::playerAt_(QQmlListProperty<Player>* list, int index)
 	return nullptr;
 }
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

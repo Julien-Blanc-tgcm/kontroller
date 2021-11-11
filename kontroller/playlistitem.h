@@ -26,6 +26,7 @@ class PlaylistItem
 	int musicvideoId_ = 0;
 	int songId_ = 0;
 	int tvshowId_ = 0;
+	int pictureId_ = 0;
 	QString artist_;
 	QString album_;
 	QString fanart_;
@@ -57,6 +58,7 @@ class PlaylistItem
 	Q_PROPERTY(QString thumbnail READ thumbnail WRITE setThumbnail)
 	Q_PROPERTY(QString tvshow READ tvshow WRITE setTvshow)
 	Q_PROPERTY(int duration READ duration WRITE setDuration)
+	Q_PROPERTY(int pictureId READ pictureId WRITE setPictureId)
 	/**
 	 * @brief type the type of the playlist list item, may be photo, video or audio
 	 * @return
@@ -108,9 +110,9 @@ class PlaylistItem
 	void setTvshowId(int tvshowId);
 	int duration() const;
 	void setDuration(int duration);
-
+	int pictureId() const;
+	void setPictureId(int newPictureId);
 	friend QDataStream& readFromStream(QDataStream&, eu::tgcm::kontroller::PlaylistItem& file);
-  public slots:
 };
 
 } // namespace kontroller

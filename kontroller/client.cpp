@@ -187,7 +187,7 @@ bool Client::wifiUp() const
 
 bool Client::useHttpInterface() const
 {
-	return true;
+	return false;
 }
 
 Server *Client::server()
@@ -376,7 +376,7 @@ void Client::handleMessageReceived_(QJsonRpcMessage message)
 	if(message.type() == QJsonRpcMessage::Notification)
 	{
 		QString method = message.method();
-		if(method == "Player.OnPause" || method == "Player.OnPlay")
+		if(method == "Player.OnPause" || method == "Player.OnPlay" || method == "Player.OnResume")
 		{
 			QJsonObject data = message.params().toObject().value("data").toObject();
 			QJsonValue player = data.value("player");
@@ -397,13 +397,23 @@ void Client::handleMessageReceived_(QJsonRpcMessage message)
 			QJsonObject item = data.value("item").toObject();
 			QJsonValue id = item.value("id");
 			QString type = item.value("type").toString();
+			QString file = item.value("file").toString();
 			if(id.isDouble())
 				itemId = static_cast<int>(id.toDouble());
-			emit playlistCurrentItemChanged(playerId, type, itemId);
+			emit playlistCurrentItemChanged(playerId, type, itemId, file);
 		}
 		else if(method == "Player.OnStop")
 		{
-			emit playerStopped();
+			QJsonObject data = message.params().toObject().value("data").toObject();
+			QJsonValue item = data.value("item");
+			int playerId = -1;
+			if (item.isObject())
+			{
+				auto pId = item.toObject().value("id");
+				if (pId.isDouble())
+					playerId = pId.toInt();
+			}
+			emit playerStopped(playerId);
 		}
 		else if(method == "Playlist.OnClear")
 		{

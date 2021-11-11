@@ -177,7 +177,7 @@ Page {
                 wrapMode: Text.Wrap
             }
             Button {
-                visible: appClient.connectionStatus === -1
+                visible: appClient.connectionStatus === -1 || appClient.connectionStatus === 1
                 text: qsTr("Retry")
                 onClicked: appClient.refresh()
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -283,62 +283,6 @@ Page {
     function toMenu()
     {
         pageStack.pop(main)
-    }
-
-    property var playlist;
-    property var playlistPageComponent;
-
-    function showPlaylist(type) {
-        if(!playlist)
-        {
-            if(!playlistPageComponent)
-            {
-                playlistPageComponent = Qt.createComponent("PlaylistPage.qml");
-                if (playlistPageComponent.status === Component.Ready)
-                    finishCreation(type);
-                else if(playlistPageComponent.status !== Component.Error)
-                {
-                    playlistPageComponent.statusChanged.connect(function() { finishCreation(type);});
-                }
-                else
-                    console.log(playlistPageComponent.errorString())
-            }
-        }
-        else
-            showPlaylist_(type)
-    }
-    function showPlaylist_(type)
-    {
-        playlist.playlistType = type;
-        if(flickable.state === "raised")
-        {
-            flickable.state = "lowered";
-        }
-        else
-            flickable.state = "raised";
-    }
-
-    function finishCreation(type) {
-        if (playlistPageComponent.status === Component.Ready) {
-            playlist = playlistPageComponent.createObject(main,
-                                                          {
-                "anchors.fill": flickable,
-                "playlistType":type});
-            if (playlist === null) {
-                // Error Handling
-                console.log("Error creating object");
-            }
-            else
-            {
-                playlist.z = 1;
-                showPlaylist_(type);
-            }
-        } else if (playlistPageComponent.status === Component.Error) {
-            // Error Handling
-            console.log("Error loading component:", playlistPageComponent.errorString());
-        }
-        else
-            console.log("bordel");
     }
 
     function createInfoComponents() {

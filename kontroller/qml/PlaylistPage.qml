@@ -83,7 +83,10 @@ Page{
     }
     Component.onCompleted: {
         if(appClient.playerService.players.length > 0)
-            service = appClient.playerService.players[0].playlistService
+        {
+            service = appClient.playerService.players[0].playlistService;
+            service.refresh();
+        }
     }
 
 }

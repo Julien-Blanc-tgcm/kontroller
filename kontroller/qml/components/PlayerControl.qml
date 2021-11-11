@@ -111,7 +111,12 @@ Item {
     function getTotalTime(player)
     {
         if(player)
-            return Utils.formatMsecTime(player.totalTime);
+        {
+            if(player.type === "picture")
+                return "";
+            else
+                return Utils.formatMsecTime(player.totalTime);
+        }
         return "-";
     }
 
@@ -157,6 +162,8 @@ Item {
         else if(item.type === "unknown")
             return qsTr("<i>%1</i>").arg(item.label)
         else if(item.type === "movie")
+            return qsTr("<i>%1</i>").arg(item.label)
+        else if(item.type === "picture")
             return qsTr("<i>%1</i>").arg(item.label)
         else
             return item.type;
