@@ -516,23 +516,24 @@
 <context>
     <name>PlayerControl</name>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="156"/>
+        <location filename="../qml/components/PlayerControl.qml" line="161"/>
         <source>&lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>&lt;i&gt;%1&lt;/i&gt; bei &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="158"/>
-        <location filename="../qml/components/PlayerControl.qml" line="160"/>
+        <location filename="../qml/components/PlayerControl.qml" line="163"/>
+        <location filename="../qml/components/PlayerControl.qml" line="165"/>
+        <location filename="../qml/components/PlayerControl.qml" line="167"/>
         <source>&lt;i&gt;%1&lt;/i&gt;</source>
         <translation>&lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="170"/>
+        <location filename="../qml/components/PlayerControl.qml" line="177"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt; by &lt;i&gt;%2&lt;/i&gt;</source>
         <translation>Es folgt: &lt;i&gt;%1&lt;/i&gt; bei &lt;i&gt;%2&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/components/PlayerControl.qml" line="172"/>
+        <location filename="../qml/components/PlayerControl.qml" line="179"/>
         <source>Next: &lt;i&gt;%1&lt;/i&gt;</source>
         <translation>Es folgt: &lt;i&gt;%1&lt;/i&gt;</translation>
     </message>
