@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 0.22
+
+* Picture support: can now browse picture, and start them on the server
+* Fixed some bugs with playlist
+* Reduced the number of queries done to the server
+* Detect wi-fi state, and disable connection if not available (this may
+  break some setups, so there is an option in the server settings to
+  override this)
+* Fixed seek no longer worked (and improved it)
+
 ## Version 0.20
 
 * Internationalization improvements:

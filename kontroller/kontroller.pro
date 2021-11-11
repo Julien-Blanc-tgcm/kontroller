@@ -12,7 +12,7 @@ CONFIG(sailfish) {
 
 PKGCONFIG += sailfishsilica
 
-CONFIG+=c++17
+CONFIG+=c++1z
 
 SOURCES += main.cpp \
     ../lib/arp/macaddressfinder.cpp \
