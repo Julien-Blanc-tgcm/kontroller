@@ -305,7 +305,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="161"/>
         <source>Connecting…</source>
-        <translation type="unfinished">Kobler til. Vent …</translation>
+        <translation>Kobler til …</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="175"/>
@@ -706,7 +706,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="41"/>
         <source>Discovering servers…</source>
-        <translation type="unfinished">Oppdager tjenere. Vent …</translation>
+        <translation>Oppdager tjenere …</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="50"/>
@@ -787,7 +787,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="255"/>
         <source>Ignore Wi-Fi status</source>
-        <translation type="unfinished">Ignorer Wi-Fi-status</translation>
+        <translation>Ignorer Wi-Fi-status</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="266"/>
@@ -946,7 +946,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../qml/SettingsPage.qml" line="110"/>
         <source>SD card %1</source>
-        <translation type="unfinished">SD-kort %1</translation>
+        <translation>SD-kort %1</translation>
     </message>
 </context>
 <context>
@@ -1063,7 +1063,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../player.cpp" line="575"/>
         <source>No subtitles</source>
-        <translation type="unfinished">Ingen undertekst</translation>
+        <translation>Ingen undertekster</translation>
     </message>
 </context>
 <context>
