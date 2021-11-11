@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.22
+## Version 0.21
 
 * Picture support: can now browse picture, and start them on the server
 * Fixed some bugs with playlist
