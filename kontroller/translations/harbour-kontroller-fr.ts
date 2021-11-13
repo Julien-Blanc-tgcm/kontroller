@@ -307,7 +307,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="161"/>
         <source>Connecting…</source>
-        <translation>Connexion en cours, merci de patienter...</translation>
+        <translation>Connexion en cours, merci de patienter…</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="175"/>
