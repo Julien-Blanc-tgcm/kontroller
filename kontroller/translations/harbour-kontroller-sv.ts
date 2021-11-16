@@ -282,7 +282,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="96"/>
@@ -327,7 +327,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>Wifi is disabled, enable it to connect</source>
-        <translation type="unfinished"></translation>
+        <translation>WiFi är inaktiverat, aktivera det för att ansluta</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="218"/>
@@ -759,7 +759,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="249"/>
         <source>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorera WiFi-status, försök att ansluta till servern även om WiFi inte är anslutet (användbart om du ansluter via en annan typ av anslutning, som en VPN).</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="275"/>
