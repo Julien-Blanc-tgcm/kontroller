@@ -11,3 +11,7 @@ Name=Kontroller
 # a different app name in German locale (de).
 #Name[de]=kontroller
 
+[X-Sailjail]
+OrganizationName=tgcm.eu
+ApplicationName=Kontroller
+Permissions=Audio;Internet;Music;RemovableMedia;Videos
