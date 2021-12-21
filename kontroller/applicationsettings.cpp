@@ -18,21 +18,22 @@ namespace kontroller
 ApplicationSettings::ApplicationSettings(QObject* parent) :
     QObject{parent}
 {
-#ifdef SAILFISH_TARGET
-	{ // migration path for old location
-		QDir dir(QDir::home());
-		dir.cd(".config");
-		if (dir.exists("tgcm.eu") && !dir.exists("harbour-kontroller"))
+	{ // migration path for old location for SFOS, since sandboxing it changed
+	  // see https://forum.sailfishos.org/t/migrating-configuration-and-data-files-for-sandboxed-apps/8866
+		QDir dir(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation));
+		if (dir.exists("harbour-kontroller"))
 		{
-			// move old settings
-			dir.rename("tgcm.eu", "harbour-kontroller");
-			dir.cd("harbour-kontroller");
+			dir.mkpath("tgcm.eu/Kontroller");
+			if (dir.exists("harbour-kontroller/kontroller.conf"))
+			{
+				dir.rename("harbour-kontroller/kontroller.conf", "tgcm.eu/Kontroller/Kontroller.conf");
+			}
+			dir.rename("harbour-kontroller", "tgcm.eu/Kontroller/old");
 		}
-	}
-	QSettings settings("harbour-kontroller", "kontroller");
-#else
-	QSettings settings("tgcm.eu", "kontroller");
-#endif
+	} // end of migration path
+	QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+	                       "/tgcm.eu/Kontroller/Kontroller.conf",
+	                   QSettings::NativeFormat);
 	auto nbServers = settings.beginReadArray("servers");
 	for(auto i = 0; i < nbServers; ++i)
 	{
