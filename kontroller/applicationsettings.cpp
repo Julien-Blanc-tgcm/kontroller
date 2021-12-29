@@ -270,11 +270,9 @@ void ApplicationSettings::setDpi(int dpi)
 
 void ApplicationSettings::save()
 {
-#ifdef SAILFISH_TARGET
-	QSettings settings("harbour-kontroller", "kontroller");
-#else
-	QSettings settings("tgcm.eu", "kontroller");
-#endif
+	QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+	                       "/tgcm.eu/Kontroller/Kontroller.conf",
+	                   QSettings::NativeFormat);
 	settings.clear();
 	settings.beginWriteArray("servers", servers_.size());
 	int i = 0;
