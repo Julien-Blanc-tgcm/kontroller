@@ -29,7 +29,7 @@ Kontroller is available in several languages, including:
 * Swedish
 * Norwegian
 
-Translating the app is done on [weblate](http://hosted.weblate.com/kontroller).
+Translating the app is done on [weblate](http://hosted.weblate.org/projects/kontroller).
 
 # Support kontroller
 
