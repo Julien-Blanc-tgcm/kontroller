@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.22
+
+* Migrate to new settings path, prepare for sailjail integration (will
+  be on in a later version)
+
 ## Version 0.21
 
 * Picture support: can now browse picture, and start them on the server
