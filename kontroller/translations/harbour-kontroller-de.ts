@@ -150,7 +150,7 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="22"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht mit dem Server verbunden</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="53"/>
@@ -242,7 +242,7 @@
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="54"/>
         <source>(at %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(bei %1)</translation>
     </message>
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="64"/>
@@ -433,12 +433,12 @@
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="69"/>
         <source>Resume movie</source>
-        <translation type="unfinished"></translation>
+        <translation>Film fortsetzen</translation>
     </message>
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="73"/>
         <source>(at %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(bei %1)</translation>
     </message>
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="83"/>
@@ -566,7 +566,7 @@
     <message>
         <location filename="../qml/PlaylistPage.qml" line="53"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Entfernen</translation>
     </message>
 </context>
 <context>
