@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.23
+
+* Enable sailjail (SFOS 4.4 compatibility)
+
 ## Version 0.22
 
 * Migrate to new settings path, prepare for sailjail integration (will
