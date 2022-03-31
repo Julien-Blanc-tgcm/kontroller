@@ -325,7 +325,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>Wifi is disabled, enable it to connect</source>
-        <translation>Wifi is disabled, enable it to connect</translation>
+        <translation>Turn on Wi-Fi to connect</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="218"/>
@@ -789,7 +789,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="249"/>
         <source>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</source>
-        <translation>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</translation>
+        <translation>Ignore the Wi-Fi status and try to connect to the server even without a connection to Wi-Fi. (Useful if you connect via another type of connection, such as a VPN.)</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="275"/>
