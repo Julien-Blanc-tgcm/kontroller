@@ -327,7 +327,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>Wifi is disabled, enable it to connect</source>
-        <translation>WiFi är inaktiverat, aktivera det för att ansluta</translation>
+        <translation>Aktivera WiFi för att ansluta</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="218"/>
