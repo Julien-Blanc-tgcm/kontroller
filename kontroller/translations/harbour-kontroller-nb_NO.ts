@@ -295,7 +295,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bilder</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="116"/>
@@ -325,7 +325,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>Wifi is disabled, enable it to connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wi-Fi er avskrudd. Skru det på for å koble til.</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="218"/>
