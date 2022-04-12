@@ -779,7 +779,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="249"/>
         <source>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorer Wi-Fi status og prøv å koble til tjeneren selv uten en Wi-Fi-tilkobling. (Nyttig hvis du kobler til via en annen tilkoblingstype, som f.eks. en VPN.)</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="407"/>
