@@ -32,7 +32,7 @@ Page {
         service:musicService;
         control:musicControl
         anchors.fill: parent
-        playableItems :['album', 'song', 'file']
+        playableItems :['album', 'song', 'file', 'playlist']
         mediaType: "music"
         title: label
 

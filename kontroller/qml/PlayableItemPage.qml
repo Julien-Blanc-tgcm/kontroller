@@ -290,6 +290,11 @@ SilicaFlickable {
                         { text:qsTr("Play immediately"), type:"play", item: playableItem},
                         { text:qsTr("Download"), type: "download", item: playableItem}
                     ];
+        case "playlist":
+            return [
+                        { text:qsTr("Add to playlist"), type:"addtoplaylist", item: playableItem},
+                        { text:qsTr("Play immediately"), type:"play", item: playableItem}
+                    ];
         case "artist":
             return [
                         { text:qsTr("View information"), type:"information", item : playableItem}
@@ -390,6 +395,8 @@ SilicaFlickable {
             return "image://assets/icons/icon-m-random";
         if(icon === "image")
             return "image://theme/icon-m-file-image";
+        if(icon === "playlists")
+            return "image://assets/icons/icon-m-playlists";
         return "";
     }
 }

@@ -491,18 +491,20 @@
     <message>
         <location filename="../qml/PlayableItemPage.qml" line="279"/>
         <location filename="../qml/PlayableItemPage.qml" line="289"/>
+        <location filename="../qml/PlayableItemPage.qml" line="295"/>
         <source>Add to playlist</source>
         <translation>Zur Playlist hinzufügen</translation>
     </message>
     <message>
         <location filename="../qml/PlayableItemPage.qml" line="280"/>
         <location filename="../qml/PlayableItemPage.qml" line="290"/>
+        <location filename="../qml/PlayableItemPage.qml" line="296"/>
         <source>Play immediately</source>
         <translation>Sofort abspielen</translation>
     </message>
     <message>
         <location filename="../qml/PlayableItemPage.qml" line="281"/>
-        <location filename="../qml/PlayableItemPage.qml" line="295"/>
+        <location filename="../qml/PlayableItemPage.qml" line="300"/>
         <source>View information</source>
         <translation>Zeige Informationen</translation>
     </message>
@@ -1018,43 +1020,48 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
-        <location filename="../musicservice.cpp" line="320"/>
+        <location filename="../musicservice.cpp" line="333"/>
         <source>Artists</source>
         <translation>Künstler</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="328"/>
+        <location filename="../musicservice.cpp" line="341"/>
         <source>Albums</source>
         <translation>Alben</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="334"/>
+        <location filename="../musicservice.cpp" line="347"/>
         <source>Songs</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="341"/>
+        <location filename="../musicservice.cpp" line="354"/>
         <source>Genres</source>
         <translation>Genres</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="348"/>
+        <location filename="../musicservice.cpp" line="361"/>
         <source>Files</source>
         <translation>Dateien</translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="354"/>
+        <location filename="../musicservice.cpp" line="367"/>
         <source>Recently added albums</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="360"/>
+        <location filename="../musicservice.cpp" line="373"/>
         <source>Recently played albums</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../musicservice.cpp" line="366"/>
+        <location filename="../musicservice.cpp" line="379"/>
         <source>Random albums</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../musicservice.cpp" line="385"/>
+        <source>Playlists</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

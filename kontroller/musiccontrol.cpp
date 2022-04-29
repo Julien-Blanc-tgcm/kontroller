@@ -9,9 +9,8 @@ namespace tgcm
 namespace kontroller
 {
 
-MusicControl::MusicControl(QObject *parent) : QObject(parent)
+MusicControl::MusicControl(QObject* parent) : QObject(parent)
 {
-
 }
 
 Client* MusicControl::client() const
@@ -23,13 +22,13 @@ void MusicControl::playFile(File file)
 {
 	QJsonObject params;
 	QJsonObject item;
-	if(file.filetype() == "directory")
+	if (file.filetype() == "directory" || file.filetype() == "playlist")
 		item.insert("directory", file.file());
-	else if(file.filetype() == "file")
+	else if (file.filetype() == "file")
 		item.insert("file", file.file());
-	else if(file.filetype() == "album")
+	else if (file.filetype() == "album")
 		item.insert("albumid", file.id());
-	else if(file.filetype() == "song")
+	else if (file.filetype() == "song")
 		item.insert("songid", file.id());
 	params.insert("item", item);
 	params.insert("options", QJsonObject{});
@@ -42,13 +41,13 @@ void MusicControl::addToPlaylist(File file)
 	QJsonRpcMessage message;
 	QJsonObject params;
 	QJsonObject item;
-	if(file.filetype() == "directory")
+	if (file.filetype() == "directory" || file.filetype() == "playlist")
 		item.insert("directory", file.file());
-	else if(file.filetype() == "file")
+	else if (file.filetype() == "file")
 		item.insert("file", file.file());
-	else if(file.filetype() == "album")
+	else if (file.filetype() == "album")
 		item.insert("albumid", file.id());
-	else if(file.filetype() == "song")
+	else if (file.filetype() == "song")
 		item.insert("songid", file.id());
 	params.insert("item", item);
 	params.insert("playlistid", audioPlaylistId_);
@@ -85,6 +84,6 @@ void MusicControl::setClient(Client* client)
 	emit clientChanged(client_);
 }
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

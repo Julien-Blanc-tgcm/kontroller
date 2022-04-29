@@ -1,6 +1,7 @@
 #include "musicservice.h"
 
 #include "requests/albumsrequest.h"
+#include "requests/playlistrequest.hpp"
 #include "requests/songsrequest.h"
 #include "utils.h"
 
@@ -247,13 +248,13 @@ void MusicService::refresh_collection()
 			else if(browsingMode_ == "media" && browsingValue_ == "albums")
 			{
 				auto albumRequest = new AlbumsRequest(client_);
-				connect(albumRequest, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				connect(albumRequest, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults_);
 				albumRequest->start(0);
 			}
 			else if(browsingValue_ == "songs")
 			{
 				auto songsRequest = new SongsRequest(client_);
-				connect(songsRequest, &SongsRequest::finished, this, &MusicService::parseSongsResults);
+				connect(songsRequest, &SongsRequest::finished, this, &MusicService::parseSongsResults_);
 				songsRequest->start(0);
 			}
 			else if(browsingValue_ == "genres")
@@ -271,20 +272,26 @@ void MusicService::refresh_collection()
 			else if (browsingValue_ == "recentlyaddedalbums")
 			{
 				auto req = new AlbumsRequest(client_, this);
-				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults_);
 				req->startRecentlyAdded();
 			}
 			else if(browsingValue_ == "recentlyplayedalbums")
 			{
 				auto req = new AlbumsRequest(client_, this);
-				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults_);
 				req->startRecentlyPlayed();
 			}
 			else if(browsingValue_ == "randomalbums")
 			{
 				auto req = new AlbumsRequest(client_, this);
-				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+				connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults_);
 				req->startRandom(30);
+			}
+			else if (browsingValue_ == "playlists")
+			{
+				auto req = new PlaylistRequest(client_, this);
+				connect(req, &PlaylistRequest::finished, this, &MusicService::parsePlaylistsResults_);
+				req->start();
 			}
 //			else if (browsingValue_ == "favoritesalbums")
 //			{
@@ -296,21 +303,27 @@ void MusicService::refresh_collection()
 		else if(browsingMode_ == "artist")
 		{
 			auto req = new AlbumsRequest(client_);
-			connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+			connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults_);
 			req->start(browsingValue_.toInt());
 		}
 		else if(browsingMode_ == "album")
 		{
 			auto songsRequest = new SongsRequest(client_);
-			connect(songsRequest, &SongsRequest::finished, this, &MusicService::parseSongsResults);
+			connect(songsRequest, &SongsRequest::finished, this, &MusicService::parseSongsResults_);
 			songsRequest->start(browsingValue_.toInt());
 
 		}
 		else if(browsingMode_ == "genre")
 		{
 			auto req = new AlbumsRequest(client_, this);
-			connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults);
+			connect(req, &AlbumsRequest::finished, this, &MusicService::parseAlbumsResults_);
 			req->startWithGenre(browsingValue_.toInt());
+		}
+		else if (browsingMode() == "playlist")
+		{
+			auto req = new PlaylistRequest(client_, this);
+			connect(req, &PlaylistRequest::finished, this, &MusicService::parseSinglePlaylistResults_);
+			req->startWithPlaylist(browsingValue_);
 		}
 	}
 	else
@@ -369,6 +382,11 @@ void MusicService::refresh_collection()
 		file.setFiletype("media");
 		file.setIcon("randomalbums");
 		files_.push_back(file);
+		file.setLabel(tr("Playlists"));
+		file.setFile("playlists");
+		file.setType("media");
+		file.setIcon("playlists");
+		files_.push_back(file);
 		refreshAddons_();
 		emit filesAsListChanged();
 		setRefreshing(false);
@@ -396,7 +414,7 @@ void MusicService::refreshAddons_()
 	}
 }
 
-void MusicService::parseArtistsResults()
+void MusicService::parseArtistsResults_()
 {
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
@@ -441,7 +459,7 @@ void MusicService::parseArtistsResults()
 	sender()->deleteLater();
 }
 
-void MusicService::parseAlbumsResults()
+void MusicService::parseAlbumsResults_()
 {
 	auto request = dynamic_cast<AlbumsRequest*>(sender());
 	if(request)
@@ -453,7 +471,31 @@ void MusicService::parseAlbumsResults()
 	setRefreshing(false);
 }
 
-void MusicService::parseSongsResults()
+void MusicService::parsePlaylistsResults_()
+{
+	auto request = dynamic_cast<PlaylistRequest*>(sender());
+	if (request)
+	{
+		files_ = request->results;
+		emit filesAsListChanged();
+		request->deleteLater();
+	}
+	setRefreshing(false);
+}
+
+void MusicService::parseSinglePlaylistResults_()
+{
+	auto request = dynamic_cast<PlaylistRequest*>(sender());
+	if (request)
+	{
+		files_ = request->results;
+		emit filesAsListChanged();
+		request->deleteLater();
+	}
+	setRefreshing(false);
+}
+
+void MusicService::parseSongsResults_()
 {
 	auto request = dynamic_cast<SongsRequest*>(sender());
 	if(request)
@@ -465,7 +507,7 @@ void MusicService::parseSongsResults()
 	setRefreshing(false);
 }
 
-void MusicService::parseGenresResults()
+void MusicService::parseGenresResults_()
 {
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
@@ -510,7 +552,7 @@ void MusicService::parseGenresResults()
 	sender()->deleteLater();
 }
 
-void MusicService::parseDirectoryResults()
+void MusicService::parseDirectoryResults_()
 {
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
@@ -560,9 +602,9 @@ void MusicService::parseDirectoryResults()
 				}
 			}
 		}
+		reply->deleteLater();
 	}
 	setRefreshing(false);
-	reply->deleteLater();
 	emit filesAsListChanged();
 }
 

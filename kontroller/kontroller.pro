@@ -22,6 +22,7 @@ SOURCES += main.cpp \
     libraryservice.cpp \
     musicservice.cpp \
     requests/moviesrequest.cpp \
+    requests/playlistrequest.cpp \
     requests/tvshowsrequest.cpp \
     sbiconimageprovider.cpp \
     playlistservice.cpp \
@@ -125,6 +126,7 @@ HEADERS += \
     libraryservice.h \
     musicservice.h \
     requests/moviesrequest.hpp \
+    requests/playlistrequest.hpp \
     requests/tvshowsrequest.hpp \
     sbiconimageprovider.h \
     playlistservice.h \

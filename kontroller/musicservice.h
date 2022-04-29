@@ -109,11 +109,13 @@ signals:
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 
   private slots:
-	void parseArtistsResults();
-	void parseAlbumsResults();
-	void parseSongsResults();
-	void parseGenresResults();
-	void parseDirectoryResults();
+	void parseArtistsResults_();
+	void parseAlbumsResults_();
+	void parsePlaylistsResults_();
+	void parseSinglePlaylistResults_();
+	void parseSongsResults_();
+	void parseGenresResults_();
+	void parseDirectoryResults_();
 	void parseRefreshAddonsResult_();
 	void requestInput_(QString title, QString type, QString value);
 	void requestInputFinished_();
