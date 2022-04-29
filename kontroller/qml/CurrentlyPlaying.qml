@@ -20,7 +20,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Remote control")
-                onClicked: pushRemotePage()
+                onClicked: pageStack.push(Qt.resolvedUrl("RemoteControl.qml"));
             }
             MenuItem {
                 text: qsTr("Playlist")
