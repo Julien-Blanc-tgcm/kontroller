@@ -218,7 +218,7 @@ void MusicService::refresh_files()
 	}
 	QJsonRpcServiceReply* reply = client_->send(message);
 	if(reply)
-		connect(reply, SIGNAL(finished()), this, SLOT(parseDirectoryResults()));
+		connect(reply, &QJsonRpcServiceReply::finished, this, &MusicService::parseDirectoryResults_);
 }
 
 void MusicService::refresh_collection()
@@ -243,7 +243,7 @@ void MusicService::refresh_collection()
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetArtists", parameters);
 				QJsonRpcServiceReply* reply = client_->send(message);
 				if(reply)
-					connect(reply, SIGNAL(finished()), this, SLOT(parseArtistsResults()));
+					connect(reply, &QJsonRpcServiceReply::finished, this, &MusicService::parseArtistsResults_);
 			}
 			else if(browsingMode_ == "media" && browsingValue_ == "albums")
 			{
@@ -267,7 +267,7 @@ void MusicService::refresh_collection()
 				message = QJsonRpcMessage::createRequest("AudioLibrary.GetGenres", parameters);
 				QJsonRpcServiceReply* reply = client_->send(message);
 				if(reply)
-					connect(reply, SIGNAL(finished()), this, SLOT(parseGenresResults()));
+					connect(reply, &QJsonRpcServiceReply::finished, this, &MusicService::parseGenresResults_);
 			}
 			else if (browsingValue_ == "recentlyaddedalbums")
 			{
