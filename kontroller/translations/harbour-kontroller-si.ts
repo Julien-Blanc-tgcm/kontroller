@@ -23,6 +23,11 @@
         <source>Kontroller homepage:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/About.qml" line="87"/>
+        <source>Version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlbumInformationPage</name>

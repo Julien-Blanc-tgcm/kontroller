@@ -75,6 +75,21 @@ Brought to you by these people:")
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
             }
+            Separator {
+                width: parent.width / 2
+                horizontalAlignment: Qt.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Label {
+                color: Theme.highlightColor
+                wrapMode: Text.WordWrap
+                text: qsTr("Version %1").arg("0.24")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
+            }
         }
 
     }

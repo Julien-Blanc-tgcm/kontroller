@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.24
+
+* Music playlist support (can now be browsed inside music)
+* Adds version info on about page
+
 ## Version 0.23
 
 * Enable sailjail (SFOS 4.4 compatibility)

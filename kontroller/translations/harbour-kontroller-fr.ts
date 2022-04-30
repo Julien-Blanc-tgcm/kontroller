@@ -23,6 +23,11 @@
         <source>Kontroller homepage:</source>
         <translation>Page du projet :</translation>
     </message>
+    <message>
+        <location filename="../qml/About.qml" line="87"/>
+        <source>Version %1</source>
+        <translation>Version %1</translation>
+    </message>
 </context>
 <context>
     <name>AlbumInformationPage</name>
@@ -1062,7 +1067,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../musicservice.cpp" line="385"/>
         <source>Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>Listes de lecture</translation>
     </message>
 </context>
 <context>
