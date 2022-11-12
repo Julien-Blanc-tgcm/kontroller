@@ -21,7 +21,7 @@
     <message>
         <location filename="../qml/About.qml" line="63"/>
         <source>Kontroller homepage:</source>
-        <translation type="unfinished">Kontroller-hjemmesiden:</translation>
+        <translation>Kontroller-hjemmesiden:</translation>
     </message>
     <message>
         <location filename="../qml/About.qml" line="87"/>
@@ -127,7 +127,7 @@
     <message>
         <location filename="../qml/ArtistInformationPage.qml" line="129"/>
         <source>View info</source>
-        <translation type="unfinished">Vis info</translation>
+        <translation>Vis info</translation>
     </message>
     <message>
         <location filename="../qml/ArtistInformationPage.qml" line="133"/>
@@ -155,7 +155,7 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="22"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished">Ikke tilknyttet tjeneren</translation>
+        <translation>Ikke tilknyttet serveren</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="53"/>
@@ -247,7 +247,7 @@
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="54"/>
         <source>(at %1)</source>
-        <translation type="unfinished">(på %1)</translation>
+        <translation>(på %1)</translation>
     </message>
     <message>
         <location filename="../qml/EpisodeInformationPage.qml" line="64"/>
@@ -270,7 +270,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="96"/>
         <source>Current</source>
-        <translation type="unfinished">Nåværende</translation>
+        <translation>Nåværende</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="102"/>
@@ -300,7 +300,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="90"/>
         <source>Images</source>
-        <translation type="unfinished">Bilder</translation>
+        <translation>Bilder</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="116"/>
@@ -315,7 +315,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="175"/>
         <source>Could not connect</source>
-        <translation type="unfinished">Klarte ikke å koble til</translation>
+        <translation>Klarte ikke å koble til</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="181"/>
@@ -330,7 +330,7 @@
     <message>
         <location filename="../qml/KontrollerMain.qml" line="203"/>
         <source>Wifi is disabled, enable it to connect</source>
-        <translation type="unfinished">Wi-Fi er avskrudd. Skru det på for å koble til.</translation>
+        <translation>Slå på Wi-Fi for å koble til</translation>
     </message>
     <message>
         <location filename="../qml/KontrollerMain.qml" line="218"/>
@@ -390,7 +390,7 @@
     <message>
         <location filename="../qml/ManageZones.qml" line="21"/>
         <source>To learn new zones, start polling and then switch the audio output inside Kodi. Zones will be added automatically. Don’t forget go back and save afterwhile</source>
-        <translation type="unfinished">For å lære nye soner, start utprøving og bytt lydutgang inne i Kodi. Soner vil bli lagt til automatisk. Ikke glem å gå tilbake for å lagre etter en stund.</translation>
+        <translation>For å lære nye soner, start utprøving og bytt lydutgang inne i Kodi. Soner vil bli lagt til automatisk. Ikke glem å gå tilbake for å lagre etter en stund.</translation>
     </message>
 </context>
 <context>
@@ -443,7 +443,7 @@
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="73"/>
         <source>(at %1)</source>
-        <translation type="unfinished">(på %1)</translation>
+        <translation>(på %1)</translation>
     </message>
     <message>
         <location filename="../qml/MovieInformationPage.qml" line="83"/>
@@ -635,12 +635,12 @@
         <location filename="../qml/ServerPage.qml" line="63"/>
         <location filename="../qml/ServerPage.qml" line="130"/>
         <source>Removes deleted items from the library too.</source>
-        <translation type="unfinished">Fjerner element som har blitt slettet fra disken fra biblioteket.</translation>
+        <translation>Fjerner også slettede elementer fra biblioteket.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="83"/>
         <source>Video library cleaned.</source>
-        <translation type="unfinished">Videobibliotek tømt.</translation>
+        <translation>Videobibliotek tømt.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="93"/>
@@ -650,12 +650,12 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="114"/>
         <source>Video library updated.</source>
-        <translation type="unfinished">Videobibliotek oppdatert.</translation>
+        <translation>Videobibliotek oppdatert.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="150"/>
         <source>Audio library cleaned.</source>
-        <translation type="unfinished">Lydbibliotek tømt.</translation>
+        <translation>Lydbibliotek tømt.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="162"/>
@@ -665,7 +665,7 @@
     <message>
         <location filename="../qml/ServerPage.qml" line="182"/>
         <source>Audio library updated.</source>
-        <translation type="unfinished">Lydbibliotek oppdatert.</translation>
+        <translation>Lydbibliotek oppdatert.</translation>
     </message>
     <message>
         <location filename="../qml/ServerPage.qml" line="72"/>
@@ -773,7 +773,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="223"/>
         <source>HTTP port for Kodi connection. &quot;8080&quot; is fine unless you set up something else in Kodi. Turn on &quot;HTTP remote access&quot; in Kodi for it to work.</source>
-        <translation type="unfinished">HTTP-port bruk for tilkobling til tjeneren. Med mindre du har endret det i Kodi skal forvalgt verdi (8080) fungere. Du må skru på HTTP-fjerntilgang i Kodi for at dette skal virke.</translation>
+        <translation>HTTP-port bruk for tilkobling til tjeneren. Med mindre du har endret det i Kodi skal forvalgt verdi (8080) fungere. Du må skru på HTTP-fjerntilgang i Kodi for at dette skal virke.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="236"/>
@@ -839,18 +839,18 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="426"/>
         <source>miniDSP</source>
-        <translation type="unfinished">miniDSP</translation>
+        <translation>miniDSP</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="445"/>
         <source>IP address of the miniDSP device</source>
-        <translation type="unfinished">IP-adresse for miniDSP-enhet</translation>
+        <translation>IP-adresse for miniDSP-enhet</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="457"/>
         <location filename="../qml/ServerSettingsPage.qml" line="458"/>
         <source>miniDSP IP address</source>
-        <translation type="unfinished">IP-adresse til miniDSP</translation>
+        <translation>IP-adresse til miniDSP</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="322"/>
@@ -861,13 +861,13 @@
         <location filename="../qml/ServerSettingsPage.qml" line="278"/>
         <location filename="../qml/ServerSettingsPage.qml" line="290"/>
         <source>Keep option in server management pulley menu. On by default.</source>
-        <translation type="unfinished">Hvis uvalgt vil innstillingen ikke vises i toppmenyen for tjenerhåndtering. Valgt som forvalg.</translation>
+        <translation>Behold alternativet i menyen for serveradministrasjon. På som standard.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="302"/>
         <location filename="../qml/ServerSettingsPage.qml" line="314"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
-        <translation type="unfinished">Hvis uvalgt vil innstillingen ikke vises i toppmenyen for tjenerhåndtering. Uvalgt som forvalg.</translation>
+        <translation>Hvis det ikke er merket av, vil ikke alternativet vises i menyen for serveradministrasjon. Av som standard.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="325"/>
@@ -877,13 +877,14 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="328"/>
         <source>Wake-on-LAN</source>
-        <translation type="unfinished">Wake-on-LAN</translation>
+        <translation>Wake-on-LAN</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="353"/>
         <source>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
-        <translation type="unfinished">Wake-on-Lan krever vanligvis oppsett på tjeneren. https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan har info om hvordan.</translation>
+        <translation>Wake-on-Lan må vanligvis settes opp på serveren, iht.
+https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan har info om hvordan.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="386"/>
@@ -895,7 +896,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <location filename="../qml/ServerSettingsPage.qml" line="366"/>
         <location filename="../qml/ServerSettingsPage.qml" line="367"/>
         <source>Device MAC address</source>
-        <translation type="unfinished">Enhetens MAC-adresse</translation>
+        <translation>Enhetens MAC-adresse</translation>
     </message>
 </context>
 <context>
@@ -933,7 +934,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../qml/SettingsPage.qml" line="93"/>
         <source>General</source>
-        <translation type="unfinished">Generelt</translation>
+        <translation>Generelt</translation>
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="97"/>
@@ -943,7 +944,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../qml/SettingsPage.qml" line="98"/>
         <source>Download location. Defaults to device memory, but SD card can be used. Picks folder depending on filetype.</source>
-        <translation type="unfinished">Hvor filer skal lastes ned til. Som forvalg brukes enhetsminne, men SD-kortminne kan også brukes. Relevant mappe vil bli brukt avhengig av nedlastet filtype.</translation>
+        <translation>Hvor filer skal lastes ned til. Som forvalg brukes enhetsminne, men SD-kortminne kan også brukes. Relevant mappe vil bli brukt avhengig av nedlastet filtype.</translation>
     </message>
     <message>
         <location filename="../qml/SettingsPage.qml" line="109"/>
@@ -1088,7 +1089,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../videoservice.cpp" line="269"/>
         <source>TV Shows</source>
-        <translation type="unfinished">TV-programmer</translation>
+        <translation>TV-programmer</translation>
     </message>
     <message>
         <location filename="../videoservice.cpp" line="276"/>
@@ -1128,7 +1129,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../qml/kontroller.qml" line="120"/>
         <source>Download of %1 failed with error %2</source>
-        <translation type="unfinished">Nedlasting av %1 mislyktes med feilen %2</translation>
+        <translation>Nedlasting av %1 mislyktes med feilen %2</translation>
     </message>
     <message>
         <location filename="../qml/kontroller.qml" line="123"/>
