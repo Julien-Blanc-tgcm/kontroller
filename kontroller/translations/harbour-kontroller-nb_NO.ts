@@ -476,7 +476,7 @@
     <message>
         <location filename="../qml/PlayableItemPage.qml" line="248"/>
         <source>No items found!</source>
-        <translation>Fant ingen elementer.</translation>
+        <translation>Fant ingen elementer!</translation>
     </message>
     <message>
         <location filename="../qml/PlayableItemPage.qml" line="25"/>
@@ -789,7 +789,7 @@
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="407"/>
         <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
-        <translation type="unfinished">Velg lydstyrkeprogramtillegget å bruke. Forvalget er å bruke Kodi sin integrerte lydstyrke. Hvis du bruker en forsterker til å kontrollere lydstyrken kan du velge tilhørende programtillegg og sette det opp slik at fjernkontrollen styrer forsterkerlydstyrken.</translation>
+        <translation>Velg lydstyrkeprogramtillegget å bruke. Forvalget er å bruke Kodi sin integrerte lydstyrke. Hvis du bruker en forsterker til å kontrollere lydstyrken kan du velge tilhørende programtillegg og sette det opp slik at fjernkontrollen styrer forsterkerlydstyrken.</translation>
     </message>
     <message>
         <location filename="../qml/ServerSettingsPage.qml" line="255"/>
