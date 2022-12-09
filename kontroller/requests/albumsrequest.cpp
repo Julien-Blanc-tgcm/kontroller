@@ -1,7 +1,8 @@
 #include "albumsrequest.h"
-#include "client.h"
-#include "file.h"
-#include "utils.h"
+
+#include "../client.h"
+#include "../file.h"
+#include "../utils.h"
 
 namespace eu
 {

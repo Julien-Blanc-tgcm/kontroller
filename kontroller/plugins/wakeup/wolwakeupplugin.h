@@ -46,14 +46,14 @@ class WolWakeUpPlugin : public WakeUpPlugin
 
 	static int defaultPort();
 
-public slots:
+  public slots:
 	void setMacAddress(QString macAddress);
 
 	void setPort(int port);
 
 	void setDestinationAddress(QString destinationAddress);
 
-signals:
+  signals:
 
 	void macAddressChanged(QString macAddress);
 
@@ -61,12 +61,12 @@ signals:
 
 	void destinationAddressChanged(QString destinationAddress);
 
-protected:
+  protected:
 	void wakeUp_() override;
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 
 #endif // WOLWAKEUPPLUGIN_H

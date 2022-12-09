@@ -7,8 +7,7 @@ namespace tgcm
 namespace kontroller
 {
 
-WolWakeUpPlugin::WolWakeUpPlugin(QObject* parent) :
-    WakeUpPlugin{parent}
+WolWakeUpPlugin::WolWakeUpPlugin(QObject* parent) : WakeUpPlugin{parent}
 {
 	socket_ = new QUdpSocket(this);
 }
@@ -89,7 +88,7 @@ quint8 getByte_(QString macAddress, int byteIndex)
 	return res;
 }
 
-}
+} // namespace
 void WolWakeUpPlugin::wakeUp_()
 {
 	QHostAddress dAddress = QHostAddress::Broadcast;
@@ -111,6 +110,6 @@ void WolWakeUpPlugin::wakeUp_()
 	socket_->writeDatagram(data, data.size(), dAddress, static_cast<quint16>(port_));
 }
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

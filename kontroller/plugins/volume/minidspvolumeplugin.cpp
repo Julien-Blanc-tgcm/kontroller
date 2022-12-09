@@ -1,6 +1,6 @@
 #include "minidspvolumeplugin.h"
 
-#include "client.h"
+#include "../../client.h"
 
 #include <QTimer>
 #include <QTcpSocket>

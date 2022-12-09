@@ -62,7 +62,7 @@ WakeUpPlugin* getWakeUpPlugin(Client* owner, Server* server)
 bool isWifi_(QNetworkInterface const& interface)
 {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
-	return inteface.type() == QNetworkInterface::Wifi;
+	return interface.type() == QNetworkInterface::Wifi;
 #else
 	return interface.name().startsWith("wlan");
 #endif

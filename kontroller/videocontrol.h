@@ -2,11 +2,10 @@
 #define EU_TGCM_KONTROLLER_VIDEOCONTROL_H
 
 #include "client.h"
-
 #include "file.h"
 
 #include <QObject>
-#include <qjsonrpcservicereply.h>
+#include <qjsonrpc/qjsonrpcservicereply.h>
 
 namespace eu
 {

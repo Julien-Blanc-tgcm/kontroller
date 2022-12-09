@@ -1,3 +1,6 @@
 [submodule "qjsonrpc"]
 	path = qjsonrpc
 	url = git@github.com:Julien-Blanc-tgcm/qjsonrpc.git
+[submodule "lib/mdns_qt"]
+	path = lib/mdns_qt
+	url = git@github.com:Julien-Blanc-tgcm/mdns_qt

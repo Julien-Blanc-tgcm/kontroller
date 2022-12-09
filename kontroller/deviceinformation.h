@@ -4,11 +4,8 @@
 #include <QObject>
 #ifdef SAILFISH_TARGET
 #include <sailfishapp.h>
-#include <QGuiApplication>
-#else
-#include <QApplication>
 #endif
-
+#include <QGuiApplication>
 
 namespace eu
 {
@@ -40,11 +37,8 @@ public:
 private:
     static Impl& internal();
 public:
-#ifdef SAILFISH_TARGET
     void setup(QGuiApplication& app);
-#else
-    void setup(QApplication& app);
-#endif
+
 public slots:
     void setScalingFactor(qreal scalingFactor);
     void setTouchScalingFactor(qreal scalingFactor);

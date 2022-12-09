@@ -1,9 +1,8 @@
 #ifndef EU_TGCM_KONTROLLER_SONGSREQUEST_H
 #define EU_TGCM_KONTROLLER_SONGSREQUEST_H
 
-#include "client.h"
-
 #include <QObject>
+#include <QVector>
 
 namespace eu
 {
@@ -12,6 +11,7 @@ namespace tgcm
 namespace kontroller
 {
 class File;
+class Client;
 
 class SongsRequest : public QObject
 {

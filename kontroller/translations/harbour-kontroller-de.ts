@@ -1073,7 +1073,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>eu::tgcm::kontroller::Player</name>
     <message>
-        <location filename="../player.cpp" line="575"/>
+        <location filename="../player.cpp" line="573"/>
         <source>No subtitles</source>
         <translation>Kein Untertitel</translation>
     </message>

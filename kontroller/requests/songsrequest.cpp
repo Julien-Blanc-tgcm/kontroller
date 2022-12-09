@@ -1,8 +1,8 @@
 #include "songsrequest.h"
 
+#include "../client.h"
+#include "../file.h"
 #include "../utils.h"
-#include "client.h"
-#include "file.h"
 
 namespace eu
 {

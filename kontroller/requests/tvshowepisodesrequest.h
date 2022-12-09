@@ -1,8 +1,6 @@
 #ifndef EU_TGCM_KONTROLLER_EPISODESREQUEST_H
 #define EU_TGCM_KONTROLLER_EPISODESREQUEST_H
 
-#include "client.h"
-
 #include <QObject>
 #include <QVector>
 
@@ -13,6 +11,7 @@ namespace tgcm
 namespace kontroller
 {
 
+class Client;
 class File;
 
 class TvShowEpisodesRequest : public QObject

@@ -21,7 +21,7 @@ Dialog {
         {}
         Column {
             id:theCol
-            spacing:10
+            spacing: Theme.paddingSmall
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top:parent.top

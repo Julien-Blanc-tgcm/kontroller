@@ -35,9 +35,8 @@ class WakeUpPlugin : public QObject
 	virtual void wakeUp_() = 0;
 };
 
-}
-}
-}
-
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 
 #endif // WAKEUPPLUGIN_H

@@ -1,9 +1,6 @@
 #ifndef MOVIESREQUEST_HPP
 #define MOVIESREQUEST_HPP
 
-#include "client.h"
-#include "file.h"
-
 #include <QObject>
 #include <QVector>
 
@@ -13,6 +10,7 @@ namespace tgcm
 {
 namespace kontroller
 {
+class Client;
 class File;
 
 class MoviesRequest : public QObject

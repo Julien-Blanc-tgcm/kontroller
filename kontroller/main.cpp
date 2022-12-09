@@ -1,10 +1,9 @@
 #ifdef SAILFISH_TARGET
 #include <sailfishapp.h>
-#include <QGuiApplication>
 #include <QQuickView>
 #include <QQuickItem>
 #else
-#include <QApplication>
+#include <QGuiApplication>
 #endif
 #include <QtQml>
 #include <QScopedPointer>
@@ -183,7 +182,7 @@ int main(int argc, char *argv[])
 	view->setSource(SailfishApp::pathTo("qml/kontroller.qml"));
 	view->show();
 #else
-	QApplication* app = new QApplication(argc, argv);
+	QGuiApplication* app = new QGuiApplication(argc, argv);
 	QQmlApplicationEngine engine;
 	registerTypes();
 

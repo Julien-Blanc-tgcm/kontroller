@@ -1074,7 +1074,7 @@ Se https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnL
 <context>
     <name>eu::tgcm::kontroller::Player</name>
     <message>
-        <location filename="../player.cpp" line="575"/>
+        <location filename="../player.cpp" line="573"/>
         <source>No subtitles</source>
         <translation>Ingen undertext</translation>
     </message>

@@ -3,8 +3,6 @@
 #include "client.h"
 #include "utils.h"
 
-#include <qjsonrpcservicereply.h>
-
 namespace eu
 {
 namespace tgcm

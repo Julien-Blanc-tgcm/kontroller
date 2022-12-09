@@ -16,7 +16,6 @@ void WakeUpPlugin::wakeUp()
 	wakeUp_();
 }
 
-}
-}
-}
-
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

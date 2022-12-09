@@ -2,7 +2,7 @@
 #define EU_TGCM_KONTROLLER_ARTISTINFORMATIONSERVICE_H
 
 #include "client.h"
-#include <file.h>
+#include "file.h"
 
 #include <QObject>
 #include <QQmlListProperty>

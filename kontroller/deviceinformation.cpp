@@ -106,11 +106,7 @@ DeviceInformation::Impl& DeviceInformation::internal()
 	return i;
 }
 
-#ifdef SAILFISH_TARGET
 void DeviceInformation::setup(QGuiApplication& app)
-#else
-void DeviceInformation::setup(QApplication& app)
-#endif
 {
 	QRect rect = app.primaryScreen()->geometry();
 	internal().deviceDpi = app.primaryScreen()->physicalDotsPerInch();

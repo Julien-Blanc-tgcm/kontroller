@@ -1,9 +1,8 @@
 #ifndef EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
 #define EU_TGCM_KONTROLLER_ALBUMSREQUEST_H
 
-#include "client.h"
-
 #include <QObject>
+#include <QVector>
 
 namespace eu
 {
@@ -12,6 +11,7 @@ namespace tgcm
 namespace kontroller
 {
 class File;
+class Client;
 
 class AlbumsRequest : public QObject
 {

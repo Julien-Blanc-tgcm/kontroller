@@ -1,8 +1,7 @@
 #ifndef EU_TGCM_KONTROLLER_IMAGESERVICE_H
 #define EU_TGCM_KONTROLLER_IMAGESERVICE_H
 
-#include "client.h"
-#include "file.h"
+#include "../file.h"
 
 #include <QObject>
 #include <QQmlListProperty>
@@ -14,6 +13,8 @@ namespace tgcm
 {
 namespace kontroller
 {
+
+class Client;
 
 class ImageService : public QObject
 {

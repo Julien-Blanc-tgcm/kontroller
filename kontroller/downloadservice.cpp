@@ -5,8 +5,6 @@
 #include "file.h"
 #include "requests/songsrequest.h"
 
-#include <qjsonrpcservice.h>
-
 #include <QDir>
 #include <QFileInfo>
 #include <QStandardPaths>

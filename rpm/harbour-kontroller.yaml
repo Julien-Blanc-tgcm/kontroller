@@ -9,8 +9,7 @@ Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
   A remote control for the Kodi media player application
-Configure: none
-Builder: qtc5
+Builder: cmake
 PkgConfigBR:
 - sailfishapp >= 1.0.2
 - Qt5Core

@@ -3,7 +3,7 @@
 
 #include "downloadservice.h"
 
-#include <qjsonrpchttpclient.h>
+#include <qjsonrpc/qjsonrpchttpclient.h>
 
 #include <QTimer>
 

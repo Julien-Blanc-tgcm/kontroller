@@ -1,6 +1,8 @@
 #include "tvshowsrequest.hpp"
 
-#include "utils.h"
+#include "../client.h"
+#include "../file.h"
+#include "../utils.h"
 
 namespace eu
 {

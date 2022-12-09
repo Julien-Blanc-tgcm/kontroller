@@ -1,8 +1,6 @@
 #include "imageservice.h"
 
-#include "requests/albumsrequest.h"
-#include "requests/songsrequest.h"
-#include "utils.h"
+#include "../utils.h"
 
 namespace eu
 {

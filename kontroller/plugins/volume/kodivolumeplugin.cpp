@@ -1,8 +1,6 @@
 #include "kodivolumeplugin.h"
 
-#include "client.h"
-
-#include <qjsonrpcservicereply.h>
+#include "../../client.h"
 
 namespace eu
 {

@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include <mdns/sbzeroconfservicediscovery.h>
+#include <mdns_qt/sbzeroconfservicediscovery.h>
 
 namespace eu
 {
