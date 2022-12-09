@@ -54,7 +54,49 @@ Usually, the *Wake-on-LAN* option must be enabled in the BIOS/UEFI settings. Som
 the name is unclear, but look for something like *wake up from PCI device*. It must then
 be activated at the system level.
 
-### Linux with systemd
+### Linux
+
+#### Using systemd-networkd
+
+Identify the name of your ethernet card. Run the following command (as root):
+
+```
+networkctl status -a
+```
+
+Identify the card with the ip address, for example. If nothing is returned, it means you
+are not using systemd-networkd. If ok, create the following file:
+
+```
+/etc/systemd/network/50-<devname>.link
+```
+
+With the following content
+
+```
+[Match]
+Type=ether
+
+[Link]
+NamePolicy=path kernel database
+MACAddressPolicy=persistent
+WakeOnLan=magic
+```
+
+If you have multiple ethernet interfaces, be sure to use the correct `[Match]` parameter, if you
+don't want to enable it on all interfaces.
+
+Also create, if needed, the `/etc/systemd/network/50-<devname>.network`:
+
+```
+[Match]
+Name=<devname>
+
+[Network]
+DHCP=yes
+```
+
+#### Without systemd-networkd
 
 You need to install the *ethtool* package to help with configuring Wake-on-LAN.
 Then, identify your network card with ```ip link```.
