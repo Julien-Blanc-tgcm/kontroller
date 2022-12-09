@@ -162,9 +162,9 @@ install(TARGETS ${AppName}
 install(DIRECTORY kontroller/qml
 	DESTINATION share/${AppName}
 )
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/l10n
-	DESTINATION share/${AppName}
-	FILES_MATCHING PATTERN "*.qm"
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/l10n/
+	DESTINATION share/${AppName}/translations
+#	FILES_MATCHING PATTERN "*.qm"
 )
 install(FILES kontroller/${AppName}.desktop
 	DESTINATION share/applications
