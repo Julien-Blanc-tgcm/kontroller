@@ -23,7 +23,19 @@ class WakeUpPlugin;
 class Client : public QObject
 {
 	Q_OBJECT
+  public:
+	enum ConnectionStatus
+	{
+		NoWifi = -2,
+		ConnectionError = -1,
+		Unconnected = 0,
+		Connecting = 1,
+		Connected = 2
+	};
 
+	Q_ENUM(ConnectionStatus)
+
+  private:
 	ApplicationSettings* settings_;
 	QString serverUuid_;
 	QJsonRpcHttpClient* client_;
@@ -32,7 +44,7 @@ class Client : public QObject
 	/**
 	 * @see connectionStatus()
 	 */
-	int connectionStatus_;
+	ConnectionStatus connectionStatus_;
 
 	Server* server_ = nullptr;
 
@@ -77,15 +89,6 @@ public:
 
 	int serverHttpPort() const;
 
-	enum class ConnectionStatus
-	{
-		NoWifi = -2,
-		ConnectionError = -1,
-		Unconnected = 0,
-		Connecting = 1,
-		Connected = 2
-	};
-
 	/**
 	 * @brief connectionStatus tells whether the client is connected
 	 * -2 means no wifi and it is required
@@ -95,7 +98,7 @@ public:
 	 * 2 means connected
 	 * @return
 	 */
-	int connectionStatus() const;
+	ConnectionStatus connectionStatus() const;
 
 	/**
 	 * @brief wifiUp returns the state of the wifi connection
@@ -111,7 +114,8 @@ public:
 	           NOTIFY downloadServiceChanged)
 	Q_PROPERTY(eu::tgcm::kontroller::Server* server READ server NOTIFY serverChanged)
 	eu::tgcm::kontroller::DownloadService* downloadService() const;
-	Q_PROPERTY(int connectionStatus READ connectionStatus NOTIFY connectionStatusChanged)
+	Q_PROPERTY(eu::tgcm::kontroller::Client::ConnectionStatus connectionStatus READ connectionStatus NOTIFY
+	               connectionStatusChanged)
 
 	Q_PROPERTY(eu::tgcm::kontroller::PlayerService* playerService READ playerService WRITE setPlayerService \
 	           NOTIFY playerServiceChanged)
@@ -132,13 +136,14 @@ public:
 
 	eu::tgcm::kontroller::WakeUpPlugin* wakeUpPlugin() const;
 
-signals:
-	void connectionStatusChanged(int connected);
+  signals:
+	void connectionStatusChanged(eu::tgcm::kontroller::Client::ConnectionStatus connected);
 	void serverChanged();
 	void inputRequested(QString title, QString type, QString value);
 	void inputFinished();
 	void volumePluginChanged();
-public slots:
+
+  public slots:
 	void switchToServer(QString const& serverUuid);
 	void refresh();
 	void handleError(QJsonRpcMessage error);

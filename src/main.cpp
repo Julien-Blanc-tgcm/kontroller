@@ -1,12 +1,12 @@
 #ifdef SAILFISH_TARGET
 #include <sailfishapp.h>
-#include <QQuickView>
 #include <QQuickItem>
 #else
 #include <QGuiApplication>
 #endif
-#include <QtQml>
+#include <QQuickView>
 #include <QScopedPointer>
+#include <QtQml>
 
 #include "albuminformationservice.h"
 #include "applicationsettings.h"
@@ -182,15 +182,20 @@ int main(int argc, char *argv[])
 	view->setSource(SailfishApp::pathTo("qml/kontroller.qml"));
 	view->show();
 #else
-	QGuiApplication* app = new QGuiApplication(argc, argv);
-	QQmlApplicationEngine engine;
+	QScopedPointer<QGuiApplication> app(new QGuiApplication(argc, argv));
+	QScopedPointer<QQmlApplicationEngine> engine(new QQmlApplicationEngine());
 	registerTypes();
+
+	eu::tgcm::kontroller::ApplicationSettings applicationSettings;
+	auto client = new eu::tgcm::kontroller::Client(&applicationSettings);
 
 	eu::tgcm::kontroller::DeviceInformation inf;
 	inf.setup(*app);
+	engine->rootContext()->setContextProperty(QString::fromUtf8("appSettings"), &applicationSettings);
+	engine->rootContext()->setContextProperty(QString::fromUtf8("appClient"), client);
 
 	//QQmlComponent component(&engine);
-	engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+	engine->load(QUrl(QStringLiteral("qrc:///main.qml")));
 #endif
 
 	return app->exec();

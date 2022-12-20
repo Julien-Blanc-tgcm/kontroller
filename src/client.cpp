@@ -82,7 +82,7 @@ Client::Client(ApplicationSettings* settings, QObject* parent) :
     client_(nullptr),
     clientSocket_(nullptr),
     tcpClient_(nullptr),
-    connectionStatus_(0),
+    connectionStatus_(ConnectionStatus::Unconnected),
     downloadService_{new DownloadService{this, settings}},
     playerService_{new PlayerService{this, this}},
     timer_{new QTimer(this)},
@@ -175,7 +175,7 @@ void Client::refresh()
 		setConnectionStatus_(ConnectionStatus::ConnectionError);
 }
 
-int Client::connectionStatus() const
+Client::ConnectionStatus Client::connectionStatus() const
 {
 	return connectionStatus_;
 }
@@ -320,7 +320,7 @@ void Client::handleReplyFinished_()
 
 void Client::setConnectionStatus_(ConnectionStatus connectionStatus)
 {
-	connectionStatus_ = static_cast<int>(connectionStatus);
+	connectionStatus_ = connectionStatus;
 	emit connectionStatusChanged(connectionStatus_);
 }
 

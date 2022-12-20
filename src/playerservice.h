@@ -17,12 +17,13 @@ namespace kontroller
 class PlayerService : public QObject
 {
 	Q_OBJECT
-public:
-	explicit PlayerService(eu::tgcm::kontroller::Client* client, QObject *parent = nullptr);
+
+  public:
+	explicit PlayerService(eu::tgcm::kontroller::Client* client, QObject* parent = nullptr);
 
 	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Player> players READ players NOTIFY playersChanged)
 
-private:
+  private:
 	QList<Player*> currentPlayers_;
 	QTimer refreshTimer_;
 	bool refreshPending_ = false;
@@ -32,14 +33,14 @@ private:
 
 	eu::tgcm::kontroller::Client* client_ = nullptr;
 
-signals:
+  signals:
 	void playersChanged();
 
-public slots:
+  public slots:
 	void refreshPlayerInfo();
 	void playPause(int playerid);
 
-public:
+  public:
 	QList<Player*> const& playersList();
 
 	/**
@@ -57,9 +58,8 @@ public:
 
 	QQmlListProperty<Player> players();
 
-private slots:
+  private slots:
 	void refreshPlayerInfoCb_();
-
 
 	/**
 	 * @brief updateConnectionStatus is called when the connection status changes
@@ -71,13 +71,14 @@ private slots:
 	void stopPlayer_(int playerId);
 
 	void updatePlayerSeek_(int playerId, int hours, int minutes, int seconds, int milliseconds);
+
   private:
 	static int playerCount_(QQmlListProperty<Player>* list);
 	static Player* playerAt_(QQmlListProperty<Player>* list, int index);
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 
 #endif // EU_TGCM_KONTROLLER_PLAYERSERVICE_H

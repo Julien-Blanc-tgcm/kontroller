@@ -32,13 +32,19 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(BUILD_SHARED_LIBS OFF)
 
+if("${CMAKE_GENERATOR}" STREQUAL "Ninja")
+	set(lib_install_command ninja install)
+else()
+	set(lib_install_command make install)
+endif()
+
 ExternalProject_Add(QJSONRPC
 	SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/qjsonrpc
 	BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/qjsonrpc_build
 	DOWNLOAD_COMMAND ""
 	UPDATE_COMMAND ""
 	INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/libs_install"
-	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> make install
+	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> ${lib_install_command}
 	CMAKE_CACHE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
 )
 ExternalProject_Add(MDNS_QT
@@ -47,7 +53,7 @@ ExternalProject_Add(MDNS_QT
 	DOWNLOAD_COMMAND ""
 	UPDATE_COMMAND ""
 	INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/libs_install"
-	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> make install
+	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> ${lib_install_command}
 	CMAKE_CACHE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
 )
 ExternalProject_Add(MINIDSPLIB
@@ -56,7 +62,7 @@ ExternalProject_Add(MINIDSPLIB
 	DOWNLOAD_COMMAND ""
 	UPDATE_COMMAND ""
 	INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/libs_install"
-	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> make install
+	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> ${lib_install_command}
 	CMAKE_CACHE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
 )
 ExternalProject_Add(ARP
@@ -65,7 +71,7 @@ ExternalProject_Add(ARP
 	DOWNLOAD_COMMAND ""
 	UPDATE_COMMAND ""
 	INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/libs_install"
-	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> make install
+	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> ${lib_install_command}
 	CMAKE_CACHE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
 )
 
@@ -79,52 +85,57 @@ FILE(GLOB TsFiles "kontroller/translations/*.ts")
 set_source_files_properties(${TsFiles} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/l10n)
 qt5_add_translation(QmFiles ${TsFiles})
 
+add_custom_target(run_lupdate COMMAND
+	${Qt5_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/qml ${CMAKE_CURRENT_SOURCE_DIR}/qml_desktop -ts ${TsFiles}
+)
+
+
 add_executable(${AppName}
-	kontroller/main.cpp
-	kontroller/albuminformationservice.cpp
-	kontroller/downloadservice.cpp
-	kontroller/movieinformationservice.cpp
-	kontroller/playlistservice.cpp
-	kontroller/themeinformation.cpp
-	kontroller/applicationsettings.cpp
-	kontroller/episodeinformationservice.cpp
-	kontroller/musiccontrol.cpp
-	kontroller/remote.cpp
-	kontroller/tvshowinformationservice.cpp
-	kontroller/artistinformationservice.cpp
-	kontroller/file.cpp
-	kontroller/musicservice.cpp
-	kontroller/utils.cpp
-	kontroller/audiostream.cpp
-	kontroller/imagecontrol.cpp
-	kontroller/player.cpp
-	kontroller/seasoninformationservice.cpp
-	kontroller/videocontrol.cpp
-	kontroller/client.cpp
-	kontroller/kodiservicediscovery.cpp
-	kontroller/playerservice.cpp
-	kontroller/server.cpp
-	kontroller/videoservice.cpp
-	kontroller/deviceinformation.cpp
-	kontroller/libraryservice.cpp
-	kontroller/playinginformation.cpp
-	kontroller/subtitle.cpp
-	kontroller/downloadlocation.cpp
-	kontroller/playlistitem.cpp
-	kontroller/systemservice.cpp
-	kontroller/plugins/wakeup/wakeupplugin.cpp
-	kontroller/plugins/wakeup/wolwakeupplugin.cpp
-	kontroller/plugins/volume/kodivolumeplugin.cpp
-	kontroller/plugins/volume/minidspvolumeplugin.cpp
-	kontroller/plugins/volume/volumeplugin.cpp
-	kontroller/requests/albumsrequest.cpp
-	kontroller/requests/moviesrequest.cpp
-	kontroller/requests/playlistrequest.cpp
-	kontroller/requests/songsrequest.cpp
-	kontroller/requests/tvshowepisodesrequest.cpp
-	kontroller/requests/tvshowseasonsrequest.cpp
-	kontroller/requests/tvshowsrequest.cpp
-	kontroller/services/imageservice.cpp
+	src/main.cpp
+	src/albuminformationservice.cpp
+	src/downloadservice.cpp
+	src/movieinformationservice.cpp
+	src/playlistservice.cpp
+	src/themeinformation.cpp
+	src/applicationsettings.cpp
+	src/episodeinformationservice.cpp
+	src/musiccontrol.cpp
+	src/remote.cpp
+	src/tvshowinformationservice.cpp
+	src/artistinformationservice.cpp
+	src/file.cpp
+	src/musicservice.cpp
+	src/utils.cpp
+	src/audiostream.cpp
+	src/imagecontrol.cpp
+	src/player.cpp
+	src/seasoninformationservice.cpp
+	src/videocontrol.cpp
+	src/client.cpp
+	src/kodiservicediscovery.cpp
+	src/playerservice.cpp
+	src/server.cpp
+	src/videoservice.cpp
+	src/deviceinformation.cpp
+	src/libraryservice.cpp
+	src/playinginformation.cpp
+	src/subtitle.cpp
+	src/downloadlocation.cpp
+	src/playlistitem.cpp
+	src/systemservice.cpp
+	src/plugins/wakeup/wakeupplugin.cpp
+	src/plugins/wakeup/wolwakeupplugin.cpp
+	src/plugins/volume/kodivolumeplugin.cpp
+	src/plugins/volume/minidspvolumeplugin.cpp
+	src/plugins/volume/volumeplugin.cpp
+	src/requests/albumsrequest.cpp
+	src/requests/moviesrequest.cpp
+	src/requests/playlistrequest.cpp
+	src/requests/songsrequest.cpp
+	src/requests/tvshowepisodesrequest.cpp
+	src/requests/tvshowseasonsrequest.cpp
+	src/requests/tvshowsrequest.cpp
+	src/services/imageservice.cpp
 	${QML_RESOURCES_FILE}
 	${SAILFISH_SPECIFIC_SOURCES}
 	${QmFiles}
@@ -159,9 +170,6 @@ target_link_directories(${AppName} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libs_inst
 install(TARGETS ${AppName}
 	RUNTIME DESTINATION bin
 )
-install(DIRECTORY kontroller/qml
-	DESTINATION share/${AppName}
-)
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/l10n/
 	DESTINATION share/${AppName}/translations
 #	FILES_MATCHING PATTERN "*.qm"
@@ -171,6 +179,9 @@ install(FILES kontroller/${AppName}.desktop
 )
 
 if (${BUILD_FOR_SAILFISH})
+	install(DIRECTORY qml
+		DESTINATION share/${AppName}
+	)
 	install(DIRECTORY kontroller/icons/sailfish/
 		DESTINATION share/${AppName}/assets )
 	install(FILES kontroller/icons/86x86/${AppName}.png
