@@ -19,6 +19,7 @@ PkgConfigBR:
 Requires:
 - sailfishsilica-qt5 >= 1.0.2
 Files:
+- '%exclude /home' # exclude anything that is part of build process
 - '%{_datadir}/icons/hicolor/*/apps/%{name}.png'
 - '%{_datadir}/applications/%{name}.desktop'
 - '%{_datadir}/%{name}/qml'
