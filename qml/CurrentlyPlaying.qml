@@ -9,7 +9,7 @@ Page {
     id: item1
 
     property var client: appClient
-    property var player: appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
+    property var player: appClient.playerService.activePlayer
 
     property bool hidePanel: true // on this page, hide the docked panel: it is redundant
 

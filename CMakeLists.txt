@@ -76,7 +76,7 @@ ExternalProject_Add(ARP
 )
 
 if (${BUILD_FOR_SAILFISH})
-	set(SAILFISH_SPECIFIC_SOURCES kontroller/sbiconimageprovider.cpp)
+	set(SAILFISH_SPECIFIC_SOURCES src/sbiconimageprovider.cpp)
 else()
 	set(SAILFISH_SPECIFIC_SOURCES )
 endif()

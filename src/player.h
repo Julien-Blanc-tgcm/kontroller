@@ -24,14 +24,14 @@ class Player : public QObject
 {
 	Q_OBJECT
 
-	int playerId_;
+	int playerId_; // initialized by constructor
 	QString type_;
 	QString current_;
-	int speed_;
-	int playlistPosition_;
-	double percentage_;
-	int totalTime_;
-	int time_;
+	int speed_ = 0;
+	int playlistPosition_ = -1;
+	double percentage_ = 0;
+	int totalTime_ = 0;
+	int time_ = 0;
 
 	QTimer timer_;
 
@@ -49,13 +49,14 @@ class Player : public QObject
 	int currentSubtitleIndex_ = -1;
 	QVector<AudioStream*> audioStreams_;
 	int currentAudioStreamIndex_ = -1;
+	bool active_ = false;
 
 	Client* client_ = nullptr;
 	eu::tgcm::kontroller::PlayingInformation* playingInformation_ = nullptr;
 	PlaylistService* playlistService_ = nullptr;
 
 public:
-	explicit Player(Client* client, QObject *parent = nullptr);
+	explicit Player(Client* client, int playerId, QObject *parent = nullptr);
 
 	Q_PROPERTY(int playerId READ playerId WRITE setPlayerId NOTIFY playerIdChanged)
 	Q_PROPERTY(QString type READ type NOTIFY typeChanged)
@@ -83,6 +84,7 @@ public:
 	Q_PROPERTY(eu::tgcm::kontroller::PlayingInformation* playingInformation READ playingInformation
 	           WRITE setPlayingInformation NOTIFY playingInformationChanged)
 	Q_PROPERTY(eu::tgcm::kontroller::PlaylistService* playlistService READ playlistService NOTIFY playlistServiceChanged)
+	Q_PROPERTY(bool active READ active NOTIFY activeChanged)
 
 	/*!
 	 * \brief playerId id of the player
@@ -156,6 +158,14 @@ public:
 	Q_INVOKABLE void moveToFirst();
 
 	/**
+	 * Tells that the player is active, ie it is currently playing something
+	 */
+	bool active() const;
+
+	// can be set from c++, but not from qml
+	void setActive(bool value);
+
+	/**
 	 * @brief updateProperty updates a single property, as received by a OnPropertyChanged
 	 * event from kodi
 	 * @param property the property object
@@ -198,6 +208,8 @@ signals:
 
 	void playingInformationChanged(eu::tgcm::kontroller::PlayingInformation* playingInformation);
 	void playlistServiceChanged();
+
+	void activeChanged(bool active);
 
 public slots:
 	void setPercentage(double percentage);
@@ -255,7 +267,7 @@ private slots:
 	void refreshCurrentlyPlaying_();
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 #endif // EU_TGCM_KONTROLLER_PLAYER_H

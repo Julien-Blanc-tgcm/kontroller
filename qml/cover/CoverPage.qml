@@ -5,9 +5,9 @@ import harbour.eu.tgcm 1.0
 CoverBackground {
     anchors.fill: parent
 
-    property var player: appClient.playerService.players.length > 0? appClient.playerService.players[0]:null
+    property var player: appClient.playerService.activePlayer
 
-    property var connected: appClient.connectionStatus === 2
+    property bool connected: appClient.connectionStatus === 2
 
 
     Label {

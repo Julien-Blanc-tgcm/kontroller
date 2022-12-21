@@ -98,7 +98,6 @@ void Player::setPlayerId(int playerId)
 		return;
 	playerId_ = playerId;
 	emit playerIdChanged();
-	refreshPlayerStatus();
 }
 
 QString Player::type() const
@@ -240,6 +239,19 @@ int Player::playlistId() const
 int Player::currentSubtitleIndex() const
 {
 	return currentSubtitleIndex_;
+}
+
+bool Player::active() const
+{
+	return active_;
+}
+
+void Player::setActive(bool active)
+{
+	if (active == active_)
+		return;
+	active_ = active;
+	emit activeChanged(active);
 }
 
 namespace
@@ -643,8 +655,8 @@ void Player::handlePlayerStatus_()
 	}
 }
 
-Player::Player(Client* client, QObject* parent) :
-    QObject(parent), speed_(0), client_{client}, playingInformation_{new PlayingInformation{this}},
+Player::Player(Client* client, int playerId, QObject* parent) :
+    QObject(parent), playerId_{playerId}, client_{client}, playingInformation_{new PlayingInformation{this}},
     playlistService_{new PlaylistService{client_, this}}
 {
 	timer_.setInterval(1000);

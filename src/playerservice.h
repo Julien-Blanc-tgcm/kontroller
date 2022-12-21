@@ -22,6 +22,7 @@ class PlayerService : public QObject
 	explicit PlayerService(eu::tgcm::kontroller::Client* client, QObject* parent = nullptr);
 
 	Q_PROPERTY(QQmlListProperty<eu::tgcm::kontroller::Player> players READ players NOTIFY playersChanged)
+	Q_PROPERTY(eu::tgcm::kontroller::Player* activePlayer READ activePlayer NOTIFY activePlayerChanged)
 
   private:
 	QList<Player*> currentPlayers_;
@@ -35,6 +36,7 @@ class PlayerService : public QObject
 
   signals:
 	void playersChanged();
+	void activePlayerChanged();
 
   public slots:
 	void refreshPlayerInfo();
@@ -57,6 +59,8 @@ class PlayerService : public QObject
 	Q_INVOKABLE Player* getPlayer(QString type);
 
 	QQmlListProperty<Player> players();
+
+	Player* activePlayer();
 
   private slots:
 	void refreshPlayerInfoCb_();

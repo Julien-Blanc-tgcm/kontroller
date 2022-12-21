@@ -19,6 +19,13 @@ PlayerService::PlayerService(eu::tgcm::kontroller::Client* client, QObject* pare
 	connect(client_, &Client::playerStopped, this, &PlayerService::stopPlayer_);
 	connect(client_, &Client::playerSpeedChanged, this, &PlayerService::updatePlayerSpeed);
 	connect(client_, &Client::playerSeekChanged, this, &PlayerService::updatePlayerSeek_);
+	// hard code the three players. They are hard-coded in kodi anyway, and there is no interface
+	// to retrieve them if they are not running
+	for (int i = 0; i <= 2; ++i)
+	{
+		auto player = new Player(client, i, this);
+		currentPlayers_.push_back(player);
+	}
 }
 
 void PlayerService::refreshPlayerInfo()
@@ -73,12 +80,8 @@ QQmlListProperty<Player> PlayerService::players()
 
 void PlayerService::refreshPlayerInfoCb_()
 {
-	QVector<bool> playerStillExistings; // stores a list of players still existing. Deleting and recreating
-	                                    // players cause a glitch, so we try to update them instead
-	bool playersHaveChanged = false; // stores whether there has been an addition or removal on a player. Is used
-	                                 // to signal the event
-	for(int i = 0; i < currentPlayers_.size(); ++i)
-		playerStillExistings.push_back(false);
+	auto oldActive = activePlayer();
+	QVector<int> playerStillPlaying;
 	QJsonRpcServiceReply* reply = dynamic_cast<QJsonRpcServiceReply*>(sender());
 	if(reply)
 	{
@@ -96,50 +99,31 @@ void PlayerService::refreshPlayerInfoCb_()
 						if(val2.isObject())
 						{
 							// find wether this player already existed :
-							Player* player = nullptr;
 							auto playerId = val2.toObject()["playerid"].toInt();
-							for(int i = 0; i < playerStillExistings.size(); ++i)
+							for (auto p : currentPlayers_)
 							{
-								if(currentPlayers_[i]->playerId() == playerId)
+								if (p->playerId() == playerId)
 								{
-									playerStillExistings[i] = true;
-									player = currentPlayers_[i];
+									p->setActive(true);
+									p->refreshPlayerStatus();
+									break;
 								}
 							}
-							if(player == nullptr)
-							{
-								playersHaveChanged = true; // new player, need to signal
-								currentPlayers_.push_back(new Player(client_, this));
-								player = currentPlayers_.back();
-							}
-							player->setPlayerId(val2.toObject()["playerid"].toInt());
-							player->setType(val2.toObject()["type"].toString());
-							player->refreshPlayerStatus();
+							playerStillPlaying.push_back(playerId);
 						}
 					}
 				}
 			}
 		}
 	}
-	auto itPlayers = currentPlayers_.begin();
-	auto itExists = playerStillExistings.begin();
-	while(itExists != playerStillExistings.end())
+	for (auto p : currentPlayers_)
 	{
-		if(!*itExists)
-		{
-			itExists = playerStillExistings.erase(itExists);
-			(*itPlayers)->deleteLater();
-			playersHaveChanged = true; // deleted player, change !
-			itPlayers = currentPlayers_.erase(itPlayers);
-		}
-		else
-		{
-			++itExists;
-			++itPlayers;
-		}
+		if (!playerStillPlaying.contains(p->playerId()))
+			p->setActive(false);
 	}
-	if(playersHaveChanged)
-		emit playersChanged();
+	auto newActive = activePlayer();
+	if (newActive != oldActive)
+		emit activePlayerChanged();
 	refreshPending_ = false;
 }
 
@@ -155,8 +139,7 @@ void PlayerService::updateConnectionStatus_(int newStatus)
 	}
 	else if(newStatus == 0)
 	{
-		currentPlayers_.clear();
-		emit playersChanged();
+		// TODO: indicate a problem
 	}
 }
 
@@ -169,13 +152,29 @@ void PlayerService::updatePlayerSpeed(int playerId, int speed)
 		{
 			found = true;
 			if(speed == 0)
+			{
 				player->setSpeed(speed);
+			}
 			else
+			{
+				player->setActive(true);
 				player->refreshPlayerStatus();
+				emit activePlayerChanged();
+			}
 		}
 	}
 	if(!found)
 		refreshPlayerInfo();
+}
+
+Player* PlayerService::activePlayer()
+{
+	for(auto p : currentPlayers_)
+	{
+		if (p->active())
+			return p;
+	}
+	return nullptr;
 }
 
 void PlayerService::stopPlayer_(int playerId)

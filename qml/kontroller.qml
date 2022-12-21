@@ -80,7 +80,7 @@ ApplicationWindow {
                 PlayerControl {
                     anchors.verticalCenter: parent.verticalCenter
                     width:parent.width - thumbnailImg.width
-                    player: appClient.playerService.players.length > 0 ? appClient.playerService.players[0] : null
+                    player: appClient.playerService.activePlayer
                     id:playerControl
                 }
             }

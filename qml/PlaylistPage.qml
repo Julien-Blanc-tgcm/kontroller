@@ -72,19 +72,19 @@ Page{
 
     Connections {
         target: appClient.playerService
-        onPlayersChanged: {
-            if(appClient.playerService.players.length > 0)
+        onActivePlayerChanged: {
+            if(appClient.playerService.activePlayer)
             {
-                service = appClient.playerService.players[0].playlistService
+                service = appClient.playerService.activePlayer.playlistService
             }
             else
                 service = null
         }
     }
     Component.onCompleted: {
-        if(appClient.playerService.players.length > 0)
+        if(appClient.playerService.activePlayer)
         {
-            service = appClient.playerService.players[0].playlistService;
+            service = appClient.playerService.activePlayer.playlistService;
             service.refresh();
         }
     }
