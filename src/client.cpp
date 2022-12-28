@@ -3,8 +3,10 @@
 #include "applicationsettings.h"
 #include "playerservice.h"
 
+#include "plugins/volume/volumeplugin.h"
 #include "plugins/volume/kodivolumeplugin.h"
 #include "plugins/volume/minidspvolumeplugin.h"
+#include "plugins/volume/MarantzAvrVolumePlugin.hpp"
 
 #include "plugins/wakeup/wolwakeupplugin.h"
 
@@ -18,23 +20,6 @@ namespace eu::tgcm::kontroller
 
 namespace
 {
-
-VolumePlugin* getVolumePlugin_(Client* owner, Server* server)
-{
-	if(server == nullptr)
-		return nullptr;
-	QString pluginName = server->volumePluginName();
-	if(pluginName == KodiVolumePlugin::static_name())
-		return new KodiVolumePlugin(owner);
-	if(pluginName == MinidspVolumePlugin::static_name())
-	{
-		QString address = server->volumePluginParameters().value("address").toString();
-		auto plugin = new MinidspVolumePlugin(owner);
-		plugin->setIpAddress(address);
-		return plugin;
-	}
-	return new KodiVolumePlugin(owner); // by default, return a kodi volume plugin. This, at least, is safe
-}
 
 WakeUpPlugin* getWakeUpPlugin(Client* owner, Server* server)
 {
@@ -142,7 +127,7 @@ void Client::refresh()
 		server_ = settings_->server(settings_->lastServer());
 	if(server_)
 	{
-		volumePlugin_ = getVolumePlugin_(this, server_);
+		volumePlugin_ = VolumePlugin::getVolumePlugin(this, server_->volumePluginName(), server_->volumePluginParameters());
 		wakeUpPlugin_ = getWakeUpPlugin(this, server_);
 		emit serverChanged();
 		emit volumePluginChanged();

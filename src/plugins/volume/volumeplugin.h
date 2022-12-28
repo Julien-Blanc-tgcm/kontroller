@@ -2,6 +2,7 @@
 #define VOLUMEPLUGIN_H
 
 #include <QObject>
+#include <QVariantMap>
 
 namespace eu
 {
@@ -11,6 +12,7 @@ namespace kontroller
 {
 
 class Client;
+
 /**
  * @brief The VolumePlugin class is the base class for all volume plugins. Volume plugins shall provide a set of method to query
  * the current volume, the min/max volumes and the volume step (ie, what a button press should increment)
@@ -62,6 +64,12 @@ public:
 
 	bool muted() const;
 
+	/**
+	 * Returns a newly constructed volume plugin. The type of the plugin depends on its name. The plugin
+	 * is configured using the given settings, if applicable
+	 */
+	static VolumePlugin* getVolumePlugin(Client* client, QString const& name, QVariantMap const& pluginSettings);
+
 signals:
 	void nameChanged(QString);
 	void minVolumeChanged(int);
@@ -102,8 +110,8 @@ protected:
 
 };
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 
 #endif // VOLUMEPLUGIN_H

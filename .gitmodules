@@ -4,3 +4,6 @@
 [submodule "lib/mdns_qt"]
 	path = lib/mdns_qt
 	url = git@github.com:Julien-Blanc-tgcm/mdns_qt
+[submodule "lib/avrcontrol"]
+	path = lib/avrcontrol
+	url = git@github.com:Julien-Blanc-tgcm/avrcontrol.git

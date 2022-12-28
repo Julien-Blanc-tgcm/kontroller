@@ -379,6 +379,6 @@ QVariantList ApplicationSettings::possibleDownloadLocations()
 	return list;
 }
 
-}
-}
-}
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu

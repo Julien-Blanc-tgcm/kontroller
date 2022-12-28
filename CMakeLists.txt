@@ -74,6 +74,16 @@ ExternalProject_Add(ARP
 	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> ${lib_install_command}
 	CMAKE_CACHE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
 )
+ExternalProject_Add(AVRCONTROL
+	SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/avrcontrol
+	BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/avrcontrol_build
+	DOWNLOAD_COMMAND ""
+	UPDATE_COMMAND ""
+	INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/libs_install"
+	INSTALL_COMMAND DESTDIR=<INSTALL_DIR> ${lib_install_command}
+	CMAKE_CACHE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DENABLE_TESTS:BOOL=OFF
+	STEP_TARGETS build install
+)
 
 if (${BUILD_FOR_SAILFISH})
 	set(SAILFISH_SPECIFIC_SOURCES src/sbiconimageprovider.cpp)
@@ -126,6 +136,7 @@ add_executable(${AppName}
 	src/plugins/wakeup/wakeupplugin.cpp
 	src/plugins/wakeup/wolwakeupplugin.cpp
 	src/plugins/volume/kodivolumeplugin.cpp
+	src/plugins/volume/MarantzAvrVolumePlugin.cpp
 	src/plugins/volume/minidspvolumeplugin.cpp
 	src/plugins/volume/volumeplugin.cpp
 	src/requests/albumsrequest.cpp
@@ -141,7 +152,7 @@ add_executable(${AppName}
 	${QmFiles}
 	)
 
-add_dependencies(${AppName} MDNS_QT QJSONRPC MINIDSPLIB ARP)
+add_dependencies(${AppName} MDNS_QT QJSONRPC MINIDSPLIB ARP AVRCONTROL)
 
 target_compile_definitions(${AppName} PRIVATE
 	$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
@@ -163,6 +174,7 @@ target_link_libraries(${AppName}
 	qjsonrpc
 	mdns_qt
 	minidsplib
+	avrcontrol
 	${SAILFISH_LDFLAGS}
 )
 target_link_directories(${AppName} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libs_install/usr/local/lib )

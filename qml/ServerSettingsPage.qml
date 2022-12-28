@@ -2,6 +2,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import harbour.eu.tgcm 1.0
 
+import "./components"
+
 Dialog {
     property string serverUuid: ""
     property bool newServer: false
@@ -16,7 +18,7 @@ Dialog {
 
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: theCol.height
+        contentHeight: theCol.height + Theme.paddingLarge // adds some blank at end of page
         DialogHeader
         {}
         Column {
@@ -257,6 +259,7 @@ something else in Kodi. Turn on \"HTTP remote access\" in Kodi for it to work.")
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
                 anchors.rightMargin: Theme.horizontalPageMargin
+                visible: !selectingServer__()
                 Component.onCompleted: {
                     checked = appSettings.server(serverUuid).ignoreWifiStatus
                 }
@@ -426,10 +429,16 @@ controlled by the remote instead")
                         text: qsTr("miniDSP")
                         onClicked: miniDSPAddress.focus = true
                     }
+                    MenuItem {
+                        text: qsTr("Marantz/Denon AVR")
+                        onClicked: avrVolumeSettings.focus = true
+                    }
                 }
                 Component.onCompleted: {
                     if(appSettings.server(serverUuid).volumePluginName === "Minidsp") // not a displayed value, not cased correctly, but keep it for compatibility
                         currentIndex = 1;
+                    else if (appSettings.server(serverUuid).volumePluginName === "MarantzAvr") // this value must match the one in MarantzAvrVolumePlugin.cpp
+                        currentIndex = 2;
                     else
                         currentIndex = 0;
                 }
@@ -459,6 +468,14 @@ controlled by the remote instead")
                 visible: serverVolumePlugin.currentIndex === 1 && !selectingServer__()
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: miniDSPAddress.focus = false
+            }
+
+            AvrVolume {
+                id: avrVolumeSettings
+                settings: appSettings.server(serverUuid)
+                anchors.left: parent.left
+                anchors.right: parent.right
+                visible: serverVolumePlugin.currentIndex === 2 && !selectingServer__()
             }
 
 /*            TextSwitch {
@@ -501,12 +518,17 @@ controlled by the remote instead")
         appSettings.server(serverUuid).setHibernateEnabled(hibernateSupported.checked);
         appSettings.server(serverUuid).setIgnoreWifiStatus(chkIgnoreWifi.checked);
 
-        if(serverVolumePlugin.currentIndex === 0)
+        if (serverVolumePlugin.currentIndex === 0)
             appSettings.server(serverUuid).setVolumePluginName("Kodi");
-        else
+        else if (serverVolumePlugin.currentIndex === 1)
         {
             appSettings.server(serverUuid).setVolumePluginName("Minidsp");
             appSettings.server(serverUuid).setVolumePluginParameters({"address": miniDSPAddress.text});
+        }
+        else if (serverVolumePlugin.currentIndex === 2)
+        {
+            appSettings.server(serverUuid).setVolumePluginName("MarantzAvr");
+            appSettings.server(serverUuid).setVolumePluginParameters(avrVolumeSettings.parameters);
         }
         if(serverWakeUpPlugin.currentIndex === 0)
             appSettings.server(serverUuid).setWakeUpPluginName("None");
@@ -555,13 +577,6 @@ controlled by the remote instead")
     function pushOrPullZonePage()
     {
         console.log("pushhere");
-//        if(chkIgnoreWifi.checked)
-//        {
-//            console.log("pushAttached");
-//            zones = pageStack.pushAttached(Qt.resolvedUrl("ManageZones.qml"));
-//        }
-//        else if(zones)
-//            pageStack.popAttached(zones);
     }
 
     property bool __serverSelected: false

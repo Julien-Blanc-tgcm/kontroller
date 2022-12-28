@@ -1,5 +1,9 @@
 #include "volumeplugin.h"
 
+#include "kodivolumeplugin.h"
+#include "MarantzAvrVolumePlugin.hpp"
+#include "minidspvolumeplugin.h"
+
 namespace eu
 {
 namespace tgcm
@@ -109,7 +113,27 @@ void VolumePlugin::decreaseVolume_()
 		updateVolume_(vol);
 }
 
+VolumePlugin* VolumePlugin::getVolumePlugin(Client* client, QString const& pluginName, QVariantMap const& pluginSettings)
+{
+	if (pluginName == KodiVolumePlugin::static_name())
+		return new KodiVolumePlugin(client);
+	if (pluginName == MinidspVolumePlugin::static_name())
+	{
+		QString address = pluginSettings.value("address").toString();
+		auto plugin = new MinidspVolumePlugin(client);
+		plugin->setIpAddress(address);
+		return plugin;
+	}
+	if (pluginName == MarantzAvrVolumePlugin::static_name())
+	{
+		auto plugin = new MarantzAvrVolumePlugin(client);
+		plugin->setParameters(pluginSettings);
+		return plugin;
+	}
+	return new KodiVolumePlugin(client); // by default, return a kodi volume plugin. This, at least, is safe
 }
-}
-}
+
+} // namespace kontroller
+} // namespace tgcm
+} // namespace eu
 

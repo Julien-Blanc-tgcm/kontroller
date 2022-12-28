@@ -193,24 +193,6 @@ Page {
 
     property alias itemId : service.artistId
     property string label
-    ListContextMenu {
-        visible:false
-        id:theSubMenu
-        onInformationPressed:
-        {
-            visible = false
-            if(currentModel)
-                mediaInformationClicked(currentModel)
-        }
-        onAddToPlaylistPressed:  {
-            visible = false
-            control.addToPlaylist(currentModel)
-        }
-        onPlayPressed: {
-            visible = false
-            control.playFile(currentModel)
-        }
-    }
     MusicControl {
         id:control
         client: pageClient
