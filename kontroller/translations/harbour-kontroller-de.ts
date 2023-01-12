@@ -151,6 +151,40 @@
     </message>
 </context>
 <context>
+    <name>AvrVolume</name>
+    <message>
+        <location filename="../../qml/components/AvrVolume.qml" line="18"/>
+        <source>AVR Plugin parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/components/AvrVolume.qml" line="35"/>
+        <location filename="../../qml/components/AvrVolume.qml" line="36"/>
+        <source>A/V Receiver IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/components/AvrVolume.qml" line="47"/>
+        <source>Automatically switch source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/components/AvrVolume.qml" line="66"/>
+        <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/components/AvrVolume.qml" line="74"/>
+        <source>Force kodi volume to a given level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/components/AvrVolume.qml" line="86"/>
+        <source>Volume to force</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <location filename="../../qml/cover/CoverPage.qml" line="22"/>
@@ -706,194 +740,199 @@
 <context>
     <name>ServerSettingsPage</name>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="30"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="32"/>
         <source>Server Settings</source>
         <translation>Server Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="41"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="43"/>
         <source>Discovering servers…</source>
         <translation>Sucher Server, bitte warten...</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="50"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="52"/>
         <source>Click one of these discovered servers to select it:</source>
         <translation>Die folgenden Server wurden gefunden, klick einen an um ihn auszuwälen:</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="60"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="62"/>
         <source>No server found. Make sure your device has Wi-Fi turned on and that Kodi is running on the same network.</source>
         <translation>Keine Server gefunden, bitte stell sicher das ein Instanz von kodi im gleichen Netzwerk läuft und auf dem Gerät WLAN aktiviert ist.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="103"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="105"/>
         <source>Enter details manually</source>
         <translation>Details manuell eingeben</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="123"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="124"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="125"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="126"/>
         <source>Server name</source>
         <translation>Server Name</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="139"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="140"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="141"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="142"/>
         <source>Server address</source>
         <translation>Server Adresse</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="155"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="156"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="157"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="158"/>
         <source>Username</source>
         <translation>Anmeldung</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="169"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="171"/>
         <source>(Optional) password for Kodi login. (Stored unencrypted on device.)</source>
         <translation>Passwort zur Authentifizierung gegenüber kodi. Lass das Feld leer, wenn kein Passwort verwendet wird. Beachte, dass es unverschlüsselt auf dem Gerät gespeichert wird.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="181"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="182"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="183"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="184"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="195"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="197"/>
         <source>TCP port for Kodi connection. Change it if you used your own value in Kodi. Turn on remote access in kodi to have working notifications.</source>
         <translation>TCP-Port, der für die Verbindung mit dem Server verwendet wird. Sofern er nicht in kodi geändert wurde, sollte der Standardwert in Ordnung sein. Du musst den Fernzugriff in kodi aktivieren, sonst funktionieren die Benachrichtigungen nicht richtig.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="209"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="210"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="211"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="212"/>
         <source>Server port</source>
         <translation>Server Port</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="223"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="225"/>
         <source>HTTP port for Kodi connection. &quot;8080&quot; is fine unless you set up something else in Kodi. Turn on &quot;HTTP remote access&quot; in Kodi for it to work.</source>
         <translation>HTTP-Port, der für die Verbindung mit dem Server verwendet wird. Sofern er nicht in kodi geändert wurde, sollte der Standardwert (8080) in Ordnung sein. Damit die Verbindung funktioniert, muss der HTTP-Fernzugriff in kodi aktiviert sein.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="236"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="237"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="238"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="239"/>
         <source>Web port</source>
         <translation>Web Port</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="249"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="251"/>
         <source>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="407"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="410"/>
         <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
         <translation>Wähle das zu verwendende Lautstärke-Plugin aus. Standardmäßig (Kodi) wird die kodi-interne Lautstärkesteuerung verwendet. Wenn ein Verstärker zur Steuerung der Lautstärke verwendet wir, wähle das entsprechende Plugin und konfiguriere es so, dass die Fernbedienung die Lautstärke des Verstärkers steuert.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="255"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="257"/>
         <source>Ignore Wi-Fi status</source>
         <translation>Ignoriere Wi-Fi Status</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="266"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="269"/>
         <source>Server features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="275"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="278"/>
         <source>Power off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="287"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="290"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="299"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="302"/>
         <source>Hibernate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="311"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="314"/>
         <source>Suspend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="401"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="404"/>
         <source>Volume handling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="420"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="423"/>
         <source>Volume plugin</source>
         <translation>Lautstärke-Plugin</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="423"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="426"/>
         <source>Kodi</source>
         <translation>Kodi</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="426"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="429"/>
         <source>miniDSP</source>
         <translation>miniDSP</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="445"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="433"/>
+        <source>Marantz/Denon AVR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="454"/>
         <source>IP address of the miniDSP device</source>
         <translation>IP Adresse des miniDSP Gerätes</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="457"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="458"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="466"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="467"/>
         <source>miniDSP IP address</source>
         <translation>miniDSP IP Adresse</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="322"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="325"/>
         <source>WakeUp plugin</source>
         <translation>WakeUp Plugin</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="278"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="290"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="281"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="293"/>
         <source>Keep option in server management pulley menu. On by default.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="302"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="314"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="305"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="317"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="325"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="328"/>
         <source>None</source>
         <translation>Keines</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="328"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="331"/>
         <source>Wake-on-LAN</source>
         <translation>WakeOnLan</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="353"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="356"/>
         <source>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
         <translation>Wake On Lan braucht spezielle Einstellungen auf dem Server. Unter https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan findest Du hilfe hierzu.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="386"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="387"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="389"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="390"/>
         <source>Wake up port</source>
         <translation>WakeUp Port</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="366"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="367"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="369"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="370"/>
         <source>Device MAC address</source>
         <translation>Geräte MAC Adresse</translation>
     </message>
@@ -1023,6 +1062,14 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     </message>
 </context>
 <context>
+    <name>eu::tgcm::kontroller::MarantzAvrVolumePlugin</name>
+    <message>
+        <location filename="../../src/plugins/volume/MarantzAvrVolumePlugin.cpp" line="158"/>
+        <source>Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>eu::tgcm::kontroller::MusicService</name>
     <message>
         <location filename="../../src/musicservice.cpp" line="333"/>
@@ -1073,7 +1120,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>eu::tgcm::kontroller::Player</name>
     <message>
-        <location filename="../../src/player.cpp" line="573"/>
+        <location filename="../../src/player.cpp" line="585"/>
         <source>No subtitles</source>
         <translation>Kein Untertitel</translation>
     </message>
@@ -1140,7 +1187,22 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
 <context>
     <name>main</name>
     <message>
-        <location filename="../../qml_desktop/main.qml" line="18"/>
+        <location filename="../../qml_desktop/main.qml" line="28"/>
+        <source>Start discovery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml_desktop/main.qml" line="32"/>
+        <source>Connection status: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml_desktop/main.qml" line="38"/>
+        <source>Host %1, address %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qml_desktop/main.qml" line="47"/>
         <source>TTT</source>
         <translation type="unfinished"></translation>
     </message>
