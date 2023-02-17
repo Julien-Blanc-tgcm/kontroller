@@ -155,33 +155,33 @@
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="18"/>
         <source>AVR Plugin parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>AVR Plugin parameters</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="35"/>
         <location filename="../../qml/components/AvrVolume.qml" line="36"/>
         <source>A/V Receiver IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>A/V Receiver IP address</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="47"/>
         <source>Automatically switch source</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatically switch source</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="66"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Source</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="74"/>
         <source>Force kodi volume to a given level</source>
-        <translation type="unfinished"></translation>
+        <translation>Force kodi volume to a given level</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="86"/>
         <source>Volume to force</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume to force</translation>
     </message>
 </context>
 <context>
@@ -903,7 +903,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="433"/>
         <source>Marantz/Denon AVR</source>
-        <translation type="unfinished"></translation>
+        <translation>Marantz/Denon AVR</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="454"/>
@@ -1067,7 +1067,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../src/plugins/volume/MarantzAvrVolumePlugin.cpp" line="158"/>
         <source>Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Disconnected</translation>
     </message>
 </context>
 <context>

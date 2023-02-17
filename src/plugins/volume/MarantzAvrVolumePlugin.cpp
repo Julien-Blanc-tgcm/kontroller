@@ -195,8 +195,8 @@ void MarantzAvrVolumePlugin::updateAtStartup_(int /*playerId*/, int speed)
 		return;
 	if (updateSource_)
 	{
-		if (device_->standby())
-			device_->setPowerStandby(false);
+		if (!device_->mainZoneOn())
+			device_->setMainZoneOn(true);
 		if (device_->currentSource().value() != source_)
 		{
 			auto sources = device_->sources();
@@ -208,7 +208,10 @@ void MarantzAvrVolumePlugin::updateAtStartup_(int /*playerId*/, int speed)
 		}
 	}
 	if (forceKodiVolume_)
-		kodiVolumePlugin_->updateVolume(kodiVolume_);
+	{
+		if (kodiVolumePlugin_->currentVolume() != kodiVolume_)
+			kodiVolumePlugin_->updateVolume(kodiVolume_);
+	}
 }
 
 void MarantzAvrVolumePlugin::setParameters(QVariantMap const& parameters)
