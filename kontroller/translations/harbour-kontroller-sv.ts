@@ -1067,7 +1067,7 @@ Se https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnL
     <message>
         <location filename="../../src/plugins/volume/MarantzAvrVolumePlugin.cpp" line="158"/>
         <source>Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Bortkopplad</translation>
     </message>
 </context>
 <context>
