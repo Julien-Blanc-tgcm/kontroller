@@ -6,31 +6,46 @@
     <message>
         <location filename="../../qml/About.qml" line="14"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="20"/>
         <source>&lt;b&gt;Kontroller&lt;/b&gt; is copylefted libre software, licensed GPLV3+.Brought to you by these people:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kontroller&lt;/b&gt; - свободное ПО, распространяемое на условиях лицензии GPLV3+. Вклад в разработку приложения внесли:</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="48"/>
         <source>Kontroller uses QJsonRPC. Many thanks to its contributors.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroller использует QJsonRPC. Благодарим его создателей.</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="63"/>
         <source>Kontroller homepage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Домашняя страница Kontroller:</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="87"/>
         <source>Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Версия %1</translation>
     </message>
 </context>
 <context>
     <name>AlbumInformationPage</name>
+    <message>
+        <location filename="../../qml/AlbumInformationPage.qml" line="29"/>
+        <source>Remote control</source>
+        <translation>Пульт управления</translation>
+    </message>
+    <message>
+        <location filename="../../qml/AlbumInformationPage.qml" line="33"/>
+        <source>Currently playing</source>
+        <translation>Сейчас играет</translation>
+    </message>
+    <message>
+        <location filename="../../qml/AlbumInformationPage.qml" line="37"/>
+        <source>Back to menu</source>
+        <translation>Главное меню</translation>
+    </message>
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Artists:&lt;/b&gt; %1</source>
@@ -52,25 +67,10 @@
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
     </message>
     <message>
-        <location filename="../../qml/AlbumInformationPage.qml" line="29"/>
-        <source>Remote control</source>
-        <translation>Пульт управления</translation>
-    </message>
-    <message>
-        <location filename="../../qml/AlbumInformationPage.qml" line="33"/>
-        <source>Currently playing</source>
-        <translation>Сейчас играет</translation>
-    </message>
-    <message>
-        <location filename="../../qml/AlbumInformationPage.qml" line="37"/>
-        <source>Back to menu</source>
-        <translation>Главное меню</translation>
-    </message>
-    <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="64"/>
         <source>Play album</source>
         <translatorcomment>(google translate for &quot;listen&quot;)</translatorcomment>
-        <translation>Слушать</translation>
+        <translation>Слушать альбом</translation>
     </message>
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="71"/>
@@ -96,6 +96,21 @@
 <context>
     <name>ArtistInformationPage</name>
     <message>
+        <location filename="../../qml/ArtistInformationPage.qml" line="25"/>
+        <source>Remote control</source>
+        <translation>Пульт управления</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ArtistInformationPage.qml" line="29"/>
+        <source>Currently playing</source>
+        <translation>Сейчас играет</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ArtistInformationPage.qml" line="33"/>
+        <source>Back to menu</source>
+        <translation>Главное меню</translation>
+    </message>
+    <message>
         <location filename="../../qml/ArtistInformationPage.qml" line="55"/>
         <source>&lt;b&gt;Genre:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Жанр:&lt;/b&gt; %1</translation>
@@ -103,12 +118,12 @@
     <message>
         <location filename="../../qml/ArtistInformationPage.qml" line="56"/>
         <source>&lt;b&gt;Style:&lt;/b&gt; %1</source>
-        <translation>&lt;b&gt;Стиль :&lt;/b&gt; %1</translation>
+        <translation>&lt;b&gt;Стиль:&lt;/b&gt; %1</translation>
     </message>
     <message>
         <location filename="../../qml/ArtistInformationPage.qml" line="65"/>
         <source>Available albums:</source>
-        <translation>Доступные альбомы :</translation>
+        <translation>Доступные альбомы:</translation>
     </message>
     <message>
         <location filename="../../qml/ArtistInformationPage.qml" line="129"/>
@@ -133,22 +148,7 @@
     <message>
         <location filename="../../qml/ArtistInformationPage.qml" line="159"/>
         <source>Description:</source>
-        <translation>Описание :</translation>
-    </message>
-    <message>
-        <location filename="../../qml/ArtistInformationPage.qml" line="25"/>
-        <source>Remote control</source>
-        <translation>Пульт управления</translation>
-    </message>
-    <message>
-        <location filename="../../qml/ArtistInformationPage.qml" line="29"/>
-        <source>Currently playing</source>
-        <translation>Сейчас играет</translation>
-    </message>
-    <message>
-        <location filename="../../qml/ArtistInformationPage.qml" line="33"/>
-        <source>Back to menu</source>
-        <translation>Главное меню</translation>
+        <translation>Описание:</translation>
     </message>
 </context>
 <context>
@@ -156,33 +156,33 @@
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="18"/>
         <source>AVR Plugin parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки модуля управления ресивером</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="35"/>
         <location filename="../../qml/components/AvrVolume.qml" line="36"/>
         <source>A/V Receiver IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-адрес ресивера</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="47"/>
         <source>Automatically switch source</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически переключать источник сигнала</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="66"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Источник</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="74"/>
         <source>Force kodi volume to a given level</source>
-        <translation type="unfinished"></translation>
+        <translation>Принудительно установить громкость kodi</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="86"/>
         <source>Volume to force</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Заданная громкость</translation>
     </message>
 </context>
 <context>
@@ -190,7 +190,7 @@
     <message>
         <location filename="../../qml/cover/CoverPage.qml" line="22"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет подключения к серверу</translation>
     </message>
     <message>
         <location filename="../../qml/cover/CoverPage.qml" line="53"/>
@@ -200,17 +200,6 @@
 </context>
 <context>
     <name>CurrentlyPlaying</name>
-    <message>
-        <location filename="../../qml/CurrentlyPlaying.qml" line="145"/>
-        <source>Playing options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/CurrentlyPlaying.qml" line="110"/>
-        <location filename="../../qml/CurrentlyPlaying.qml" line="178"/>
-        <source>Nothing playing</source>
-        <translation>Остановлено</translation>
-    </message>
     <message>
         <location filename="../../qml/CurrentlyPlaying.qml" line="22"/>
         <source>Remote control</source>
@@ -222,24 +211,35 @@
         <translation>Список</translation>
     </message>
     <message>
+        <location filename="../../qml/CurrentlyPlaying.qml" line="36"/>
+        <source>Currently playing</source>
+        <translation>Сейчас играет</translation>
+    </message>
+    <message>
         <location filename="../../qml/CurrentlyPlaying.qml" line="131"/>
         <source>Next: %1</source>
         <translation>Далее: %1</translation>
     </message>
     <message>
+        <location filename="../../qml/CurrentlyPlaying.qml" line="145"/>
+        <source>Playing options</source>
+        <translation type="unfinished">Параметры воспроизведения</translation>
+    </message>
+    <message>
+        <location filename="../../qml/CurrentlyPlaying.qml" line="110"/>
+        <location filename="../../qml/CurrentlyPlaying.qml" line="178"/>
+        <source>Nothing playing</source>
+        <translation>Остановлено</translation>
+    </message>
+    <message>
         <location filename="../../qml/CurrentlyPlaying.qml" line="157"/>
         <source>Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Громкость</translation>
     </message>
     <message>
         <location filename="../../qml/CurrentlyPlaying.qml" line="183"/>
         <source>Unknow artist</source>
         <translation>Неизвестный исполнитель</translation>
-    </message>
-    <message>
-        <location filename="../../qml/CurrentlyPlaying.qml" line="36"/>
-        <source>Currently playing</source>
-        <translation>Сейчас играет</translation>
     </message>
 </context>
 <context>
@@ -277,12 +277,12 @@
     <message>
         <location filename="../../qml/EpisodeInformationPage.qml" line="50"/>
         <source>Resume episode</source>
-        <translation type="unfinished"></translation>
+        <translation>Продолжить серию</translation>
     </message>
     <message>
         <location filename="../../qml/EpisodeInformationPage.qml" line="54"/>
         <source>(at %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(с %1)</translation>
     </message>
     <message>
         <location filename="../../qml/EpisodeInformationPage.qml" line="64"/>
@@ -293,23 +293,6 @@
 <context>
     <name>KontrollerMain</name>
     <message>
-        <location filename="../../qml/KontrollerMain.qml" line="245"/>
-        <location filename="../../qml/KontrollerMain.qml" line="249"/>
-        <location filename="../../qml/KontrollerMain.qml" line="253"/>
-        <source>Sources</source>
-        <translation>Источники</translation>
-    </message>
-    <message>
-        <location filename="../../qml/KontrollerMain.qml" line="52"/>
-        <source>Switch server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/KontrollerMain.qml" line="63"/>
-        <source>Welcome</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../qml/KontrollerMain.qml" line="78"/>
         <source>Music</source>
         <translation>Музыка</translation>
@@ -318,11 +301,6 @@
         <location filename="../../qml/KontrollerMain.qml" line="84"/>
         <source>Videos</source>
         <translation>Видео</translation>
-    </message>
-    <message>
-        <location filename="../../qml/KontrollerMain.qml" line="90"/>
-        <source>Images</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="96"/>
@@ -340,39 +318,59 @@
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="../../qml/KontrollerMain.qml" line="116"/>
-        <source>Server management</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../qml/KontrollerMain.qml" line="161"/>
         <source>Connecting…</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключение...</translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="175"/>
         <source>Could not connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно подключиться</translation>
+    </message>
+    <message>
+        <location filename="../../qml/KontrollerMain.qml" line="44"/>
+        <source>Settings</source>
+        <translation>Настройка</translation>
+    </message>
+    <message>
+        <location filename="../../qml/KontrollerMain.qml" line="52"/>
+        <source>Switch server</source>
+        <translation type="unfinished">Сменить сервер</translation>
+    </message>
+    <message>
+        <location filename="../../qml/KontrollerMain.qml" line="63"/>
+        <source>Welcome</source>
+        <translation>Добро пожаловать</translation>
+    </message>
+    <message>
+        <location filename="../../qml/KontrollerMain.qml" line="90"/>
+        <source>Images</source>
+        <translation>Изображения</translation>
+    </message>
+    <message>
+        <location filename="../../qml/KontrollerMain.qml" line="116"/>
+        <source>Server management</source>
+        <translation>Управление сервером</translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="181"/>
         <source>Retry</source>
-        <translation type="unfinished"></translation>
+        <translation>Повторить</translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="188"/>
         <source>Wake up server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить сервер</translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="203"/>
         <source>Wifi is disabled, enable it to connect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Беспроводная сеть отключена. Включите ее, чтобы подключиться к серверу</translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="218"/>
         <source>No server configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет настроенного сервера</translation>
     </message>
     <message>
         <location filename="../../qml/KontrollerMain.qml" line="223"/>
@@ -380,9 +378,11 @@
         <translation>Добавить сервер</translation>
     </message>
     <message>
-        <location filename="../../qml/KontrollerMain.qml" line="44"/>
-        <source>Settings</source>
-        <translation>Настройка</translation>
+        <location filename="../../qml/KontrollerMain.qml" line="245"/>
+        <location filename="../../qml/KontrollerMain.qml" line="249"/>
+        <location filename="../../qml/KontrollerMain.qml" line="253"/>
+        <source>Sources</source>
+        <translation>Источники</translation>
     </message>
 </context>
 <context>
@@ -431,26 +431,6 @@
 <context>
     <name>MovieInformationPage</name>
     <message>
-        <location filename="../../qml/MovieInformationPage.qml" line="68"/>
-        <source>Play movie</source>
-        <translation>Смотреть</translation>
-    </message>
-    <message>
-        <location filename="../../qml/MovieInformationPage.qml" line="69"/>
-        <source>Resume movie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/MovieInformationPage.qml" line="73"/>
-        <source>(at %1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/MovieInformationPage.qml" line="83"/>
-        <source>Plot:</source>
-        <translation>Сюжет:</translation>
-    </message>
-    <message>
         <location filename="../../qml/MovieInformationPage.qml" line="25"/>
         <source>Remote control</source>
         <translation>Пульт управления</translation>
@@ -485,6 +465,26 @@
         <source>&lt;b&gt;Runtime:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Длительность:&lt;/b&gt; %1</translation>
     </message>
+    <message>
+        <location filename="../../qml/MovieInformationPage.qml" line="68"/>
+        <source>Play movie</source>
+        <translation>Смотреть</translation>
+    </message>
+    <message>
+        <location filename="../../qml/MovieInformationPage.qml" line="69"/>
+        <source>Resume movie</source>
+        <translation>Продолжить просмотр</translation>
+    </message>
+    <message>
+        <location filename="../../qml/MovieInformationPage.qml" line="73"/>
+        <source>(at %1)</source>
+        <translation>(с %1)</translation>
+    </message>
+    <message>
+        <location filename="../../qml/MovieInformationPage.qml" line="83"/>
+        <source>Plot:</source>
+        <translation>Сюжет:</translation>
+    </message>
 </context>
 <context>
     <name>PlayableItemPage</name>
@@ -506,12 +506,12 @@
     <message>
         <location filename="../../qml/PlayableItemPage.qml" line="117"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <location filename="../../qml/PlayableItemPage.qml" line="248"/>
         <source>No items found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего не найдено!</translation>
     </message>
     <message>
         <location filename="../../qml/PlayableItemPage.qml" line="25"/>
@@ -590,7 +590,7 @@
     <message>
         <location filename="../../qml/components/PlayerProperties.qml" line="36"/>
         <source>No subtitles available</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет субтитров</translation>
     </message>
     <message>
         <location filename="../../qml/components/PlayerProperties.qml" line="46"/>
@@ -608,16 +608,11 @@
     <message>
         <location filename="../../qml/PlaylistPage.qml" line="53"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
 </context>
 <context>
     <name>SeasonInformationPage</name>
-    <message>
-        <location filename="../../qml/SeasonInformationPage.qml" line="59"/>
-        <source>Episodes:</source>
-        <translation>Серии:</translation>
-    </message>
     <message>
         <location filename="../../qml/SeasonInformationPage.qml" line="22"/>
         <source>Remote control</source>
@@ -643,91 +638,96 @@
         <source>&lt;b&gt;Watched:&lt;/b&gt; %1</source>
         <translation>&lt;b&gt;Просмотрено:&lt;/b&gt; %1</translation>
     </message>
+    <message>
+        <location filename="../../qml/SeasonInformationPage.qml" line="59"/>
+        <source>Episodes:</source>
+        <translation>Серии:</translation>
+    </message>
 </context>
 <context>
     <name>ServerPage</name>
     <message>
         <location filename="../../qml/ServerPage.qml" line="31"/>
         <source>Shutdown server</source>
-        <translation type="unfinished"></translation>
+        <translation>Выключить сервер</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="38"/>
         <source>Reboot server</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезагрузить сервер</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="55"/>
         <source>Server management</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление сервером</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="59"/>
         <source>Video library</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerPage.qml" line="63"/>
-        <location filename="../../qml/ServerPage.qml" line="130"/>
-        <source>Removes deleted items from the library too.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerPage.qml" line="83"/>
-        <source>Video library cleaned.</source>
-        <translation type="unfinished"></translation>
+        <translation>Видеотека</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="93"/>
         <source>Search for new items in the video library.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerPage.qml" line="114"/>
-        <source>Video library updated.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerPage.qml" line="150"/>
-        <source>Audio library cleaned.</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск новых фильмов и внесение их в видеотеку.</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="162"/>
         <source>Search for new items in the audio library.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerPage.qml" line="182"/>
-        <source>Audio library updated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск новой музыки и её внесение в аудиотеку.</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="72"/>
         <location filename="../../qml/ServerPage.qml" line="139"/>
         <source>Clean library</source>
-        <translation type="unfinished"></translation>
+        <translation>Почистить медиатеку</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="17"/>
         <source>Hibernate server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер в спящий режим</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="24"/>
         <source>Suspend server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер в ждущий режим</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerPage.qml" line="63"/>
+        <location filename="../../qml/ServerPage.qml" line="130"/>
+        <source>Removes deleted items from the library too.</source>
+        <translation>Дополнительно удаляет из медиатеки ссылки на стертые файлы.</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerPage.qml" line="83"/>
+        <source>Video library cleaned.</source>
+        <translation>Видеотека очищена.</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="103"/>
         <location filename="../../qml/ServerPage.qml" line="171"/>
         <source>Refresh library</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить медиатеку</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerPage.qml" line="114"/>
+        <source>Video library updated.</source>
+        <translation>Видеотека обновлена.</translation>
     </message>
     <message>
         <location filename="../../qml/ServerPage.qml" line="126"/>
         <source>Audio library</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудиотека</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerPage.qml" line="150"/>
+        <source>Audio library cleaned.</source>
+        <translation>Аудиотека очищена.</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerPage.qml" line="182"/>
+        <source>Audio library updated.</source>
+        <translation>Аудиотека обновлена.</translation>
     </message>
 </context>
 <context>
@@ -735,7 +735,7 @@
     <message>
         <location filename="../../qml/ServerSelectionPage.qml" line="15"/>
         <source>Server selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбор сервера</translation>
     </message>
 </context>
 <context>
@@ -748,7 +748,7 @@
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="105"/>
         <source>Enter details manually</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввод данных вручную</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="125"/>
@@ -763,12 +763,6 @@
         <translation>Адрес сервера</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="157"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="158"/>
-        <source>Username</source>
-        <translation>Имя пользователя</translation>
-    </message>
-    <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="183"/>
         <location filename="../../qml/ServerSettingsPage.qml" line="184"/>
         <source>Password</source>
@@ -777,7 +771,7 @@
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="197"/>
         <source>TCP port for Kodi connection. Change it if you used your own value in Kodi. Turn on remote access in kodi to have working notifications.</source>
-        <translation>TCP порт для подключения к серверу. Стандартное значение должно подойти, если вы не меняли его в настройках Kodi. Необходимо разрешить удаленное управление приложениями в Kodi, иначе не будет работать обратная связь.</translation>
+        <translation>TCP порт для подключения по протоколу Kodi. Стандартное значение должно подойти, если вы не меняли его в настройках Kodi. Необходимо разрешить удаленное управление приложениями в Kodi, иначе не будет работать обратная связь.</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="211"/>
@@ -786,29 +780,9 @@
         <translation>Порт сервера</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="171"/>
-        <source>(Optional) password for Kodi login. (Stored unencrypted on device.)</source>
-        <translation>Пароль для подключения к Kodi. Если вы не используете пароли, оставьте это поле пустым. Учтите, что пароль хранится на устройстве незашифрованным.</translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="43"/>
-        <source>Discovering servers…</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="52"/>
-        <source>Click one of these discovered servers to select it:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="62"/>
-        <source>No server found. Make sure your device has Wi-Fi turned on and that Kodi is running on the same network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="225"/>
         <source>HTTP port for Kodi connection. &quot;8080&quot; is fine unless you set up something else in Kodi. Turn on &quot;HTTP remote access&quot; in Kodi for it to work.</source>
-        <translation>HTTP порт для подключения к серверу. Стандартное значение (8080) должно подойти, если вы не меняли порт в настройках Kodi. Для работы приложения в Kodi необходимо разрешить удаленное упавление по HTTP.</translation>
+        <translation>HTTP порт для подключения к серверу. Стандартное значение (8080) должно подойти, если вы не меняли порт в настройках Kodi. Для работы приложения в Kodi необходимо разрешить удаленное управление по HTTP.</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="238"/>
@@ -817,125 +791,152 @@
         <translation>Порт HTTP</translation>
     </message>
     <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="43"/>
+        <source>Discovering servers…</source>
+        <translation>Идет поиск серверов...</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="52"/>
+        <source>Click one of these discovered servers to select it:</source>
+        <translation>Коснитесь одного из найденных серверов, чтобы выбрать его:</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="62"/>
+        <source>No server found. Make sure your device has Wi-Fi turned on and that Kodi is running on the same network.</source>
+        <translation>Ни одного сервера не надено. Убедитесь, что у вашего устройства включен Wi-Fi и что сервер Kodi находится в той же подсети.</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="157"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="158"/>
+        <source>Username</source>
+        <translation>Имя пользователя</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="171"/>
+        <source>(Optional) password for Kodi login. (Stored unencrypted on device.)</source>
+        <translation>(Необязательный) пароль для подключения к Kodi. (Хранится на устройстве незашифрованным!)</translation>
+    </message>
+    <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="410"/>
         <source>Here you can change the way you adjust the volume. By default, kodi internal volume is controlled. If you have an external amplifier, you can select and configure the corresponding plugin so that the amplifier volume is controlled by the remote instead</source>
-        <translation type="unfinished"></translation>
+        <translation>Здесь можно изменить способ управления громкостью. По-умолчанию используется внутренняя регулировка громкости Kodi. Если у вас есть внешний усилитель, то можно выбрать и настроить соответствующий модуль, чтобы контролировать его громкость через интерфейс пульта управления</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="269"/>
         <source>Server features</source>
-        <translation type="unfinished"></translation>
+        <translation>Возможности сервера</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="251"/>
         <source>Ignore the wi-fi status, try to connect to the server even if the wifi is not connected (useful if you connect via another type of connection, such as a VPN).</source>
-        <translation type="unfinished"></translation>
+        <translation>Игнорировать состояние Wi-Fi. Пытаться соединиться с сервером, даже если беспроводная сеть отключена (Полезно при использовании другого типа сети, например VPN).</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="278"/>
         <source>Power off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="290"/>
-        <source>Reboot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="302"/>
-        <source>Hibernate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="314"/>
-        <source>Suspend</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="404"/>
-        <source>Volume handling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="423"/>
-        <source>Volume plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="426"/>
-        <source>Kodi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="429"/>
-        <source>miniDSP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="433"/>
-        <source>Marantz/Denon AVR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="454"/>
-        <source>IP address of the miniDSP device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="466"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="467"/>
-        <source>miniDSP IP address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="257"/>
-        <source>Ignore Wi-Fi status</source>
-        <translation>Игнорировать состояние WiFi</translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="325"/>
-        <source>WakeUp plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Выключение</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="281"/>
         <location filename="../../qml/ServerSettingsPage.qml" line="293"/>
         <source>Keep option in server management pulley menu. On by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сделать команду доступной в меню управления сервером. Включено по умолчанию.</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="290"/>
+        <source>Reboot</source>
+        <translation>Перезагрузка</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="302"/>
+        <source>Hibernate</source>
+        <translation>Спящий режим</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="305"/>
         <location filename="../../qml/ServerSettingsPage.qml" line="317"/>
         <source>If unchecked, the option will not appear in the server management pulley menu. Off by default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Если флажок снят, команда не будет доступна в меню управления сервером. Выключено по умолчанию.</translation>
     </message>
     <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="328"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../qml/ServerSettingsPage.qml" line="314"/>
+        <source>Suspend</source>
+        <translation>Ждущий режим</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="331"/>
         <source>Wake-on-LAN</source>
-        <translation type="unfinished"></translation>
+        <translation>Wake-on-LAN</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="356"/>
         <source>Wake-on-LAN usually needs to be set up on the server, as per
 https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../qml/ServerSettingsPage.qml" line="389"/>
-        <location filename="../../qml/ServerSettingsPage.qml" line="390"/>
-        <source>Wake up port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wake-on-LAN (дистанционное включение) обычно требует настройки на стороне сервера, как описано на странице
+https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan</translation>
     </message>
     <message>
         <location filename="../../qml/ServerSettingsPage.qml" line="369"/>
         <location filename="../../qml/ServerSettingsPage.qml" line="370"/>
         <source>Device MAC address</source>
-        <translation type="unfinished"></translation>
+        <translation>MAC-адрес устройства</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="404"/>
+        <source>Volume handling</source>
+        <translation>Регулировка громкости</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="423"/>
+        <source>Volume plugin</source>
+        <translation>Управление громкостью</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="426"/>
+        <source>Kodi</source>
+        <translation>Kodi</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="429"/>
+        <source>miniDSP</source>
+        <translation>miniDSP</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="433"/>
+        <source>Marantz/Denon AVR</source>
+        <translation>Ресивер Marantz/Denon</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="454"/>
+        <source>IP address of the miniDSP device</source>
+        <translation>IP-адрес устройства miniDSP</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="466"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="467"/>
+        <source>miniDSP IP address</source>
+        <translation>IP-адрес miniDSP</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="257"/>
+        <source>Ignore Wi-Fi status</source>
+        <translation>Игнорировать состояние Wi-Fi</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="325"/>
+        <source>WakeUp plugin</source>
+        <translation>Способ включения сервера</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="328"/>
+        <source>None</source>
+        <translation>Нет</translation>
+    </message>
+    <message>
+        <location filename="../../qml/ServerSettingsPage.qml" line="389"/>
+        <location filename="../../qml/ServerSettingsPage.qml" line="390"/>
+        <source>Wake up port</source>
+        <translation>Порт для дистанционного включения</translation>
     </message>
 </context>
 <context>
@@ -943,7 +944,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../qml/SettingsPage.qml" line="17"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <location filename="../../qml/SettingsPage.qml" line="32"/>
@@ -976,6 +977,11 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <translation>Общие параметры</translation>
     </message>
     <message>
+        <location filename="../../qml/SettingsPage.qml" line="110"/>
+        <source>SD card %1</source>
+        <translation>SD карта %1</translation>
+    </message>
+    <message>
         <location filename="../../qml/SettingsPage.qml" line="97"/>
         <source>Download location</source>
         <translation>Путь для загрузки</translation>
@@ -990,19 +996,9 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <source>Phone memory</source>
         <translation>Встроенная память</translation>
     </message>
-    <message>
-        <location filename="../../qml/SettingsPage.qml" line="110"/>
-        <source>SD card %1</source>
-        <translation>SD карта %1</translation>
-    </message>
 </context>
 <context>
     <name>TvShowInformationPage</name>
-    <message>
-        <location filename="../../qml/TvShowInformationPage.qml" line="67"/>
-        <source>Seasons:</source>
-        <translation>Сезоны:</translation>
-    </message>
     <message>
         <location filename="../../qml/TvShowInformationPage.qml" line="25"/>
         <source>Remote control</source>
@@ -1044,6 +1040,11 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
         <translation>&lt;b&gt;Серии:&lt;/b&gt; %1</translation>
     </message>
     <message>
+        <location filename="../../qml/TvShowInformationPage.qml" line="67"/>
+        <source>Seasons:</source>
+        <translation>Сезоны:</translation>
+    </message>
+    <message>
         <location filename="../../qml/TvShowInformationPage.qml" line="128"/>
         <source>Plot</source>
         <translation>Сюжет</translation>
@@ -1054,12 +1055,12 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../qml/components/VolumeControl.qml" line="22"/>
         <source>Volume: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Громкость: %1</translation>
     </message>
     <message>
         <location filename="../../qml/components/VolumeControl.qml" line="22"/>
         <source>No volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Громкость недоступна</translation>
     </message>
 </context>
 <context>
@@ -1067,7 +1068,7 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../src/plugins/volume/MarantzAvrVolumePlugin.cpp" line="158"/>
         <source>Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключено</translation>
     </message>
 </context>
 <context>
@@ -1100,22 +1101,22 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../src/musicservice.cpp" line="367"/>
         <source>Recently added albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Недавно добавленные альбомы</translation>
     </message>
     <message>
         <location filename="../../src/musicservice.cpp" line="373"/>
         <source>Recently played albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Недавно прослушанные альбомы</translation>
     </message>
     <message>
         <location filename="../../src/musicservice.cpp" line="379"/>
         <source>Random albums</source>
-        <translation type="unfinished"></translation>
+        <translation>Случайные альбомы</translation>
     </message>
     <message>
         <location filename="../../src/musicservice.cpp" line="385"/>
         <source>Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation>Списки воспроизведения</translation>
     </message>
 </context>
 <context>
@@ -1190,17 +1191,17 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../qml_desktop/main.qml" line="28"/>
         <source>Start discovery</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать поиск</translation>
     </message>
     <message>
         <location filename="../../qml_desktop/main.qml" line="32"/>
         <source>Connection status: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Статус соединения: %1</translation>
     </message>
     <message>
         <location filename="../../qml_desktop/main.qml" line="38"/>
         <source>Host %1, address %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер %1, адрес %2</translation>
     </message>
     <message>
         <location filename="../../qml_desktop/main.qml" line="47"/>
