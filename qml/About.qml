@@ -84,7 +84,7 @@ Brought to you by these people:")
             Label {
                 color: Theme.highlightColor
                 wrapMode: Text.WordWrap
-                text: qsTr("Version %1").arg("0.24")
+                text: qsTr("Version %1").arg("0.26")
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: Theme.horizontalPageMargin
