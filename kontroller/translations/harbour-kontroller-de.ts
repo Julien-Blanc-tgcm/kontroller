@@ -26,7 +26,7 @@
     <message>
         <location filename="../../qml/About.qml" line="87"/>
         <source>Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Version %1</translation>
     </message>
 </context>
 <context>
