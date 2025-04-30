@@ -6,27 +6,27 @@
     <message>
         <location filename="../../qml/About.qml" line="14"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="20"/>
         <source>&lt;b&gt;Kontroller&lt;/b&gt; is copylefted libre software, licensed GPLV3+.Brought to you by these people:</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kontroller&lt;/b&gt; — свободное программное обеспечение с копилефтом, лицензированное под GPLv3+. Разработано благодаря этим людям:</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="48"/>
         <source>Kontroller uses QJsonRPC. Many thanks to its contributors.</source>
-        <translation type="unfinished"></translation>
+        <translation>В работе Kontroller используется библиотека QJsonRPC. Авторы выражают благодарность её создателям и контрибьюторам.</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="63"/>
         <source>Kontroller homepage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Главная страница Kontroller:</translation>
     </message>
     <message>
         <location filename="../../qml/About.qml" line="87"/>
         <source>Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Версия %1</translation>
     </message>
 </context>
 <context>
@@ -54,23 +54,23 @@
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="29"/>
         <source>Remote control</source>
-        <translation>Пульт управления</translation>
+        <translation>Удаленное управление</translation>
     </message>
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="33"/>
         <source>Currently playing</source>
-        <translation>Сейчас играет</translation>
+        <translation>В данный момент играет</translation>
     </message>
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="37"/>
         <source>Back to menu</source>
-        <translation>Главное меню</translation>
+        <translation>Вернуться в меню</translation>
     </message>
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="64"/>
         <source>Play album</source>
         <translatorcomment>(google translate for &quot;listen&quot;)</translatorcomment>
-        <translation>Слушать</translation>
+        <translation>Слушать альбом</translation>
     </message>
     <message>
         <location filename="../../qml/AlbumInformationPage.qml" line="71"/>
@@ -156,33 +156,33 @@
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="18"/>
         <source>AVR Plugin parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры плагина AVR</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="35"/>
         <location filename="../../qml/components/AvrVolume.qml" line="36"/>
         <source>A/V Receiver IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP-адрес A/V приемника</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="47"/>
         <source>Automatically switch source</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматическое переключение источника</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="66"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Источник</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="74"/>
         <source>Force kodi volume to a given level</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить фиксированную громкость Kodi</translation>
     </message>
     <message>
         <location filename="../../qml/components/AvrVolume.qml" line="86"/>
         <source>Volume to force</source>
-        <translation type="unfinished"></translation>
+        <translation>Фиксированный уровень громкости</translation>
     </message>
 </context>
 <context>
@@ -190,7 +190,7 @@
     <message>
         <location filename="../../qml/cover/CoverPage.qml" line="22"/>
         <source>Not connected to the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Отсутствует соединение с сервером</translation>
     </message>
     <message>
         <location filename="../../qml/cover/CoverPage.qml" line="53"/>
@@ -203,7 +203,7 @@
     <message>
         <location filename="../../qml/CurrentlyPlaying.qml" line="145"/>
         <source>Playing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Варианты воспроизведения</translation>
     </message>
     <message>
         <location filename="../../qml/CurrentlyPlaying.qml" line="110"/>
