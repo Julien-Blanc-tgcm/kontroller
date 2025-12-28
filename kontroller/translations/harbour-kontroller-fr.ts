@@ -1189,17 +1189,17 @@ https://github.com/Julien-Blanc-tgcm/kontroller/blob/master/README.md#WakeOnLan<
     <message>
         <location filename="../../qml_desktop/main.qml" line="28"/>
         <source>Start discovery</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher les serveurs</translation>
     </message>
     <message>
         <location filename="../../qml_desktop/main.qml" line="32"/>
         <source>Connection status: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>État de la connexion</translation>
     </message>
     <message>
         <location filename="../../qml_desktop/main.qml" line="38"/>
         <source>Host %1, address %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Hôte %1, adresse %2</translation>
     </message>
     <message>
         <location filename="../../qml_desktop/main.qml" line="47"/>

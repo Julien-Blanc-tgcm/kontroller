@@ -12,8 +12,6 @@ ApplicationWindow
         id: serviceDiscovery
     }
 
-
-
     Column {
         ComboBox {
             id: theCombo
@@ -42,11 +40,6 @@ ApplicationWindow
                 }
             }
         }
-
-        Label {
-            text: qsTr("TTT")
-        }
-
     }
     Component.onCompleted: {
         theCombo.model = appSettings.servers
